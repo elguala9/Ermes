@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "license": "GPL-2.0-only",
+  "homepage": "https://github.com/elguala9/InterfaceErmes#readme",
+  "bugs": {
+    "url": "https://github.com/elguala9/InterfaceErmes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elguala9/InterfaceErmes.git"
+  },
+  "scripts": {
+    "barrelsby:iermes": "barrelsby --directory packages/iermes/src --delete --barrelName index.ts --extensions ts",
+    "barrelsby:types": "barrelsby --directory packages/types/src --delete --barrelName index.ts --extensions ts",
+    "barrelsby:ermes": "barrelsby --directory packages/ermes/src --delete --barrelName index.ts --extensions ts",
+    "barrelsby:all": "npm run barrelsby:types && npm run barrelsby:iermes && npm run barrelsby:ermes",
+    "build": "npm run barrelsby:all && npm run add-js && npm run build:all",
+    "build:all": "npm run build:types && npm install && npm run build:iermes && npm install && npm run build:ermes",
+    "build:types": "tsc -b packages/types",
+    "build:iermes": "tsc -b packages/iermes",
+    "build:ermes": "tsc -b packages/ermes",
+    "clean": "rimraf packages/*/dist",
+    "add-js": "ts-node utility/add-js-import.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "barrelsby": "^2.8.1"
+  },
+  "dependencies": {
+    "ermes-types": "^1.0.0"
+  }
+}

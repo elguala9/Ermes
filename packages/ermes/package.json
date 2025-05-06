@@ -1,0 +1,15 @@
+{
+  "name": "ermes",
+  "version": "1.0.0",
+  "description": "Implementation of ermes interfaces",
+  "license": "GPL-2.0-only",
+  "author": "Luca Gualandi",
+  "type": "module",
+  "main":  "dist/index.js",
+  "types": "dist/index.d.ts",
+  "workspaces": ["packages/*"],
+  "dependencies": {
+    "ermes-types": "file:../types/dist",
+    "iermes": "file:../iermes/dist"
+  }
+}
