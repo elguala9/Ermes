@@ -1,0 +1,8 @@
+// tsconfig.json (root)
+{
+  "files": [],
+  "references": [
+    { "path": "packages/types" },
+    { "path": "packages/iermes" }
+  ]
+}
