@@ -1,6 +1,5 @@
-import { MessageDataErmes } from "./ErmesSendRepo.js";
-import { ServiceMessage } from "./ermesUtility/ErmesType.js";
-import { IErmesRepository } from "./interfaces/IErmes.js";
+import { MessageDataErmes, ServiceMessage } from "ermes-types";
+import { IErmesRepository } from "../../../iermes/dist/index.js";
 export type CallBackServiceMessage = (serviceMessage: ServiceMessage) => void;
 export type CallbackOnMessageData = (serviceMessage: MessageDataErmes) => void;
 export type ErmesReadRepoOptions = {

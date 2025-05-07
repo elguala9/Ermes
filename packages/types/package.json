@@ -2,6 +2,8 @@
   "name": "ermes-types",
   "version": "1.0.0",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "license": "GPL-2.0-only"
 }

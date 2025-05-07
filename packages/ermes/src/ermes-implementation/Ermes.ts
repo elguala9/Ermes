@@ -1,9 +1,10 @@
-import { ChunkMessage, MessageData, ServiceMessage } from "ermes-types";
-import { CallbackOnMessage, IErmesRepository, IErmesService } from "iermes";
+import { ChunkInfo, ChunkMessage, IdType, MessageData, ServiceMessage } from "ermes-types";
+
 
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
 import { ErmesSendRepo } from "./ErmesSendRepo.js";
 import { IIdHandlerNumber } from "src/ermes-utility/IdHandler.js";
+import { CallbackOnMessage, IErmesRepository, IErmesService } from "../../../iermes/dist/index.js";
 
 
 

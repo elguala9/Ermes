@@ -1,5 +1,4 @@
-import { MessageChunkErmes } from "ermes-types";
-import { IdType } from "./ErmesType.js";
+import { IdType, MessageChunkErmes } from "ermes-types";
 /**
  * class used to handle chunk
  */

@@ -1,6 +1,7 @@
 import { buffer } from "stream/consumers";
-import { calculateHashSync, chunkArrayBuffer, getMessageType } from "../utility/Utility.js";
-import { serializeObject } from "../utility/UtilitySerialization.js";
+import { chunkArrayBuffer, getMessageType } from "src/Utility.js";
+import { serializeObject } from "serialization-utility/src/Serialization";
+import { calculateHashSync } from "serialization-utility/src/Hash";
 export class ErmesSendRepo {
     constructor(repository, idHandlerNumber, maxByte = 1024) {
         this.locked = false;

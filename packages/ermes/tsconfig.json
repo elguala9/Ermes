@@ -6,6 +6,9 @@
     "outDir": "dist",
     "strict": true,
     "baseUrl": ".",
+    "paths": {
+      "iermes": ["../iermes/dist"]
+    }
   },
   "include": ["src"]
 }
