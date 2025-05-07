@@ -24,7 +24,6 @@
     "build:ermes": "tsc -b packages/ermes",
     "gen-exports:ermes": "npx gen-exports packages/ermes/dist -p packages/ermes/package.json",
     "gen-exports:iermes": "npx gen-exports packages/iermes/dist -p packages/iermes/package.json",
-    
     "gen-exports-all": "npm run gen-exports:ermes && npm run gen-exports:iermes",
     "prepare-pers": "npm run barrelsby-build && npm run gen-exports-all",
     "clean": "rimraf packages/*/dist",
@@ -33,7 +32,8 @@
   "devDependencies": {
     "@types/node": "^22.15.3",
     "barrelsby": "^2.8.1",
-    "fast-glob": "^3.3.3"
+    "fast-glob": "^3.3.3",
+    "lerna": "^8.2.2"
   },
   "dependencies": {
     "ermes-types": "^1.0.0",
