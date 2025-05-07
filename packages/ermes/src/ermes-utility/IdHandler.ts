@@ -1,5 +1,5 @@
 import { IdType } from "ermes-types";
-import { IIdHandler } from "../../../iermes/dist/index.js";
+import { IIdHandler } from "iermes/index";
 
 
 /**
