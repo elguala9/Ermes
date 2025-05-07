@@ -3,7 +3,7 @@ import { ChunkMessage, InternalMessage, MessageData, MessageDataErmes, MessageRo
 
 import { IIdHandlerNumber } from "src/ermes-utility/IdHandler.js";
 import { buffer } from "stream/consumers";
-import { IErmesRepository, SerializableDataType } from "../../../iermes/dist/index.js";
+import { IErmesRepository, SerializableDataType } from "iermes/index";
 import { chunkArrayBuffer, getMessageType } from "src/Utility.js";
 import { serializeObject } from "serialization-utility/src/Serialization";
 import { calculateHashSync } from "serialization-utility/src/Hash";

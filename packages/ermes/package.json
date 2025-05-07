@@ -7,9 +7,6 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "workspaces": [
-    "packages/*"
-  ],
   "dependencies": {
     "@types/node": "^22.13.14",
     "@types/socket.io": "^3.0.1",
@@ -21,8 +18,8 @@
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "wrtc": "^0.4.7",
-    "ermes-types": "file:../types/dist",
-    "iermes": "file:../iermes"
+    "ermes-types": "1.0.0",
+    "iermes": "1.0.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",

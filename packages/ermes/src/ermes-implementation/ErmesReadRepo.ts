@@ -5,7 +5,7 @@ import { arrayBufferToObject } from "serialization-utility/src/Serialization";
 import { ChunkHandler } from "../ermes-utility/ChunkHandler.js";
 
 import { IdType, InternalMessage, MessageChunkErmes, MessageDataErmes, MessageRoot, MessageType, MessageValue, ServiceMessage } from "ermes-types";
-import { IErmesRepository, SerializableDataType } from "../../../iermes/dist/index.js";
+import { IErmesRepository, SerializableDataType } from "iermes/index";
 
 
 type MessageRootErmes = MessageRoot<string>;
