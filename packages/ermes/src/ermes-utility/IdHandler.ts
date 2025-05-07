@@ -1,5 +1,6 @@
 import { IdType } from "ermes-types";
-import { IIdHandler } from "iermes";
+import { IIdHandler } from "../../../iermes/dist/index.js";
+
 
 /**
  * IIdHandler interface but typized with number

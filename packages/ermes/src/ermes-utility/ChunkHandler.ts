@@ -1,5 +1,6 @@
 
 import { IdType, MessageChunkErmes } from "ermes-types";
+import { composeUint8Array } from "serialization-utility/src/Array";
 
 /**
  * class used to handle chunk

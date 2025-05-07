@@ -1,10 +1,12 @@
-import { ObservableList } from "../utility/ArrayUtility.js";
-import { calculateHashSync } from "../utility/Utility.js";
-import { arrayBufferToObject } from "../utility/UtilitySerialization.js";
-import { MessageChunkErmes, MessageDataErmes } from "./ErmesSendRepo.js";
-import { ChunkHandler } from "./ermesUtility/ChunkHandler.js";
-import { IdType, InternalMessage, MessageRoot, MessageType, MessageValue, ServiceMessage } from "./ermesUtility/ErmesType.js";
-import { IErmesRepository, SerializableDataType } from "./interfaces/IErmes.js";
+import { ObservableList } from "observable-list/src/ObservableList";
+import { calculateHashSync } from "serialization-utility/src/Hash";
+import { arrayBufferToObject } from "serialization-utility/src/Serialization";
+
+import { ChunkHandler } from "../ermes-utility/ChunkHandler.js";
+
+import { IdType, InternalMessage, MessageChunkErmes, MessageDataErmes, MessageRoot, MessageType, MessageValue, ServiceMessage } from "ermes-types";
+import { IErmesRepository, SerializableDataType } from "../../../iermes/dist/index.js";
+
 
 type MessageRootErmes = MessageRoot<string>;
 export type CallBackServiceMessage = (serviceMessage: ServiceMessage) => void

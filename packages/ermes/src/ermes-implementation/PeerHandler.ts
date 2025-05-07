@@ -1,8 +1,10 @@
 // src/PeerHandler.ts
+
 import type { Instance, SignalData } from 'simple-peer';
 import Peer from 'simple-peer';
-import wrtc from 'wrtc';
-import { CallbackOnData, IErmesRepository, SerializableDataType } from './ermes/interfaces/IErmes.js';
+
+import { CallbackOnData, IErmesRepository, SerializableDataType } from '../../../iermes/dist/index.js';
+import wrtc from 'src/types/wrtc.js';
 
 export const defaultStun: string = 'stun:stun.l.google.com:19302';
 

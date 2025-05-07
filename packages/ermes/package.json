@@ -5,11 +5,80 @@
   "license": "GPL-2.0-only",
   "author": "Luca Gualandi",
   "type": "module",
-  "main":  "dist/index.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
+    "@types/node": "^22.13.14",
+    "@types/socket.io": "^3.0.1",
+    "@types/socket.io-client": "^1.4.36",
+    "express": "^4.21.2",
+    "pouchdb": "^9.0.0",
+    "pouchdb-core": "^9.0.0",
+    "simple-peer": "^9.11.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "wrtc": "^0.4.7",
     "ermes-types": "file:../types/dist",
-    "iermes": "file:../iermes/dist"
+    "iermes": "file:../iermes"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/pouchdb": "^6.4.2",
+    "@types/simple-peer": "^9.11.8",
+    "nodemon": "^3.1.9",
+    "ts-mocha": "^11.1.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "exports": {
+    "./index": {
+      "import": "./packages/ermes/dist/index.js",
+      "require": "./packages/ermes/dist/index.js",
+      "types": "./packages/ermes/dist/index.d.ts"
+    },
+    "./Utility": {
+      "import": "./packages/ermes/dist/Utility.js",
+      "require": "./packages/ermes/dist/Utility.js",
+      "types": "./packages/ermes/dist/Utility.d.ts"
+    },
+    "./ermes-implementation/Ermes": {
+      "import": "./packages/ermes/dist/ermes-implementation/Ermes.js",
+      "require": "./packages/ermes/dist/ermes-implementation/Ermes.js",
+      "types": "./packages/ermes/dist/ermes-implementation/Ermes.d.ts"
+    },
+    "./ermes-implementation/ErmesReadRepo": {
+      "import": "./packages/ermes/dist/ermes-implementation/ErmesReadRepo.js",
+      "require": "./packages/ermes/dist/ermes-implementation/ErmesReadRepo.js",
+      "types": "./packages/ermes/dist/ermes-implementation/ErmesReadRepo.d.ts"
+    },
+    "./ermes-implementation/ErmesSendRepo": {
+      "import": "./packages/ermes/dist/ermes-implementation/ErmesSendRepo.js",
+      "require": "./packages/ermes/dist/ermes-implementation/ErmesSendRepo.js",
+      "types": "./packages/ermes/dist/ermes-implementation/ErmesSendRepo.d.ts"
+    },
+    "./ermes-implementation/PeerHandler": {
+      "import": "./packages/ermes/dist/ermes-implementation/PeerHandler.js",
+      "require": "./packages/ermes/dist/ermes-implementation/PeerHandler.js",
+      "types": "./packages/ermes/dist/ermes-implementation/PeerHandler.d.ts"
+    },
+    "./ermes-utility/ChunkHandler": {
+      "import": "./packages/ermes/dist/ermes-utility/ChunkHandler.js",
+      "require": "./packages/ermes/dist/ermes-utility/ChunkHandler.js",
+      "types": "./packages/ermes/dist/ermes-utility/ChunkHandler.d.ts"
+    },
+    "./ermes-utility/ErmesType": {
+      "import": "./packages/ermes/dist/ermes-utility/ErmesType.js",
+      "require": "./packages/ermes/dist/ermes-utility/ErmesType.js",
+      "types": "./packages/ermes/dist/ermes-utility/ErmesType.d.ts"
+    },
+    "./ermes-utility/IdHandler": {
+      "import": "./packages/ermes/dist/ermes-utility/IdHandler.js",
+      "require": "./packages/ermes/dist/ermes-utility/IdHandler.js",
+      "types": "./packages/ermes/dist/ermes-utility/IdHandler.d.ts"
+    }
   }
 }

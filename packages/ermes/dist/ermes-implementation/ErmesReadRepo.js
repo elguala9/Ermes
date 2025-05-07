@@ -1,8 +1,8 @@
-import { ObservableList } from "../utility/ArrayUtility.js";
-import { calculateHashSync } from "../utility/Utility.js";
-import { arrayBufferToObject } from "../utility/UtilitySerialization.js";
-import { ChunkHandler } from "./ermesUtility/ChunkHandler.js";
-import { MessageValue } from "./ermesUtility/ErmesType.js";
+import { ObservableList } from "observable-list/src/ObservableList";
+import { calculateHashSync } from "serialization-utility/src/Hash";
+import { arrayBufferToObject } from "serialization-utility/src/Serialization";
+import { ChunkHandler } from "../ermes-utility/ChunkHandler.js";
+import { MessageValue } from "ermes-types";
 export class ErmesReadRepo {
     constructor(repository, callbackServiceMessage, { maxBufferSize, messageDataCallback }) {
         this.messageNotMerged = new Map(); // the string is the id

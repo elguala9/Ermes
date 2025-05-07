@@ -1,9 +1,7 @@
-import { ChunkMessage, MessageData, MessageRoot } from "./ermesUtility/ErmesType.js";
-import { IIdHandlerNumber } from "./ermesUtility/IdHandler.js";
-import { IErmesRepository } from "./interfaces/IErmes.js";
+import { MessageRoot } from "ermes-types";
+import { IIdHandlerNumber } from "src/ermes-utility/IdHandler.js";
+import { IErmesRepository } from "../../../iermes/dist/index.js";
 export type MessageRootErmes = MessageRoot<string>;
-export type MessageDataErmes = MessageData;
-export type MessageChunkErmes = ChunkMessage;
 export declare class ErmesSendRepo {
     private repository;
     private maxByte;

@@ -5,10 +5,39 @@
   "license": "GPL-2.0-only",
   "author": "Luca Gualandi",
   "type": "module",
-  "main":  "dist/index.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
     "ermes-types": "file:../types/dist"
+  },
+  "exports": {
+    "./index": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./standard-interface/IErmes": {
+      "import": "./dist/standard-interface/IErmes.js",
+      "require": "./dist/standard-interface/IErmes.js",
+      "types": "./dist/standard-interface/IErmes.d.ts"
+    },
+    "./standard-interface/IIdHandler": {
+      "import": "./dist/standard-interface/IIdHandler.js",
+      "require": "./dist/standard-interface/IIdHandler.js",
+      "types": "./dist/standard-interface/IIdHandler.d.ts"
+    },
+    "./storage-interface/IErmesCaching": {
+      "import": "./dist/storage-interface/IErmesCaching.js",
+      "require": "./dist/storage-interface/IErmesCaching.js",
+      "types": "./dist/storage-interface/IErmesCaching.d.ts"
+    },
+    "./storage-interface/IErmesStorage": {
+      "import": "./dist/storage-interface/IErmesStorage.js",
+      "require": "./dist/storage-interface/IErmesStorage.js",
+      "types": "./dist/storage-interface/IErmesStorage.d.ts"
+    }
   }
 }
