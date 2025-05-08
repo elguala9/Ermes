@@ -40,7 +40,7 @@
   "dependencies": {
     "ermes": "1.0.0",
     "ermes-types": "^1.0.0",
-    "gen-exports": "^1.0.6",
+    "gen-exports": "^1.1.2",
     "iermes": "1.0.0",
     "observable-list": "^1.0.0",
     "serialization-utility": "^1.0.1"

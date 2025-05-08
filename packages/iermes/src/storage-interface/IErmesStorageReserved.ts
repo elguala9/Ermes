@@ -1,5 +1,5 @@
 import { IdType, MessageType } from "ermes-types";
-
+/*! $RESERVED$ */
 /**
  * repository that avoid source code duplication
  */
@@ -10,6 +10,6 @@ export interface IErmesStorageAndCaching<
   retrieve(id: IdType): Promise<DataJson | undefined>;
   delete(id: IdType): Promise<void>;
   clear(): Promise<void>;
-  numberOfElements(): Promise<number>;
+  numberOfElements(): number;
   listOfIds(): Promise<IdType[]>
 }
