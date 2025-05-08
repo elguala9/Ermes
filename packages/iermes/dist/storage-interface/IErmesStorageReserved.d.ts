@@ -1,4 +1,5 @@
 import { IdType, MessageType } from "ermes-types";
+/*! $RESERVED$ */
 /**
  * repository that avoid source code duplication
  */
