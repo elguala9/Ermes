@@ -21,7 +21,7 @@ export class ErmesStorageService<
   numberOfElements(): number {
     return this.repo.numberOfElements();
   }
-  
+
   listOfIds(): Promise<IdType[]> {
     return this.repo.listOfIds();
   }
@@ -30,7 +30,7 @@ export class ErmesStorageService<
     return this.repo.store(data);
   }
 
-  async retrieve(id: IdType): Promise<DataJson> {
+  async retrieve(id: IdType): Promise<DataJson | undefined> {
     return this.repo.retrieve(id);
   }
 
