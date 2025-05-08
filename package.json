@@ -38,8 +38,10 @@
     "lerna": "^8.2.2"
   },
   "dependencies": {
+    "ermes": "1.0.0",
     "ermes-types": "^1.0.0",
-    "gen-exports": "1.0.4",
+    "gen-exports": "^1.0.6",
+    "iermes": "1.0.0",
     "observable-list": "^1.0.0",
     "serialization-utility": "^1.0.1"
   }

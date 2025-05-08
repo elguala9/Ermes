@@ -7,9 +7,6 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "dependencies": {
-    "ermes-types": "1.0.0"
-  },
   "exports": {
     "./index": {
       "import": "./dist/index.js",
@@ -35,6 +32,11 @@
       "import": "./dist/storage-interface/IErmesStorage.js",
       "require": "./dist/storage-interface/IErmesStorage.js",
       "types": "./dist/storage-interface/IErmesStorage.d.ts"
+    },
+    "./storage-interface/IErmesStorageReserved": {
+      "import": "./dist/storage-interface/IErmesStorageReserved.js",
+      "require": "./dist/storage-interface/IErmesStorageReserved.js",
+      "types": "./dist/storage-interface/IErmesStorageReserved.d.ts"
     }
   }
 }
