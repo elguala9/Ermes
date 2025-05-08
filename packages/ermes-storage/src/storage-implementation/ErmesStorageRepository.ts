@@ -35,7 +35,7 @@ export class ErmesStorageRepository<
     let docs = await this._db.allDocs();
     let ids: IdType[] = [];
     for(let i = 0; i < docs.rows.length; i++){
-      let res = await this.retrievePrivateString(docs.rows[i].id);
+      let res = await this.retrievePrivateStringSafe(docs.rows[i].id);
       ids.push(res.id);
     }
     return ids;
@@ -43,7 +43,7 @@ export class ErmesStorageRepository<
 
   async store(data: DataJson): Promise<void> {
 
-    // 1) Costruiamo un PutDocument<T>
+    // 1) Create the document
     const record: StorageType<DataJson> = {
         _id: data.id.toString(),
         ...data
@@ -54,24 +54,46 @@ export class ErmesStorageRepository<
     this._numberOfElements++;
   }
 
-  async retrieve(id: IdType): Promise<DataJson> {
+
+  async retrieve(id: IdType): Promise<DataJson | undefined> {
     const doc = await this.retrievePrivate(id);
     return doc;
   }
 
-  private async retrievePrivate(id: IdType): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta> {
+  private async retrievePrivate(id: IdType): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta | undefined> {
     const doc = this.retrievePrivateString(id.toString());
     return doc;
   }
 
-  private async retrievePrivateString(id: string): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta> {
-    const doc = await this._db.get<DataJson & IdStorageForPouchDB>(id);
-    
+  private async retrievePrivateSafe(id: IdType): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta> {
+    const doc = this.retrievePrivateStringSafe(id.toString());
     return doc;
   }
 
+  private async retrievePrivateString(id: string): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta | undefined> {
+    try {
+      const doc = await this.retrievePrivateStringSafe(id);
+      return doc;
+    } catch (err: any) {
+      if (err.status === 404) {
+        // undefined if not ound
+        return undefined;
+      } else {
+        // other errors not handled
+        throw err;
+      }
+    }
+  }
+
+  private async retrievePrivateStringSafe(id: string): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta> {
+    return await this._db.get<DataJson & IdStorageForPouchDB>(id);
+  }
+
+  
+
   async delete(id: IdType): Promise<void> {
-    let doc = await this.retrievePrivate(id);
+    // i need the document, not only the DataJson
+    let doc = await this.retrievePrivateSafe(id);
     // qui ho bisogno di _id
     this._db.remove(doc);
     this._numberOfElements--;

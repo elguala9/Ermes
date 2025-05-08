@@ -1,27 +1,26 @@
 import { IdType, MessageType } from "ermes-types";
-import { IErmesStorageRepository, IErmesStorageService } from "iermes/index";
+import { IErmesCachingRepository, IErmesCachingService } from "iermes/index";
 
 
-
-
-
-export class ErmesStorageService<  
+export class ErmesCachingService<  
   DataJson extends MessageType  
-> implements IErmesStorageService<DataJson> {
+> implements IErmesCachingService<DataJson> {
 
-  // il db salva documenti di tipo DataJson & { _id:string }
-  private repo: IErmesStorageRepository<DataJson>;
+  
+  private repo: IErmesCachingRepository<DataJson>;
 
-  constructor(repo: IErmesStorageRepository<DataJson>) {
+  constructor(repo: IErmesCachingRepository<DataJson>) {
     this.repo = repo;
   }
+
   clear(): Promise<void> {
     return this.repo.clear();
   }
+
   numberOfElements(): number {
     return this.repo.numberOfElements();
   }
-
+  
   listOfIds(): Promise<IdType[]> {
     return this.repo.listOfIds();
   }
