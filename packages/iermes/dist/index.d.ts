@@ -5,3 +5,4 @@ export * from "./standard-interface/IErmes.js";
 export * from "./standard-interface/IIdHandler.js";
 export * from "./storage-interface/IErmesCaching.js";
 export * from "./storage-interface/IErmesStorage.js";
+export * from "./storage-interface/IErmesStorageReserved.js";

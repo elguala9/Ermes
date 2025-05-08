@@ -17,9 +17,7 @@
     "simple-peer": "^9.11.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
-    "wrtc": "^0.4.7",
-    "ermes-types": "1.0.0",
-    "iermes": "1.0.0"
+    "wrtc": "^0.4.7"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
@@ -33,49 +31,49 @@
   },
   "exports": {
     "./index": {
-      "import": "./packages/ermes/dist/index.js",
-      "require": "./packages/ermes/dist/index.js",
-      "types": "./packages/ermes/dist/index.d.ts"
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     },
     "./Utility": {
-      "import": "./packages/ermes/dist/Utility.js",
-      "require": "./packages/ermes/dist/Utility.js",
-      "types": "./packages/ermes/dist/Utility.d.ts"
+      "import": "./dist/Utility.js",
+      "require": "./dist/Utility.js",
+      "types": "./dist/Utility.d.ts"
     },
     "./ermes-implementation/Ermes": {
-      "import": "./packages/ermes/dist/ermes-implementation/Ermes.js",
-      "require": "./packages/ermes/dist/ermes-implementation/Ermes.js",
-      "types": "./packages/ermes/dist/ermes-implementation/Ermes.d.ts"
+      "import": "./dist/ermes-implementation/Ermes.js",
+      "require": "./dist/ermes-implementation/Ermes.js",
+      "types": "./dist/ermes-implementation/Ermes.d.ts"
     },
     "./ermes-implementation/ErmesReadRepo": {
-      "import": "./packages/ermes/dist/ermes-implementation/ErmesReadRepo.js",
-      "require": "./packages/ermes/dist/ermes-implementation/ErmesReadRepo.js",
-      "types": "./packages/ermes/dist/ermes-implementation/ErmesReadRepo.d.ts"
+      "import": "./dist/ermes-implementation/ErmesReadRepo.js",
+      "require": "./dist/ermes-implementation/ErmesReadRepo.js",
+      "types": "./dist/ermes-implementation/ErmesReadRepo.d.ts"
     },
     "./ermes-implementation/ErmesSendRepo": {
-      "import": "./packages/ermes/dist/ermes-implementation/ErmesSendRepo.js",
-      "require": "./packages/ermes/dist/ermes-implementation/ErmesSendRepo.js",
-      "types": "./packages/ermes/dist/ermes-implementation/ErmesSendRepo.d.ts"
+      "import": "./dist/ermes-implementation/ErmesSendRepo.js",
+      "require": "./dist/ermes-implementation/ErmesSendRepo.js",
+      "types": "./dist/ermes-implementation/ErmesSendRepo.d.ts"
     },
     "./ermes-implementation/PeerHandler": {
-      "import": "./packages/ermes/dist/ermes-implementation/PeerHandler.js",
-      "require": "./packages/ermes/dist/ermes-implementation/PeerHandler.js",
-      "types": "./packages/ermes/dist/ermes-implementation/PeerHandler.d.ts"
+      "import": "./dist/ermes-implementation/PeerHandler.js",
+      "require": "./dist/ermes-implementation/PeerHandler.js",
+      "types": "./dist/ermes-implementation/PeerHandler.d.ts"
     },
     "./ermes-utility/ChunkHandler": {
-      "import": "./packages/ermes/dist/ermes-utility/ChunkHandler.js",
-      "require": "./packages/ermes/dist/ermes-utility/ChunkHandler.js",
-      "types": "./packages/ermes/dist/ermes-utility/ChunkHandler.d.ts"
+      "import": "./dist/ermes-utility/ChunkHandler.js",
+      "require": "./dist/ermes-utility/ChunkHandler.js",
+      "types": "./dist/ermes-utility/ChunkHandler.d.ts"
     },
     "./ermes-utility/ErmesType": {
-      "import": "./packages/ermes/dist/ermes-utility/ErmesType.js",
-      "require": "./packages/ermes/dist/ermes-utility/ErmesType.js",
-      "types": "./packages/ermes/dist/ermes-utility/ErmesType.d.ts"
+      "import": "./dist/ermes-utility/ErmesType.js",
+      "require": "./dist/ermes-utility/ErmesType.js",
+      "types": "./dist/ermes-utility/ErmesType.d.ts"
     },
     "./ermes-utility/IdHandler": {
-      "import": "./packages/ermes/dist/ermes-utility/IdHandler.js",
-      "require": "./packages/ermes/dist/ermes-utility/IdHandler.js",
-      "types": "./packages/ermes/dist/ermes-utility/IdHandler.d.ts"
+      "import": "./dist/ermes-utility/IdHandler.js",
+      "require": "./dist/ermes-utility/IdHandler.js",
+      "types": "./dist/ermes-utility/IdHandler.d.ts"
     }
   }
 }

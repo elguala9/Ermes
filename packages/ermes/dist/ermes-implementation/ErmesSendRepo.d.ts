@@ -1,6 +1,6 @@
 import { MessageRoot } from "ermes-types";
 import { IIdHandlerNumber } from "src/ermes-utility/IdHandler.js";
-import { IErmesRepository } from "../../../iermes/dist/index.js";
+import { IErmesRepository } from "iermes/index";
 export type MessageRootErmes = MessageRoot<string>;
 export declare class ErmesSendRepo {
     private repository;

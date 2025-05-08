@@ -1,5 +1,5 @@
 import type { SignalData } from 'simple-peer';
-import { CallbackOnData, IErmesRepository, SerializableDataType } from '../../../iermes/dist/index.js';
+import { CallbackOnData, IErmesRepository, SerializableDataType } from 'iermes/index';
 export declare const defaultStun: string;
 export type PeerHandlerInput = {
     offer?: string;

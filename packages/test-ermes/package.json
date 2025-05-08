@@ -1,0 +1,40 @@
+{
+  "name": "test-ermes",
+  "version": "1.0.0",
+  "description": "Test for ermes implementation",
+  "keywords": [
+    "test"
+  ],
+  "author": "Luca Gualandi <lgualandi@omniagroup.it>",
+  "homepage": "https://github.com/elguala9/InterfaceErmes/tree/main/packages/test-ermes#readme",
+  "license": "MIT",
+  "main": "lib/test-ermes.js",
+  "directories": {
+    "src": "src"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elguala9/Ermes.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/test-ermes.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/elguala9/Ermes/issues"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.2.1",
+    "@types/mocha": "^10.0.10"
+  },
+  "dependencies": {
+    "chai": "^5.2.0",
+    "mocha": "^10.8.2",
+    "ts-mocha": "^10.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2",
+    "uuid": "^11.1.0"
+  }
+}
