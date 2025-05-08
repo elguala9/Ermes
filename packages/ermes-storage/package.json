@@ -1,0 +1,28 @@
+{
+  "name": "ermes-storage",
+  "version": "1.0.0",
+  "description": "Implementation of interfaces regarding storing and caching",
+  "keywords": [
+    "ermes"
+  ],
+  "author": "Luca Gualandi <lgualandi@omniagroup.it>",
+  "homepage": "https://github.com/elguala9/InterfaceErmes/tree/main/packages/ermes-storage#readme",
+  "license": "GPL-2.0-only",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elguala9/Ermes.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/ermes-storage.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/elguala9/Ermes/issues"
+  }
+}
