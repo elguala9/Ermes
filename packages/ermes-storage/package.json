@@ -24,5 +24,42 @@
   },
   "bugs": {
     "url": "https://github.com/elguala9/Ermes/issues"
+  },
+  "exports": {
+    "./ErmesStorageType": {
+      "import": "./dist/ErmesStorageType.js",
+      "require": "./dist/ErmesStorageType.js",
+      "types": "./dist/ErmesStorageType.d.ts"
+    },
+    "./index": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./UtilityStorage": {
+      "import": "./dist/UtilityStorage.js",
+      "require": "./dist/UtilityStorage.js",
+      "types": "./dist/UtilityStorage.d.ts"
+    },
+    "./caching-implementation/ErmesCachingRepository": {
+      "import": "./dist/caching-implementation/ErmesCachingRepository.js",
+      "require": "./dist/caching-implementation/ErmesCachingRepository.js",
+      "types": "./dist/caching-implementation/ErmesCachingRepository.d.ts"
+    },
+    "./caching-implementation/ErmesCachingService": {
+      "import": "./dist/caching-implementation/ErmesCachingService.js",
+      "require": "./dist/caching-implementation/ErmesCachingService.js",
+      "types": "./dist/caching-implementation/ErmesCachingService.d.ts"
+    },
+    "./storage-implementation/ErmesStorageRepository": {
+      "import": "./dist/storage-implementation/ErmesStorageRepository.js",
+      "require": "./dist/storage-implementation/ErmesStorageRepository.js",
+      "types": "./dist/storage-implementation/ErmesStorageRepository.d.ts"
+    },
+    "./storage-implementation/ErmesStorageService": {
+      "import": "./dist/storage-implementation/ErmesStorageService.js",
+      "require": "./dist/storage-implementation/ErmesStorageService.js",
+      "types": "./dist/storage-implementation/ErmesStorageService.d.ts"
+    }
   }
 }

@@ -18,17 +18,20 @@
     "barrelsby:iermes": "barrelsby --directory packages/iermes/src --delete --barrelName index.ts --extensions ts",
     "barrelsby:types": "barrelsby --directory packages/types/src --delete --barrelName index.ts --extensions ts",
     "barrelsby:ermes": "barrelsby --directory packages/ermes/src --delete --barrelName index.ts --extensions ts",
+    "barrelsby:ermes-storage": "barrelsby --directory packages/ermes-storage/src --delete --barrelName index.ts --extensions ts",
     "barrelsby:test-ermes": "barrelsby --directory packages/test-ermes/src --delete --barrelName index.ts --extensions ts",
-    "barrelsby-all": "npm run barrelsby:types && npm run barrelsby:iermes && npm run barrelsby:ermes && npm run barrelsby:test-ermes",
     "barrelsby-build": "npm run barrelsby-all && npm run add-js && npm run build-all",
-    "build-all": "npm run build:types && npm install && npm run build:iermes && npm install && npm run build:ermes && npm run build:test-ermes",
+    "barrelsby-all": "npm run barrelsby:types && npm run barrelsby:iermes && npm run barrelsby:ermes && npm run barrelsby:ermes-storage && npm run barrelsby:test-ermes",
+    "build-all": "npm run build:types && npm install && npm run build:iermes && npm install && npm run build:ermes && npm run build:ermes-storage && npm install && npm run build:test-ermes",
     "build:types": "tsc -b packages/types",
     "build:iermes": "tsc -b packages/iermes",
     "build:ermes": "tsc -b packages/ermes",
+    "build:ermes-storage": "tsc -b packages/ermes-storage",
     "build:test-ermes": "tsc -b packages/test-ermes",
     "gen-exports:ermes": "npx gen-exports packages/ermes/dist -p packages/ermes/package.json",
     "gen-exports:iermes": "npx gen-exports packages/iermes/dist -p packages/iermes/package.json",
-    "gen-exports-all": "npm run gen-exports:ermes && npm run gen-exports:iermes",
+    "gen-exports:ermes-storage": "npx gen-exports packages/ermes-storage/dist -p packages/ermes-storage/package.json",
+    "gen-exports-all": "npm run gen-exports:ermes && npm run gen-exports:iermes && npm run gen-exports:ermes-storage",
     "prepare-pers": "npm run barrelsby-build && npm run gen-exports-all",
     "clean": "rimraf packages/*/dist",
     "add-js": "ts-node utility/add-js-import.ts"
@@ -45,6 +48,7 @@
     "gen-exports": "^1.1.2",
     "iermes": "1.0.0",
     "observable-list": "^1.0.0",
-    "serialization-utility": "^1.0.1"
+    "serialization-utility": "^1.0.1",
+    "ermes-storage" : "1.0.0"
   }
 }
