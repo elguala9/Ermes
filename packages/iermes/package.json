@@ -13,16 +13,6 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./standard-interface/IErmes": {
-      "import": "./dist/standard-interface/IErmes.js",
-      "require": "./dist/standard-interface/IErmes.js",
-      "types": "./dist/standard-interface/IErmes.d.ts"
-    },
-    "./standard-interface/IIdHandler": {
-      "import": "./dist/standard-interface/IIdHandler.js",
-      "require": "./dist/standard-interface/IIdHandler.js",
-      "types": "./dist/standard-interface/IIdHandler.d.ts"
-    },
     "./storage-interface/IErmesCaching": {
       "import": "./dist/storage-interface/IErmesCaching.js",
       "require": "./dist/storage-interface/IErmesCaching.js",
@@ -32,6 +22,16 @@
       "import": "./dist/storage-interface/IErmesStorage.js",
       "require": "./dist/storage-interface/IErmesStorage.js",
       "types": "./dist/storage-interface/IErmesStorage.d.ts"
+    },
+    "./standard-interface/IErmes": {
+      "import": "./dist/standard-interface/IErmes.js",
+      "require": "./dist/standard-interface/IErmes.js",
+      "types": "./dist/standard-interface/IErmes.d.ts"
+    },
+    "./standard-interface/IIdHandler": {
+      "import": "./dist/standard-interface/IIdHandler.js",
+      "require": "./dist/standard-interface/IIdHandler.js",
+      "types": "./dist/standard-interface/IIdHandler.d.ts"
     }
   }
 }

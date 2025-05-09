@@ -9,9 +9,9 @@ export class ErmesStorageRepository<
 > implements IErmesStorageRepository<DataJson> {
 
   // il db salva documenti di tipo DataJson & { _id:string }
-  private _db: PouchDB.Database<StorageType<DataJson>>;
+  private _db: PouchDB.Database<StorageType<DataJson>> = {} as any; // the proble is that the compiler do not see it initialized in the constructor
   private _idStorage: string;
-  private _numberOfElements: number;
+  private _numberOfElements: number = 0;
 
   constructor(idStorage: string) {
     this._idStorage = idStorage;
