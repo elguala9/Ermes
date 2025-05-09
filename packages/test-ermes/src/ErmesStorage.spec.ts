@@ -1,7 +1,7 @@
 import { IErmesStorageService } from "iermes/index";
-import { examplesMessageData } from "../var";
+import { examplesMessageData } from "./var";
 import { expect } from "chai";
-import { eqMessageData } from "../compare";
+import { eqMessageData } from "./compare";
 
 export function teststorageService(storageService: IErmesStorageService<any>) {
 

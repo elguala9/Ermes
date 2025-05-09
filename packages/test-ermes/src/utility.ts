@@ -1,6 +1,6 @@
 import { IdType, MessageData, MessageType } from "ermes-types";
 import { IErmesCachingService, IErmesStorageService } from "iermes/index";
-import { eqMessageData } from "../compare";
+import { eqMessageData } from "./compare";
 import { expect } from "chai";
 
 /**

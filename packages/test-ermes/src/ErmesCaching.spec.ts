@@ -1,7 +1,7 @@
 import { IErmesCachingService } from "iermes/index";
-import { examplesChunkMessage, examplesMessageData, examplesServiceMessage } from "../var";
+import { examplesChunkMessage, examplesMessageData, examplesServiceMessage } from "./var";
 import { expect } from "chai";
-import { eqChunkMessage, eqMessageData, eqServiceMessage } from "../compare";
+import { eqChunkMessage, eqMessageData, eqServiceMessage } from "./compare";
 import { generateUniqueMessageData, StoreAndRetrive } from "./utility";
 import { MessageData } from "ermes-types";
 
