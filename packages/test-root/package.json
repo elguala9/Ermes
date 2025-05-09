@@ -1,0 +1,24 @@
+{
+  "name": "test-root",
+  "version": "0.0.0",
+  "description": "handle the tests",
+  "keywords": [
+    "test"
+  ],
+  "author": "Luca Gualandi <lgualandi@omniagroup.it>",
+  "homepage": "https://github.com/elguala9/InterfaceErmes/tree/main/packages/test-root#readme",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elguala9/Ermes.git"
+  },
+  "scripts": {
+    "test": ""
+  },
+  "bugs": {
+    "url": "https://github.com/elguala9/Ermes/issues"
+  },
+  "dependencies": {
+    "test-ermes": "1.0.0"
+  }
+}

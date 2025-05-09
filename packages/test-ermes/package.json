@@ -8,7 +8,7 @@
   "author": "Luca Gualandi <lgualandi@omniagroup.it>",
   "homepage": "https://github.com/elguala9/InterfaceErmes/tree/main/packages/test-ermes#readme",
   "license": "MIT",
-  "main": "lib/test-ermes.js",
+  "main": "dist/index.js",
   "directories": {
     "src": "src"
   },

@@ -1,0 +1,13 @@
+import { MessageValue, ServiceReason, IntegrityCheckType, IdType, ChunkInfo, MessageWithId, MessageData, ChunkMessage, ServiceMessage, MessageRootErmes, MessageInternalErmes, MessageChunkErmes } from "ermes-types";
+export declare const examplesServiceReason: ServiceReason[];
+export declare const examplesMessageValue: MessageValue[];
+export declare const examplesIntegrity: IntegrityCheckType[];
+export declare const examplesId: IdType[];
+export declare const examplesChunkInfo: ChunkInfo[];
+export declare const examplesMessageWithId: MessageWithId[];
+export declare const examplesMessageData: MessageData[];
+export declare const examplesChunkMessage: ChunkMessage[];
+export declare const examplesServiceMessage: ServiceMessage[];
+export declare const examplesMessageRootErmes: MessageRootErmes[];
+export declare const examplesMessageInternalErmes: MessageInternalErmes[];
+export declare const examplesMessageChunkErmes: MessageChunkErmes[];
