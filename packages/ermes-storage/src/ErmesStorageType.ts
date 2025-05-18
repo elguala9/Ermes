@@ -1,4 +1,5 @@
 import { ChunkMessageGeneric, MessageChunkErmes, MessageDataErmes, MessageDataGeneric, ServiceMessage } from "ermes-types";
+import { Pouchify } from "./NormalizeData";
 
 
 export type IdStorageForPouchDB = {
@@ -10,7 +11,7 @@ export type ChunkMessageForPouch = ChunkMessageGeneric<Buffer>;
 
 export type MessageTypeForPouch = MessageDataForPouch | ChunkMessageForPouch | ServiceMessage;
 
-export type StorageType<DataJson> = DataJson & IdStorageForPouchDB
+export type StorageType<DataJson> = Pouchify<DataJson> & IdStorageForPouchDB
 
 export type ServiceMessageStorage = ServiceMessage & IdStorageForPouchDB;
 export type MessageDataStorage = MessageDataErmes & IdStorageForPouchDB;

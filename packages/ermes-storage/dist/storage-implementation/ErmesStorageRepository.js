@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ErmesStorageRepository = void 0;
 const UtilityStorage_1 = require("../UtilityStorage");
 const pouchdb_1 = __importDefault(require("pouchdb"));
-const NormalizaData_1 = require("src/NormalizaData");
+const NormalizeData_1 = require("../NormalizeData");
 // i need the generic so that i know which type i am storing
 class ErmesStorageRepository {
     constructor(idStorage) {
@@ -36,19 +36,20 @@ class ErmesStorageRepository {
         return ids;
     }
     async store(dataJson) {
-        let normalized = (0, NormalizaData_1.toPouchMessage)(dataJson);
+        let normalized = (0, NormalizeData_1.toPouchMessage)(dataJson);
         // 1) Create the document
         const record = {
             _id: dataJson.id.toString(),
-            ...dataJson
+            ...normalized
         };
-        // 
         const doc = (0, UtilityStorage_1.toPutDocument)(record);
-        await this._db.put(doc);
+        this._db.put(doc);
         this._numberOfElements++;
     }
     async retrieve(id) {
         const doc = await this.retrievePrivate(id);
+        if (doc)
+            return (0, NormalizeData_1.fromPouchMessage)(doc);
         return doc;
     }
     async retrievePrivate(id) {

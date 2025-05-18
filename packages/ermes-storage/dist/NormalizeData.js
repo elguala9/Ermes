@@ -3,18 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.toPouchMessage = toPouchMessage;
 exports.fromPouchMessage = fromPouchMessage;
 const buffer_1 = require("buffer");
-//
-// * Overload signatures *
-//
+// 2) Un’unica implementazione “smart” che copre tutti i casi
 function toPouchMessage(msg) {
-    // Se è un messaggio con campo `data`, converto Uint8Array → Buffer
     if ('data' in msg) {
         return {
             ...msg,
-            data: buffer_1.Buffer.from(msg.data) // Buffer.from(Uint8Array) copia i byte
+            data: buffer_1.Buffer.from(msg.data),
         };
     }
-    // ServiceMessage non ha data: lo restituisco invariato
     return msg;
 }
 //
@@ -34,4 +30,4 @@ function fromPouchMessage(msg) {
     // ServiceMessage non ha data
     return msg;
 }
-//# sourceMappingURL=NormalizaData.js.map
+//# sourceMappingURL=NormalizeData.js.map
