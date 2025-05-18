@@ -46,14 +46,22 @@ export type MessageWithId = {
 }
 
 // DataType is suggested to be ArrayBuffer
-export type MessageData = MessageWithId & {
-    data: Uint8Array;
+export type MessageData =  MessageDataGeneric<Uint8Array>& MessageWithId & {
+}
+
+// DataType is suggested to be ArrayBuffer
+export type MessageDataGeneric<DataType> = MessageWithId & {
+    data: DataType;
+}
+
+export type ChunkMessageGeneric<DataType> = MessageDataGeneric<DataType> & { //if i send the message in multiple pieces
+    index: number; // index of the chunk
+    roof: number; // number of all the pieces
 }
 
 
-export type ChunkMessage = MessageData & { //if i send the message in multiple pieces
-    index: number; // index of the chunk
-    roof: number; // number of all the pieces
+export type ChunkMessage = ChunkMessageGeneric<Uint8Array> & { //if i send the message in multiple pieces
+
 }
 
 

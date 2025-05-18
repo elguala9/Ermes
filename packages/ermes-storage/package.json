@@ -36,6 +36,11 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./NormalizaData": {
+      "import": "./dist/NormalizaData.js",
+      "require": "./dist/NormalizaData.js",
+      "types": "./dist/NormalizaData.d.ts"
+    },
     "./UtilityStorage": {
       "import": "./dist/UtilityStorage.js",
       "require": "./dist/UtilityStorage.js",
@@ -61,5 +66,9 @@
       "require": "./dist/storage-implementation/ErmesStorageService.js",
       "types": "./dist/storage-implementation/ErmesStorageService.d.ts"
     }
+  },
+  "dependencies": {
+    "pouchdb": "9.0.0",
+    "ermes-types": "1.0.0"
   }
 }

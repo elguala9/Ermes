@@ -18,13 +18,15 @@ export type InternalMessage<MessageTypeGeneric extends MessageType> = {
 export type MessageWithId = {
     id: IdType;
 };
-export type MessageData = MessageWithId & {
-    data: Uint8Array;
+export type MessageData = MessageDataGeneric<Uint8Array> & MessageWithId & {};
+export type MessageDataGeneric<DataType> = MessageWithId & {
+    data: DataType;
 };
-export type ChunkMessage = MessageData & {
+export type ChunkMessageGeneric<DataType> = MessageDataGeneric<DataType> & {
     index: number;
     roof: number;
 };
+export type ChunkMessage = ChunkMessageGeneric<Uint8Array> & {};
 export type ServiceMessage = MessageWithId & {
     arrayChunkInfo?: ChunkInfo[];
     arrayId?: IdType[];

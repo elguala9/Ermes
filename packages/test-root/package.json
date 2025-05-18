@@ -2,6 +2,7 @@
   "name": "test-root",
   "version": "0.0.0",
   "description": "handle the tests",
+
   "keywords": [
     "test"
   ],
@@ -13,12 +14,16 @@
     "url": "git+https://github.com/elguala9/Ermes.git"
   },
   "scripts": {
-    "test": ""
+
   },
   "bugs": {
     "url": "https://github.com/elguala9/Ermes/issues"
   },
+  "devDependencies": {
+    "ermes-types": "1.0.0"
+  },
   "dependencies": {
-    "test-ermes": "1.0.0"
+    "test-ermes": "1.0.0",
+    "ermes-storage": "1.0.0"
   }
 }

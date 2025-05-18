@@ -34,21 +34,28 @@
     "gen-exports-all": "npm run gen-exports:ermes && npm run gen-exports:iermes && npm run gen-exports:ermes-storage",
     "prepare-pers": "npm run barrelsby-build && npm run gen-exports-all",
     "clean": "rimraf packages/*/dist",
-    "add-js": "ts-node utility/add-js-import.ts"
+    "add-js": "ts-node utility/add-js-import.ts",
+    "test:caching": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesCaching.ts",
+    "test:storage": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesStorage.ts"
+
+
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
     "barrelsby": "^2.8.1",
     "fast-glob": "^3.3.3",
-    "lerna": "^8.2.2"
+    "lerna": "^8.2.2",
+    "mocha": "^11.2.2",
+    "ts-mocha": "^11.1.0",
+    "ts-node": "^10.9.2"
   },
   "dependencies": {
     "ermes": "1.0.0",
+    "ermes-storage": "1.0.0",
     "ermes-types": "^1.0.0",
     "gen-exports": "^1.1.2",
     "iermes": "1.0.0",
     "observable-list": "^1.0.0",
-    "serialization-utility": "^1.0.1",
-    "ermes-storage" : "1.0.0"
+    "serialization-utility": "^1.0.1"
   }
 }

@@ -1,4 +1,4 @@
-import { MessageData, MessageType } from "ermes-types";
+import type { MessageData, MessageType } from "ermes-types";
 import { IErmesCachingService, IErmesStorageService } from "iermes/index";
 /**
  * Function created to avoid duplicated source code

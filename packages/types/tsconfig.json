@@ -4,7 +4,7 @@
     "composite": true,
     "rootDir": "src",
     "outDir": "dist",
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": false,
     "declarationDir": "dist",    // qui scrive i .d.ts
   },
   "include": ["src"],

@@ -18,6 +18,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./ErmesStorageType.js"), exports);
+__exportStar(require("./NormalizaData.js"), exports);
 __exportStar(require("./UtilityStorage.js"), exports);
 __exportStar(require("./caching-implementation/ErmesCachingRepository.js"), exports);
 __exportStar(require("./caching-implementation/ErmesCachingService.js"), exports);

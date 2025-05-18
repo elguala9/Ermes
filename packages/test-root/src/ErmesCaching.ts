@@ -1,5 +1,6 @@
 import { testCachingService } from "test-ermes"
-import { ErmesCachingRepository, ErmesCachingService } from "ermes-storage/index"
+import { ErmesCachingRepository } from "ermes-storage/caching-implementation/ErmesCachingRepository"
+import { ErmesCachingService } from "ermes-storage/caching-implementation/ErmesCachingService"
 
 let repo = new ErmesCachingRepository(1000);
 let service = new ErmesCachingService(repo);
