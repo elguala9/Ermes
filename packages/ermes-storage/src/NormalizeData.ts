@@ -5,25 +5,29 @@ import { ChunkMessageForPouch, MessageDataForPouch, MessageTypeForPouch } from '
 //
 // * Overload signatures *
 //
+// I need this because i have different types connected
+export type Pouchify<T> =
+  T extends MessageData  ? MessageDataForPouch  :
+  T extends ChunkMessage ? ChunkMessageForPouch :
+                           ServiceMessage;
 
-
-export function toPouchMessage(msg: MessageType): MessageTypeForPouch {
-  // Se è un messaggio con campo `data`, converto Uint8Array → Buffer
+// 2) Un’unica implementazione “smart” che copre tutti i casi
+export function toPouchMessage<T extends MessageType>(msg: T): Pouchify<T> {
   if ('data' in msg) {
     return {
       ...msg,
-      data: Buffer.from(msg.data) // Buffer.from(Uint8Array) copia i byte
+      data: Buffer.from(msg.data),
     } as any;
   }
-  // ServiceMessage non ha data: lo restituisco invariato
-  return msg as ServiceMessage;
+  return msg as any;
 }
 
 //
 // * E il viceversa *
 //
 
-export function fromPouchMessage(msg: MessageTypeForPouch): MessageType {
+
+export function fromPouchMessage<T extends MessageType>(msg: Pouchify<T>): T  {
   // Se è un messaggio con campo `data`, converto Buffer → Uint8Array
   if ('data' in msg) {
     const buf: Buffer = msg.data;
@@ -39,5 +43,5 @@ export function fromPouchMessage(msg: MessageTypeForPouch): MessageType {
     } as any;
   }
   // ServiceMessage non ha data
-  return msg as ServiceMessage;
+  return msg as any;
 }

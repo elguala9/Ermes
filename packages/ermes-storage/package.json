@@ -36,10 +36,10 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./NormalizaData": {
-      "import": "./dist/NormalizaData.js",
-      "require": "./dist/NormalizaData.js",
-      "types": "./dist/NormalizaData.d.ts"
+    "./NormalizeData": {
+      "import": "./dist/NormalizeData.js",
+      "require": "./dist/NormalizeData.js",
+      "types": "./dist/NormalizeData.d.ts"
     },
     "./UtilityStorage": {
       "import": "./dist/UtilityStorage.js",

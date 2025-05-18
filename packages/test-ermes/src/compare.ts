@@ -15,10 +15,10 @@ import {
   } from "ermes-types";
 
   function notEqual(a: any, b: any): boolean{
-    console.log("First Object: --------- ");
+    /*console.log("First Object: --------- ");
     console.log(a);
     console.log("Second Object: --------- ");
-    console.log(b);
+    console.log(b);*/
     return false;
   }
   

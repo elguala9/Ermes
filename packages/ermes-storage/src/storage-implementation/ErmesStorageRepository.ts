@@ -2,8 +2,9 @@ import { IdType, MessageType } from "ermes-types";
 import { IErmesStorageRepository } from "iermes/index";
 import { toPutDocument } from "../UtilityStorage";
 import PouchDB from "pouchdb";
-import { IdStorageForPouchDB, StorageType } from "src/ErmesStorageType";
-import { toPouchMessage } from "src/NormalizaData";
+import { IdStorageForPouchDB, MessageTypeForPouch, StorageType } from "src/ErmesStorageType";
+import { fromPouchMessage, Pouchify, toPouchMessage } from "../NormalizeData";
+
 
 // i need the generic so that i know which type i am storing
 export class ErmesStorageRepository<  
@@ -44,37 +45,40 @@ export class ErmesStorageRepository<
   }
 
   async store(dataJson: DataJson): Promise<void> {
-    let normalized = toPouchMessage(dataJson);
+    let normalized: Pouchify<DataJson> = toPouchMessage(dataJson);
     // 1) Create the document
     const record: StorageType<DataJson> = {
         _id: dataJson.id.toString(),
-        ...dataJson
+        ...normalized
     };
-    // 
+
     const doc = toPutDocument(record);
-    await this._db.put(doc);
+    this._db.put(doc);
     this._numberOfElements++;
   }
 
 
   async retrieve(id: IdType): Promise<DataJson | undefined> {
-    const doc = await this.retrievePrivate(id);
+    const doc: Pouchify<DataJson> | undefined = await this.retrievePrivate(id);
+    console.log();
+    if(doc)
+      return fromPouchMessage(doc);
     return doc;
   }
 
-  private async retrievePrivate(id: IdType): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta | undefined> {
+  private async retrievePrivate(id: IdType): Promise<Pouchify<DataJson> & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta | undefined> {
     const doc = this.retrievePrivateString(id.toString());
     return doc;
   }
 
   
-  private async retrievePrivateSafe(id: IdType): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta> {
+  private async retrievePrivateSafe(id: IdType): Promise<Pouchify<DataJson> & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta> {
     const doc = this.retrievePrivateStringSafe(id.toString());
     return doc;
   }
 
   // i want that in case of not found (404) is undefined, in other case i throw again the exception
-  private async retrievePrivateString(id: string): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta | undefined> {
+  private async retrievePrivateString(id: string): Promise<Pouchify<DataJson> & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta | undefined> {
     try {
       const doc = await this.retrievePrivateStringSafe(id);
       return doc;
@@ -89,7 +93,7 @@ export class ErmesStorageRepository<
     }
   }
 
-  private async retrievePrivateStringSafe(id: string): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta> {
+  private async retrievePrivateStringSafe(id: string): Promise<Pouchify<DataJson> & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta> {
     return await this._db.get<DataJson & IdStorageForPouchDB>(id);
   }
 
