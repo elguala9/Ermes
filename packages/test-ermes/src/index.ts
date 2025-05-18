@@ -3,7 +3,8 @@
  */
 
 export * from "./compare.js";
-export * from "./ErmesCaching.spec";
-export * from "./ErmesStorage.spec";
 export * from "./utility.js";
 export * from "./var.js";
+export * from "./storage-test/ErmesCaching.spec.js";
+export * from "./storage-test/ErmesCachingStorage.spec.js";
+export * from "./storage-test/ErmesStorage.spec.js";

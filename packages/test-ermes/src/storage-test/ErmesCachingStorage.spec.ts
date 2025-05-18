@@ -1,13 +1,13 @@
-import { IErmesCachingService } from "iermes/index";
-import { examplesChunkMessage, examplesMessageData, examplesServiceMessage } from "./var";
 import { expect } from "chai";
-import { eqChunkMessage, eqMessageData, eqServiceMessage } from "./compare";
-import { generateUniqueMessageData, StoreAndRetrive } from "./utility";
-import { MessageData } from "ermes-types";
+import type { MessageData } from "ermes-types";
+import { IErmesStorageAndCaching } from "iermes/index";
+import { eqChunkMessage, eqMessageData, eqServiceMessage } from "../compare.js";
+import { generateUniqueMessageData, StoreAndRetrive } from "../utility.js";
+import { examplesChunkMessage, examplesMessageData, examplesServiceMessage } from "../var.js";
 
-export function testCachingService(cachingService: IErmesCachingService<any>) {
+export function testService(cachingService: IErmesStorageAndCaching<any>) {
 
-    describe('IErmesCachingService Tests', () => {
+    describe('Service Tests', () => {
 
 
         it('Message Data', async () => {
@@ -27,7 +27,7 @@ export function testCachingService(cachingService: IErmesCachingService<any>) {
             await StoreAndRetrive(cachingService, examplesChunkMessage, eqChunkMessage);
         });
 
-        it('Chunk Message', async () => {
+        it('Service Message', async () => {
             await StoreAndRetrive(cachingService, examplesServiceMessage, eqServiceMessage);
         });
 
@@ -41,8 +41,8 @@ export function testCachingService(cachingService: IErmesCachingService<any>) {
             const t1 = performance.now();
             const total = t1 - t0;
             console.log(
-                `✅ ${n} inserimenti+retrieval in ${total.toFixed(3)} ms` +
-                ` (media ${(total / n).toFixed(6)} ms/op)`
+                `✅ ${n} insert+retrieval in ${total.toFixed(3)} ms` +
+                ` (avg ${(total / n).toFixed(6)} ms/op)`
             );
         });
 
@@ -76,7 +76,8 @@ export function testCachingService(cachingService: IErmesCachingService<any>) {
             await StoreAndRetrive(cachingService, examplesChunkMessage, eqChunkMessage);
             let testId = examplesChunkMessage[0].id;
             await cachingService.delete(testId);
-            expect(testId).to.equal(undefined);
+            let res = await cachingService.retrieve(testId);
+            expect(res).to.equal(undefined);
         });
 
     });

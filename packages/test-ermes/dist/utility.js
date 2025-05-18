@@ -1,15 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.StoreAndRetrive = StoreAndRetrive;
-exports.generateUniqueMessageData = generateUniqueMessageData;
-const chai_1 = require("chai");
+import { expect } from "chai";
 /**
  * Function created to avoid duplicated source code
  * @param service the service that need to be tested
  * @param examples an array of example
  * @param eqFunc the function that check if two objects of the type passed are equal
  */
-async function StoreAndRetrive(service, examples, eqFunc) {
+export async function StoreAndRetrive(service, examples, eqFunc) {
     examples.forEach(element => {
         service.store(element);
     });
@@ -19,7 +15,7 @@ async function StoreAndRetrive(service, examples, eqFunc) {
         if (res === undefined)
             throw new Error("Not found id" + examples[i].id);
         let isEqual = eqFunc(res, examples[i]);
-        (0, chai_1.expect)(isEqual).to.equal(true);
+        expect(isEqual).to.equal(true);
     }
 }
 /**
@@ -30,7 +26,7 @@ async function StoreAndRetrive(service, examples, eqFunc) {
  * @param dataLen   Lunghezza del buffer data (default = 3)
  * @returns         Array di MessageData
  */
-function generateUniqueMessageData(n, startId = 1, dataLen = 3) {
+export function generateUniqueMessageData(n, startId = 1, dataLen = 3) {
     return Array.from({ length: n }, (_, idx) => {
         const id = (startId + idx);
         // Crea un Uint8Array di lunghezza `dataLen` con valori diversi

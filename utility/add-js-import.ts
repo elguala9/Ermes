@@ -48,16 +48,17 @@ export function findIndexTsPaths(dir: string): string[] {
  * @param filePath - full path to the `index.ts` file
  */
 export function processFile(filePath: string): void {
-  const content: string = fs.readFileSync(filePath, 'utf8');
-  const updated: string = content
-    // ES module exports/imports
-    .replace(/(from\s+['"])(\.\/[^'";]+)(['"];)/g, (_, p1, p2, p3) => {
-      if (/\.[^./]+$/.test(p2)) return _;
+  const content = fs.readFileSync(filePath, 'utf8');
+  const updated = content
+    // ES module imports/exports
+    .replace(/(from\s+['"])(\.\/[^'";]+)(['"];)/g, (all, p1, p2, p3) => {
+      // ignora solo se finisce con .js
+      if (p2.endsWith('.js')) return all;
       return `${p1}${p2}.js${p3}`;
     })
-    // CommonJS require() calls
-    .replace(/(require\(['"])(\.\/[^'"]+)(['"]\))/g, (_, p1, p2, p3) => {
-      if (/\.[^./]+$/.test(p2)) return _;
+    // CommonJS require()
+    .replace(/(require\(['"])(\.\/[^'"]+)(['"]\))/g, (all, p1, p2, p3) => {
+      if (p2.endsWith('.js')) return all;
       return `${p1}${p2}.js${p3}`;
     });
 
@@ -66,6 +67,7 @@ export function processFile(filePath: string): void {
     console.log(`✔ Updated ${filePath}`);
   }
 }
+
 
 /**
  * CLI entry point: finds all index.ts files and processes each.

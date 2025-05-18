@@ -1,5 +1,4 @@
-import {
-  MessageValue,
+import type {
   ServiceReason,
   IntegrityCheckType,
   IdType,
@@ -12,6 +11,9 @@ import {
   MessageInternalErmes,
   MessageChunkErmes
 } from "ermes-types";
+
+import { MessageValue } from "ermes-types";
+
 
 // 1) ServiceReason (blocchi di 10 ID, qui usiamo IDs  1–10)
 export const examplesServiceReason: ServiceReason[] = [

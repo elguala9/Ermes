@@ -2,6 +2,7 @@
   "name": "test-ermes",
   "version": "1.0.0",
   "description": "Test for ermes implementation",
+  "type": "module",
   "keywords": [
     "test"
   ],
@@ -35,6 +36,8 @@
     "ts-mocha": "^10.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "ermes-types": "1.0.0",
+    "iermes": "1.0.0"
   }
 }
