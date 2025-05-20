@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ErmesCachingRepository = void 0;
 /**
  * In‐memory repository con capacità massima (FIFO eviction).
  */
-class ErmesCachingRepository {
+export class ErmesCachingRepository {
     constructor(maxBuffer) {
         this.maxBuffer = maxBuffer;
         this.buffer = new Map();
@@ -38,5 +35,4 @@ class ErmesCachingRepository {
         this.buffer.delete(id);
     }
 }
-exports.ErmesCachingRepository = ErmesCachingRepository;
 //# sourceMappingURL=ErmesCachingRepository.js.map

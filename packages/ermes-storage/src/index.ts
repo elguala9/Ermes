@@ -3,7 +3,6 @@
  */
 
 export * from "./ErmesStorageType.js";
-export * from "./NormalizeData.js";
 export * from "./UtilityStorage.js";
 export * from "./caching-implementation/ErmesCachingRepository.js";
 export * from "./caching-implementation/ErmesCachingService.js";

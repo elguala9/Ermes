@@ -14,7 +14,7 @@ export async function StoreAndRetrive(service, examples, eqFunc) {
         let res = await service.retrieve(examples[i].id);
         if (res === undefined)
             throw new Error("Not found id" + examples[i].id);
-        let isEqual = eqFunc(res, examples[i]);
+        let isEqual = eqFunc(examples[i], res);
         expect(isEqual).to.equal(true);
     }
 }

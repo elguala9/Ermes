@@ -5,6 +5,7 @@
   "keywords": [
     "ermes"
   ],
+  "type": "module",
   "author": "Luca Gualandi <lgualandi@omniagroup.it>",
   "homepage": "https://github.com/elguala9/InterfaceErmes/tree/main/packages/ermes-storage#readme",
   "license": "GPL-2.0-only",

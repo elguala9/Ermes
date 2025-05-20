@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ErmesCachingService = void 0;
-class ErmesCachingService {
+export class ErmesCachingService {
     constructor(repo) {
         this.repo = repo;
     }
@@ -24,5 +21,4 @@ class ErmesCachingService {
         this.repo.delete(id);
     }
 }
-exports.ErmesCachingService = ErmesCachingService;
 //# sourceMappingURL=ErmesCachingService.js.map

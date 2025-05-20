@@ -1,11 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.toPutDocument = toPutDocument;
 /**
  * Avvolge un oggetto T in un PutDocument<T>, aggiungendo _id,
  * e opzionalmente _rev e _attachments se forniti.
  */
-function toPutDocument(data, rev, attachments) {
+export function toPutDocument(data, rev, attachments) {
     // Costruisco il documento includendo solo i campi presenti
     const doc = {
         // aggiungo _rev se passato
