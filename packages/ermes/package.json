@@ -74,6 +74,16 @@
       "import": "./dist/ermes-utility/IdHandler.js",
       "require": "./dist/ermes-utility/IdHandler.js",
       "types": "./dist/ermes-utility/IdHandler.d.ts"
+    },
+    "./ermes-utility/IdHandlerRepository": {
+      "import": "./dist/ermes-utility/IdHandlerRepository.js",
+      "require": "./dist/ermes-utility/IdHandlerRepository.js",
+      "types": "./dist/ermes-utility/IdHandlerRepository.d.ts"
+    },
+    "./ermes-utility/IdHandlerService": {
+      "import": "./dist/ermes-utility/IdHandlerService.js",
+      "require": "./dist/ermes-utility/IdHandlerService.js",
+      "types": "./dist/ermes-utility/IdHandlerService.d.ts"
     }
   }
 }

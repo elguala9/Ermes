@@ -7,6 +7,7 @@ export * from "./ermes-implementation/ErmesReadRepo.js";
 export * from "./ermes-implementation/ErmesSendRepo.js";
 export * from "./ermes-implementation/PeerHandler.js";
 export * from "./ermes-utility/ChunkHandler.js";
-export * from "./ermes-utility/IdHandler.js";
+export * from "./ermes-utility/IdHandlerRepository.js";
+export * from "./ermes-utility/IdHandlerService.js";
 export * from "./types/wrtc.js";
 //# sourceMappingURL=index.js.map
