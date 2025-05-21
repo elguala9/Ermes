@@ -1,0 +1,1 @@
+{"version":3,"file":"IdHandlerService.js","sourceRoot":"","sources":["../../src/ermes-utility/IdHandlerService.ts"],"names":[],"mappings":"AAQE,MAAM,OAAO,gBAAgB;IAGzB;;;OAGG;IACH,YAAY,IAA0B;QACpC,IAAI,CAAC,KAAK,GAAG,IAAI,CAAC;IACpB,CAAC;IAEM,QAAQ;QACb,OAAO,IAAI,CAAC,KAAK,CAAC,QAAQ,EAAE,CAAC;IAC/B,CAAC;IAEM,KAAK;QACV,OAAO,IAAI,CAAC,KAAK,CAAC,KAAK,EAAE,CAAC;IAC5B,CAAC;CACF"}
