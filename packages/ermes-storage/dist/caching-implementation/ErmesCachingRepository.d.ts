@@ -5,8 +5,9 @@ import { IErmesCachingRepository } from "iermes/index";
  */
 export declare class ErmesCachingRepository<D extends MessageType> implements IErmesCachingRepository<D> {
     private maxBuffer;
-    private buffer;
+    private _buffer;
     constructor(maxBuffer: number);
+    destroy(): Promise<void>;
     clear(): Promise<void>;
     numberOfElements(): number;
     listOfIds(): Promise<IdType[]>;

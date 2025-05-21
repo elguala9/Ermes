@@ -78,10 +78,19 @@ export function testService(service: IErmesStorageAndCaching<any>) {
             await StoreAndRetrive(service, examplesChunkMessage, eqChunkMessage);
             let testId = examplesChunkMessage[0].id;
             await service.delete(testId);
-            console.log("Retrive start");
             let res = await service.retrieve(testId);
-            console.log("Retrive done");
             expect(res).to.equal(undefined);
+        });
+
+        it('Destroy', async () => {
+            await service.destroy();
+            try{
+                await service.store(examplesChunkMessage[0])
+            }
+            catch(e){
+                return;
+            }
+            throw new Error("Obj not destroyed")
         });
 
     });

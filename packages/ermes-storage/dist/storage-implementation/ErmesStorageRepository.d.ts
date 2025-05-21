@@ -6,6 +6,7 @@ export declare class ErmesStorageRepository<DataJson extends MessageType> implem
     private _idStorage;
     private _numberOfElements;
     constructor(idStorage: string);
+    destroy(): Promise<void>;
     private init;
     clear(): Promise<void>;
     numberOfElements(): number;

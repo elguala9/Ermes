@@ -15,6 +15,9 @@ export class ErmesStorageService<
   constructor(repo: IErmesStorageRepository<DataJson>) {
     this.repo = repo;
   }
+  destroy(): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
   clear(): Promise<void> {
     return this.repo.clear();
   }

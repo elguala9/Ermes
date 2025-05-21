@@ -12,4 +12,5 @@ export interface IErmesStorageAndCaching<
   clear(): Promise<void>;
   numberOfElements(): number;
   listOfIds(): Promise<IdType[]>
+  destroy(): Promise<void>;
 }

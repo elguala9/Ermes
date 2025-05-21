@@ -7,43 +7,47 @@ import { IErmesCachingRepository } from "iermes/index";
 export class ErmesCachingRepository<
   D extends MessageType
 > implements IErmesCachingRepository<D> {
-  private buffer = new Map<IdType, D>();
+  private _buffer = new Map<IdType, D>();
 
   constructor(private maxBuffer: number) {}
 
+  async destroy(): Promise<void> {
+    await this.clear();
+  }
+
   async clear(): Promise<void> {
-    this.buffer.clear();
+    return this._buffer.clear();
   }
 
   numberOfElements(): number {
-    return this.buffer.size;
+    return this._buffer.size;
   }
 
   async listOfIds(): Promise<IdType[]> {
-    return Array.from(this.buffer.keys());
+    return Array.from(this._buffer.keys());
   }
 
   async store(data: D): Promise<void> {
     // Se esiste già, lo "riportiamo in testa"
-    if (this.buffer.has(data.id)) {
-      this.buffer.delete(data.id);
+    if (this._buffer.has(data.id)) {
+      this._buffer.delete(data.id);
     }
 
-    this.buffer.set(data.id, data);
+    this._buffer.set(data.id, data);
 
     // Se superiamo la capacità, rimuoviamo il più vecchio (prima chiave inserita)
     if (this.numberOfElements() > this.maxBuffer) {
-      const oldestKey = this.buffer.keys().next().value;
+      const oldestKey = this._buffer.keys().next().value;
       if(oldestKey)
-        this.buffer.delete(oldestKey);
+        this._buffer.delete(oldestKey);
     }
   }
 
   async retrieve(id: IdType): Promise<D | undefined> {
-    return this.buffer.get(id);
+    return this._buffer.get(id);
   }
 
   async delete(id: IdType): Promise<void> {
-    this.buffer.delete(id);
+    this._buffer.delete(id);
   }
 }
