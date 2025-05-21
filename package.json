@@ -37,17 +37,18 @@
     "add-js": "ts-node utility/add-js-import.ts",
     "test:caching": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesCaching.ts",
     "test:storage": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesStorage.ts"
-
-
   },
   "devDependencies": {
+    "@types/gun": "^0.9.6",
     "@types/node": "^22.15.3",
     "barrelsby": "^2.8.1",
     "fast-glob": "^3.3.3",
     "lerna": "^8.2.2",
     "mocha": "^11.2.2",
+    "ts-json-schema-generator": "^2.4.0",
     "ts-mocha": "^11.1.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript-json-schema": "^0.65.1"
   },
   "dependencies": {
     "ermes": "1.0.0",

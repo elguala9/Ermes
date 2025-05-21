@@ -1,33 +1,45 @@
 import { IdType, MessageType } from "ermes-types";
 import { IErmesStorageRepository } from "iermes/index";
-import { toPutDocument } from "../UtilityStorage.js";
 import PouchDB from "pouchdb";
-import { IdStorageForPouchDB, StorageType } from "../ErmesStorageType.js";
+import { messageChunkSchema, messageDataSchema, serviceMessageSchema } from "./SchemaDefinition.js";
+import { createRxDatabase, RxDatabase } from "rxdb";
+import { getRxStorageLocalstorage } from "rxdb/plugins/storage-localstorage";
 
-
-// i need the generic so that i know which type i am storing
+// Generic repository backed by PouchDB
 export class ErmesStorageRepository<  
   DataJson extends MessageType  
 > implements IErmesStorageRepository<DataJson> {
 
-  // il db salva documenti di tipo DataJson & { _id:string }
-  private _db!: PouchDB.Database<StorageType<DataJson>>;  // the proble is that the compiler do not see it initialized in the constructor
+  private _db!: RxDatabase;
+  private ready: Promise<void>;
   private _idStorage: string;
   private _numberOfElements: number = 0;
 
   constructor(idStorage: string) {
     this._idStorage = idStorage;
-    this.createDb(idStorage);
+    // initialize database and collections
+    this.ready = this.init(idStorage);
   }
 
-  private createDb(idStorage: string){
-    this._db = new PouchDB<StorageType<DataJson>>(idStorage);
+  private async init(idStorage: string): Promise<void> {
+    this._db = await createRxDatabase({
+      name: idStorage,
+      storage: getRxStorageLocalstorage()
+    });
+    await this._db.addCollections({
+      service: { schema: serviceMessageSchema },
+      data:    { schema: messageDataSchema   },
+      chunk:   { schema: messageChunkSchema  }
+    });
   }
-  
+
   async clear(): Promise<void> {
-    await this._db.destroy();
-    this.createDb(this._idStorage);
+    await this.ready;
+    await this._db.remove();
     this._numberOfElements = 0;
+    // re-init
+    this.ready = this.init(this._idStorage);
+    await this.ready;
   }
 
   numberOfElements(): number {
@@ -35,74 +47,55 @@ export class ErmesStorageRepository<
   }
 
   async listOfIds(): Promise<IdType[]> {
-    let docs = await this._db.allDocs();
-    let ids: IdType[] = [];
-    for(let i = 0; i < docs.rows.length; i++){
-      let res = await this.retrievePrivateStringSafe(docs.rows[i].id);
-      ids.push(res.id);
+    await this.ready;
+    const ids: IdType[] = [];
+    // gather from each collection
+    for (const name of ['service','data','chunk'] as const) {
+      const coll = this._db.collections[name];
+      const docs = await coll.find().exec();
+      docs.forEach(doc => ids.push((doc as any).id));
     }
     return ids;
   }
 
   async store(dataJson: DataJson): Promise<void> {
-    // 1) Create the document
-    const record: StorageType<DataJson> = {
-        _id: dataJson.id.toString(),
-        ...dataJson
-    };
-
-    const doc = toPutDocument(record);
-    await this._db.put(doc);
+    await this.ready;
+    // determine collection: chunk has index+roof, service has reason, else data
+    const collName =
+      'index' in dataJson && 'roof' in dataJson ? 'chunk' :
+      'reason' in dataJson              ? 'service' :
+                                          'data';
+    const coll = this._db.collections[collName];
+    // insert record
+    await coll.insert(dataJson as any);
     this._numberOfElements++;
   }
 
-
   async retrieve(id: IdType): Promise<DataJson | undefined> {
-    const doc: DataJson | undefined = await this.retrievePrivate(id);
-    console.log();
-    return doc;
+    await this.ready;
+    // search in each collection
+    for (const name of ['service','data','chunk'] as const) {
+      const coll = this._db.collections[name];
+      const doc = await coll.findOne(id.toString()).exec();
+      if (doc) {
+        return doc.toJSON() as DataJson;
+      }
+    }
+    return undefined;
   }
 
-  private async retrievePrivate(id: IdType): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta | undefined> {
-    const doc = this.retrievePrivateString(id.toString());
-    return doc;
-  }
-
-  
-  private async retrievePrivateSafe(id: IdType): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta> {
-    const doc = this.retrievePrivateStringSafe(id.toString());
-    return doc;
-  }
-
-  // i want that in case of not found (404) is undefined, in other case i throw again the exception
-  private async retrievePrivateString(id: string): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta | undefined> {
-    try {
-      const doc = await this.retrievePrivateStringSafe(id);
-      return doc;
-    } catch (err: any) {
-      if (err.status === 404) {
-        // undefined if not ound
-        return undefined;
-      } else {
-        // other errors not handled
-        throw err;
+  async delete(id: IdType): Promise<void> {
+    await this.ready;
+    // find and remove
+    for (const name of ['service','data','chunk'] as const) {
+      const coll = this._db.collections[name];
+      const doc = await coll.findOne(id.toString()).exec();
+      if (doc) {
+        await doc.remove();
+        this._numberOfElements--;
+        return;
       }
     }
   }
 
-  private async retrievePrivateStringSafe(id: string): Promise<DataJson & IdStorageForPouchDB & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta> {
-    return await this._db.get<DataJson & IdStorageForPouchDB>(id);
-  }
-
-  
-
-  async delete(id: IdType): Promise<void> {
-    // i need the document, not only the DataJson
-    let doc = await this.retrievePrivateSafe(id);
-    // here i need _id
-    await this._db.remove(doc);
-    this._numberOfElements--;
-  }
-
 }
-

@@ -21,7 +21,11 @@
     "url": "git+https://github.com/elguala9/Ermes.git"
   },
   "scripts": {
-    "test": "node ./__tests__/ermes-storage.test.js"
+    "gen:schemas-old": "typescript-json-schema tsconfig.json MessageTypeStorage --topRef --noExtraProps --required --out ./src/storage-implementation/schemas.json",
+    "gen:schema:MessageDataStorage": "ts-json-schema-generator --path \"src/**/*.ts\" --tsconfig tsconfig.json --type MessageDataStorage --expose none --out src/storage-implementation/schemas/MessageDataStorage.json",
+    "gen:schema:ServiceMessageStorage": "ts-json-schema-generator --path \"src/**/*.ts\" --tsconfig tsconfig.json --type ServiceMessageStorage --expose none --out src/storage-implementation/schemas/ServiceMessageStorage.json",
+    "gen:schema:MessageChunkStorage": "ts-json-schema-generator --path \"src/**/*.ts\" --tsconfig tsconfig.json --type MessageChunkStorage --expose none --out src/storage-implementation/schemas/MessageChunkStorage.json",
+    "gen:schema:all": "npm run gen:schema:MessageDataStorage && npm run gen:schema:ServiceMessageStorage && npm run gen:schema:MessageChunkStorage"
   },
   "bugs": {
     "url": "https://github.com/elguala9/Ermes/issues"
@@ -66,10 +70,18 @@
       "import": "./dist/storage-implementation/ErmesStorageService.js",
       "require": "./dist/storage-implementation/ErmesStorageService.js",
       "types": "./dist/storage-implementation/ErmesStorageService.d.ts"
+    },
+    "./storage-implementation/SchemaDefinition": {
+      "import": "./dist/storage-implementation/SchemaDefinition.js",
+      "require": "./dist/storage-implementation/SchemaDefinition.js",
+      "types": "./dist/storage-implementation/SchemaDefinition.d.ts"
     }
   },
   "dependencies": {
-    "pouchdb": "9.0.0",
-    "ermes-types": "1.0.0"
-  }
+    "@sinclair/typebox": "^0.34.33",
+    "ermes-types": "1.0.0",
+    "rxdb": "^16.12.0",
+    "rxjs": "^7.8.2"
+  },
+  "devDependencies": {}
 }

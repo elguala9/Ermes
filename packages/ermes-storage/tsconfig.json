@@ -5,7 +5,13 @@
     "rootDir": "src",
     "outDir": "dist",
     "strict": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "resolveJsonModule": true
   },
-  "include": ["src"]
+  "include": [
+    "src", 
+    "src/storage-implementation/schemas/MessageChunkStorage.json", 
+    "src/storage-implementation/schemas/ServiceMessageStorage.json",
+    "src/storage-implementation/schemas/MessageDataStorage.json"
+]
 }

@@ -1,18 +1,15 @@
-import { ChunkMessageGeneric, MessageChunkErmes, MessageDataErmes, MessageDataGeneric, ServiceMessage } from "ermes-types";
+import { ChunkMessageGeneric, MessageChunkErmes, MessageDataErmes, IdType, ServiceMessage } from "ermes-types";
 
 
 
-export type IdStorageForPouchDB = {
-    _id: string
-}
 
-export type MessageDataForPouch = MessageDataGeneric<Buffer>;
-export type ChunkMessageForPouch = ChunkMessageGeneric<Buffer>;
 
-export type MessageTypeForPouch = MessageDataForPouch | ChunkMessageForPouch | ServiceMessage;
 
-export type StorageType<DataJson> = DataJson & IdStorageForPouchDB
 
-export type ServiceMessageStorage = ServiceMessage & IdStorageForPouchDB;
-export type MessageDataStorage = MessageDataErmes & IdStorageForPouchDB;
-export type MessageChunkStorage = MessageChunkErmes & IdStorageForPouchDB;
+
+
+export type StorageType<DataJson> = DataJson 
+export type MessageTypeStorage = ServiceMessageStorage | ServiceMessageStorage | MessageChunkStorage;
+export type ServiceMessageStorage = ServiceMessage;
+export type MessageDataStorage = MessageDataErmes;
+export type MessageChunkStorage = MessageChunkErmes;
