@@ -25,7 +25,9 @@
     "build-all": "npm run build:types && npm install && npm run build:iermes && npm install && npm run build:ermes && npm run build:ermes-storage && npm install && npm run build:test-ermes",
     "build:types": "tsc -b packages/types",
     "build:iermes": "tsc -b packages/iermes",
-    "build:ermes": "tsc -b packages/ermes",
+    "build:ermes": "tsc -b packages/ermes && npm run copy:ermes:types && npm run copy:ermes:js",
+    "copy:ermes:types": "copyfiles -u 4 packages/ermes/src/types/wrtc.d.ts packages/ermes/dist/types",
+    "copy:ermes:js": "copyfiles -u 4 packages/ermes/src/types/wrtc.js packages/ermes/dist/types",
     "build:ermes-storage": "tsc -b packages/ermes-storage",
     "build:test-ermes": "tsc -b packages/test-ermes",
     "gen-exports:ermes": "npx gen-exports packages/ermes/dist -p packages/ermes/package.json",
@@ -36,12 +38,14 @@
     "clean": "rimraf packages/*/dist",
     "add-js": "ts-node utility/add-js-import.ts",
     "test:caching": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesCaching.ts",
-    "test:storage": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesStorage.ts"
+    "test:storage": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesStorage.ts",
+    "test:idhandler": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesIdHandler.ts"
   },
   "devDependencies": {
     "@types/gun": "^0.9.6",
     "@types/node": "^22.15.3",
     "barrelsby": "^2.8.1",
+    "copyfiles": "^2.4.1",
     "fast-glob": "^3.3.3",
     "lerna": "^8.2.2",
     "mocha": "^11.2.2",

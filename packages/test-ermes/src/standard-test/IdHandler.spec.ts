@@ -1,13 +1,10 @@
 import { expect } from "chai";
-import type { IdType, MessageData } from "ermes-types";
-import { IErmesStorageAndCaching, IIdHandlerService } from "iermes/index";
-import { eqChunkMessage, eqMessageData, eqServiceMessage } from "../compare.js";
-import { generateUniqueMessageData, StoreAndRetrive } from "../utility.js";
-import { examplesChunkMessage, examplesMessageData, examplesServiceMessage } from "../var.js";
+import type { IdType } from "ermes-types";
+import { IIdHandlerService } from "iermes/index";
 
 
 
-export function testIIdHandler(service: IIdHandlerService, startIndex: IdType, maxIndex: IdType) {
+export function testIIdHandler(service: IIdHandlerService, maxIndex: IdType, startIndex: IdType) {
 
     describe('IIdHandler Tests', () => {
 
@@ -41,7 +38,6 @@ export function testIIdHandler(service: IIdHandlerService, startIndex: IdType, m
             let index = service.getNewId();
             while(index < maxIndex)
                 index = service.getNewId();
-            expect(service.getNewId()).to.equal(maxIndex);
             expect(service.getNewId()).to.equal(startIndex);
         });
 

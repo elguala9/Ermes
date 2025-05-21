@@ -1,5 +1,5 @@
 import { expect } from "chai";
-export function testIIdHandler(service, startIndex, maxIndex) {
+export function testIIdHandler(service, maxIndex, startIndex) {
     describe('IIdHandler Tests', () => {
         it('Get first index', async () => {
             service.reset();
@@ -27,7 +27,6 @@ export function testIIdHandler(service, startIndex, maxIndex) {
             let index = service.getNewId();
             while (index < maxIndex)
                 index = service.getNewId();
-            expect(service.getNewId()).to.equal(maxIndex);
             expect(service.getNewId()).to.equal(startIndex);
         });
     });

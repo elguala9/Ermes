@@ -10,4 +10,5 @@ export * from "./ermes-utility/ChunkHandler.js";
 export * from "./ermes-utility/IdHandlerRepository.js";
 export * from "./ermes-utility/IdHandlerService.js";
 export * from "./types/wrtc.js";
+export * from "./types/wrtc.js";
 //# sourceMappingURL=index.js.map

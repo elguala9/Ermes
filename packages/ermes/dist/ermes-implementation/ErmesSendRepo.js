@@ -1,5 +1,5 @@
 import { buffer } from "stream/consumers";
-import { chunkArrayBuffer, getMessageType } from "src/Utility.js";
+import { chunkArrayBuffer, getMessageType } from "../Utility.js";
 import { serializeObject } from "serialization-utility/src/Serialization";
 import { calculateHashSync } from "serialization-utility/src/Hash";
 export class ErmesSendRepo {

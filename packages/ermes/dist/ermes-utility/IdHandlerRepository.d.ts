@@ -1,3 +1,4 @@
+import { IdType } from "ermes-types";
 import { IIdHandlerRepository } from "iermes/index";
 export declare class IdHandlerRepository implements IIdHandlerRepository {
     private current;
@@ -8,6 +9,7 @@ export declare class IdHandlerRepository implements IIdHandlerRepository {
      */
     constructor(max?: number, start?: number);
     getNewId(): number;
-    reset(): number;
+    reset(): void;
     setCounter(counter: number): void;
+    getCurrent(): IdType;
 }

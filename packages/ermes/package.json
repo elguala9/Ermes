@@ -65,16 +65,6 @@
       "require": "./dist/ermes-utility/ChunkHandler.js",
       "types": "./dist/ermes-utility/ChunkHandler.d.ts"
     },
-    "./ermes-utility/ErmesType": {
-      "import": "./dist/ermes-utility/ErmesType.js",
-      "require": "./dist/ermes-utility/ErmesType.js",
-      "types": "./dist/ermes-utility/ErmesType.d.ts"
-    },
-    "./ermes-utility/IdHandler": {
-      "import": "./dist/ermes-utility/IdHandler.js",
-      "require": "./dist/ermes-utility/IdHandler.js",
-      "types": "./dist/ermes-utility/IdHandler.d.ts"
-    },
     "./ermes-utility/IdHandlerRepository": {
       "import": "./dist/ermes-utility/IdHandlerRepository.js",
       "require": "./dist/ermes-utility/IdHandlerRepository.js",
@@ -84,6 +74,11 @@
       "import": "./dist/ermes-utility/IdHandlerService.js",
       "require": "./dist/ermes-utility/IdHandlerService.js",
       "types": "./dist/ermes-utility/IdHandlerService.d.ts"
+    },
+    "./types/wrtc": {
+      "import": "./dist/types/wrtc.js",
+      "require": "./dist/types/wrtc.js",
+      "types": "./dist/types/wrtc.d.ts"
     }
   }
 }
