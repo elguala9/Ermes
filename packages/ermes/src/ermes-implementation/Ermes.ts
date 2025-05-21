@@ -3,8 +3,8 @@ import { ChunkInfo, ChunkMessage, IdType, MessageData, ServiceMessage } from "er
 
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
 import { ErmesSendRepo } from "./ErmesSendRepo.js";
-import { IIdHandlerNumber } from "src/ermes-utility/IdHandler.js";
 import { CallbackOnMessage, IErmesRepository, IErmesService } from "iermes/standard-interface/IErmes";
+import { IIdHandler } from "iermes/index";
 
 
 
@@ -14,7 +14,7 @@ export type MessageChunkErmes = ChunkMessage;
 export type ErmesServiceInput = {
     repository: IErmesRepository, 
     messageCallback: CallbackOnMessage
-    idHandlerNumber: IIdHandlerNumber,
+    idHandlerNumber: IIdHandler,
     maxByte?: number,
     maxBuffer?: number
 }
