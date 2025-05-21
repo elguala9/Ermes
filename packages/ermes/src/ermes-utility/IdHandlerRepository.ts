@@ -1,3 +1,4 @@
+import { IdType } from "ermes-types";
 import { IIdHandlerRepository } from "iermes/index";
 
 
@@ -29,9 +30,8 @@ export class IdHandlerRepository implements IIdHandlerRepository {
       return id;
     }
   
-    public reset(): number {
+    public reset(): void {
       this.current = 0;
-      return this.current;
     }
   
     public setCounter(counter: number): void {
@@ -39,5 +39,9 @@ export class IdHandlerRepository implements IIdHandlerRepository {
         throw new Error(`ID deve essere un intero tra 0 e ${this.max}`);
       }
       this.current = counter;
+    }
+
+    public getCurrent(): IdType{
+      return this.current;
     }
   }

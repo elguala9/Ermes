@@ -4,7 +4,9 @@ import type { Instance, SignalData } from 'simple-peer';
 import Peer from 'simple-peer';
 
 import { CallbackOnData, IErmesRepository, SerializableDataType } from 'iermes/index';
-import wrtc from 'src/types/wrtc.js';
+import wrtc from '../types/wrtc.js';
+
+
 
 export const defaultStun: string = 'stun:stun.l.google.com:19302';
 

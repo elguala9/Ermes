@@ -11,7 +11,7 @@ export interface IIdHandlerPrivate{
     /**
      * reset the counter of the messages
      */
-    reset(): IdType
+    reset(): void
 }
 
 /**
@@ -23,10 +23,47 @@ export interface IIdHandlerRepository extends IIdHandlerPrivate{
      * @param counter the starting point of the counter
      */
     setCounter(counter: IdType): void
+
+    getCurrent(): IdType;
 }
 
 /**
  * interface used to create Ids for the messages
  */
 export interface IIdHandlerService extends IIdHandlerPrivate{
+}
+
+/**
+ * interface used to create Ids for the messages
+ */
+interface IIdHandlerStoragePrivate {
+    /**
+     * updating the id
+     */
+    update(id: IdType): Promise<void>;
+    /**
+     * save the current id on a permanent memory
+    */
+    save(): void;
+    /**
+     * close the storage
+    */
+    close(): void;
+    /**
+     * destroy the storage
+    */
+    destroy(): void;
+}
+
+/**
+ * interface used to create Ids for the messages
+ */
+export interface IIdHandlerStorageRepository extends IIdHandlerStoragePrivate {
+}
+
+/**
+ * interface used to create Ids for the messages
+ */
+export interface IIdHandlerStorageService extends IIdHandlerStoragePrivate {
+
 }

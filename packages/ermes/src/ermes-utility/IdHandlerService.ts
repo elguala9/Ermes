@@ -8,20 +8,31 @@ import { IIdHandlerRepository, IIdHandlerService, IIdHandlerStorageService } fro
 
   export class IdHandlerService implements IIdHandlerService {
       private _repo: IIdHandlerRepository
+      private _storage?: IIdHandlerStorageService
     
       /**
        * @param repo 
        * @param storage where data will be stored permanently
        */
-      constructor(repo: IIdHandlerRepository) {
+      constructor(repo: IIdHandlerRepository, storage?: IIdHandlerStorageService) {
         this._repo = repo;
+        this._storage = storage;
+      }
+
+      private storeNewId(newId: IdType){
+        if(this._storage)
+          this._storage.update(newId);
       }
     
       public getNewId(): number {
-        return this._repo.getNewId();
+        let newId: IdType = this._repo.getNewId();
+        this.storeNewId(newId);
+        return newId;
       }
     
       public reset(): void {
-        return this._repo.reset();
+        this._repo.reset();
+        let res = this._repo.getCurrent();
+        this.storeNewId(res);
       }
     }

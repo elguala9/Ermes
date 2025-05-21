@@ -6,6 +6,11 @@
     "outDir": "dist",
     "strict": true,
     "baseUrl": ".",
+    "declaration":  true,    // emit .d.ts for all your .ts
+    "declarationMap": false, // you can enable it if you like
+    "emitDeclarationOnly": false,
+    "allowJs": true,
+    "noImplicitAny": false,  
     "paths": {
       "iermes": ["../iermes/dist"]
     }

@@ -1,6 +1,6 @@
 // src/PeerHandler.ts
 import Peer from 'simple-peer';
-import wrtc from 'src/types/wrtc.js';
+import wrtc from '../types/wrtc.js';
 export const defaultStun = 'stun:stun.l.google.com:19302';
 export class PeerHandler {
     constructor({ offer, iceServers }) {

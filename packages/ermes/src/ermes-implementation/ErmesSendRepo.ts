@@ -2,9 +2,10 @@
 import { ChunkMessage, InternalMessage, MessageData, MessageDataErmes, MessageRoot, MessageType } from "ermes-types";
 import { buffer } from "stream/consumers";
 import { IErmesRepository, IIdHandlerService, SerializableDataType } from "iermes/index";
-import { chunkArrayBuffer, getMessageType } from "src/Utility.js";
+import { chunkArrayBuffer, getMessageType } from "../Utility.js";
 import { serializeObject } from "serialization-utility/src/Serialization";
 import { calculateHashSync } from "serialization-utility/src/Hash";
+
 
 export type MessageRootErmes = MessageRoot<string>;
 type MessageInternalErmes = InternalMessage<MessageType>;

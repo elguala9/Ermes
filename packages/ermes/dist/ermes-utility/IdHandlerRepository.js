@@ -21,13 +21,15 @@ export class IdHandlerRepository {
     }
     reset() {
         this.current = 0;
-        return this.current;
     }
     setCounter(counter) {
         if (!Number.isInteger(counter) || counter < 0 || counter > this.max) {
             throw new Error(`ID deve essere un intero tra 0 e ${this.max}`);
         }
         this.current = counter;
+    }
+    getCurrent() {
+        return this.current;
     }
 }
 //# sourceMappingURL=IdHandlerRepository.js.map
