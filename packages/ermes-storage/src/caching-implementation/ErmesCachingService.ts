@@ -7,34 +7,40 @@ export class ErmesCachingService<
 > implements IErmesCachingService<DataJson> {
 
   
-  private repo: IErmesCachingRepository<DataJson>;
+  private _repo: IErmesCachingRepository<DataJson>;
 
   constructor(repo: IErmesCachingRepository<DataJson>) {
-    this.repo = repo;
+    this._repo = repo;
+  }
+
+  async destroy(): Promise<void> {
+    await this._repo.destroy();
+    //    @ts-expect-error vogliamo nullare
+    this._repo = null;
   }
 
   clear(): Promise<void> {
-    return this.repo.clear();
+    return this._repo.clear();
   }
 
   numberOfElements(): number {
-    return this.repo.numberOfElements();
+    return this._repo.numberOfElements();
   }
   
   listOfIds(): Promise<IdType[]> {
-    return this.repo.listOfIds();
+    return this._repo.listOfIds();
   }
 
   async store(data: DataJson): Promise<void> {
-    return this.repo.store(data);
+    return this._repo.store(data);
   }
 
   async retrieve(id: IdType): Promise<DataJson | undefined> {
-    return this.repo.retrieve(id);
+    return this._repo.retrieve(id);
   }
 
   async delete(id: IdType): Promise<void> {
-    this.repo.delete(id);
+    this._repo.delete(id);
   }
 
 }

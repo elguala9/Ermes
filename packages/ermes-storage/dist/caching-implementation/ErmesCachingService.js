@@ -1,24 +1,29 @@
 export class ErmesCachingService {
     constructor(repo) {
-        this.repo = repo;
+        this._repo = repo;
+    }
+    async destroy() {
+        await this._repo.destroy();
+        //    @ts-expect-error vogliamo nullare
+        this._repo = null;
     }
     clear() {
-        return this.repo.clear();
+        return this._repo.clear();
     }
     numberOfElements() {
-        return this.repo.numberOfElements();
+        return this._repo.numberOfElements();
     }
     listOfIds() {
-        return this.repo.listOfIds();
+        return this._repo.listOfIds();
     }
     async store(data) {
-        return this.repo.store(data);
+        return this._repo.store(data);
     }
     async retrieve(id) {
-        return this.repo.retrieve(id);
+        return this._repo.retrieve(id);
     }
     async delete(id) {
-        this.repo.delete(id);
+        this._repo.delete(id);
     }
 }
 //# sourceMappingURL=ErmesCachingService.js.map

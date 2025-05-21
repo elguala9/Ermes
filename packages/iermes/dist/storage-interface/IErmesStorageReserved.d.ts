@@ -10,4 +10,5 @@ export interface IErmesStorageAndCaching<DataJson extends MessageType> {
     clear(): Promise<void>;
     numberOfElements(): number;
     listOfIds(): Promise<IdType[]>;
+    destroy(): Promise<void>;
 }

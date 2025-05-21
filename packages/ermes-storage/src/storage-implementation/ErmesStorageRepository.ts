@@ -20,6 +20,9 @@ export class ErmesStorageRepository<
     // initialize database and collections
     this.ready = this.init(idStorage);
   }
+  destroy(): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
 
   private async init(idStorage: string): Promise<void> {
     this._db = await createRxDatabase({
