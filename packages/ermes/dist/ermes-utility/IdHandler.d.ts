@@ -1,11 +1,5 @@
-import { IdType } from "ermes-types";
-import { IIdHandler } from "iermes/index";
-/**
- * IIdHandler interface but typized with number
- */
-export interface IIdHandlerNumber extends IIdHandler<IdType> {
-}
-export declare class IdHandlerNumber implements IIdHandlerNumber {
+import { IIdHandlerRepository } from "iermes/index";
+export declare class IdHandler implements IIdHandlerRepository {
     private current;
     private readonly max;
     /**

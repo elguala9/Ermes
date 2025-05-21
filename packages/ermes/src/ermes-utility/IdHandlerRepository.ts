@@ -1,10 +1,9 @@
-import { IdType } from "ermes-types";
-import { IIdHandler } from "iermes/index";
+import { IIdHandlerRepository } from "iermes/index";
 
 
 
 
-export class IdHandler implements IIdHandler {
+export class IdHandlerRepository implements IIdHandlerRepository {
     private current: number;
     private readonly max: number;
   

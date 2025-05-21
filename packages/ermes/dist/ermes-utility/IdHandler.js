@@ -1,4 +1,4 @@
-export class IdHandlerNumber {
+export class IdHandler {
     /**
      * @param max  Valore massimo consentito per l'ID (inclusivo). Al superamento si ricomincia da 0.
      * @param start Valore iniziale del contatore (default 0)
