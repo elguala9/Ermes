@@ -1,81 +1,82 @@
-import { toPutDocument } from "../UtilityStorage.js";
-import PouchDB from "pouchdb";
-// i need the generic so that i know which type i am storing
+import { messageChunkSchema, messageDataSchema, serviceMessageSchema } from "./SchemaDefinition.js";
+import { createRxDatabase } from "rxdb";
+import { getRxStorageLocalstorage } from "rxdb/plugins/storage-localstorage";
+// Generic repository backed by PouchDB
 export class ErmesStorageRepository {
     constructor(idStorage) {
         this._numberOfElements = 0;
         this._idStorage = idStorage;
-        this.createDb(idStorage);
+        // initialize database and collections
+        this.ready = this.init(idStorage);
     }
-    createDb(idStorage) {
-        this._db = new PouchDB(idStorage);
+    async init(idStorage) {
+        this._db = await createRxDatabase({
+            name: idStorage,
+            storage: getRxStorageLocalstorage()
+        });
+        await this._db.addCollections({
+            service: { schema: serviceMessageSchema },
+            data: { schema: messageDataSchema },
+            chunk: { schema: messageChunkSchema }
+        });
     }
     async clear() {
-        await this._db.destroy();
-        this.createDb(this._idStorage);
+        await this.ready;
+        await this._db.remove();
         this._numberOfElements = 0;
+        // re-init
+        this.ready = this.init(this._idStorage);
+        await this.ready;
     }
     numberOfElements() {
         return this._numberOfElements;
     }
     async listOfIds() {
-        let docs = await this._db.allDocs();
-        let ids = [];
-        for (let i = 0; i < docs.rows.length; i++) {
-            let res = await this.retrievePrivateStringSafe(docs.rows[i].id);
-            ids.push(res.id);
+        await this.ready;
+        const ids = [];
+        // gather from each collection
+        for (const name of ['service', 'data', 'chunk']) {
+            const coll = this._db.collections[name];
+            const docs = await coll.find().exec();
+            docs.forEach(doc => ids.push(doc.id));
         }
         return ids;
     }
     async store(dataJson) {
-        // 1) Create the document
-        const record = {
-            _id: dataJson.id.toString(),
-            ...dataJson
-        };
-        const doc = toPutDocument(record);
-        await this._db.put(doc);
+        await this.ready;
+        // determine collection: chunk has index+roof, service has reason, else data
+        const collName = 'index' in dataJson && 'roof' in dataJson ? 'chunk' :
+            'reason' in dataJson ? 'service' :
+                'data';
+        const coll = this._db.collections[collName];
+        // insert record
+        await coll.insert(dataJson);
         this._numberOfElements++;
     }
     async retrieve(id) {
-        const doc = await this.retrievePrivate(id);
-        console.log();
-        return doc;
-    }
-    async retrievePrivate(id) {
-        const doc = this.retrievePrivateString(id.toString());
-        return doc;
-    }
-    async retrievePrivateSafe(id) {
-        const doc = this.retrievePrivateStringSafe(id.toString());
-        return doc;
-    }
-    // i want that in case of not found (404) is undefined, in other case i throw again the exception
-    async retrievePrivateString(id) {
-        try {
-            const doc = await this.retrievePrivateStringSafe(id);
-            return doc;
-        }
-        catch (err) {
-            if (err.status === 404) {
-                // undefined if not ound
-                return undefined;
-            }
-            else {
-                // other errors not handled
-                throw err;
+        await this.ready;
+        // search in each collection
+        for (const name of ['service', 'data', 'chunk']) {
+            const coll = this._db.collections[name];
+            const doc = await coll.findOne(id.toString()).exec();
+            if (doc) {
+                return doc.toJSON();
             }
         }
-    }
-    async retrievePrivateStringSafe(id) {
-        return await this._db.get(id);
+        return undefined;
     }
     async delete(id) {
-        // i need the document, not only the DataJson
-        let doc = await this.retrievePrivateSafe(id);
-        // here i need _id
-        await this._db.remove(doc);
-        this._numberOfElements--;
+        await this.ready;
+        // find and remove
+        for (const name of ['service', 'data', 'chunk']) {
+            const coll = this._db.collections[name];
+            const doc = await coll.findOne(id.toString()).exec();
+            if (doc) {
+                await doc.remove();
+                this._numberOfElements--;
+                return;
+            }
+        }
     }
 }
 //# sourceMappingURL=ErmesStorageRepository.js.map
