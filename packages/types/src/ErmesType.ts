@@ -46,7 +46,7 @@ export type MessageWithId = {
 }
 
 // DataType is suggested to be ArrayBuffer
-export type MessageData =  MessageDataGeneric<Uint8Array>& MessageWithId & {
+export type MessageData =  MessageDataGeneric<Uint8Array> & MessageWithId & {
 }
 
 // DataType is suggested to be ArrayBuffer

@@ -1,9 +1,7 @@
 
 import { ChunkMessage, InternalMessage, MessageData, MessageDataErmes, MessageRoot, MessageType } from "ermes-types";
-
-import { IIdHandlerNumber } from "src/ermes-utility/IdHandler.js";
 import { buffer } from "stream/consumers";
-import { IErmesRepository, SerializableDataType } from "iermes/index";
+import { IErmesRepository, IIdHandler, SerializableDataType } from "iermes/index";
 import { chunkArrayBuffer, getMessageType } from "src/Utility.js";
 import { serializeObject } from "serialization-utility/src/Serialization";
 import { calculateHashSync } from "serialization-utility/src/Hash";
@@ -19,9 +17,9 @@ type NewType = IErmesRepository;
 export class ErmesSendRepo {
     private repository: NewType
     private maxByte: number;
-    private idHandlerNumber: IIdHandlerNumber
+    private idHandlerNumber: IIdHandler
 
-    constructor(repository: IErmesRepository, idHandlerNumber: IIdHandlerNumber, maxByte: number = 1024){
+    constructor(repository: IErmesRepository, idHandlerNumber: IIdHandler, maxByte: number = 1024){
         if(maxByte >= 1200)
             throw new Error("Max byte cannot be more that 1299")
         this.repository = repository;

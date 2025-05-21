@@ -1,7 +1,9 @@
+import { IdType } from "ermes-types"
+
 /**
  * interface used to create Ids for the messages
  */
-export interface IIdHandler<IdType>{
+export interface IIdHandler{
     /**
      * function that return a unique id every time that it is called, the id should be progressive
      */
