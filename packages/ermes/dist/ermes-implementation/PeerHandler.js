@@ -24,13 +24,13 @@ export class PeerHandler {
             }
         });
         if (offer) {
-            this.peer.signal(JSON.parse(offer));
+            this.peer.signal(offer);
         }
     }
     isClose() {
         return this.peer.closed;
     }
-    createOffer() {
+    createSignal() {
         return new Promise((resolve) => {
             this.peer.once('signal', (data) => {
                 console.log('[PeerHandler] Signal emitted!');
@@ -38,8 +38,8 @@ export class PeerHandler {
             });
         });
     }
-    setAnswer(answer) {
-        this.peer.signal(answer);
+    setSignal(signal) {
+        this.peer.signal(signal);
     }
     destroy() {
         this.peer.destroy();

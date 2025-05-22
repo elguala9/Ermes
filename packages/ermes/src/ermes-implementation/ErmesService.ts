@@ -1,4 +1,4 @@
-import { ChunkInfo, ChunkMessage, IdType, MessageData, ServiceMessage } from "ermes-types";
+import { ChunkInfo, ChunkMessage, IdType, MessageData, ServiceMessage, Signal } from "ermes-types";
 
 
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
@@ -6,6 +6,7 @@ import { ErmesSendRepo } from "./ErmesSendRepo.js";
 import { CallbackOnMessage, IErmesRepository, IErmesService } from "iermes/standard-interface/IErmes";
 import { IErmesWebRtcRepository, IErmesWebRtcService, IIdHandlerService } from "iermes/index";
 import { SignalData } from "simple-peer";
+
 
 
 
@@ -57,21 +58,15 @@ export class ErmesService implements IErmesWebRtcService{
         return this._repository.isClose();
     }
 
-    createOffer(): Promise<SignalData> {
-       return this._repository.createOffer();
-    }
-    async createOfferString(): Promise<string> {
-        let offer = await this.createOffer();
-        return JSON.stringify(offer)
+    createSignal(): Promise<Signal> {
+       return this._repository.createSignal();
     }
 
-    setAnswer(answer: SignalData): void {
-        return this._repository.setAnswer(answer);
+
+    setSignal(signal: Signal): void {
+        return this._repository.setSignal(signal);
     }
 
-    setAnswerString(answer: string): void {
-        this.setAnswer(JSON.parse(answer));
-    }
     onConnect(callback: () => void): void {
         return this._repository.onConnect(callback);
     }
