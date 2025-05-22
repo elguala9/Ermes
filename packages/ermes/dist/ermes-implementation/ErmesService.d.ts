@@ -1,4 +1,4 @@
-import { ChunkMessage, MessageData } from "ermes-types";
+import { ChunkMessage, MessageData, Signal } from "ermes-types";
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
 import { ErmesSendRepo } from "./ErmesSendRepo.js";
 import { CallbackOnMessage } from "iermes/standard-interface/IErmes";
@@ -21,10 +21,8 @@ export declare class ErmesService implements IErmesWebRtcService {
     constructor({ maxBuffer, maxByte, repository, idHandler, messageCallback }: ErmesServiceInput);
     setRepository(repository: IErmesWebRtcRepository): void;
     isClose(): boolean;
-    createOffer(): Promise<SignalData>;
-    createOfferString(): Promise<string>;
-    setAnswer(answer: SignalData): void;
-    setAnswerString(answer: string): void;
+    createSignal(): Promise<Signal>;
+    setSignal(signal: Signal): void;
     onConnect(callback: () => void): void;
     onError(callback: (err: Error) => void): void;
     onClose(callback: () => void): void;

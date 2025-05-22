@@ -20,18 +20,11 @@ export class ErmesService {
     isClose() {
         return this._repository.isClose();
     }
-    createOffer() {
-        return this._repository.createOffer();
+    createSignal() {
+        return this._repository.createSignal();
     }
-    async createOfferString() {
-        let offer = await this.createOffer();
-        return JSON.stringify(offer);
-    }
-    setAnswer(answer) {
-        return this._repository.setAnswer(answer);
-    }
-    setAnswerString(answer) {
-        this.setAnswer(JSON.parse(answer));
+    setSignal(signal) {
+        return this._repository.setSignal(signal);
     }
     onConnect(callback) {
         return this._repository.onConnect(callback);

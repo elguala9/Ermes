@@ -40,11 +40,6 @@
       "require": "./dist/Utility.js",
       "types": "./dist/Utility.d.ts"
     },
-    "./ermes-implementation/Ermes": {
-      "import": "./dist/ermes-implementation/Ermes.js",
-      "require": "./dist/ermes-implementation/Ermes.js",
-      "types": "./dist/ermes-implementation/Ermes.d.ts"
-    },
     "./ermes-implementation/ErmesReadRepo": {
       "import": "./dist/ermes-implementation/ErmesReadRepo.js",
       "require": "./dist/ermes-implementation/ErmesReadRepo.js",

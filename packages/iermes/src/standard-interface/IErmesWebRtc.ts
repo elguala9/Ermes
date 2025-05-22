@@ -1,19 +1,18 @@
+import { Signal } from "ermes-types";
 import { IErmesRepository, IErmesService } from "./IErmes.js";
 import type { SignalData } from 'simple-peer';
 
 
 interface IErmesWebRtcPrivate {
     /**
-     * create the offer that will be passed to the other peer
+     * create the signal (offer/answer) that will be passed to the other peer
      */
-    createOffer(): Promise<SignalData>
-
-
+    createSignal(): Promise<Signal>
     /**
      * 
-     * @param answer answer from the other peer
+     * @param answer signal (offer/answer) from the other peer
      */
-    setAnswer(answer: SignalData): void
+    setSignal(signal: Signal): void
 
     onConnect(callback: () => void) : void;
     
@@ -37,15 +36,7 @@ export interface IErmesWebRtcRepository extends IErmesRepository, IErmesWebRtcPr
  * extension of ermes with some methods for webrtc
  */
 export interface IErmesWebRtcService extends IErmesService, IErmesWebRtcPrivate {
-    /**
-     * try to simplify the exhange of the offer by making it a string
-     */
-    createOfferString(): Promise<string>
-    /**
-     * 
-     * @param answer answer from the other peer
-     */
-    setAnswerString(answer: string): void
+
     /**
      * change the repo, this will retain all the information in the service
      * @param repository new repository that the service is going to use

@@ -1,8 +1,9 @@
 import type { SignalData } from 'simple-peer';
 import { CallbackOnData, IErmesWebRtcRepository, SerializableDataType } from 'iermes/index';
+import { Signal } from 'ermes-types';
 export declare const defaultStun: string;
 export type PeerHandlerInput = {
-    offer?: string;
+    offer?: Signal;
     iceServers?: RTCIceServer[];
 };
 export declare class PeerHandler implements IErmesWebRtcRepository {
@@ -11,8 +12,8 @@ export declare class PeerHandler implements IErmesWebRtcRepository {
     private messageCallback?;
     constructor({ offer, iceServers }: PeerHandlerInput);
     isClose(): boolean;
-    createOffer(): Promise<SignalData>;
-    setAnswer(answer: SignalData): void;
+    createSignal(): Promise<SignalData>;
+    setSignal(signal: Signal): void;
     destroy(): void;
     send(data: SerializableDataType): void;
     onMessage(func: CallbackOnData): void;

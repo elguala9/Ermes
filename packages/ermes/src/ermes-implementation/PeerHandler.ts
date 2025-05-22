@@ -5,13 +5,14 @@ import Peer from 'simple-peer';
 
 import { CallbackOnData, IErmesRepository, IErmesWebRtcRepository, SerializableDataType } from 'iermes/index';
 import wrtc from '../types/wrtc.js';
+import { Signal } from 'ermes-types';
 
 
 
 export const defaultStun: string = 'stun:stun.l.google.com:19302';
 
 export type PeerHandlerInput = {
-    offer?: string;
+    offer?: Signal;
     iceServers?: RTCIceServer[];
 }
 
@@ -41,7 +42,7 @@ export class PeerHandler implements IErmesWebRtcRepository{
         });
     
         if (offer) {
-            this.peer.signal(JSON.parse(offer));
+            this.peer.signal(offer)
         }
         
         
@@ -51,7 +52,7 @@ export class PeerHandler implements IErmesWebRtcRepository{
     }
 
 
-    public createOffer(): Promise<SignalData> {
+    public createSignal(): Promise<SignalData> {
         return new Promise((resolve) => {
           this.peer.once('signal', (data: SignalData | PromiseLike<SignalData>) => {
             console.log('[PeerHandler] Signal emitted!');
@@ -60,8 +61,8 @@ export class PeerHandler implements IErmesWebRtcRepository{
         });
     }
     
-    public setAnswer(answer: SignalData): void {
-        this.peer.signal(answer);
+    public setSignal(signal: Signal): void {
+        this.peer.signal(signal);
     }
 
 
