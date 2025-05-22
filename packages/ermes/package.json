@@ -55,6 +55,11 @@
       "require": "./dist/ermes-implementation/ErmesSendRepo.js",
       "types": "./dist/ermes-implementation/ErmesSendRepo.d.ts"
     },
+    "./ermes-implementation/ErmesService": {
+      "import": "./dist/ermes-implementation/ErmesService.js",
+      "require": "./dist/ermes-implementation/ErmesService.js",
+      "types": "./dist/ermes-implementation/ErmesService.d.ts"
+    },
     "./ermes-implementation/PeerHandler": {
       "import": "./dist/ermes-implementation/PeerHandler.js",
       "require": "./dist/ermes-implementation/PeerHandler.js",

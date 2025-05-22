@@ -18,6 +18,11 @@
       "require": "./dist/standard-interface/IErmes.js",
       "types": "./dist/standard-interface/IErmes.d.ts"
     },
+    "./standard-interface/IErmesWebRtc": {
+      "import": "./dist/standard-interface/IErmesWebRtc.js",
+      "require": "./dist/standard-interface/IErmesWebRtc.js",
+      "types": "./dist/standard-interface/IErmesWebRtc.d.ts"
+    },
     "./standard-interface/IIdHandler": {
       "import": "./dist/standard-interface/IIdHandler.js",
       "require": "./dist/standard-interface/IIdHandler.js",

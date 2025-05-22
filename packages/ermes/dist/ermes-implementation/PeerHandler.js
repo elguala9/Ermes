@@ -27,6 +27,9 @@ export class PeerHandler {
             this.peer.signal(JSON.parse(offer));
         }
     }
+    isClose() {
+        return this.peer.closed;
+    }
     createOffer() {
         return new Promise((resolve) => {
             this.peer.once('signal', (data) => {
@@ -36,7 +39,7 @@ export class PeerHandler {
         });
     }
     setAnswer(answer) {
-        this.peer.signal(JSON.parse(answer));
+        this.peer.signal(answer);
     }
     destroy() {
         this.peer.destroy();
@@ -66,6 +69,9 @@ export class PeerHandler {
     }
     onClose(callback) {
         this.peer.on('close', callback);
+    }
+    onSignal(callback) {
+        this.peer.on('signal', callback);
     }
     on(event, callback) {
         this.peer.on(event, callback);

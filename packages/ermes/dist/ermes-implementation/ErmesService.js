@@ -3,7 +3,7 @@ import { ErmesSendRepo } from "./ErmesSendRepo.js";
 export class ErmesService {
     constructor({ maxBuffer, maxByte, repository, idHandler, messageCallback }) {
         this.messageCallback = messageCallback;
-        this.repository = repository;
+        this._repository = repository;
         this.ermesSendRepo = new ErmesSendRepo(repository, idHandler, maxByte ?? 1024);
         this.ermesReadRepo = new ErmesReadRepo(repository, this.handleServiceMessage, {
             // the 
@@ -14,12 +14,43 @@ export class ErmesService {
             maxBufferSize: maxBuffer ?? 100
         });
     }
+    setRepository(repository) {
+        this._repository = repository;
+    }
+    isClose() {
+        return this._repository.isClose();
+    }
+    createOffer() {
+        return this._repository.createOffer();
+    }
+    async createOfferString() {
+        let offer = await this.createOffer();
+        return JSON.stringify(offer);
+    }
+    setAnswer(answer) {
+        return this._repository.setAnswer(answer);
+    }
+    setAnswerString(answer) {
+        this.setAnswer(JSON.parse(answer));
+    }
+    onConnect(callback) {
+        return this._repository.onConnect(callback);
+    }
+    onError(callback) {
+        return this._repository.onError(callback);
+    }
+    onClose(callback) {
+        return this._repository.onClose(callback);
+    }
+    onSignal(callback) {
+        return this._repository.onSignal(callback);
+    }
     onMessage(messageCallback) {
         this.messageCallback = messageCallback;
     }
     handleServiceMessage(mess) {
         if (mess.reason === "x")
-            return this.repository.destroy(true);
+            return this._repository.destroy(true);
         if (mess.reason == "c")
             throw new Error("Not implemented");
         // here i handle resend of messages
@@ -39,7 +70,7 @@ export class ErmesService {
         this.ermesSendRepo.send(message);
     }
     close() {
-        this.repository.destroy(false);
+        this._repository.destroy(false);
     }
 }
-//# sourceMappingURL=Ermes.js.map
+//# sourceMappingURL=ErmesService.js.map

@@ -3,7 +3,7 @@
 import type { Instance, SignalData } from 'simple-peer';
 import Peer from 'simple-peer';
 
-import { CallbackOnData, IErmesRepository, SerializableDataType } from 'iermes/index';
+import { CallbackOnData, IErmesRepository, IErmesWebRtcRepository, SerializableDataType } from 'iermes/index';
 import wrtc from '../types/wrtc.js';
 
 
@@ -15,7 +15,7 @@ export type PeerHandlerInput = {
     iceServers?: RTCIceServer[];
 }
 
-export class PeerHandler implements IErmesRepository{
+export class PeerHandler implements IErmesWebRtcRepository{
     private peer: Instance;
     private messageBuffer: SerializableDataType[] = [];
     private messageCallback?: CallbackOnData;
@@ -46,6 +46,10 @@ export class PeerHandler implements IErmesRepository{
         
         
     }
+    isClose(): boolean {
+        return this.peer.closed;
+    }
+
 
     public createOffer(): Promise<SignalData> {
         return new Promise((resolve) => {
@@ -56,9 +60,11 @@ export class PeerHandler implements IErmesRepository{
         });
     }
     
-    public setAnswer(answer: string): void {
-        this.peer.signal(JSON.parse(answer));
+    public setAnswer(answer: SignalData): void {
+        this.peer.signal(answer);
     }
+
+
 
     public destroy(): void {
         this.peer.destroy();
@@ -93,6 +99,10 @@ export class PeerHandler implements IErmesRepository{
     
     public onClose(callback: () => void) {
         this.peer.on('close', callback);
+    }
+
+    onSignal(callback: (data: SignalData | PromiseLike<SignalData>) => void): void {
+        this.peer.on('signal', callback);
     }
 
     public on(event: 'connect' | 'error' | 'close' | 'signal', callback: (...args: any[]) => void) {

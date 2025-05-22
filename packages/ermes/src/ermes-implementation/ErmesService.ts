@@ -4,7 +4,8 @@ import { ChunkInfo, ChunkMessage, IdType, MessageData, ServiceMessage } from "er
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
 import { ErmesSendRepo } from "./ErmesSendRepo.js";
 import { CallbackOnMessage, IErmesRepository, IErmesService } from "iermes/standard-interface/IErmes";
-import { IIdHandlerService } from "iermes/index";
+import { IErmesWebRtcRepository, IErmesWebRtcService, IIdHandlerService } from "iermes/index";
+import { SignalData } from "simple-peer";
 
 
 
@@ -12,31 +13,31 @@ export type MessageDataErmes = MessageData;
 export type MessageChunkErmes = ChunkMessage;
 
 export type ErmesServiceInput = {
-    repository: IErmesRepository, 
+    repository: IErmesWebRtcRepository, 
     messageCallback: CallbackOnMessage
-    idHandlerNumber: IIdHandlerService,
+    idHandler: IIdHandlerService,
     maxByte?: number,
     maxBuffer?: number
 }
 
-export class ErmesService implements IErmesService{
-    private repository: IErmesRepository
-    private ermesSendRepo: ErmesSendRepo;
-    private ermesReadRepo: ErmesReadRepo;
+export class ErmesService implements IErmesWebRtcService{
+    private _repository: IErmesWebRtcRepository
+    protected ermesSendRepo: ErmesSendRepo;
+    protected ermesReadRepo: ErmesReadRepo;
     // at this level i do not want MessageData, but only the buffer that the user sent
-    private messageCallback: CallbackOnMessage;
+    protected messageCallback: CallbackOnMessage;
 
     constructor({
             maxBuffer,
             maxByte,
             repository,
-            idHandlerNumber,
+            idHandler,
             messageCallback
             }: ErmesServiceInput
         ){
         this.messageCallback = messageCallback;
-        this.repository = repository;
-        this.ermesSendRepo = new ErmesSendRepo(repository, idHandlerNumber, maxByte ?? 1024)
+        this._repository = repository;
+        this.ermesSendRepo = new ErmesSendRepo(repository, idHandler, maxByte ?? 1024)
         this.ermesReadRepo = new ErmesReadRepo(repository, this.handleServiceMessage, {
             // the 
             messageDataCallback: (mess ) =>{
@@ -48,6 +49,41 @@ export class ErmesService implements IErmesService{
 
         
     }
+
+    setRepository(repository: IErmesWebRtcRepository): void {
+        this._repository = repository;
+    }
+    isClose(): boolean {
+        return this._repository.isClose();
+    }
+
+    createOffer(): Promise<SignalData> {
+       return this._repository.createOffer();
+    }
+    async createOfferString(): Promise<string> {
+        let offer = await this.createOffer();
+        return JSON.stringify(offer)
+    }
+
+    setAnswer(answer: SignalData): void {
+        return this._repository.setAnswer(answer);
+    }
+
+    setAnswerString(answer: string): void {
+        this.setAnswer(JSON.parse(answer));
+    }
+    onConnect(callback: () => void): void {
+        return this._repository.onConnect(callback);
+    }
+    onError(callback: (err: Error) => void): void {
+        return this._repository.onError(callback);
+    }
+    onClose(callback: () => void): void {
+        return this._repository.onClose(callback);
+    }
+    onSignal(callback: (data: SignalData | PromiseLike<SignalData>) => void): void {
+        return this._repository.onSignal(callback);
+    }
     
     onMessage(messageCallback: CallbackOnMessage): void {
         this.messageCallback = messageCallback;
@@ -55,7 +91,7 @@ export class ErmesService implements IErmesService{
 
     private handleServiceMessage(mess: ServiceMessage): void{
         if(mess.reason === "x")
-            return this.repository.destroy(true);
+            return this._repository.destroy(true);
         if(mess.reason == "c")
             throw new Error("Not implemented")
 
@@ -80,6 +116,6 @@ export class ErmesService implements IErmesService{
     }    
 
     close(){
-        this.repository.destroy(false);
+        this._repository.destroy(false);
     }
 }

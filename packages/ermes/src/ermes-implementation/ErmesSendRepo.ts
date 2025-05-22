@@ -16,19 +16,17 @@ type MessageInternalErmes = InternalMessage<MessageType>;
 type NewType = IErmesRepository;
 
 export class ErmesSendRepo {
-    private repository: NewType
-    private maxByte: number;
-    private idHandlerNumber: IIdHandlerService
+    private _repository: NewType
+    private _maxByte: number;
+    private _idHandler: IIdHandlerService
 
-    constructor(repository: IErmesRepository, idHandlerNumber: IIdHandlerService, maxByte: number = 1024){
+    constructor(repository: IErmesRepository, idHandler: IIdHandlerService, maxByte: number = 1024){
         if(maxByte >= 1200)
             throw new Error("Max byte cannot be more that 1299")
-        this.repository = repository;
-        this.maxByte = maxByte;
-        this.idHandlerNumber = idHandlerNumber;
+        this._repository = repository;
+        this._maxByte = maxByte;
+        this._idHandler = idHandler;
     }
-
-    private locked = false;
 
     // lock the call of certain methods
     
@@ -36,9 +34,9 @@ export class ErmesSendRepo {
     send(rawData: Uint8Array): void {
         
         //let rawData: SerializableDataType = objectToArrayBuffer(data);
-        let newId = this.idHandlerNumber.getNewId();
-        if(buffer.length > this.maxByte){
-            let rawDataArray: ChunkMessage[] = chunkArrayBuffer(rawData, newId , this.maxByte);
+        let newId = this._idHandler.getNewId();
+        if(buffer.length > this._maxByte){
+            let rawDataArray: ChunkMessage[] = chunkArrayBuffer(rawData, newId , this._maxByte);
             this.sendMessageType(rawDataArray);
             return; 
         }
@@ -73,7 +71,7 @@ export class ErmesSendRepo {
 
     // effettiva chiamata alla repo. Ci va una logica che in caso di errore memorizzi il messaggio
     private sendWithRepo(dataRaw: SerializableDataType): void {
-        this.repository.send(dataRaw);
+        this._repository.send(dataRaw);
     }
 
     
