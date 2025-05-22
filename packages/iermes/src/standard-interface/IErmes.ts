@@ -11,10 +11,24 @@ export interface CallbackFunction {
 export type CallbackOnData = (data: SerializableDataType) => void;
 export type CallbackOnMessage = (obj: Uint8Array) => void;
 
+
+     
 /**
  * implementation of the ermes protocol
  */
-export interface IErmesRepository {
+export interface IErmesPrivate {
+    /**
+     * true if the connection has been closed
+     */
+    isClose(): boolean
+
+}
+
+
+/**
+ * implementation of the ermes protocol
+ */
+export interface IErmesRepository extends IErmesPrivate {
     /**
      * send data
      * @param data the data that will be sedn over webrtc
@@ -39,7 +53,7 @@ export interface IErmesRepository {
 /**
  * handler of the repository
  */
-export interface IErmesService {
+export interface IErmesService extends IErmesPrivate  {
  
     /**
      * on message arrived call the function in input
@@ -61,7 +75,7 @@ export interface IErmesService {
      * change the repo, this will retain all the information in the service
      * @param repository new repository that the service is going to use
      */
-    setRepository?(repository: IErmesRepository): void;
+    setRepository(repository: IErmesRepository): void;
 }
 
 

@@ -3,9 +3,9 @@
  */
 
 export * from "./Utility.js";
-export * from "./ermes-implementation/Ermes.js";
 export * from "./ermes-implementation/ErmesReadRepo.js";
 export * from "./ermes-implementation/ErmesSendRepo.js";
+export * from "./ermes-implementation/ErmesService.js";
 export * from "./ermes-implementation/PeerHandler.js";
 export * from "./ermes-utility/ChunkHandler.js";
 export * from "./ermes-utility/IdHandlerRepository.js";

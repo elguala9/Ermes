@@ -6,7 +6,7 @@ export type MessageChunkErmes = ChunkMessage;
 export type ErmesServiceInput = {
     repository: IErmesRepository;
     messageCallback: CallbackOnMessage;
-    idHandlerNumber: IIdHandlerService;
+    idHandler: IIdHandlerService;
     maxByte?: number;
     maxBuffer?: number;
 };
@@ -15,7 +15,7 @@ export declare class ErmesService implements IErmesService {
     private ermesSendRepo;
     private ermesReadRepo;
     private messageCallback;
-    constructor({ maxBuffer, maxByte, repository, idHandlerNumber, messageCallback }: ErmesServiceInput);
+    constructor({ maxBuffer, maxByte, repository, idHandler, messageCallback }: ErmesServiceInput);
     onMessage(messageCallback: CallbackOnMessage): void;
     private handleServiceMessage;
     private sendMissingBaseMessage;
