@@ -4,19 +4,19 @@ import { arrayBufferToObject } from "serialization-utility/src/Serialization";
 import { ChunkHandler } from "../ermes-utility/ChunkHandler.js";
 import { MessageValue } from "ermes-types";
 export class ErmesReadRepo {
-    constructor(repository, callbackServiceMessage, { maxBufferSize, messageDataCallback }) {
+    constructor(repository, callbackServiceMessage, { maxBufferSize, messageCallback }) {
         this.messageNotMerged = new Map(); // the string is the id
         this.repository = repository;
         this.repository.onMessage(this.handleMessageArrayBuffer.bind(this)); // if i do not put .bind(this), the onMessage do not know the context
         this.callbackServiceMessage = callbackServiceMessage;
         this.messageNotReaded = new ObservableList(maxBufferSize);
-        this.messageDataCallback = messageDataCallback;
+        this.messageCallback = messageCallback;
         // the trigger on the arriving messages in the array
         this.messageNotReaded.onAdd(() => {
-            if (this.messageDataCallback) {
+            if (this.messageCallback) {
                 while (!this.messageNotReaded.isEmpty()) {
                     let mess = this.messageNotReaded.shift();
-                    this.messageDataCallback(mess);
+                    this.messageCallback(mess.data, mess);
                 }
             }
         });
@@ -24,8 +24,8 @@ export class ErmesReadRepo {
     setCallbackServiceMessage(callbackServiceMessage) {
         this.callbackServiceMessage = callbackServiceMessage;
     }
-    setMessageDataCallback(messageDataCallback) {
-        this.messageDataCallback = messageDataCallback;
+    setMessageDataCallback(messageCallback) {
+        this.messageCallback = messageCallback;
     }
     handleMessageArrayBuffer(message) {
         console.log("handleMessageArrayBuffer", message);
@@ -55,18 +55,24 @@ export class ErmesReadRepo {
         this.pushInNotReaded(mess);
     }
     handleChunkMessage(mess) {
-        let res = this.messageNotMerged.get(mess.id);
+        let res = this.messageNotMerged.get(mess.ref_id);
         // se il chunk non esite lo aggiungo
         if (res == undefined) {
-            res = new ChunkHandler(mess.id, mess.roof);
-            this.messageNotMerged.set(mess.id, res);
+            res = new ChunkHandler(mess.ref_id, mess.roof);
+            this.messageNotMerged.set(mess.ref_id, res);
         }
-        let buffer = res.addChunk(mess);
-        if (buffer !== undefined)
+        this.addChunk(res, mess);
+    }
+    addChunk(handler, mess) {
+        let buffer = handler.addChunk(mess);
+        if (buffer !== undefined) {
             this.pushInNotReaded({
                 data: buffer,
-                id: mess.id
+                id: mess.ref_id
             });
+            // need to delete the chunks
+            this.messageNotMerged.delete(mess.ref_id);
+        }
     }
     pushInNotReaded(mess) {
         this.messageNotReaded.push(mess);

@@ -21,6 +21,7 @@ export class ChunkHandler {
         return this.id;
     }
 
+    // if chunk is not completed undefined
     public addChunk(chunk: MessageChunkErmes): Uint8Array | undefined{
         if(this.isDuplicate(chunk))
             return undefined;

@@ -1,4 +1,5 @@
 import { ChunkMessage, IdType, MessageType, MessageValue } from "ermes-types";
+import { IIdHandlerService } from "iermes/index";
 
 
 /**
@@ -8,7 +9,7 @@ import { ChunkMessage, IdType, MessageType, MessageValue } from "ermes-types";
  * @param maxByte - The maximum number of bytes allowed per chunk.
  * @returns An array of ChunkMessage objects, each containing a chunk of the original ArrayBuffer.
  */
-export function chunkArrayBuffer(buffer: Uint8Array, id: IdType, maxByte: number): ChunkMessage[] {
+export function chunkArrayBuffer(idHanlder: IIdHandlerService, buffer: Uint8Array, ref_id: IdType, maxByte: number): ChunkMessage[] {
     const totalLength = buffer.byteLength;
     const numChunks = Math.ceil(totalLength / maxByte);
     const chunks: ChunkMessage[] = [];
@@ -23,7 +24,8 @@ export function chunkArrayBuffer(buffer: Uint8Array, id: IdType, maxByte: number
             data: chunkBuffer,
             index: i,
             roof: numChunks,
-            id
+            id: idHanlder.getNewId(),
+            ref_id
         });
     }
   

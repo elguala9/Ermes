@@ -16,7 +16,7 @@ export class ErmesSendRepo {
         //let rawData: SerializableDataType = objectToArrayBuffer(data);
         let newId = this._idHandler.getNewId();
         if (buffer.length > this._maxByte) {
-            let rawDataArray = chunkArrayBuffer(rawData, newId, this._maxByte);
+            let rawDataArray = chunkArrayBuffer(this._idHandler, rawData, newId, this._maxByte);
             this.sendMessageType(rawDataArray);
             return;
         }

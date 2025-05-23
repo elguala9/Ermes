@@ -6,7 +6,7 @@ import { MessageValue } from "ermes-types";
  * @param maxByte - The maximum number of bytes allowed per chunk.
  * @returns An array of ChunkMessage objects, each containing a chunk of the original ArrayBuffer.
  */
-export function chunkArrayBuffer(buffer, id, maxByte) {
+export function chunkArrayBuffer(idHanlder, buffer, ref_id, maxByte) {
     const totalLength = buffer.byteLength;
     const numChunks = Math.ceil(totalLength / maxByte);
     const chunks = [];
@@ -19,7 +19,8 @@ export function chunkArrayBuffer(buffer, id, maxByte) {
             data: chunkBuffer,
             index: i,
             roof: numChunks,
-            id
+            id: idHanlder.getNewId(),
+            ref_id
         });
     }
     return chunks;

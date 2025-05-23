@@ -1,11 +1,10 @@
-import { ChunkInfo, ChunkMessage, IdType, MessageData, ServiceMessage, Signal } from "ermes-types";
+import { CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, ChunkInfo, IdType, ServiceMessage } from "ermes-types";
 
 
+import { ErmesServiceInput, IErmesWebRtcRepository } from "iermes/index";
+import { IErmesRepository, IErmesService } from "iermes/standard-interface/IErmes";
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
 import { ErmesSendRepo } from "./ErmesSendRepo.js";
-import { CallbackOnMessage, IErmesRepository, IErmesService } from "iermes/standard-interface/IErmes";
-import { ErmesServiceInput, IErmesWebRtcRepository, IErmesWebRtcService, IIdHandlerService } from "iermes/index";
-import { SignalData } from "simple-peer";
 
 
 
@@ -18,8 +17,7 @@ export class ErmesService implements IErmesService{
     protected ermesSendRepo: ErmesSendRepo;
     protected ermesReadRepo: ErmesReadRepo;
     // at this level i do not want MessageData, but only the buffer that the user sent
-    protected messageCallback: CallbackOnMessage;
-
+    protected messageCallback?: CallbackOnMessageService;
     constructor({
             maxBuffer,
             maxByte,
@@ -32,16 +30,26 @@ export class ErmesService implements IErmesService{
         this._repository = repository;
         this.ermesSendRepo = new ErmesSendRepo(repository, idHandler, maxByte ?? 1024)
         this.ermesReadRepo = new ErmesReadRepo(repository, this.handleServiceMessage, {
-            // the 
-            messageDataCallback: (mess ) =>{
-                if(this.messageCallback)
-                    this.messageCallback(mess.data);
-            },
+            messageCallback: this.messageCallback,
             maxBufferSize: maxBuffer ?? 100
         })
 
         
     }
+    onMessageSending(callback: CallbackOnMessageSending): void {
+        throw new Error("Method not implemented.");
+    }
+    onMessageSended(callback: CallbackOnMessageSended): void {
+        throw new Error("Method not implemented.");
+    }
+
+    // this function is NEEDED. 
+    // What i want: be able to pass an undefined messageCallback to the constructor
+    // The problem: messageDataCallback and messageCallback are different types, i cannot directly pass messageCallback
+    //              this means that i need to create a function like  (mess ) => this.messageCallback(mess.data)
+    //              but this function (dummy) will never be undefined and i will lose messages
+    // Solution: create a method that will set messageDataCallback undefined or defined, based on messageCallback
+    
 
     setRepository(repository: IErmesWebRtcRepository): void {
         this._repository = repository;
@@ -50,7 +58,7 @@ export class ErmesService implements IErmesService{
         return this._repository.isClose();
     }
     
-    onMessage(messageCallback: CallbackOnMessage): void {
+    onMessage(messageCallback: CallbackOnMessageService): void {
         this.messageCallback = messageCallback;
     }
 

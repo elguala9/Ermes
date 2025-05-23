@@ -1,6 +1,4 @@
-import { IdType } from "ermes-types"
-import { CallbackOnMessage, IErmesRepository } from "./IErmes.js";
-import { IErmesWebRtcRepository } from "./IErmesWebRtc.js";
+import { IdType } from "ermes-types";
 
 /**
  * interface used to create Ids for the messages
