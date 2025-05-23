@@ -4,25 +4,17 @@ import { ChunkInfo, ChunkMessage, IdType, MessageData, ServiceMessage, Signal } 
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
 import { ErmesSendRepo } from "./ErmesSendRepo.js";
 import { CallbackOnMessage, IErmesRepository, IErmesService } from "iermes/standard-interface/IErmes";
-import { IErmesWebRtcRepository, IErmesWebRtcService, IIdHandlerService } from "iermes/index";
+import { ErmesServiceInput, IErmesWebRtcRepository, IErmesWebRtcService, IIdHandlerService } from "iermes/index";
 import { SignalData } from "simple-peer";
 
 
 
 
-export type MessageDataErmes = MessageData;
-export type MessageChunkErmes = ChunkMessage;
 
-export type ErmesServiceInput = {
-    repository: IErmesWebRtcRepository, 
-    messageCallback: CallbackOnMessage
-    idHandler: IIdHandlerService,
-    maxByte?: number,
-    maxBuffer?: number
-}
 
-export class ErmesService implements IErmesWebRtcService{
-    private _repository: IErmesWebRtcRepository
+
+export class ErmesService implements IErmesService{
+    private _repository: IErmesRepository
     protected ermesSendRepo: ErmesSendRepo;
     protected ermesReadRepo: ErmesReadRepo;
     // at this level i do not want MessageData, but only the buffer that the user sent
@@ -56,28 +48,6 @@ export class ErmesService implements IErmesWebRtcService{
     }
     isClose(): boolean {
         return this._repository.isClose();
-    }
-
-    createSignal(): Promise<Signal> {
-       return this._repository.createSignal();
-    }
-
-
-    setSignal(signal: Signal): void {
-        return this._repository.setSignal(signal);
-    }
-
-    onConnect(callback: () => void): void {
-        return this._repository.onConnect(callback);
-    }
-    onError(callback: (err: Error) => void): void {
-        return this._repository.onError(callback);
-    }
-    onClose(callback: () => void): void {
-        return this._repository.onClose(callback);
-    }
-    onSignal(callback: (data: SignalData | PromiseLike<SignalData>) => void): void {
-        return this._repository.onSignal(callback);
     }
     
     onMessage(messageCallback: CallbackOnMessage): void {

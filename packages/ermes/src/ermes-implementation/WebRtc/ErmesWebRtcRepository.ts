@@ -1,27 +1,23 @@
-// src/PeerHandler.ts
+// src/ErmesRepository.ts
 
 import type { Instance, SignalData } from 'simple-peer';
 import Peer from 'simple-peer';
 
-import { CallbackOnData, IErmesRepository, IErmesWebRtcRepository, SerializableDataType } from 'iermes/index';
-import wrtc from '../types/wrtc.js';
+import { CallbackOnData, ErmesWbrtcRepositoryInput, IErmesWebRtcRepository, SerializableDataType } from 'iermes/index';
+import wrtc from '../../types/wrtc.js';
 import { Signal } from 'ermes-types';
 
 
 
 export const defaultStun: string = 'stun:stun.l.google.com:19302';
 
-export type PeerHandlerInput = {
-    offer?: Signal;
-    iceServers?: RTCIceServer[];
-}
 
-export class PeerHandler implements IErmesWebRtcRepository{
+export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
     private peer: Instance;
     private messageBuffer: SerializableDataType[] = [];
     private messageCallback?: CallbackOnData;
     
-    constructor({ offer, iceServers }: PeerHandlerInput) {
+    constructor({ offer, iceServers }: ErmesWbrtcRepositoryInput) {
         this.peer = new Peer({
             initiator: !offer,
             trickle: false, // puoi anche mettere true per connessioni più rapide
@@ -55,7 +51,7 @@ export class PeerHandler implements IErmesWebRtcRepository{
     public createSignal(): Promise<SignalData> {
         return new Promise((resolve) => {
           this.peer.once('signal', (data: SignalData | PromiseLike<SignalData>) => {
-            console.log('[PeerHandler] Signal emitted!');
+            console.log('[ErmesRepository] Signal emitted!');
             resolve(data);
           });
         });

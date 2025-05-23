@@ -1,6 +1,6 @@
 import { Signal } from "ermes-types";
-import { IErmesRepository, IErmesService } from "./IErmes.js";
 import type { SignalData } from 'simple-peer';
+import { IErmesRepository, IErmesService } from "./IErmes.js";
 
 
 interface IErmesWebRtcPrivate {
@@ -43,6 +43,3 @@ export interface IErmesWebRtcService extends IErmesService, IErmesWebRtcPrivate 
      */
     setRepository(repository: IErmesWebRtcRepository): void;
 }
-
-
-

@@ -3,7 +3,7 @@ export class IdHandlerRepository {
      * @param max  Valore massimo consentito per l'ID (inclusivo). Al superamento si ricomincia da 0.
      * @param start Valore iniziale del contatore (default 0)
      */
-    constructor(max = Number.MAX_SAFE_INTEGER, start = 0) {
+    constructor({ max = Number.MAX_SAFE_INTEGER, start = 0 }) {
         if (!Number.isInteger(max) || max < 1) {
             throw new Error("`max` deve essere un intero ≥ 1");
         }

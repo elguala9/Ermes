@@ -13,6 +13,11 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./Types": {
+      "import": "./dist/Types.js",
+      "require": "./dist/Types.js",
+      "types": "./dist/Types.d.ts"
+    },
     "./standard-interface/IErmes": {
       "import": "./dist/standard-interface/IErmes.js",
       "require": "./dist/standard-interface/IErmes.js",
@@ -23,10 +28,40 @@
       "require": "./dist/standard-interface/IErmesWebRtc.js",
       "types": "./dist/standard-interface/IErmesWebRtc.d.ts"
     },
+    "./standard-interface/IErmesWebRtcFactory": {
+      "import": "./dist/standard-interface/IErmesWebRtcFactory.js",
+      "require": "./dist/standard-interface/IErmesWebRtcFactory.js",
+      "types": "./dist/standard-interface/IErmesWebRtcFactory.d.ts"
+    },
     "./standard-interface/IIdHandler": {
       "import": "./dist/standard-interface/IIdHandler.js",
       "require": "./dist/standard-interface/IIdHandler.js",
       "types": "./dist/standard-interface/IIdHandler.d.ts"
+    },
+    "./standard-interface/IIdHandlerFactory": {
+      "import": "./dist/standard-interface/IIdHandlerFactory.js",
+      "require": "./dist/standard-interface/IIdHandlerFactory.js",
+      "types": "./dist/standard-interface/IIdHandlerFactory.d.ts"
+    },
+    "./standard-interface/IIdHandlerStorage": {
+      "import": "./dist/standard-interface/IIdHandlerStorage.js",
+      "require": "./dist/standard-interface/IIdHandlerStorage.js",
+      "types": "./dist/standard-interface/IIdHandlerStorage.d.ts"
+    },
+    "./types/ErmesWebRtcInput": {
+      "import": "./dist/types/ErmesWebRtcInput.js",
+      "require": "./dist/types/ErmesWebRtcInput.js",
+      "types": "./dist/types/ErmesWebRtcInput.d.ts"
+    },
+    "./types/IdHandlerInput": {
+      "import": "./dist/types/IdHandlerInput.js",
+      "require": "./dist/types/IdHandlerInput.js",
+      "types": "./dist/types/IdHandlerInput.d.ts"
+    },
+    "./types/types": {
+      "import": "./dist/types/types.js",
+      "require": "./dist/types/types.js",
+      "types": "./dist/types/types.d.ts"
     },
     "./storage-interface/IErmesCaching": {
       "import": "./dist/storage-interface/IErmesCaching.js",

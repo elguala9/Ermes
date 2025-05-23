@@ -1,6 +1,14 @@
 import { expect } from "chai";
-export function testErmesService(service_1, service_2) {
-    describe('IErmesService Tests', () => {
+export function testErmesService(f) {
+    let service_1;
+    let service_2;
+    describe('IErmesService Tests', function () {
+        before(async function () {
+            this.timeout(20000);
+            let x = await f();
+            service_1 = x.service_1;
+            service_2 = x.service_2;
+        });
         it('Send & Receive Test', async () => {
             const payload = new Uint8Array([1, 2, 3, 4]);
             // Promessa che si risolve al primo messaggio ricevuto

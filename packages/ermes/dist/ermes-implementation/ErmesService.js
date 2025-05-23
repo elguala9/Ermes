@@ -20,24 +20,6 @@ export class ErmesService {
     isClose() {
         return this._repository.isClose();
     }
-    createSignal() {
-        return this._repository.createSignal();
-    }
-    setSignal(signal) {
-        return this._repository.setSignal(signal);
-    }
-    onConnect(callback) {
-        return this._repository.onConnect(callback);
-    }
-    onError(callback) {
-        return this._repository.onError(callback);
-    }
-    onClose(callback) {
-        return this._repository.onClose(callback);
-    }
-    onSignal(callback) {
-        return this._repository.onSignal(callback);
-    }
     onMessage(messageCallback) {
         this.messageCallback = messageCallback;
     }
