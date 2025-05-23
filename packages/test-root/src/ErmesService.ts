@@ -1,11 +1,11 @@
 import { ErmesService, IdHandlerRepository, IdHandlerService, PeerHandler } from "ermes/index";
-import { CallbackOnMessage } from "iermes/index";
+import { CallbackOnMessage, IErmesService } from "iermes/index";
 import { testErmesService } from "test-ermes";
 
 let max = 1000;
 let start = 0;
 
-async function mainAsync(){
+async function factoryAsync(): Promise<{service_1: IErmesService, service_2: IErmesService}>{
     let idHandlerRepo_1 = new IdHandlerRepository(max, start);
     let idHandlerService_1 = new IdHandlerService(idHandlerRepo_1);
 
@@ -39,6 +39,23 @@ async function mainAsync(){
         repository: repo_2
     });
 
-    testErmesService(service_1, service_2);
+    // wait for connected
+    await new Promise<void>((resolve, reject) => {
+    let connectedCount = 0;
+    const onConn = () => {
+      if (++connectedCount === 2) resolve();
+    };
+    const onErr = (err: Error) => reject(err);
+
+    service_1.onConnect(onConn);
+    service_2.onConnect(onConn);
+    service_1.onError(onErr);
+    service_2.onError(onErr);
+  });
+
+    return {service_1, service_2}
+
+    
 }
 
+testErmesService(factoryAsync);

@@ -1,5 +1,5 @@
 import { IdType } from "ermes-types";
-import { IIdHandlerRepository } from "iermes/index";
+import { IdHandlerRepositoryInput, IIdHandlerRepository } from "iermes/index";
 export declare class IdHandlerRepository implements IIdHandlerRepository {
     private current;
     private readonly max;
@@ -7,7 +7,7 @@ export declare class IdHandlerRepository implements IIdHandlerRepository {
      * @param max  Valore massimo consentito per l'ID (inclusivo). Al superamento si ricomincia da 0.
      * @param start Valore iniziale del contatore (default 0)
      */
-    constructor(max?: number, start?: number);
+    constructor({ max, start }: IdHandlerRepositoryInput);
     getNewId(): number;
     reset(): void;
     setCounter(counter: number): void;

@@ -39,7 +39,9 @@
     "add-js": "ts-node utility/add-js-import.ts",
     "test:caching": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesCaching.ts",
     "test:storage": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesStorage.ts",
-    "test:idhandler": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesIdHandler.ts"
+    "test:idhandler": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesIdHandler.ts",
+    "test:ermes": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesService.ts"
+
   },
   "devDependencies": {
     "@types/gun": "^0.9.6",

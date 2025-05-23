@@ -1,5 +1,5 @@
 import { IdType } from "ermes-types";
-import { IIdHandlerRepository } from "iermes/index";
+import { IdHandlerRepositoryInput, IIdHandlerRepository } from "iermes/index";
 
 
 
@@ -12,7 +12,7 @@ export class IdHandlerRepository implements IIdHandlerRepository {
      * @param max  Valore massimo consentito per l'ID (inclusivo). Al superamento si ricomincia da 0.
      * @param start Valore iniziale del contatore (default 0)
      */
-    constructor(max: number = Number.MAX_SAFE_INTEGER, start: number = 0) {
+    constructor({max = Number.MAX_SAFE_INTEGER, start= 0}: IdHandlerRepositoryInput) {
       if (!Number.isInteger(max) || max < 1) {
         throw new Error("`max` deve essere un intero ≥ 1");
       }

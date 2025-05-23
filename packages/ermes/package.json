@@ -55,6 +55,21 @@
       "require": "./dist/ermes-implementation/ErmesService.js",
       "types": "./dist/ermes-implementation/ErmesService.d.ts"
     },
+    "./ermes-implementation/ErmesWebRtcFactory": {
+      "import": "./dist/ermes-implementation/ErmesWebRtcFactory.js",
+      "require": "./dist/ermes-implementation/ErmesWebRtcFactory.js",
+      "types": "./dist/ermes-implementation/ErmesWebRtcFactory.d.ts"
+    },
+    "./ermes-implementation/ErmesWebRtcRepository": {
+      "import": "./dist/ermes-implementation/ErmesWebRtcRepository.js",
+      "require": "./dist/ermes-implementation/ErmesWebRtcRepository.js",
+      "types": "./dist/ermes-implementation/ErmesWebRtcRepository.d.ts"
+    },
+    "./ermes-implementation/ErmesWebRtcService": {
+      "import": "./dist/ermes-implementation/ErmesWebRtcService.js",
+      "require": "./dist/ermes-implementation/ErmesWebRtcService.js",
+      "types": "./dist/ermes-implementation/ErmesWebRtcService.d.ts"
+    },
     "./ermes-implementation/PeerHandler": {
       "import": "./dist/ermes-implementation/PeerHandler.js",
       "require": "./dist/ermes-implementation/PeerHandler.js",
@@ -64,6 +79,11 @@
       "import": "./dist/ermes-utility/ChunkHandler.js",
       "require": "./dist/ermes-utility/ChunkHandler.js",
       "types": "./dist/ermes-utility/ChunkHandler.d.ts"
+    },
+    "./ermes-utility/IdHandlerFactory": {
+      "import": "./dist/ermes-utility/IdHandlerFactory.js",
+      "require": "./dist/ermes-utility/IdHandlerFactory.js",
+      "types": "./dist/ermes-utility/IdHandlerFactory.d.ts"
     },
     "./ermes-utility/IdHandlerRepository": {
       "import": "./dist/ermes-utility/IdHandlerRepository.js",
@@ -79,6 +99,21 @@
       "import": "./dist/types/wrtc.js",
       "require": "./dist/types/wrtc.js",
       "types": "./dist/types/wrtc.d.ts"
+    },
+    "./ermes-implementation/WebRtc/ErmesWebRtcFactory": {
+      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
+      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
+      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.d.ts"
+    },
+    "./ermes-implementation/WebRtc/ErmesWebRtcRepository": {
+      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.js",
+      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.js",
+      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.d.ts"
+    },
+    "./ermes-implementation/WebRtc/ErmesWebRtcService": {
+      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.js",
+      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.js",
+      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.d.ts"
     }
   }
 }

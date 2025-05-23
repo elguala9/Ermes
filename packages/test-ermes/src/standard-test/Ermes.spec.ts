@@ -4,10 +4,23 @@ import { IErmesService, IIdHandlerService } from "iermes/index";
 
 
 export function testErmesService(
-  service_1: IErmesService,
-  service_2: IErmesService
+
+  f: () => Promise<{service_1: IErmesService, service_2: IErmesService}>
 ) {
-  describe('IErmesService Tests', () => {
+
+  let service_1: IErmesService;
+  let service_2: IErmesService;
+
+
+
+  describe('IErmesService Tests', function () {
+
+    before(async function () {
+      this.timeout(20000); 
+      let x = await f();
+      service_1 = x.service_1;
+      service_2 = x.service_2;
+    })
 
     it('Send & Receive Test', async () => {
       const payload = new Uint8Array([1, 2, 3, 4]);

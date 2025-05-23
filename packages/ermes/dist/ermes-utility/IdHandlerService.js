@@ -3,7 +3,7 @@ export class IdHandlerService {
      * @param repo
      * @param storage where data will be stored permanently
      */
-    constructor(repo, storage) {
+    constructor({ repo, storage }) {
         this._repo = repo;
         this._storage = storage;
     }

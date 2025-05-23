@@ -1,6 +1,6 @@
 import { Signal } from "ermes-types";
-import { IErmesRepository, IErmesService } from "./IErmes.js";
 import type { SignalData } from 'simple-peer';
+import { IErmesRepository, IErmesService } from "./IErmes.js";
 interface IErmesWebRtcPrivate {
     /**
      * create the signal (offer/answer) that will be passed to the other peer

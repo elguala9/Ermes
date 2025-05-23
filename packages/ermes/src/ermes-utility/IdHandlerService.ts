@@ -1,5 +1,5 @@
 import { IdType } from "ermes-types";
-import { IIdHandlerRepository, IIdHandlerService, IIdHandlerStorageService } from "iermes/index";
+import { IdHandlerServiceInput, IIdHandlerRepository, IIdHandlerService, IIdHandlerStorageService } from "iermes/index";
 
 
 
@@ -14,7 +14,7 @@ import { IIdHandlerRepository, IIdHandlerService, IIdHandlerStorageService } fro
        * @param repo 
        * @param storage where data will be stored permanently
        */
-      constructor(repo: IIdHandlerRepository, storage?: IIdHandlerStorageService) {
+      constructor({repo, storage}: IdHandlerServiceInput) {
         this._repo = repo;
         this._storage = storage;
       }

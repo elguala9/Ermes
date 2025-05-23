@@ -3,7 +3,12 @@
  */
 export * from "./standard-interface/IErmes.js";
 export * from "./standard-interface/IErmesWebRtc.js";
+export * from "./standard-interface/IErmesWebRtcFactory.js";
 export * from "./standard-interface/IIdHandler.js";
+export * from "./standard-interface/IIdHandlerFactory.js";
+export * from "./standard-interface/IIdHandlerStorage.js";
 export * from "./storage-interface/IErmesCaching.js";
 export * from "./storage-interface/IErmesStorage.js";
 export * from "./storage-interface/IErmesStorageReserved.js";
+export * from "./types/ErmesWebRtcInput.js";
+export * from "./types/IdHandlerInput.js";
