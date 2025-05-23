@@ -1,6 +1,6 @@
+import { CallbackOnDataRepository, CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, SerializableDataType, TypeOfData } from "ermes-types";
 
 
-export type SerializableDataType = ArrayBuffer;
 
 export interface CallbackFunction {
     // false -> problems
@@ -8,8 +8,7 @@ export interface CallbackFunction {
 }
 
 
-export type CallbackOnData = (data: SerializableDataType) => void;
-export type CallbackOnMessage = (obj: Uint8Array) => void;
+
 
 
      
@@ -39,7 +38,7 @@ export interface IErmesRepository extends IErmesPrivate {
      * callbak on 'data'
      * @param callback callback that will be called when the data arrives
      */
-    onMessage(callback: CallbackOnData): void
+    onMessage(callback: CallbackOnDataRepository): void
 
     /**
      * close the connection with the other peer
@@ -56,15 +55,25 @@ export interface IErmesRepository extends IErmesPrivate {
 export interface IErmesService extends IErmesPrivate  {
  
     /**
-     * on message arrived call the function in input
+     * on message arrivede call the callback
      * @param messageCallback the callback 
      */
-    onMessage(messageCallback: CallbackOnMessage): void
-     /**
+    onMessage(callback: CallbackOnMessageService): void
+    /**
+     * the message that the service is sending
+     * @param callback the callback called
+     */
+    onMessageSending(callback: CallbackOnMessageSending): void
+    /**
+     * the message that the service sended (not confirmed if arrived)
+     * @param callback the callback called
+     */
+    onMessageSended(callback: CallbackOnMessageSended): void
+    /**
      * send data
      * @param data the data that will be send over webrtc
-     */
-    send(message: Uint8Array): void;
+    */
+    send(message: TypeOfData): void;
 
     /**
      * close the connection

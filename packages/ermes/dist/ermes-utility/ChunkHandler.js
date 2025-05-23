@@ -12,6 +12,7 @@ export class ChunkHandler {
     getId() {
         return this.id;
     }
+    // if chunk is not completed undefined
     addChunk(chunk) {
         if (this.isDuplicate(chunk))
             return undefined;

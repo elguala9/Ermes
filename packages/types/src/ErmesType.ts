@@ -26,6 +26,8 @@ export type IntegrityCheckType = string | number | boolean
 // type of the id
 export type IdType = number 
 
+// this is the type used by the ermes service
+export type TypeOfData = Uint8Array;
 
 export type MessageRoot<
     //MessageTypeGeneric extends MessageType,
@@ -46,7 +48,7 @@ export type MessageWithId = {
 }
 
 // DataType is suggested to be ArrayBuffer
-export type MessageData =  MessageDataGeneric<Uint8Array> & MessageWithId & {
+export type MessageData =  MessageDataGeneric<TypeOfData> & MessageWithId & {
 }
 
 // DataType is suggested to be ArrayBuffer
@@ -55,12 +57,13 @@ export type MessageDataGeneric<DataType> = MessageWithId & {
 }
 
 export type ChunkMessageGeneric<DataType> = MessageDataGeneric<DataType> & { //if i send the message in multiple pieces
+    ref_id: IdType; // id of the complete message
     index: number; // index of the chunk
     roof: number; // number of all the pieces
 }
 
 
-export type ChunkMessage = ChunkMessageGeneric<Uint8Array> & { //if i send the message in multiple pieces
+export type ChunkMessage = ChunkMessageGeneric<TypeOfData> & { //if i send the message in multiple pieces
 
 }
 
@@ -82,3 +85,21 @@ export type MessageRootErmes = MessageRoot<string>;
 export type MessageDataErmes = MessageData;
 export type MessageInternalErmes = InternalMessage<MessageType>;
 export type MessageChunkErmes = ChunkMessage;
+
+export type CallBackServiceMessage = (serviceMessage: ServiceMessage) => void
+export type CallbackOnMessageData = (serviceMessage: MessageDataErmes) => void
+
+type CallbackOnMessage = (message: MessageType) => void
+export type CallbackOnMessageSending = CallbackOnMessage
+export type CallbackOnMessageSended = CallbackOnMessage
+export type CallbackOnMessageReceived = CallbackOnMessage
+
+// this is the type used by the ermes repository
+export type SerializableDataType = ArrayBuffer;
+
+// here we ahve the data on webrtc
+export type CallbackOnDataRepository = (data: SerializableDataType) => void;
+
+
+// type of the callback when a message arrive
+export type CallbackOnMessageService = (data: TypeOfData, messageWithId: MessageWithId) => void;

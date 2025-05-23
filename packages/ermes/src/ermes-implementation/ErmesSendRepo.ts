@@ -1,7 +1,7 @@
 
-import { ChunkMessage, InternalMessage, MessageData, MessageDataErmes, MessageRoot, MessageType } from "ermes-types";
+import { ChunkMessage, InternalMessage, MessageData, MessageDataErmes, MessageRoot, MessageType, SerializableDataType } from "ermes-types";
 import { buffer } from "stream/consumers";
-import { IErmesRepository, IIdHandlerService, SerializableDataType } from "iermes/index";
+import { IErmesRepository, IIdHandlerService } from "iermes/index";
 import { chunkArrayBuffer, getMessageType } from "../Utility.js";
 import { serializeObject } from "serialization-utility/src/Serialization";
 import { calculateHashSync } from "serialization-utility/src/Hash";
@@ -36,7 +36,7 @@ export class ErmesSendRepo {
         //let rawData: SerializableDataType = objectToArrayBuffer(data);
         let newId = this._idHandler.getNewId();
         if(buffer.length > this._maxByte){
-            let rawDataArray: ChunkMessage[] = chunkArrayBuffer(rawData, newId , this._maxByte);
+            let rawDataArray: ChunkMessage[] = chunkArrayBuffer(this._idHandler, rawData, newId, this._maxByte);
             this.sendMessageType(rawDataArray);
             return; 
         }

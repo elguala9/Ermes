@@ -1,10 +1,7 @@
-import { ChunkInfo, ChunkMessage, IdType, MessageData, ServiceMessage, Signal } from "ermes-types";
+import { Signal } from "ermes-types";
 
 
-import { ErmesReadRepo } from "../ErmesReadRepo.js";
-import { ErmesSendRepo } from "../ErmesSendRepo.js";
-import { CallbackOnMessage, IErmesRepository, IErmesService } from "iermes/standard-interface/IErmes";
-import {  ErmesWebRtcServiceInput, IErmesWebRtcRepository, IErmesWebRtcService, IIdHandlerService } from "iermes/index";
+import { ErmesWebRtcServiceInput, IErmesWebRtcRepository, IErmesWebRtcService } from "iermes/index";
 import { SignalData } from "simple-peer";
 import { ErmesService } from "../ErmesService.js";
 

@@ -7,6 +7,7 @@ export type ServiceReason = 'c' | 's' | 'x';
 export type MessageType = MessageData | ChunkMessage | ServiceMessage;
 export type IntegrityCheckType = string | number | boolean;
 export type IdType = number;
+export type TypeOfData = Uint8Array;
 export type MessageRoot<IntegrityCheckTypeGeneric extends IntegrityCheckType> = {
     messageSerialized: Uint8Array;
     integrityCheckValue: IntegrityCheckTypeGeneric;
@@ -18,15 +19,16 @@ export type InternalMessage<MessageTypeGeneric extends MessageType> = {
 export type MessageWithId = {
     id: IdType;
 };
-export type MessageData = MessageDataGeneric<Uint8Array> & MessageWithId & {};
+export type MessageData = MessageDataGeneric<TypeOfData> & MessageWithId & {};
 export type MessageDataGeneric<DataType> = MessageWithId & {
     data: DataType;
 };
 export type ChunkMessageGeneric<DataType> = MessageDataGeneric<DataType> & {
+    ref_id: IdType;
     index: number;
     roof: number;
 };
-export type ChunkMessage = ChunkMessageGeneric<Uint8Array> & {};
+export type ChunkMessage = ChunkMessageGeneric<TypeOfData> & {};
 export type ServiceMessage = MessageWithId & {
     arrayChunkInfo?: ChunkInfo[];
     arrayId?: IdType[];
@@ -40,3 +42,13 @@ export type MessageRootErmes = MessageRoot<string>;
 export type MessageDataErmes = MessageData;
 export type MessageInternalErmes = InternalMessage<MessageType>;
 export type MessageChunkErmes = ChunkMessage;
+export type CallBackServiceMessage = (serviceMessage: ServiceMessage) => void;
+export type CallbackOnMessageData = (serviceMessage: MessageDataErmes) => void;
+type CallbackOnMessage = (message: MessageType) => void;
+export type CallbackOnMessageSending = CallbackOnMessage;
+export type CallbackOnMessageSended = CallbackOnMessage;
+export type CallbackOnMessageReceived = CallbackOnMessage;
+export type SerializableDataType = ArrayBuffer;
+export type CallbackOnDataRepository = (data: SerializableDataType) => void;
+export type CallbackOnMessageService = (data: TypeOfData, messageWithId: MessageWithId) => void;
+export {};
