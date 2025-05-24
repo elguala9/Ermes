@@ -25,8 +25,8 @@ export class ErmesService {
     setRepository(repository) {
         this._repository = repository;
     }
-    isClose() {
-        return this._repository.isClose();
+    isClosed() {
+        return this._repository.isClosed();
     }
     onMessage(messageCallback) {
         this.messageCallback = messageCallback;
@@ -54,6 +54,15 @@ export class ErmesService {
     }
     close() {
         this._repository.destroy(false);
+    }
+    isConnected() {
+        return this._repository.isConnected();
+    }
+    waitForConnect() {
+        return this._repository.waitForConnect();
+    }
+    waitForClose() {
+        return this._repository.waitForClose();
     }
 }
 //# sourceMappingURL=ErmesService.js.map

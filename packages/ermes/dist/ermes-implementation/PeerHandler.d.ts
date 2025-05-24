@@ -11,7 +11,7 @@ export declare class PeerHandler implements IErmesWebRtcRepository {
     private messageBuffer;
     private messageCallback?;
     constructor({ offer, iceServers }: PeerHandlerInput);
-    isClose(): boolean;
+    isClosed(): boolean;
     createSignal(): Promise<SignalData>;
     setSignal(signal: Signal): void;
     destroy(): void;

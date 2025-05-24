@@ -6,6 +6,7 @@ export * from "./compare.js";
 export * from "./utility.js";
 export * from "./var.js";
 export * from "./standard-test/Ermes.spec.js";
+export * from "./standard-test/ErmesConnection.spec.js";
 export * from "./standard-test/IdHandler.spec.js";
 export * from "./storage-test/ErmesCaching.spec.js";
 export * from "./storage-test/ErmesCachingStorage.spec.js";

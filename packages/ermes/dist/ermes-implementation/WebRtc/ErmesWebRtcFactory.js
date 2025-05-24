@@ -16,10 +16,12 @@ export class ErmesWebRtcFactory {
         return new ErmesWebRtcService(inputCleaned);
     }
     connectRepository(repo, answer) {
-        throw new Error("Method not implemented.");
+        repo.setSignal(answer);
+        return repo;
     }
-    connectService(repo, answer) {
-        throw new Error("Method not implemented.");
+    connectService(service, answer) {
+        service.setSignal(answer);
+        return service;
     }
 }
 //# sourceMappingURL=ErmesWebRtcFactory.js.map

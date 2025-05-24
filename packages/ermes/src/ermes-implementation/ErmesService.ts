@@ -54,8 +54,8 @@ export class ErmesService implements IErmesService{
     setRepository(repository: IErmesWebRtcRepository): void {
         this._repository = repository;
     }
-    isClose(): boolean {
-        return this._repository.isClose();
+    isClosed(): boolean {
+        return this._repository.isClosed();
     }
     
     onMessage(messageCallback: CallbackOnMessageService): void {
@@ -90,5 +90,17 @@ export class ErmesService implements IErmesService{
 
     close(){
         this._repository.destroy(false);
+    }
+
+    isConnected(): boolean{
+        return this._repository.isConnected();
+    }
+
+    waitForConnect(): Promise<void> {
+        return this._repository.waitForConnect();
+    }
+
+    waitForClose(): Promise<void> {
+        return this._repository.waitForClose();
     }
 }

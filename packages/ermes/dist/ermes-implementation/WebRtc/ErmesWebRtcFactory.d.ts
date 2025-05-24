@@ -4,5 +4,5 @@ export declare class ErmesWebRtcFactory implements IErmesWebRtcFactory {
     createRepository(input: ErmesWbrtcRepositoryInput): IErmesWebRtcRepository;
     createService(input: Partial<ErmesWebRtcServiceInput>, inputForRepo?: ErmesWbrtcRepositoryInput): IErmesWebRtcService;
     connectRepository(repo: IErmesWebRtcRepository, answer: Signal): IErmesWebRtcRepository;
-    connectService(repo: IErmesWebRtcService, answer: Signal): IErmesWebRtcService;
+    connectService(service: IErmesWebRtcService, answer: Signal): IErmesWebRtcService;
 }
