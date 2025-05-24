@@ -1,61 +1,11 @@
-import { ErmesService, IdHandlerRepository, IdHandlerService, PeerHandler } from "ermes/index";
-import { CallbackOnMessage, IErmesService } from "iermes/index";
+import { ErmesService, ErmesWebRtcFactory, IdHandlerRepository, IdHandlerService } from "ermes/index";
+import { IErmesService } from "iermes/index";
 import { testErmesService } from "test-ermes";
+import { factoryAsync } from "./utility/ErmesFactory";
 
 let max = 1000;
 let start = 0;
 
-async function factoryAsync(): Promise<{service_1: IErmesService, service_2: IErmesService}>{
-    let idHandlerRepo_1 = new IdHandlerRepository(max, start);
-    let idHandlerService_1 = new IdHandlerService(idHandlerRepo_1);
 
-    let idHandlerRepo_2 = new IdHandlerRepository(max, start);
-    let idHandlerService_2 = new IdHandlerService(idHandlerRepo_2);
-
-    const dummyCallback: CallbackOnMessage = (obj) =>{
-
-    }
-    let repo_1 = new PeerHandler({});
-    let service_1 = new ErmesService({
-        idHandler: idHandlerService_1,
-        messageCallback: dummyCallback,
-        repository: repo_1
-    });
-
-    // create offer
-    let offer = await service_1.createSignal();
-
-    // initialize with offer
-    let repo_2 = new PeerHandler({offer});
-    let answer = await repo_2.createSignal();
-
-    //set answer to second repo
-    service_1.setSignal(answer);
-
-
-    let service_2 = new ErmesService({
-        idHandler: idHandlerService_2,
-        messageCallback: dummyCallback,
-        repository: repo_2
-    });
-
-    // wait for connected
-    await new Promise<void>((resolve, reject) => {
-    let connectedCount = 0;
-    const onConn = () => {
-      if (++connectedCount === 2) resolve();
-    };
-    const onErr = (err: Error) => reject(err);
-
-    service_1.onConnect(onConn);
-    service_2.onConnect(onConn);
-    service_1.onError(onErr);
-    service_2.onError(onErr);
-  });
-
-    return {service_1, service_2}
-
-    
-}
 
 testErmesService(factoryAsync);

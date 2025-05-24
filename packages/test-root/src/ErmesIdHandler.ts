@@ -6,7 +6,7 @@ import { IdHandlerRepository, IdHandlerService } from "../../ermes/dist";
 let max = 100;
 let start = 0;
 
-let repo = new IdHandlerRepository(max, start);
-let service = new IdHandlerService(repo);
+let repo = new IdHandlerRepository({max, start});
+let service = new IdHandlerService({repo});
 
 testIIdHandler(service, max, start);

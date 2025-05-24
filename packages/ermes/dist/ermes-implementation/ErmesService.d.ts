@@ -12,11 +12,14 @@ export declare class ErmesService implements IErmesService {
     onMessageSending(callback: CallbackOnMessageSending): void;
     onMessageSended(callback: CallbackOnMessageSended): void;
     setRepository(repository: IErmesWebRtcRepository): void;
-    isClose(): boolean;
+    isClosed(): boolean;
     onMessage(messageCallback: CallbackOnMessageService): void;
     private handleServiceMessage;
     private sendMissingBaseMessage;
     private sendMissingChunks;
     send(message: Uint8Array): void;
     close(): void;
+    isConnected(): boolean;
+    waitForConnect(): Promise<void>;
+    waitForClose(): Promise<void>;
 }

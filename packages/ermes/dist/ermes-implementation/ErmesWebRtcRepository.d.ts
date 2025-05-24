@@ -11,7 +11,7 @@ export declare class ErmesRepository implements IErmesWebRtcRepository {
     private messageBuffer;
     private messageCallback?;
     constructor({ offer, iceServers }: ErmesRepositoryInput);
-    isClose(): boolean;
+    isClosed(): boolean;
     createSignal(): Promise<SignalData>;
     setSignal(signal: Signal): void;
     destroy(): void;

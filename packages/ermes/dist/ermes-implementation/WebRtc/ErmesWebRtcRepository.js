@@ -27,8 +27,8 @@ export class ErmesWebRtcRepository {
             this.peer.signal(offer);
         }
     }
-    isClose() {
-        return this.peer.closed;
+    isClosed() {
+        return !this.isConnected();
     }
     createSignal() {
         return new Promise((resolve) => {
@@ -94,6 +94,52 @@ export class ErmesWebRtcRepository {
             };
             dc.addEventListener('bufferedamountlow', onDrain);
         });
+    }
+    isConnected() {
+        return this.peer.connected;
+    }
+    waitForEvent(successEvent, timeoutMs = 30000) {
+        return new Promise((resolve, reject) => {
+            // setTimeout could return number o NodeJS.Timeout
+            const timer = setTimeout(() => {
+                cleanup();
+                reject(new Error(`Timed out after ${timeoutMs}ms waiting for ${successEvent}`));
+            }, timeoutMs);
+            const onSuccess = () => {
+                cleanup();
+                resolve();
+            };
+            const onError = (err) => {
+                cleanup();
+                reject(err);
+            };
+            // iin case of connect close need to be checked
+            const onClose = () => {
+                if (successEvent === 'connect') {
+                    cleanup();
+                    reject(new Error('Peer closed before connect'));
+                }
+            };
+            const cleanup = () => {
+                clearTimeout(timer);
+                this.peer.removeListener(successEvent, onSuccess);
+                this.peer.removeListener('error', onError);
+                if (successEvent === 'connect') {
+                    this.peer.removeListener('close', onClose);
+                }
+            };
+            this.peer.once(successEvent, onSuccess);
+            this.peer.once('error', onError);
+            if (successEvent === 'connect') {
+                this.peer.once('close', onClose);
+            }
+        });
+    }
+    waitForConnect(timeoutMs) {
+        return this.waitForEvent('connect', timeoutMs);
+    }
+    waitForClose(timeoutMs) {
+        return this.waitForEvent('close', timeoutMs);
     }
 }
 //# sourceMappingURL=ErmesWebRtcRepository.js.map

@@ -31,12 +31,13 @@ export class ErmesWebRtcFactory implements IErmesWebRtcFactory{
     }
 
     connectRepository(repo: IErmesWebRtcRepository, answer: Signal): IErmesWebRtcRepository {
-        throw new Error("Method not implemented.");
+        repo.setSignal(answer);
+        return repo;
     }
 
-    connectService(repo: IErmesWebRtcService, answer: Signal): IErmesWebRtcService {
-        throw new Error("Method not implemented.");
+    connectService(service: IErmesWebRtcService, answer: Signal): IErmesWebRtcService {
+        service.setSignal(answer);
+        return service;
     }
 
-  
 }

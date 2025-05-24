@@ -7,7 +7,7 @@ export declare class ErmesWebRtcRepository implements IErmesWebRtcRepository {
     private messageBuffer;
     private messageCallback?;
     constructor({ offer, iceServers }: ErmesWbrtcRepositoryInput);
-    isClose(): boolean;
+    isClosed(): boolean;
     createSignal(): Promise<SignalData>;
     setSignal(signal: Signal): void;
     destroy(): void;
@@ -19,4 +19,8 @@ export declare class ErmesWebRtcRepository implements IErmesWebRtcRepository {
     onSignal(callback: (data: SignalData | PromiseLike<SignalData>) => void): void;
     on(event: 'connect' | 'error' | 'close' | 'signal', callback: (...args: any[]) => void): void;
     private flushAndDestroy;
+    isConnected(): boolean;
+    private waitForEvent;
+    waitForConnect(timeoutMs?: number): Promise<void>;
+    waitForClose(timeoutMs?: number): Promise<void>;
 }

@@ -19,8 +19,28 @@ export interface IErmesPrivate {
     /**
      * true if the connection has been closed
      */
-    isClose(): boolean
+    isClosed(): boolean
+    /**
+     * true if the connection is open 
+     */
+    isConnected(): boolean
 
+    /**
+     * wait for the connection of the peer
+     */
+    waitForConnect(): Promise<void> 
+
+    /**
+     * resolve when the connection is done
+     * @param timeoutMs 
+     */
+    waitForConnect(timeoutMs?: number): Promise<void> ;
+    
+    /**
+     * resolve when the connection is closed
+     * @param timeoutMs 
+     */
+    waitForClose(timeoutMs?: number): Promise<void>;
 }
 
 

@@ -8,7 +8,7 @@ import wrtc from '../../types/wrtc.js';
 import { CallbackOnDataRepository, SerializableDataType, Signal } from 'ermes-types';
 
 
-
+type simpleFunc = () => {};
 export const defaultStun: string = 'stun:stun.l.google.com:19302';
 
 
@@ -43,8 +43,9 @@ export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
         
         
     }
-    isClose(): boolean {
-        return this.peer.closed;
+
+    isClosed(): boolean {
+        return !this.isConnected();
     }
 
 
@@ -98,7 +99,7 @@ export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
         this.peer.on('close', callback);
     }
 
-    onSignal(callback: (data: SignalData | PromiseLike<SignalData>) => void): void {
+    public onSignal(callback: (data: SignalData | PromiseLike<SignalData>) => void): void {
         this.peer.on('signal', callback);
     }
 
@@ -126,6 +127,91 @@ export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
           };
           dc.addEventListener('bufferedamountlow', onDrain);
         });
-      }
+    }
     
+    isConnected(): boolean{
+        return this.peer.connected;
+    }
+
+    private waitForEvent(
+        successEvent: 'connect' | 'close',
+        timeoutMs = 30_000
+    ): Promise<void> {
+        return new Promise((resolve, reject) => {
+            // setTimeout could return number o NodeJS.Timeout
+            const timer = setTimeout(() => {
+            cleanup();
+            reject(new Error(`Timed out after ${timeoutMs}ms waiting for ${successEvent}`));
+            }, timeoutMs);
+
+            const onSuccess = () => {
+            cleanup();
+            resolve();
+            };
+            const onError = (err: Error) => {
+            cleanup();
+            reject(err);
+            };
+            // iin case of connect close need to be checked
+            const onClose = () => {
+            if (successEvent === 'connect') {
+                cleanup();
+                reject(new Error('Peer closed before connect'));
+            }
+            };
+
+            const cleanup = () => {
+                clearTimeout(timer);
+                this.peer.removeListener(successEvent, onSuccess);
+                this.peer.removeListener('error', onError);
+                if (successEvent === 'connect') {
+                    this.peer.removeListener('close', onClose);
+                }
+            };
+
+            this.peer.once(successEvent, onSuccess);
+            this.peer.once('error', onError);
+            if (successEvent === 'connect') {
+                this.peer.once('close', onClose);
+            }
+        });
+    }  
+    
+
+    public waitForConnect(timeoutMs?: number) {
+        return this.waitForEvent('connect', timeoutMs);
+    }
+
+    public waitForClose(timeoutMs?: number) {
+        return this.waitForEvent('close', timeoutMs);
+    }
+
+    // TO DO: NEED TO VERIFY THE FOLLOWING SOURCE CODE IF IT IS USEFULL
+
+      // —— Now grab the raw RTCPeerConnection and add rich logging ——  
+  /*const rawPc = (this.peer as any)._pc as RTCPeerConnection;
+
+  rawPc.addEventListener('icegatheringstatechange', () => {
+    console.log('[Ermes][ICE] gathering:', rawPc.iceGatheringState);
+  });
+
+  rawPc.addEventListener('iceconnectionstatechange', () => {
+    console.log('[Ermes][ICE] connection:', rawPc.iceConnectionState);
+    if (rawPc.iceConnectionState === 'failed') {
+      console.error('[Ermes][ICE] connectivity failure detected');
+    }
+  });
+
+  rawPc.addEventListener('signalingstatechange', () => {
+    console.log('[Ermes][SDP] signaling:', rawPc.signalingState);
+  });
+
+  // Catch STUN/TURN failures:
+  rawPc.addEventListener('icecandidateerror', (evt) => {
+    console.error(
+      `[Ermes][ICE] candidate error code=${evt.errorCode}`,
+      `text="${evt.errorText}" url=${evt.url}`,
+      'candidate=', evt.hostCandidate
+    );
+  });*/
 }

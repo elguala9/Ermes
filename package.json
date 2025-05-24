@@ -40,7 +40,9 @@
     "test:caching": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesCaching.ts",
     "test:storage": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesStorage.ts",
     "test:idhandler": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesIdHandler.ts",
-    "test:ermes": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesService.ts"
+    "test:ermes": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesService.ts",
+    "test:ermes-connection": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesServiceConnection.ts"
+
 
   },
   "devDependencies": {

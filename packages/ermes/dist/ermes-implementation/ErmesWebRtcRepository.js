@@ -27,7 +27,7 @@ export class ErmesRepository {
             this.peer.signal(offer);
         }
     }
-    isClose() {
+    isClosed() {
         return this.peer.closed;
     }
     createSignal() {
