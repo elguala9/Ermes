@@ -43,7 +43,13 @@ export class ErmesSendRepo {
     }
     // invio del messaggio all'altro peer, passando da una serializzazione
     sendRootMessage(message) {
-        let rawData = serializeObject(message);
+        console.log('messRootSended', message);
+        //let rawData: Uint8Array = serializeObject(message);
+        const json = JSON.stringify({
+            messageSerialized: Array.from(message.messageSerialized),
+            integrityCheckValue: message.integrityCheckValue
+        });
+        let rawData = new TextEncoder().encode(json);
         this.sendWithRepo(rawData);
     }
     // effettiva chiamata alla repo. Ci va una logica che in caso di errore memorizzi il messaggio

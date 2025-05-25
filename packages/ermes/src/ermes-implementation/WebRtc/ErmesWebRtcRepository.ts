@@ -6,6 +6,7 @@ import Peer from 'simple-peer';
 import { ErmesWbrtcRepositoryInput, IErmesWebRtcRepository } from 'iermes/index';
 import wrtc from '../../types/wrtc.js';
 import { CallbackOnDataRepository, SerializableDataType, Signal } from 'ermes-types';
+import { toArrayBuffer } from './NormalizationUtility.js';
 
 
 type simpleFunc = () => {};
@@ -30,10 +31,17 @@ export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
         });
 
         this.peer.on('data', (data: SerializableDataType) => {
+            const ab = Buffer.isBuffer(data)
+                ? data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength)
+                : data instanceof ArrayBuffer
+                    ? data
+                    : (data as Uint8Array).buffer
+                    
+            console.dir(ab, { depth: null, maxArrayLength: null, maxStringLength: null });
             if (this.messageCallback) {
-                this.messageCallback(data);
+                this.messageCallback(ab);
             } else {
-                this.messageBuffer.push(data);
+                this.messageBuffer.push(ab);
             }
         });
     
@@ -69,8 +77,11 @@ export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
     }
     
     public send(data: SerializableDataType): void {
-        if (this.peer.connected) {
-            this.peer.send(data);
+        console.dir(data, { depth: null, maxArrayLength: null, maxStringLength: null });
+        if (this.isConnected()) {
+            // ensure Uint8Array
+            const u8 = data instanceof Uint8Array ? data : new Uint8Array(data);
+            this.peer.send(u8);
         } else {
             throw new Error("Connection is not open.");
         }

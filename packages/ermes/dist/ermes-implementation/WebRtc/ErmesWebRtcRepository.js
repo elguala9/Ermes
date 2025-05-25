@@ -16,11 +16,17 @@ export class ErmesWebRtcRepository {
             }
         });
         this.peer.on('data', (data) => {
+            const ab = Buffer.isBuffer(data)
+                ? data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength)
+                : data instanceof ArrayBuffer
+                    ? data
+                    : data.buffer;
+            console.dir(ab, { depth: null, maxArrayLength: null, maxStringLength: null });
             if (this.messageCallback) {
-                this.messageCallback(data);
+                this.messageCallback(ab);
             }
             else {
-                this.messageBuffer.push(data);
+                this.messageBuffer.push(ab);
             }
         });
         if (offer) {
@@ -45,8 +51,11 @@ export class ErmesWebRtcRepository {
         this.peer.destroy();
     }
     send(data) {
-        if (this.peer.connected) {
-            this.peer.send(data);
+        console.dir(data, { depth: null, maxArrayLength: null, maxStringLength: null });
+        if (this.isConnected()) {
+            // ensure Uint8Array
+            const u8 = data instanceof Uint8Array ? data : new Uint8Array(data);
+            this.peer.send(u8);
         }
         else {
             throw new Error("Connection is not open.");

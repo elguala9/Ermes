@@ -54,8 +54,8 @@ export class ErmesReadRepo {
     }
 
     private handleMessageArrayBuffer(message: SerializableDataType): void{
-        console.log("handleMessageArrayBuffer", message);
         let messRoot: MessageRootErmes = arrayBufferToObject(message);
+        console.log('messRootArrived', messRoot);
         if(messRoot.integrityCheckValue != calculateHashSync(messRoot.messageSerialized))
             throw new Error("Hash mismatched not implemented.");
         let messageDeserialized: InternalMessage<MessageType> = arrayBufferToObject(messRoot.messageSerialized)
@@ -70,9 +70,7 @@ export class ErmesReadRepo {
             return;
         }
 
-        let data = this.handleMessage(mess.message, messageType);
-
-        return data
+        this.handleMessage(mess.message, messageType);
     }
 
     private handleMessage(mess: MessageType, messageType: MessageValue): void{

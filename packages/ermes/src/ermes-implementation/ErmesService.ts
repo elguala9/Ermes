@@ -16,8 +16,7 @@ export class ErmesService implements IErmesService{
     private _repository: IErmesRepository
     protected ermesSendRepo: ErmesSendRepo;
     protected ermesReadRepo: ErmesReadRepo;
-    // at this level i do not want MessageData, but only the buffer that the user sent
-    protected messageCallback?: CallbackOnMessageService;
+
     constructor({
             maxBuffer,
             maxByte,
@@ -26,11 +25,10 @@ export class ErmesService implements IErmesService{
             messageCallback
             }: ErmesServiceInput
         ){
-        this.messageCallback = messageCallback;
         this._repository = repository;
         this.ermesSendRepo = new ErmesSendRepo(repository, idHandler, maxByte ?? 1024)
         this.ermesReadRepo = new ErmesReadRepo(repository, this.handleServiceMessage, {
-            messageCallback: this.messageCallback,
+            messageCallback,
             maxBufferSize: maxBuffer ?? 100
         })
 
@@ -59,7 +57,7 @@ export class ErmesService implements IErmesService{
     }
     
     onMessage(messageCallback: CallbackOnMessageService): void {
-        this.messageCallback = messageCallback;
+        this.ermesReadRepo.setMessageDataCallback(messageCallback);
     }
 
     private handleServiceMessage(mess: ServiceMessage): void{
