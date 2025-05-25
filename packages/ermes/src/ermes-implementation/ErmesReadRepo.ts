@@ -4,7 +4,7 @@ import { arrayBufferToObject } from "serialization-utility/src/Serialization";
 
 import { ChunkHandler } from "../ermes-utility/ChunkHandler.js";
 
-import { CallbackOnMessageService, CallBackServiceMessage, IdType, InternalMessage, MessageChunkErmes, MessageDataErmes, MessageRoot, MessageType, MessageValue, SerializableDataType, ServiceMessage } from "ermes-types";
+import { CallbackOnMessageReceived, CallbackOnMessageService, CallBackServiceMessage, IdType, InternalMessage, MessageChunkErmes, MessageDataErmes, MessageRoot, MessageType, MessageValue, SerializableDataType, ServiceMessage } from "ermes-types";
 import { IErmesRepository } from "iermes/index";
 
 
@@ -13,7 +13,7 @@ type MessageRootErmes = MessageRoot<string>;
 
 export type ErmesReadRepoOptions = {
     maxBufferSize?: number,
-    messageCallback?: CallbackOnMessageService;
+    callbackOnMessageReceived?: CallbackOnMessageReceived;
 }
 
 export class ErmesReadRepo {
@@ -21,24 +21,25 @@ export class ErmesReadRepo {
     private messageNotMerged: Map<IdType, ChunkHandler> = new Map<IdType, ChunkHandler>(); // the string is the id
     private repository: IErmesRepository
     private callbackServiceMessage: CallBackServiceMessage;
-    private messageCallback?: CallbackOnMessageService;
+    private callbackOnMessageReceived?: CallbackOnMessageReceived;
 
     constructor(
         repository: IErmesRepository, 
         callbackServiceMessage: CallBackServiceMessage,
-        {maxBufferSize, messageCallback}: ErmesReadRepoOptions){
+        {maxBufferSize, callbackOnMessageReceived}: ErmesReadRepoOptions){
             
         this.repository = repository;
         this.repository.onMessage(this.handleMessageArrayBuffer.bind(this)); // if i do not put .bind(this), the onMessage do not know the context
         this.callbackServiceMessage = callbackServiceMessage;
         this.messageNotReaded = new ObservableList<MessageDataErmes>(maxBufferSize);
-        this.messageCallback = messageCallback;
+        this.callbackOnMessageReceived = callbackOnMessageReceived;
         // the trigger on the arriving messages in the array
         this.messageNotReaded.onAdd(()=>{
-            if(this.messageCallback){
+            if(this.callbackOnMessageReceived){
                 while(!this.messageNotReaded.isEmpty()){
                     let mess: MessageDataErmes = this.messageNotReaded.shift();
-                    this.messageCallback(mess.data, mess);
+                    this.callbackOnMessageReceived.callbackOnData(mess.data);
+                    this.callbackOnMessageReceived.callbackonMessage(mess);
                 }
             }
         })
@@ -49,8 +50,8 @@ export class ErmesReadRepo {
     }
 
 
-    public setMessageDataCallback(messageCallback: CallbackOnMessageService): void{
-        this.messageCallback = messageCallback;
+    public setMessageDataCallback(callback: CallbackOnMessageReceived): void{
+        this.callbackOnMessageReceived = callback;
     }
 
     private handleMessageArrayBuffer(message: SerializableDataType): void{

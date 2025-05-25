@@ -1,4 +1,4 @@
-import { CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, ChunkInfo, IdType, ServiceMessage } from "ermes-types";
+import { CallbackOnDataArrived, CallbackOnMessageReceived, CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, ChunkInfo, IdType, ServiceMessage } from "ermes-types";
 
 
 import { ErmesServiceInput, IErmesWebRtcRepository } from "iermes/index";
@@ -22,18 +22,19 @@ export class ErmesService implements IErmesService{
             maxByte,
             repository,
             idHandler,
-            messageCallback
+            callbackOnMessageReceived
             }: ErmesServiceInput
         ){
         this._repository = repository;
         this.ermesSendRepo = new ErmesSendRepo(repository, idHandler, maxByte ?? 1024)
         this.ermesReadRepo = new ErmesReadRepo(repository, this.handleServiceMessage, {
-            messageCallback,
+            callbackOnMessageReceived,
             maxBufferSize: maxBuffer ?? 100
         })
 
         
     }
+
     onMessageSending(callback: CallbackOnMessageSending): void {
         throw new Error("Method not implemented.");
     }
@@ -56,7 +57,7 @@ export class ErmesService implements IErmesService{
         return this._repository.isClosed();
     }
     
-    onMessage(messageCallback: CallbackOnMessageService): void {
+    onMessage(messageCallback: CallbackOnMessageReceived): void {
         this.ermesReadRepo.setMessageDataCallback(messageCallback);
     }
 

@@ -14,8 +14,12 @@ export function testErmesService(f) {
             const payload = new Uint8Array([1, 2, 3, 4]);
             // Promessa che si risolve al primo messaggio ricevuto
             const received = new Promise((resolve) => {
-                service_2.onMessage((data) => {
-                    resolve(data);
+                service_2.onMessage({
+                    callbackOnData: (data) => {
+                        resolve(data);
+                    },
+                    callbackonMessage: () => {
+                    }
                 });
             });
             service_1.send(payload);

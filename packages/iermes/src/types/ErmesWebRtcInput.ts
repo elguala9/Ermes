@@ -1,4 +1,4 @@
-import { CallbackOnMessageData, CallbackOnMessageService, Signal } from "ermes-types"
+import { CallbackOnMessageData, CallbackOnMessageReceived, CallbackOnMessageService, Signal } from "ermes-types"
 import { IErmesRepository } from "../standard-interface/IErmes.js"
 import { IErmesWebRtcRepository } from "../standard-interface/IErmesWebRtc.js"
 import { IIdHandlerService } from "../standard-interface/IIdHandler.js"
@@ -10,7 +10,7 @@ export type ErmesWebRtcServiceInput = ErmesServiceInputGeneric<IErmesWebRtcRepos
 
 export type ErmesServiceInputGeneric<RepoType> = {
     repository: RepoType;
-    messageCallback?: CallbackOnMessageService;
+    callbackOnMessageReceived?: CallbackOnMessageReceived;
     idHandler: IIdHandlerService;
     maxByte?: number;
     maxBuffer?: number;

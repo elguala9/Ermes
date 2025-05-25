@@ -1,18 +1,18 @@
-import { CallbackOnMessageService, CallBackServiceMessage } from "ermes-types";
+import { CallbackOnMessageReceived, CallBackServiceMessage } from "ermes-types";
 import { IErmesRepository } from "iermes/index";
 export type ErmesReadRepoOptions = {
     maxBufferSize?: number;
-    messageCallback?: CallbackOnMessageService;
+    callbackOnMessageReceived?: CallbackOnMessageReceived;
 };
 export declare class ErmesReadRepo {
     private messageNotReaded;
     private messageNotMerged;
     private repository;
     private callbackServiceMessage;
-    private messageCallback?;
-    constructor(repository: IErmesRepository, callbackServiceMessage: CallBackServiceMessage, { maxBufferSize, messageCallback }: ErmesReadRepoOptions);
+    private callbackOnMessageReceived?;
+    constructor(repository: IErmesRepository, callbackServiceMessage: CallBackServiceMessage, { maxBufferSize, callbackOnMessageReceived }: ErmesReadRepoOptions);
     setCallbackServiceMessage(callbackServiceMessage: CallBackServiceMessage): void;
-    setMessageDataCallback(messageCallback: CallbackOnMessageService): void;
+    setMessageDataCallback(callback: CallbackOnMessageReceived): void;
     private handleMessageArrayBuffer;
     private handleMessageType;
     private handleMessage;

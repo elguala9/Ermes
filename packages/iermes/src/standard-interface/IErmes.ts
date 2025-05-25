@@ -1,4 +1,4 @@
-import { CallbackOnDataRepository, CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, SerializableDataType, TypeOfData } from "ermes-types";
+import {TypeOfDataExternal, CallbackOnDataArrived, CallbackOnDataRepository, CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, SerializableDataType, TypeOfData, CallbackOnMessageReceived } from "ermes-types";
 
 
 
@@ -75,10 +75,10 @@ export interface IErmesRepository extends IErmesPrivate {
 export interface IErmesService extends IErmesPrivate  {
  
     /**
-     * on message arrivede call the callback
+     * on message arrived call the callback
      * @param messageCallback the callback 
      */
-    onMessage(callback: CallbackOnMessageService): void
+    onMessage(callback: CallbackOnMessageReceived): void
     /**
      * the message that the service is sending
      * @param callback the callback called
@@ -93,7 +93,7 @@ export interface IErmesService extends IErmesPrivate  {
      * send data
      * @param data the data that will be send over webrtc
     */
-    send(message: TypeOfData): void;
+    send(message: TypeOfDataExternal): void;
 
     /**
      * close the connection

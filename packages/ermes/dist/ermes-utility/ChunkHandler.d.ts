@@ -1,4 +1,4 @@
-import { IdType, MessageChunkErmes } from "ermes-types";
+import { IdType, MessageChunkErmes, TypeOfData } from "ermes-types";
 /**
  * class used to handle chunk
  */
@@ -9,10 +9,10 @@ export declare class ChunkHandler {
     private isCompleted;
     constructor(id: IdType, roof: number);
     getId(): IdType;
-    addChunk(chunk: MessageChunkErmes): Uint8Array | undefined;
+    addChunk(chunk: MessageChunkErmes): TypeOfData | undefined;
     private isDuplicate;
     private handleLastChunk;
-    createData(): Uint8Array | undefined;
+    createData(): TypeOfData | undefined;
     getMissingIndices(): number[];
 }
 /**

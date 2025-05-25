@@ -29,6 +29,9 @@ export type IdType = number
 // this is the type used by the ermes service
 export type TypeOfData = Uint8Array;
 
+// this is the type used by the in the interfaces
+export type TypeOfDataExternal = Uint8Array;
+
 export type MessageRoot<
     //MessageTypeGeneric extends MessageType,
     IntegrityCheckTypeGeneric extends IntegrityCheckType> = {
@@ -89,10 +92,15 @@ export type MessageChunkErmes = ChunkMessage;
 export type CallBackServiceMessage = (serviceMessage: ServiceMessage) => void
 export type CallbackOnMessageData = (serviceMessage: MessageDataErmes) => void
 
-type CallbackOnMessage = (message: MessageType) => void
+
+export type CallbackOnMessage = (message: MessageType) => void
+export type CallbackOnDataArrived = (data: TypeOfDataExternal) => void
 export type CallbackOnMessageSending = CallbackOnMessage
 export type CallbackOnMessageSended = CallbackOnMessage
-export type CallbackOnMessageReceived = CallbackOnMessage
+export type CallbackOnMessageReceived = {
+    callbackonMessage: CallbackOnMessage;
+    callbackOnData: CallbackOnDataArrived;
+}
 
 // this is the type used by the ermes repository
 export type SerializableDataType = ArrayBuffer;

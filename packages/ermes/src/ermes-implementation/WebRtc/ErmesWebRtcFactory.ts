@@ -23,7 +23,7 @@ export class ErmesWebRtcFactory implements IErmesWebRtcFactory{
         let inputCleaned: ErmesWebRtcServiceInput = ({
             ...input,
             idHandler: input.idHandler ?? new IdHandlerFactory().createService({}),
-            messageCallback: undefined,
+            callbackOnMessageReceived: undefined,
             repository: input.repository ?? this.createRepository({...inputForRepo}),
             
         });

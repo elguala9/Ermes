@@ -1,5 +1,5 @@
 
-import { ChunkMessage, InternalMessage, MessageData, MessageDataErmes, MessageRoot, MessageType, SerializableDataType } from "ermes-types";
+import { ChunkMessage, InternalMessage, MessageData, MessageDataErmes, MessageRoot, MessageType, SerializableDataType, TypeOfData } from "ermes-types";
 import { buffer } from "stream/consumers";
 import { IErmesRepository, IIdHandlerService } from "iermes/index";
 import { chunkArrayBuffer, getMessageType } from "../Utility.js";
@@ -31,7 +31,7 @@ export class ErmesSendRepo {
     // lock the call of certain methods
     
     // metodo esposto all'utente per mandare il messaggio
-    send(rawData: Uint8Array): void {
+    send(rawData: TypeOfData): void {
         
         //let rawData: SerializableDataType = objectToArrayBuffer(data);
         let newId = this._idHandler.getNewId();
@@ -54,7 +54,7 @@ export class ErmesSendRepo {
                 message: element,
                 type: getMessageType(element)
             }
-            let rawData: Uint8Array = serializeObject(internalMessage);
+            let rawData: TypeOfData = serializeObject(internalMessage);
             let messageRoot: MessageRootErmes = {
                 messageSerialized: rawData,
                 integrityCheckValue: calculateHashSync(rawData)
@@ -67,10 +67,11 @@ export class ErmesSendRepo {
     private sendRootMessage(message: MessageRootErmes): void {
         console.log('messRootSended', message);
         //let rawData: Uint8Array = serializeObject(message);
-        const json = JSON.stringify({
+        /*const json = JSON.stringify({
             messageSerialized: Array.from(message.messageSerialized),
             integrityCheckValue: message.integrityCheckValue
-        });
+        });*/
+        const json = JSON.stringify(message);
         let rawData = new TextEncoder().encode(json)
         this.sendWithRepo(rawData);       
     }
@@ -78,11 +79,5 @@ export class ErmesSendRepo {
     // effettiva chiamata alla repo. Ci va una logica che in caso di errore memorizzi il messaggio
     private sendWithRepo(dataRaw: SerializableDataType): void {
         this._repository.send(dataRaw);
-    }
-
-    
-
-    
-
-    
+    }    
 }

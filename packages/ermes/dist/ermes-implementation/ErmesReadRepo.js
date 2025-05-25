@@ -4,19 +4,20 @@ import { arrayBufferToObject } from "serialization-utility/src/Serialization";
 import { ChunkHandler } from "../ermes-utility/ChunkHandler.js";
 import { MessageValue } from "ermes-types";
 export class ErmesReadRepo {
-    constructor(repository, callbackServiceMessage, { maxBufferSize, messageCallback }) {
+    constructor(repository, callbackServiceMessage, { maxBufferSize, callbackOnMessageReceived }) {
         this.messageNotMerged = new Map(); // the string is the id
         this.repository = repository;
         this.repository.onMessage(this.handleMessageArrayBuffer.bind(this)); // if i do not put .bind(this), the onMessage do not know the context
         this.callbackServiceMessage = callbackServiceMessage;
         this.messageNotReaded = new ObservableList(maxBufferSize);
-        this.messageCallback = messageCallback;
+        this.callbackOnMessageReceived = callbackOnMessageReceived;
         // the trigger on the arriving messages in the array
         this.messageNotReaded.onAdd(() => {
-            if (this.messageCallback) {
+            if (this.callbackOnMessageReceived) {
                 while (!this.messageNotReaded.isEmpty()) {
                     let mess = this.messageNotReaded.shift();
-                    this.messageCallback(mess.data, mess);
+                    this.callbackOnMessageReceived.callbackOnData(mess.data);
+                    this.callbackOnMessageReceived.callbackonMessage(mess);
                 }
             }
         });
@@ -24,8 +25,8 @@ export class ErmesReadRepo {
     setCallbackServiceMessage(callbackServiceMessage) {
         this.callbackServiceMessage = callbackServiceMessage;
     }
-    setMessageDataCallback(messageCallback) {
-        this.messageCallback = messageCallback;
+    setMessageDataCallback(callback) {
+        this.callbackOnMessageReceived = callback;
     }
     handleMessageArrayBuffer(message) {
         let messRoot = arrayBufferToObject(message);
