@@ -1,5 +1,5 @@
 
-import { IdType, MessageChunkErmes } from "ermes-types";
+import { IdType, MessageChunkErmes, TypeOfData } from "ermes-types";
 import { composeUint8Array } from "serialization-utility/src/Array";
 
 /**
@@ -8,7 +8,7 @@ import { composeUint8Array } from "serialization-utility/src/Array";
 export class ChunkHandler {
     private id: IdType; // the id of the message
     private roof: number; // the id of the message
-    private chunks: Map<number, Uint8Array> = new Map<number, Uint8Array>();
+    private chunks: Map<number, TypeOfData> = new Map<number, TypeOfData>();
     private isCompleted: boolean = false; // if the chink as been completed
       
 
@@ -22,7 +22,7 @@ export class ChunkHandler {
     }
 
     // if chunk is not completed undefined
-    public addChunk(chunk: MessageChunkErmes): Uint8Array | undefined{
+    public addChunk(chunk: MessageChunkErmes): TypeOfData | undefined{
         if(this.isDuplicate(chunk))
             return undefined;
         this.chunks.set(chunk.index, chunk.data); // I insert the new chunk
@@ -37,7 +37,7 @@ export class ChunkHandler {
         return this.chunks.has(chunk.index);
     }
 
-    private handleLastChunk(): Uint8Array{
+    private handleLastChunk(): TypeOfData{
         const message = this.createData();
         if(message == undefined)
             throw new Error("Chunk are missing");
@@ -45,7 +45,7 @@ export class ChunkHandler {
     }
 
     // create the original message by merging the chunks
-    public createData(): Uint8Array | undefined{
+    public createData(): TypeOfData | undefined{
         const sortedValues = getSortedValues(this.chunks);
         if(this.isCompleted)
             return composeUint8Array(sortedValues.values)

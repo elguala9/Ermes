@@ -1,4 +1,4 @@
-import { CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService } from "ermes-types";
+import { CallbackOnMessageReceived, CallbackOnMessageSended, CallbackOnMessageSending } from "ermes-types";
 import { ErmesServiceInput, IErmesWebRtcRepository } from "iermes/index";
 import { IErmesService } from "iermes/standard-interface/IErmes";
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
@@ -7,12 +7,12 @@ export declare class ErmesService implements IErmesService {
     private _repository;
     protected ermesSendRepo: ErmesSendRepo;
     protected ermesReadRepo: ErmesReadRepo;
-    constructor({ maxBuffer, maxByte, repository, idHandler, messageCallback }: ErmesServiceInput);
+    constructor({ maxBuffer, maxByte, repository, idHandler, callbackOnMessageReceived }: ErmesServiceInput);
     onMessageSending(callback: CallbackOnMessageSending): void;
     onMessageSended(callback: CallbackOnMessageSended): void;
     setRepository(repository: IErmesWebRtcRepository): void;
     isClosed(): boolean;
-    onMessage(messageCallback: CallbackOnMessageService): void;
+    onMessage(messageCallback: CallbackOnMessageReceived): void;
     private handleServiceMessage;
     private sendMissingBaseMessage;
     private sendMissingChunks;

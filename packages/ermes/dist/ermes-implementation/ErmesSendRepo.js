@@ -45,10 +45,11 @@ export class ErmesSendRepo {
     sendRootMessage(message) {
         console.log('messRootSended', message);
         //let rawData: Uint8Array = serializeObject(message);
-        const json = JSON.stringify({
+        /*const json = JSON.stringify({
             messageSerialized: Array.from(message.messageSerialized),
             integrityCheckValue: message.integrityCheckValue
-        });
+        });*/
+        const json = JSON.stringify(message);
         let rawData = new TextEncoder().encode(json);
         this.sendWithRepo(rawData);
     }

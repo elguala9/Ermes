@@ -1,11 +1,11 @@
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
 import { ErmesSendRepo } from "./ErmesSendRepo.js";
 export class ErmesService {
-    constructor({ maxBuffer, maxByte, repository, idHandler, messageCallback }) {
+    constructor({ maxBuffer, maxByte, repository, idHandler, callbackOnMessageReceived }) {
         this._repository = repository;
         this.ermesSendRepo = new ErmesSendRepo(repository, idHandler, maxByte ?? 1024);
         this.ermesReadRepo = new ErmesReadRepo(repository, this.handleServiceMessage, {
-            messageCallback,
+            callbackOnMessageReceived,
             maxBufferSize: maxBuffer ?? 100
         });
     }

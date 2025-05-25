@@ -8,6 +8,7 @@ export type MessageType = MessageData | ChunkMessage | ServiceMessage;
 export type IntegrityCheckType = string | number | boolean;
 export type IdType = number;
 export type TypeOfData = Uint8Array;
+export type TypeOfDataExternal = Uint8Array;
 export type MessageRoot<IntegrityCheckTypeGeneric extends IntegrityCheckType> = {
     messageSerialized: Uint8Array;
     integrityCheckValue: IntegrityCheckTypeGeneric;
@@ -44,11 +45,14 @@ export type MessageInternalErmes = InternalMessage<MessageType>;
 export type MessageChunkErmes = ChunkMessage;
 export type CallBackServiceMessage = (serviceMessage: ServiceMessage) => void;
 export type CallbackOnMessageData = (serviceMessage: MessageDataErmes) => void;
-type CallbackOnMessage = (message: MessageType) => void;
+export type CallbackOnMessage = (message: MessageType) => void;
+export type CallbackOnDataArrived = (data: TypeOfDataExternal) => void;
 export type CallbackOnMessageSending = CallbackOnMessage;
 export type CallbackOnMessageSended = CallbackOnMessage;
-export type CallbackOnMessageReceived = CallbackOnMessage;
+export type CallbackOnMessageReceived = {
+    callbackonMessage: CallbackOnMessage;
+    callbackOnData: CallbackOnDataArrived;
+};
 export type SerializableDataType = ArrayBuffer;
 export type CallbackOnDataRepository = (data: SerializableDataType) => void;
 export type CallbackOnMessageService = (data: TypeOfData, messageWithId: MessageWithId) => void;
-export {};
