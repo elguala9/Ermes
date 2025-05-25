@@ -10,7 +10,7 @@ export class ErmesWebRtcFactory {
         let inputCleaned = ({
             ...input,
             idHandler: input.idHandler ?? new IdHandlerFactory().createService({}),
-            messageCallback: () => { }, // needed to be fixed, it should probably become undefined
+            messageCallback: undefined,
             repository: input.repository ?? this.createRepository({ ...inputForRepo }),
         });
         return new ErmesWebRtcService(inputCleaned);

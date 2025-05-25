@@ -7,7 +7,6 @@ export declare class ErmesService implements IErmesService {
     private _repository;
     protected ermesSendRepo: ErmesSendRepo;
     protected ermesReadRepo: ErmesReadRepo;
-    protected messageCallback?: CallbackOnMessageService;
     constructor({ maxBuffer, maxByte, repository, idHandler, messageCallback }: ErmesServiceInput);
     onMessageSending(callback: CallbackOnMessageSending): void;
     onMessageSended(callback: CallbackOnMessageSended): void;

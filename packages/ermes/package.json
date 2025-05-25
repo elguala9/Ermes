@@ -114,6 +114,11 @@
       "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.js",
       "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.js",
       "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.d.ts"
+    },
+    "./ermes-implementation/WebRtc/NormalizationUtility": {
+      "import": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
+      "require": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
+      "types": "./dist/ermes-implementation/WebRtc/NormalizationUtility.d.ts"
     }
   }
 }

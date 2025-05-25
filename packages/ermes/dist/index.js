@@ -8,6 +8,7 @@ export * from "./ermes-implementation/ErmesService.js";
 export * from "./ermes-implementation/WebRtc/ErmesWebRtcFactory.js";
 export * from "./ermes-implementation/WebRtc/ErmesWebRtcRepository.js";
 export * from "./ermes-implementation/WebRtc/ErmesWebRtcService.js";
+export * from "./ermes-implementation/WebRtc/NormalizationUtility.js";
 export * from "./ermes-utility/ChunkHandler.js";
 export * from "./ermes-utility/IdHandlerFactory.js";
 export * from "./ermes-utility/IdHandlerRepository.js";

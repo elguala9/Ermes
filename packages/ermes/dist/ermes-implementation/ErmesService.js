@@ -2,11 +2,10 @@ import { ErmesReadRepo } from "./ErmesReadRepo.js";
 import { ErmesSendRepo } from "./ErmesSendRepo.js";
 export class ErmesService {
     constructor({ maxBuffer, maxByte, repository, idHandler, messageCallback }) {
-        this.messageCallback = messageCallback;
         this._repository = repository;
         this.ermesSendRepo = new ErmesSendRepo(repository, idHandler, maxByte ?? 1024);
         this.ermesReadRepo = new ErmesReadRepo(repository, this.handleServiceMessage, {
-            messageCallback: this.messageCallback,
+            messageCallback,
             maxBufferSize: maxBuffer ?? 100
         });
     }
@@ -29,7 +28,7 @@ export class ErmesService {
         return this._repository.isClosed();
     }
     onMessage(messageCallback) {
-        this.messageCallback = messageCallback;
+        this.ermesReadRepo.setMessageDataCallback(messageCallback);
     }
     handleServiceMessage(mess) {
         if (mess.reason === "x")

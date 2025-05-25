@@ -28,8 +28,8 @@ export class ErmesReadRepo {
         this.messageCallback = messageCallback;
     }
     handleMessageArrayBuffer(message) {
-        console.log("handleMessageArrayBuffer", message);
         let messRoot = arrayBufferToObject(message);
+        console.log('messRootArrived', messRoot);
         if (messRoot.integrityCheckValue != calculateHashSync(messRoot.messageSerialized))
             throw new Error("Hash mismatched not implemented.");
         let messageDeserialized = arrayBufferToObject(messRoot.messageSerialized);
@@ -41,8 +41,7 @@ export class ErmesReadRepo {
             this.callbackServiceMessage(mess.message);
             return;
         }
-        let data = this.handleMessage(mess.message, messageType);
-        return data;
+        this.handleMessage(mess.message, messageType);
     }
     handleMessage(mess, messageType) {
         if (messageType === MessageValue.base)
