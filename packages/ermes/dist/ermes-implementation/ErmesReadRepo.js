@@ -1,6 +1,6 @@
 import { ObservableList } from "observable-list/src/ObservableList";
 import { calculateHashSync } from "serialization-utility/src/Hash";
-import { arrayBufferToObject } from "serialization-utility/src/Serialization";
+import { arrayBufferToObject, numericMapToUint8Array, uint8ArrayToObject } from "serialization-utility/src/Serialization";
 import { ChunkHandler } from "../ermes-utility/ChunkHandler.js";
 import { MessageValue } from "ermes-types";
 export class ErmesReadRepo {
@@ -33,7 +33,8 @@ export class ErmesReadRepo {
         console.log('messRootArrived', messRoot);
         if (messRoot.integrityCheckValue != calculateHashSync(messRoot.messageSerialized))
             throw new Error("Hash mismatched not implemented.");
-        let messageDeserialized = arrayBufferToObject(messRoot.messageSerialized);
+        let messageDeserialized = uint8ArrayToObject(messRoot.messageSerialized);
+        console.log('InternalMess', messageDeserialized);
         this.handleMessageType(messageDeserialized);
     }
     handleMessageType(mess) {
@@ -45,6 +46,8 @@ export class ErmesReadRepo {
         this.handleMessage(mess.message, messageType);
     }
     handleMessage(mess, messageType) {
+        let messageData = mess;
+        messageData.data = numericMapToUint8Array(messageData.data);
         if (messageType === MessageValue.base)
             return this.handleBaseMessage(mess);
         if (messageType === MessageValue.chunk)

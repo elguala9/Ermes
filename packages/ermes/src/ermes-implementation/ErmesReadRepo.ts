@@ -1,10 +1,10 @@
 import { ObservableList } from "observable-list/src/ObservableList";
 import { calculateHashSync } from "serialization-utility/src/Hash";
-import { arrayBufferToObject } from "serialization-utility/src/Serialization";
+import { arrayBufferToObject, numericMapToUint8Array, restoreTypedArrays, uint8ArrayToObject } from "serialization-utility/src/Serialization";
 
 import { ChunkHandler } from "../ermes-utility/ChunkHandler.js";
 
-import { CallbackOnMessageReceived, CallbackOnMessageService, CallBackServiceMessage, IdType, InternalMessage, MessageChunkErmes, MessageDataErmes, MessageRoot, MessageType, MessageValue, SerializableDataType, ServiceMessage } from "ermes-types";
+import { CallbackOnMessageReceived, CallbackOnMessageService, CallBackServiceMessage, IdType, InternalMessage, MessageChunkErmes, MessageDataErmes, MessageRoot, MessageType, MessageTypeOfData, MessageValue, SerializableDataType, ServiceMessage } from "ermes-types";
 import { IErmesRepository } from "iermes/index";
 
 
@@ -56,10 +56,9 @@ export class ErmesReadRepo {
 
     private handleMessageArrayBuffer(message: SerializableDataType): void{
         let messRoot: MessageRootErmes = arrayBufferToObject(message);
-        console.log('messRootArrived', messRoot);
         if(messRoot.integrityCheckValue != calculateHashSync(messRoot.messageSerialized))
             throw new Error("Hash mismatched not implemented.");
-        let messageDeserialized: InternalMessage<MessageType> = arrayBufferToObject(messRoot.messageSerialized)
+        let messageDeserialized: InternalMessage<MessageType> = uint8ArrayToObject(messRoot.messageSerialized)
         this.handleMessageType(messageDeserialized);
     }
 
@@ -75,6 +74,11 @@ export class ErmesReadRepo {
     }
 
     private handleMessage(mess: MessageType, messageType: MessageValue): void{
+        let messageData = mess as MessageTypeOfData;
+        // i send a uint8array as Uint8Array(4) [ 1, 2, 3, 4 ]
+        // but for some reason it became data: { '0': 1, '1': 2, '2': 3, '3': 4 
+        // this happen with every uint8array, i need to undertand why
+        messageData.data = numericMapToUint8Array(messageData.data as any) // this i not very good
         if(messageType === MessageValue.base) 
             return this.handleBaseMessage(mess as MessageDataErmes);
         if(messageType === MessageValue.chunk) 

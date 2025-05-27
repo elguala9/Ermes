@@ -1,4 +1,4 @@
-import { CallbackOnDataArrived, CallbackOnMessageReceived, CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, ChunkInfo, IdType, ServiceMessage } from "ermes-types";
+import { CallbackOnDataArrived, CallbackOnMessageReceived, CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, ChunkInfo, IdType, ServiceMessage, TypeOfData } from "ermes-types";
 
 
 import { ErmesServiceInput, IErmesWebRtcRepository } from "iermes/index";
@@ -83,7 +83,7 @@ export class ErmesService implements IErmesService{
     }
 
     // metodo esposto all'utente per mandare il messaggio
-    send(message: Uint8Array): void {
+    send(message: TypeOfData): void {
         this.ermesSendRepo.send(message);
     }    
 
