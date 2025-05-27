@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import type { IdType } from "ermes-types";
 import { IErmesService, IIdHandlerService } from "iermes/index";
+import { Console } from "node:console";
 
 
 export function testErmesService(
@@ -39,7 +40,7 @@ export function testErmesService(
 
       service_1.send(payload);
       const result = await received;
-      expect(result).to.equal(payload);
+      expect(result).to.deep.equal(payload);
     });
 
     

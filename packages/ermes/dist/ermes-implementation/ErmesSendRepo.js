@@ -1,6 +1,6 @@
 import { buffer } from "stream/consumers";
 import { chunkArrayBuffer, getMessageType } from "../Utility.js";
-import { serializeObject } from "serialization-utility/src/Serialization";
+import { objectToArrayBuffer, objectToUint8Array } from "serialization-utility/src/Serialization";
 import { calculateHashSync } from "serialization-utility/src/Hash";
 export class ErmesSendRepo {
     constructor(repository, idHandler, maxByte = 1024) {
@@ -33,7 +33,7 @@ export class ErmesSendRepo {
                 message: element,
                 type: getMessageType(element)
             };
-            let rawData = serializeObject(internalMessage);
+            let rawData = objectToUint8Array(internalMessage);
             let messageRoot = {
                 messageSerialized: rawData,
                 integrityCheckValue: calculateHashSync(rawData)
@@ -49,8 +49,9 @@ export class ErmesSendRepo {
             messageSerialized: Array.from(message.messageSerialized),
             integrityCheckValue: message.integrityCheckValue
         });*/
-        const json = JSON.stringify(message);
-        let rawData = new TextEncoder().encode(json);
+        //const json = JSON.stringify(message);
+        let rawData = objectToArrayBuffer(message);
+        //let rawData = new TextEncoder().encode(json)
         this.sendWithRepo(rawData);
     }
     // effettiva chiamata alla repo. Ci va una logica che in caso di errore memorizzi il messaggio

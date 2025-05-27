@@ -15,12 +15,28 @@ export class ErmesWebRtcRepository {
                 ]
             }
         });
+        // 1) Se sei initiator, _channel esiste subito
+        const maybeDC = this.peer._channel;
+        if (maybeDC) {
+            maybeDC.binaryType = 'arraybuffer';
+        }
+        // 2) Se sei answerer (ricevi il channel tramite RTCDataChannelEvent)
+        const rawPc = this.peer._pc;
+        rawPc.addEventListener('datachannel', (evt) => {
+            evt.channel.binaryType = 'arraybuffer';
+        });
+        // 3) Come fallback, anche sul 'connect'
+        this.peer.on('connect', () => {
+            const dc = this.peer._channel;
+            dc.binaryType = 'arraybuffer';
+        });
         this.peer.on('data', (data) => {
             const ab = Buffer.isBuffer(data)
                 ? data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength)
                 : data instanceof ArrayBuffer
                     ? data
                     : data.buffer;
+            console.log("Array buffer arrived");
             console.dir(ab, { depth: null, maxArrayLength: null, maxStringLength: null });
             if (this.messageCallback) {
                 this.messageCallback(ab);
@@ -51,6 +67,7 @@ export class ErmesWebRtcRepository {
         this.peer.destroy();
     }
     send(data) {
+        console.log("Array buffer sended");
         console.dir(data, { depth: null, maxArrayLength: null, maxStringLength: null });
         if (this.isConnected()) {
             // ensure Uint8Array

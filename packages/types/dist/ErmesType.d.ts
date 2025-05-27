@@ -10,7 +10,7 @@ export type IdType = number;
 export type TypeOfData = Uint8Array;
 export type TypeOfDataExternal = Uint8Array;
 export type MessageRoot<IntegrityCheckTypeGeneric extends IntegrityCheckType> = {
-    messageSerialized: Uint8Array;
+    messageSerialized: TypeOfData;
     integrityCheckValue: IntegrityCheckTypeGeneric;
 };
 export type InternalMessage<MessageTypeGeneric extends MessageType> = {
@@ -20,11 +20,16 @@ export type InternalMessage<MessageTypeGeneric extends MessageType> = {
 export type MessageWithId = {
     id: IdType;
 };
-export type MessageData = MessageDataGeneric<TypeOfData> & MessageWithId & {};
+
 export type MessageDataGeneric<DataType> = MessageWithId & {
     data: DataType;
 };
-export type ChunkMessageGeneric<DataType> = MessageDataGeneric<DataType> & {
+
+export type MessageTypeOfData = MessageDataGeneric<TypeOfData>
+
+export type MessageData = MessageTypeOfData & MessageWithId & {};
+
+export type ChunkMessageGeneric = MessageTypeOfData & {
     ref_id: IdType;
     index: number;
     roof: number;

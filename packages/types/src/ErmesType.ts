@@ -36,7 +36,7 @@ export type MessageRoot<
     //MessageTypeGeneric extends MessageType,
     IntegrityCheckTypeGeneric extends IntegrityCheckType> = {
 
-    messageSerialized: Uint8Array;
+    messageSerialized: TypeOfData;
     integrityCheckValue: IntegrityCheckTypeGeneric; // refer to the content
 }
 
@@ -50,11 +50,11 @@ export type MessageWithId = {
     id: IdType;
 }
 
-// DataType is suggested to be ArrayBuffer
+
 export type MessageData =  MessageDataGeneric<TypeOfData> & MessageWithId & {
 }
 
-// DataType is suggested to be ArrayBuffer
+
 export type MessageDataGeneric<DataType> = MessageWithId & {
     data: DataType;
 }

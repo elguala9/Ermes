@@ -1,4 +1,4 @@
-import { CallbackOnMessageReceived, CallbackOnMessageSended, CallbackOnMessageSending } from "ermes-types";
+import { CallbackOnMessageReceived, CallbackOnMessageSended, CallbackOnMessageSending, TypeOfData } from "ermes-types";
 import { ErmesServiceInput, IErmesWebRtcRepository } from "iermes/index";
 import { IErmesService } from "iermes/standard-interface/IErmes";
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
@@ -16,7 +16,7 @@ export declare class ErmesService implements IErmesService {
     private handleServiceMessage;
     private sendMissingBaseMessage;
     private sendMissingChunks;
-    send(message: Uint8Array): void;
+    send(message: TypeOfData): void;
     close(): void;
     isConnected(): boolean;
     waitForConnect(): Promise<void>;
