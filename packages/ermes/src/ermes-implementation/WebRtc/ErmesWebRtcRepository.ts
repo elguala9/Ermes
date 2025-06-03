@@ -49,10 +49,6 @@ export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
         });
 
         this.peer.on('data', (data: SerializableDataType) => {
-           
-                    
-            console.log("Array buffer arrived");
-            console.dir(data, { depth: null, maxArrayLength: null, maxStringLength: null });
             if (this.messageCallback) {
                 this.messageCallback(data);
             } else {
@@ -92,12 +88,8 @@ export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
     }
     
     public send(data: SerializableDataType): void {
-        console.log("Array buffer sended");
-        console.dir(data, { depth: null, maxArrayLength: null, maxStringLength: null });
         if (this.isConnected()) {
-            // ensure Uint8Array
-            const u8 = data instanceof Uint8Array ? data : new Uint8Array(data);
-            this.peer.send(u8);
+            this.peer.send(data);
         } else {
             throw new Error("Connection is not open.");
         }

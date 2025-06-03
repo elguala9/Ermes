@@ -31,8 +31,6 @@ export class ErmesWebRtcRepository {
             dc.binaryType = 'arraybuffer';
         });
         this.peer.on('data', (data) => {
-            console.log("Array buffer arrived");
-            console.dir(data, { depth: null, maxArrayLength: null, maxStringLength: null });
             if (this.messageCallback) {
                 this.messageCallback(data);
             }
@@ -62,12 +60,10 @@ export class ErmesWebRtcRepository {
         this.peer.destroy();
     }
     send(data) {
-        console.log("Array buffer sended");
-        console.dir(data, { depth: null, maxArrayLength: null, maxStringLength: null });
         if (this.isConnected()) {
             // ensure Uint8Array
-            const u8 = data instanceof Uint8Array ? data : new Uint8Array(data);
-            this.peer.send(u8);
+            //const u8 = data instanceof Uint8Array ? data : new Uint8Array(data);
+            this.peer.send(data);
         }
         else {
             throw new Error("Connection is not open.");
