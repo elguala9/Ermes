@@ -14,7 +14,7 @@
     "express": "^4.21.2",
     "pouchdb": "^9.0.0",
     "pouchdb-core": "^9.0.0",
-    "serialization-utility": "^1.0.7",
+    "serialization-utility": "^1.0.8",
     "simple-peer": "^9.11.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",

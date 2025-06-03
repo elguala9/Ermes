@@ -24,8 +24,6 @@ export function testErmesService(f) {
             });
             service_1.send(payload);
             const result = await received;
-            console.log("result", result);
-            console.log("payload", payload);
             expect(result).to.deep.equal(payload);
         });
         /*it('Multiple Messages Test', async () => {
