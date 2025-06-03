@@ -4,7 +4,7 @@ import { arrayBufferToObject, numericMapToUint8Array, restoreTypedArrays, uint8A
 
 import { ChunkHandler } from "../ermes-utility/ChunkHandler.js";
 
-import { CallbackOnMessageReceived, CallbackOnMessageService, CallBackServiceMessage, IdType, InternalMessage, MessageChunkErmes, MessageDataErmes, MessageRoot, MessageType, MessageTypeOfData, MessageValue, SerializableDataType, ServiceMessage } from "ermes-types";
+import { CallbackOnMessageReceived, CallbackOnMessageService, CallBackServiceMessage, IdType, InternalMessage, MessageChunkErmes, MessageDataErmes, MessageRoot, MessageType, MessageValue, SerializableDataType, ServiceMessage } from "ermes-types";
 import { IErmesRepository } from "iermes/index";
 
 
@@ -55,7 +55,7 @@ export class ErmesReadRepo {
     }
 
     private handleMessageArrayBuffer(message: SerializableDataType): void{
-        let messRoot: MessageRootErmes = arrayBufferToObject(message);
+        let messRoot: MessageRootErmes = uint8ArrayToObject(message);
         if(messRoot.integrityCheckValue != calculateHashSync(messRoot.messageSerialized))
             throw new Error("Hash mismatched not implemented.");
         let messageDeserialized: InternalMessage<MessageType> = uint8ArrayToObject(messRoot.messageSerialized)
@@ -74,11 +74,6 @@ export class ErmesReadRepo {
     }
 
     private handleMessage(mess: MessageType, messageType: MessageValue): void{
-        let messageData = mess as MessageTypeOfData;
-        // i send a uint8array as Uint8Array(4) [ 1, 2, 3, 4 ]
-        // but for some reason it became data: { '0': 1, '1': 2, '2': 3, '3': 4 
-        // this happen with every uint8array, i need to undertand why
-        messageData.data = numericMapToUint8Array(messageData.data as any) // this i not very good
         if(messageType === MessageValue.base) 
             return this.handleBaseMessage(mess as MessageDataErmes);
         if(messageType === MessageValue.chunk) 

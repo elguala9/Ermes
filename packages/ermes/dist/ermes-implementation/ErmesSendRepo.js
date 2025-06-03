@@ -1,6 +1,6 @@
 import { buffer } from "stream/consumers";
 import { chunkArrayBuffer, getMessageType } from "../Utility.js";
-import { objectToArrayBuffer, objectToUint8Array } from "serialization-utility/src/Serialization";
+import { objectToUint8Array } from "serialization-utility/src/Serialization";
 import { calculateHashSync } from "serialization-utility/src/Hash";
 export class ErmesSendRepo {
     constructor(repository, idHandler, maxByte = 1024) {
@@ -43,14 +43,13 @@ export class ErmesSendRepo {
     }
     // invio del messaggio all'altro peer, passando da una serializzazione
     sendRootMessage(message) {
-        console.log('messRootSended', message);
         //let rawData: Uint8Array = serializeObject(message);
         /*const json = JSON.stringify({
             messageSerialized: Array.from(message.messageSerialized),
             integrityCheckValue: message.integrityCheckValue
         });*/
         //const json = JSON.stringify(message);
-        let rawData = objectToArrayBuffer(message);
+        let rawData = objectToUint8Array(message);
         //let rawData = new TextEncoder().encode(json)
         this.sendWithRepo(rawData);
     }

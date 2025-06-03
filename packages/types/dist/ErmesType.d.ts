@@ -20,16 +20,11 @@ export type InternalMessage<MessageTypeGeneric extends MessageType> = {
 export type MessageWithId = {
     id: IdType;
 };
-
+export type MessageData = MessageDataGeneric<TypeOfData> & MessageWithId & {};
 export type MessageDataGeneric<DataType> = MessageWithId & {
     data: DataType;
 };
-
-export type MessageTypeOfData = MessageDataGeneric<TypeOfData>
-
-export type MessageData = MessageTypeOfData & MessageWithId & {};
-
-export type ChunkMessageGeneric = MessageTypeOfData & {
+export type ChunkMessageGeneric<DataType> = MessageDataGeneric<DataType> & {
     ref_id: IdType;
     index: number;
     roof: number;
@@ -58,6 +53,6 @@ export type CallbackOnMessageReceived = {
     callbackonMessage: CallbackOnMessage;
     callbackOnData: CallbackOnDataArrived;
 };
-export type SerializableDataType = ArrayBuffer;
+export type SerializableDataType = Uint8Array;
 export type CallbackOnDataRepository = (data: SerializableDataType) => void;
 export type CallbackOnMessageService = (data: TypeOfData, messageWithId: MessageWithId) => void;

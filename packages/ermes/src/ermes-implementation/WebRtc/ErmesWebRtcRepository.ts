@@ -49,18 +49,14 @@ export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
         });
 
         this.peer.on('data', (data: SerializableDataType) => {
-            const ab = Buffer.isBuffer(data)
-                ? data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength)
-                : data instanceof ArrayBuffer
-                    ? data
-                    : (data as Uint8Array).buffer
+           
                     
             console.log("Array buffer arrived");
-            console.dir(ab, { depth: null, maxArrayLength: null, maxStringLength: null });
+            console.dir(data, { depth: null, maxArrayLength: null, maxStringLength: null });
             if (this.messageCallback) {
-                this.messageCallback(ab);
+                this.messageCallback(data);
             } else {
-                this.messageBuffer.push(ab);
+                this.messageBuffer.push(data);
             }
         });
     

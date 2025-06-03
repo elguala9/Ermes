@@ -103,7 +103,7 @@ export type CallbackOnMessageReceived = {
 }
 
 // this is the type used by the ermes repository
-export type SerializableDataType = ArrayBuffer;
+export type SerializableDataType = Uint8Array;
 
 // here we ahve the data on webrtc
 export type CallbackOnDataRepository = (data: SerializableDataType) => void;
