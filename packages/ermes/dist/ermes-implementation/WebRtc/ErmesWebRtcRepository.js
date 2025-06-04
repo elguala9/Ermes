@@ -61,8 +61,6 @@ export class ErmesWebRtcRepository {
     }
     send(data) {
         if (this.isConnected()) {
-            // ensure Uint8Array
-            //const u8 = data instanceof Uint8Array ? data : new Uint8Array(data);
             this.peer.send(data);
         }
         else {

@@ -9,6 +9,7 @@ export type IntegrityCheckType = string | number | boolean;
 export type IdType = number;
 export type TypeOfData = Uint8Array;
 export type TypeOfDataExternal = Uint8Array;
+export type IdPeer = string;
 export type MessageRoot<IntegrityCheckTypeGeneric extends IntegrityCheckType> = {
     messageSerialized: TypeOfData;
     integrityCheckValue: IntegrityCheckTypeGeneric;
@@ -47,6 +48,7 @@ export type CallBackServiceMessage = (serviceMessage: ServiceMessage) => void;
 export type CallbackOnMessageData = (serviceMessage: MessageDataErmes) => void;
 export type CallbackOnMessage = (message: MessageType) => void;
 export type CallbackOnDataArrived = (data: TypeOfDataExternal) => void;
+export type CallbackOnDataArrivedFrom = (data: TypeOfDataExternal, peer: IdPeer) => void;
 export type CallbackOnMessageSending = CallbackOnMessage;
 export type CallbackOnMessageSended = CallbackOnMessage;
 export type CallbackOnMessageReceived = {
