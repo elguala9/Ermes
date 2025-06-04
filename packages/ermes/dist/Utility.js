@@ -7,7 +7,7 @@ import { MessageValue } from "ermes-types";
  * @returns An array of ChunkMessage objects, each containing a chunk of the original ArrayBuffer.
  */
 export function chunkArrayBuffer(idHanlder, buffer, ref_id, maxByte) {
-    const totalLength = buffer.byteLength;
+    const totalLength = buffer.length;
     const numChunks = Math.ceil(totalLength / maxByte);
     const chunks = [];
     for (let i = 0; i < numChunks; i++) {
