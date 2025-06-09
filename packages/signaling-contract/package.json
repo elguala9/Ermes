@@ -1,0 +1,25 @@
+{
+  "name": "signaling-contract",
+  "version": "1.0.0",
+  "description": "contract that should replace a signaling server",
+  "keywords": [
+    "signlaing"
+  ],
+  "author": "Luca Gualandi <lgualandi@omniagroup.it>",
+  "homepage": "https://github.com/elguala9/InterfaceErmes/tree/main/packages/signaling-contract#readme",
+  "license": "GPL-2.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elguala9/Ermes.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/signaling-contract.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/elguala9/Ermes/issues"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.24.2"
+  }
+}
