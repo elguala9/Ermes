@@ -33,6 +33,7 @@
     "gen-exports:ermes": "npx gen-exports packages/ermes/dist -p packages/ermes/package.json",
     "gen-exports:iermes": "npx gen-exports packages/iermes/dist -p packages/iermes/package.json",
     "gen-exports:ermes-storage": "npx gen-exports packages/ermes-storage/dist -p packages/ermes-storage/package.json",
+    "gen-exports:contract-handler": "npx gen-exports packages/contract-handler/dist -p packages/contract-handler/package.json",
     "gen-exports-all": "npm run gen-exports:ermes && npm run gen-exports:iermes && npm run gen-exports:ermes-storage",
     "prepare-pers": "npm run barrelsby-build && npm run gen-exports-all",
     "clean": "rimraf packages/*/dist",
@@ -42,7 +43,8 @@
     "test:idhandler": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesIdHandler.ts",
     "test:ermes": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesService.ts",
     "test:ermes-connection": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesServiceConnection.ts",
-    "build-sc": "hardhat compile --config ./packages/signaling-contract/hardhat.config.ts"
+    "build-sc": "hardhat compile --config ./packages/signaling-contract/hardhat.config.ts",
+    "build-handler": "tsc -b packages/contract-handler && npm run gen-exports:contract-handler"
   },
   "devDependencies": {
     "@types/gun": "^0.9.6",
