@@ -1,0 +1,29 @@
+{
+  "name": "signaling-sdk",
+  "version": "1.0.0",
+  "description": "Sdk for the sc signlaling",
+  "keywords": [
+    "ermes"
+  ],
+  "author": "Luca Gualandi <lgualandi@omniagroup.it>",
+  "homepage": "https://github.com/elguala9/InterfaceErmes/tree/main/packages/signaling-sdk#readme",
+  "license": "GPL-2.0-only",
+  "main": "lib/signaling-sdk.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elguala9/Ermes.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/signaling-sdk.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/elguala9/Ermes/issues"
+  }
+}

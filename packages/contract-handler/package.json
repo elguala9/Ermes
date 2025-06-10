@@ -1,0 +1,29 @@
+{
+  "name": "contract-handler",
+  "version": "0.0.0",
+  "description": "General contract handler",
+  "keywords": [
+    "blockchain"
+  ],
+  "author": "Luca Gualandi <lgualandi@omniagroup.it>",
+  "homepage": "https://github.com/elguala9/InterfaceErmes/tree/main/packages/contract-handler#readme",
+  "license": "GPL-2.0-only",
+  "main": "lib/contract-handler.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elguala9/Ermes.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/contract-handler.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/elguala9/Ermes/issues"
+  }
+}

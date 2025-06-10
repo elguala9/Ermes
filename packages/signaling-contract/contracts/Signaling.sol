@@ -1,37 +1,41 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.28;
+pragma solidity ^0.8.24;
 import './ISignaling.sol';
 
 
 
 contract Signaling is ISignaling {
 
-    mapping (address => bytes) offers;
-    mapping (address => mapping(address => bytes)) answers;
+    // offerer -> offer
+    mapping (address => Signal) offers;
+    // answerer -> offerer -> answer
+    mapping (address => mapping(address => Signal)) answers;
 
     function setOffer(bytes memory offer) external override {
-        offers[msg.sender] = offer;
+        Signal memory signal = Signal(offer, block.timestamp);
+        offers[msg.sender] = signal;
+        emit proposeOffer(msg.sender, signal);
     }
 
     function setAnswer(
         bytes memory answer,
         address offerer
     ) external override {
-        answers[msg.sender][offerer] = answer;
-        emit proposeAnswer(msg.sender, offerer);
+        Signal memory signal = Signal(answer, block.timestamp);
+        answers[msg.sender][offerer] = signal;
+        emit proposeAnswer(msg.sender, offerer, signal);
     }
 
     function getOffer(
         address offerer
-    ) external view override returns (uint256) {
-        return offers[offerer]
+    ) external view override returns (Signal memory) {
+        return offers[offerer];
     }
 
     function getAnswer(
-        address offerer,
-        address answerer
-    ) external view override returns (uint256) {
-        answers[msg.sender][offerer];ldkidnci
-        
+        address answerer,
+        address offerer
+    ) external view override returns (Signal memory) {
+        return answers[answerer][offerer];
     }
 }
