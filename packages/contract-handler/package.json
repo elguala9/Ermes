@@ -25,5 +25,22 @@
   },
   "bugs": {
     "url": "https://github.com/elguala9/Ermes/issues"
+  },
+  "exports": {
+    "./ContractHandler": {
+      "import": "./dist/ContractHandler.js",
+      "require": "./dist/ContractHandler.js",
+      "types": "./dist/ContractHandler.d.ts"
+    },
+    "./IContractHandler": {
+      "import": "./dist/IContractHandler.js",
+      "require": "./dist/IContractHandler.js",
+      "types": "./dist/IContractHandler.d.ts"
+    },
+    "./Utility": {
+      "import": "./dist/Utility.js",
+      "require": "./dist/Utility.js",
+      "types": "./dist/Utility.d.ts"
+    }
   }
 }
