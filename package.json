@@ -41,7 +41,8 @@
     "test:storage": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesStorage.ts",
     "test:idhandler": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesIdHandler.ts",
     "test:ermes": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesService.ts",
-    "test:ermes-connection": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesServiceConnection.ts"
+    "test:ermes-connection": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesServiceConnection.ts",
+    "build-sc": "hardhat compile --config ./packages/signaling-contract/hardhat.config.ts"
   },
   "devDependencies": {
     "@types/gun": "^0.9.6",
