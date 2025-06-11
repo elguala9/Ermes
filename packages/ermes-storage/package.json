@@ -21,6 +21,9 @@
     "url": "git+https://github.com/elguala9/Ermes.git"
   },
   "scripts": {
+    "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts",
+    "build": "tsc -b",
+    "gen-exports": "npx gen-exports dist -p package.json",
     "gen:schemas-old": "typescript-json-schema tsconfig.json MessageTypeStorage --topRef --noExtraProps --required --out ./src/storage-implementation/schemas.json",
     "gen:schema:MessageDataStorage": "ts-json-schema-generator --path \"src/**/*.ts\" --tsconfig tsconfig.json --type MessageDataStorage --expose none --out src/storage-implementation/schemas/MessageDataStorage.json",
     "gen:schema:ServiceMessageStorage": "ts-json-schema-generator --path \"src/**/*.ts\" --tsconfig tsconfig.json --type ServiceMessageStorage --expose none --out src/storage-implementation/schemas/ServiceMessageStorage.json",

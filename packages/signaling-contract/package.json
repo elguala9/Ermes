@@ -13,6 +13,7 @@
     "url": "git+https://github.com/elguala9/Ermes.git"
   },
   "scripts": {
+    "build": "hardhat compile",
     "test": "node ./__tests__/signaling-contract.test.js"
   },
   "bugs": {

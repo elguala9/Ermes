@@ -1,4 +1,3 @@
-import { messageChunkSchema, messageDataSchema, serviceMessageSchema } from "./SchemaDefinition.js";
 import { createRxDatabase } from "rxdb";
 import { getRxStorageLocalstorage } from "rxdb/plugins/storage-localstorage";
 // Generic repository backed by PouchDB
@@ -17,11 +16,7 @@ export class ErmesStorageRepository {
             name: idStorage,
             storage: getRxStorageLocalstorage()
         });
-        await this._db.addCollections({
-            service: { schema: serviceMessageSchema },
-            data: { schema: messageDataSchema },
-            chunk: { schema: messageChunkSchema }
-        });
+        await this._db.addCollections({});
     }
     async clear() {
         await this.ready;

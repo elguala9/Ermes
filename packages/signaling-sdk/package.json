@@ -25,5 +25,8 @@
   },
   "bugs": {
     "url": "https://github.com/elguala9/Ermes/issues"
-  }
+  },
+"dependencies": {
+  "contract-handler": "0.0.0"
+}
 }

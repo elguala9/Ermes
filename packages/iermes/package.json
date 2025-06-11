@@ -7,6 +7,11 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "scripts": {
+    "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts",
+    "build": "tsc -b",
+    "gen-exports": "npx gen-exports dist -p package.json"
+  },
   "exports": {
     "./index": {
       "import": "./dist/index.js",
