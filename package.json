@@ -15,36 +15,13 @@
     "url": "git+https://github.com/elguala9/InterfaceErmes.git"
   },
   "scripts": {
-    "barrelsby:iermes": "barrelsby --directory packages/iermes/src --delete --barrelName index.ts --extensions ts",
-    "barrelsby:types": "barrelsby --directory packages/types/src --delete --barrelName index.ts --extensions ts",
-    "barrelsby:ermes": "barrelsby --directory packages/ermes/src --delete --barrelName index.ts --extensions ts",
-    "barrelsby:ermes-storage": "barrelsby --directory packages/ermes-storage/src --delete --barrelName index.ts --extensions ts",
-    "barrelsby:test-ermes": "barrelsby --directory packages/test-ermes/src --delete --barrelName index.ts --extensions ts",
-    "barrelsby-build": "npm run barrelsby-all && npm run add-js && npm run build-all",
-    "barrelsby-all": "npm run barrelsby:types && npm run barrelsby:iermes && npm run barrelsby:ermes && npm run barrelsby:ermes-storage && npm run barrelsby:test-ermes",
-    "build-all": "npm run build:types && npm install && npm run build:iermes && npm install && npm run build:ermes && npm run build:ermes-storage && npm install && npm run build:test-ermes",
-    "build:types": "tsc -b packages/types",
-    "build:iermes": "tsc -b packages/iermes",
-    "build:ermes": "tsc -b packages/ermes && npm run copy:ermes:types && npm run copy:ermes:js",
-    "copy:ermes:types": "copyfiles -u 4 packages/ermes/src/types/wrtc.d.ts packages/ermes/dist/types",
-    "copy:ermes:js": "copyfiles -u 4 packages/ermes/src/types/wrtc.js packages/ermes/dist/types",
-    "build:ermes-storage": "tsc -b packages/ermes-storage",
-    "build:test-ermes": "tsc -b packages/test-ermes",
-    "gen-exports:ermes": "npx gen-exports packages/ermes/dist -p packages/ermes/package.json",
-    "gen-exports:iermes": "npx gen-exports packages/iermes/dist -p packages/iermes/package.json",
-    "gen-exports:ermes-storage": "npx gen-exports packages/ermes-storage/dist -p packages/ermes-storage/package.json",
-    "gen-exports:contract-handler": "npx gen-exports packages/contract-handler/dist -p packages/contract-handler/package.json",
-    "gen-exports-all": "npm run gen-exports:ermes && npm run gen-exports:iermes && npm run gen-exports:ermes-storage",
-    "prepare-pers": "npm run barrelsby-build && npm run gen-exports-all",
+    "build": "lage build",
+    "barrelsby": "lage barrelsby && npm run add-js",
+    "gen-exports": "lage gen-exports",
+    "test": "lage test",
     "clean": "rimraf packages/*/dist",
     "add-js": "ts-node utility/add-js-import.ts",
-    "test:caching": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesCaching.ts",
-    "test:storage": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesStorage.ts",
-    "test:idhandler": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesIdHandler.ts",
-    "test:ermes": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesService.ts",
-    "test:ermes-connection": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesServiceConnection.ts",
-    "build-sc": "hardhat compile --config ./packages/signaling-contract/hardhat.config.ts",
-    "build-handler": "tsc -b packages/contract-handler && npm run gen-exports:contract-handler"
+    "prepare-pers": "npm run barrelsby && npm run add-js && npm run build && npm run gen-exports"
   },
   "devDependencies": {
     "@types/gun": "^0.9.6",
@@ -52,6 +29,7 @@
     "barrelsby": "^2.8.1",
     "copyfiles": "^2.4.1",
     "fast-glob": "^3.3.3",
+    "lage": "^2.14.6",
     "lerna": "^8.2.2",
     "mocha": "^11.2.2",
     "ts-json-schema-generator": "^2.4.0",
@@ -68,3 +46,4 @@
     "observable-list": "^1.0.0"
   }
 }
+

@@ -1,7 +1,7 @@
 import { IdType, MessageType } from "ermes-types";
 import { IErmesStorageRepository } from "iermes/index";
 import PouchDB from "pouchdb";
-import { messageChunkSchema, messageDataSchema, serviceMessageSchema } from "./SchemaDefinition.js";
+
 import { createRxDatabase, RxDatabase } from "rxdb";
 import { getRxStorageLocalstorage } from "rxdb/plugins/storage-localstorage";
 
@@ -30,9 +30,7 @@ export class ErmesStorageRepository<
       storage: getRxStorageLocalstorage()
     });
     await this._db.addCollections({
-      service: { schema: serviceMessageSchema },
-      data:    { schema: messageDataSchema   },
-      chunk:   { schema: messageChunkSchema  }
+
     });
   }
 
