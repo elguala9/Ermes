@@ -21,12 +21,69 @@
     "url": "git+https://github.com/elguala9/Ermes.git"
   },
   "scripts": {
-    "test": "node ./__tests__/signaling-sdk.test.js"
+    "build": "tsc -b",
+    "gen-exports": "npx gen-exports dist -p package.json",
+    "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts"
   },
   "bugs": {
     "url": "https://github.com/elguala9/Ermes/issues"
   },
-"dependencies": {
-  "contract-handler": "0.0.0"
-}
+  "devDependencies": {
+    "signaling-contract": "*"
+  },
+  "dependencies": {
+    "contract-handler": "0.0.0"
+  },
+  "exports": {
+    "./index": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./ISignlaingSdk": {
+      "import": "./dist/ISignlaingSdk.js",
+      "require": "./dist/ISignlaingSdk.js",
+      "types": "./dist/ISignlaingSdk.d.ts"
+    },
+    "./SignalingSdk": {
+      "import": "./dist/SignalingSdk.js",
+      "require": "./dist/SignalingSdk.js",
+      "types": "./dist/SignalingSdk.d.ts"
+    },
+    "./typeschain/common": {
+      "import": "./dist/typeschain/common.js",
+      "require": "./dist/typeschain/common.js",
+      "types": "./dist/typeschain/common.d.ts"
+    },
+    "./typeschain/index": {
+      "import": "./dist/typeschain/index.js",
+      "require": "./dist/typeschain/index.js",
+      "types": "./dist/typeschain/index.d.ts"
+    },
+    "./typeschain/ISignaling": {
+      "import": "./dist/typeschain/ISignaling.js",
+      "require": "./dist/typeschain/ISignaling.js",
+      "types": "./dist/typeschain/ISignaling.d.ts"
+    },
+    "./typeschain/Signaling": {
+      "import": "./dist/typeschain/Signaling.js",
+      "require": "./dist/typeschain/Signaling.js",
+      "types": "./dist/typeschain/Signaling.d.ts"
+    },
+    "./typeschain/factories/index": {
+      "import": "./dist/typeschain/factories/index.js",
+      "require": "./dist/typeschain/factories/index.js",
+      "types": "./dist/typeschain/factories/index.d.ts"
+    },
+    "./typeschain/factories/ISignaling__factory": {
+      "import": "./dist/typeschain/factories/ISignaling__factory.js",
+      "require": "./dist/typeschain/factories/ISignaling__factory.js",
+      "types": "./dist/typeschain/factories/ISignaling__factory.d.ts"
+    },
+    "./typeschain/factories/Signaling__factory": {
+      "import": "./dist/typeschain/factories/Signaling__factory.js",
+      "require": "./dist/typeschain/factories/Signaling__factory.js",
+      "types": "./dist/typeschain/factories/Signaling__factory.d.ts"
+    }
+  }
 }

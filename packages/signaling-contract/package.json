@@ -13,7 +13,7 @@
     "url": "git+https://github.com/elguala9/Ermes.git"
   },
   "scripts": {
-    "build": "hardhat compile",
+    "build": "hardhat compile && node scripts/fix-typechain-index.js",
     "test": "node ./__tests__/signaling-contract.test.js"
   },
   "bugs": {

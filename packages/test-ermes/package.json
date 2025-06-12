@@ -22,8 +22,7 @@
   },
   "scripts": {
     "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts",
-    "build": "tsc -b",
-    "test": "node ./__tests__/test-ermes.test.js"
+    "build": "tsc -b"
   },
   "bugs": {
     "url": "https://github.com/elguala9/Ermes/issues"
