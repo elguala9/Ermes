@@ -15,13 +15,19 @@
     "url": "git+https://github.com/elguala9/InterfaceErmes.git"
   },
   "scripts": {
-    "build": "lage build",
-    "barrelsby": "lage barrelsby && npm run add-js",
-    "gen-exports": "lage gen-exports",
-    "test": "lage test",
+    "build": "npx lage build",
+    "barrelsby": "npx lage barrelsby && npm run add-js",
+    "gen-exports": "npx lage gen-exports",
+    "test": "npx lage test",
     "clean": "rimraf packages/*/dist",
     "add-js": "ts-node utility/add-js-import.ts",
-    "prepare-pers": "npm run barrelsby && npm run add-js && npm run build && npm run gen-exports"
+    "prepare-for-test": "npm run barrelsby && npm run build && npm run gen-exports",
+    "test:caching": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesCaching.ts",
+    "test:storage": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesStorage.ts",
+    "test:idhandler": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesIdHandler.ts",
+    "test:ermes": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesService.ts",
+    "test:ermes-connection": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesServiceConnection.ts",
+    "postbuild": "npm install"
   },
   "devDependencies": {
     "@types/gun": "^0.9.6",

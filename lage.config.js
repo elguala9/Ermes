@@ -5,7 +5,7 @@ module.exports = {
       // Dipendenze delle build
       deps: ["^build"],
       // Output da considerare per caching
-      outputs: ["dist/**", "lib/**"]
+      outputs: ["dist/**"]
     },
     
     // Test task - viene eseguito dopo build
@@ -13,27 +13,38 @@ module.exports = {
       deps: ["build"],
       outputs: []
     },
-    
+
+    "postbuild": {
+      deps: ["build"],
+      outputs: [],
+      run: {
+        ".": "postbuild"  // runs `npm run postbuild` in root
+      }
+    },
+        
     // Barrelsby task - nessuna dipendenza, può essere eseguito in parallelo
     barrelsby: {
       deps: [],
       outputs: ["src/index.ts"]
     },
+
+    /*"add-js": {
+      deps: ["barrelsby"], // <--- garantisce che venga eseguito dopo barrelsby
+      outputs: ["src/index.ts"], // se crea file, puoi elencarli qui
+      run: {
+        ".": "add-js" // <--- esegue `npm run add-js` nel package.json root
+      }
+    },*/
     
     // Gen-exports task - richiede la build
     "gen-exports": {
-      deps: ["build"],
+      deps: ["barrelsby"],
       outputs: []
     },
     
-    // Generate schema tasks - nessuna dipendenza
-    "gen:schema:all": {
-      deps: [],
-      outputs: ["src/storage-implementation/schemas/*.json"]
-    },
-    
     // Script combinati
-    "prepare-pers": ["barrelsby", "build", "gen-exports"]
+    prepare: ["barrelsby", "build", "postbuild", "gen-exports"]
+
   },
   
   // Usa npm come client

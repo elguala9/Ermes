@@ -23,8 +23,7 @@
   "scripts": {
     "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts",
     "build": "tsc -b && npm run gen-exports",
-    "gen-exports": "npx gen-exports dist -p package.json",
-    "test": "node ./__tests__/contract-handler.test.js"
+    "gen-exports": "npx gen-exports dist -p package.json"
   },
   "bugs": {
     "url": "https://github.com/elguala9/Ermes/issues"
