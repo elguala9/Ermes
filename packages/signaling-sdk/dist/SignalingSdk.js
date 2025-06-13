@@ -13,15 +13,21 @@ class SignalingSdk extends ContractHandler_1.ContractHandler {
      */
     constructor(contractFactory, signer, address, offerer) {
         super(contractFactory, signer, address);
+        this.addListner(offerer);
+    }
+    addListner(offerer) {
         /**
          * trigger on the propose answer event, filtered by offerer
          */
-        this.contract.on(this.contract.filters.proposeAnswer(offerer ?? signer.getAddress()), (offerer, answerer, answer, event) => {
+        this.contract.on(this.contract.filters.proposeAnswer(offerer), (offerer, answerer, answer, event) => {
             console.log("Trigger event:" + offerer + "  ---  " + answerer);
             let outputStruct = (0, Utility_1.toOutputStruct)(answer);
             if (this.callbackProposeAnswer)
                 this.callbackProposeAnswer(offerer, answerer, outputStruct);
         });
+    }
+    removeAllListeners() {
+        this.contract.removeAllListeners();
     }
     async setOffer(offer) {
         let offerSerialized = this.serialize(offer);

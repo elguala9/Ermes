@@ -58,15 +58,10 @@
       "require": "./dist/standard-interface/IOrcErmes.js",
       "types": "./dist/standard-interface/IOrcErmes.d.ts"
     },
-    "./storage-interface/IErmesCaching": {
-      "import": "./dist/storage-interface/IErmesCaching.js",
-      "require": "./dist/storage-interface/IErmesCaching.js",
-      "types": "./dist/storage-interface/IErmesCaching.d.ts"
-    },
-    "./storage-interface/IErmesStorage": {
-      "import": "./dist/storage-interface/IErmesStorage.js",
-      "require": "./dist/storage-interface/IErmesStorage.js",
-      "types": "./dist/storage-interface/IErmesStorage.d.ts"
+    "./signaling-interface/ISignalingErmes": {
+      "import": "./dist/signaling-interface/ISignalingErmes.js",
+      "require": "./dist/signaling-interface/ISignalingErmes.js",
+      "types": "./dist/signaling-interface/ISignalingErmes.d.ts"
     },
     "./types/ErmesWebRtcInput": {
       "import": "./dist/types/ErmesWebRtcInput.js",
@@ -82,6 +77,16 @@
       "import": "./dist/types/types.js",
       "require": "./dist/types/types.js",
       "types": "./dist/types/types.d.ts"
+    },
+    "./storage-interface/IErmesCaching": {
+      "import": "./dist/storage-interface/IErmesCaching.js",
+      "require": "./dist/storage-interface/IErmesCaching.js",
+      "types": "./dist/storage-interface/IErmesCaching.d.ts"
+    },
+    "./storage-interface/IErmesStorage": {
+      "import": "./dist/storage-interface/IErmesStorage.js",
+      "require": "./dist/storage-interface/IErmesStorage.js",
+      "types": "./dist/storage-interface/IErmesStorage.d.ts"
     }
   }
 }

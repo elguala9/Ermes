@@ -12,7 +12,9 @@ export declare class SignalingSdk extends ContractHandler<Signaling> implements 
      * @param address address of the contract
      * @param offerer in case is undefined, i take the address of the signer
      */
-    constructor(contractFactory: ContractFactory, signer: Signer, address: string, offerer?: AddressType);
+    constructor(contractFactory: ContractFactory, signer: Signer, address: string, offerer: AddressType);
+    addListner(offerer: AddressType): void;
+    removeAllListeners(): void;
     setOffer(offer: OfferType): Promise<ContractTransactionReceipt>;
     setAnswer(answer: AnswerType, offerer: AddressType): Promise<ContractTransactionReceipt>;
     getOffer(offerer: AddressType): Promise<OutputStruct>;

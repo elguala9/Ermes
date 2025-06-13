@@ -6,4 +6,6 @@ export interface ISignalingSdk {
     getOffer(offerer: AddressType): Promise<OutputStruct>;
     getAnswer(answerer: AddressType, offerer: AddressType): Promise<OutputStruct>;
     onAnswer(input: CallbackSignal): void;
+    removeAllListeners(): void;
+    addListner(offerer: AddressType): void;
 }

@@ -18,12 +18,16 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
      * @param address address of the contract
      * @param offerer in case is undefined, i take the address of the signer
      */
-    constructor(contractFactory: ContractFactory, signer: Signer, address: string, offerer?: AddressType){
+    constructor(contractFactory: ContractFactory, signer: Signer, address: string, offerer: AddressType){
         super(contractFactory, signer, address);
+        this.addListner(offerer);
+    }
+
+    addListner(offerer: AddressType): void {
         /**
          * trigger on the propose answer event, filtered by offerer
          */
-        this.contract.on(this.contract.filters.proposeAnswer(offerer ?? signer.getAddress() ), (
+        this.contract.on(this.contract.filters.proposeAnswer(offerer), (
             offerer: string,
             answerer: string,
             answer: proposeAnswerEvent.OutputObject["answer"],
@@ -34,6 +38,10 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
             if(this.callbackProposeAnswer)
                 this.callbackProposeAnswer(offerer, answerer, outputStruct);
         });
+    }
+    
+    removeAllListeners(): void {
+        this.contract.removeAllListeners();
     }
 
     async setOffer(offer: OfferType): Promise<ContractTransactionReceipt> {
