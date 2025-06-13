@@ -1,4 +1,4 @@
-import { BaseContract, ContractFactory, ContractTransactionReceipt, ContractTransactionResponse, Signer } from "ethers";
+import { BaseContract, BytesLike, ContractFactory, ContractTransactionReceipt, ContractTransactionResponse, ethers, Signer } from "ethers";
 import { IContractHandler } from "./IContractHandler"
 
 export class ContractHandler<C extends BaseContract> implements IContractHandler{
@@ -32,6 +32,13 @@ export class ContractHandler<C extends BaseContract> implements IContractHandler
             }
         }
         return "";
+    }
+
+    protected serialize(propose: string): Uint8Array {
+        return ethers.toUtf8Bytes(propose);
+    }
+    protected deSerialize(propose: BytesLike): string {
+        return ethers.toUtf8String(propose);
     }
 
 }

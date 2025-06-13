@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContractHandler = void 0;
+const ethers_1 = require("ethers");
 class ContractHandler {
     constructor(contractFactory, signer, address) {
         this.timeout = 1;
@@ -27,6 +28,12 @@ class ContractHandler {
             }
         }
         return "";
+    }
+    serialize(propose) {
+        return ethers_1.ethers.toUtf8Bytes(propose);
+    }
+    deSerialize(propose) {
+        return ethers_1.ethers.toUtf8String(propose);
     }
 }
 exports.ContractHandler = ContractHandler;

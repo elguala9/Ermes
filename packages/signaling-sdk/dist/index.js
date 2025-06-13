@@ -17,7 +17,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./ISignlaingSdk.js"), exports);
+__exportStar(require("./ISignalingSdk.js"), exports);
 __exportStar(require("./SignalingSdk.js"), exports);
+__exportStar(require("./Types.js"), exports);
+__exportStar(require("./Utility.js"), exports);
 __exportStar(require("./typeschain/index.js"), exports);
 //# sourceMappingURL=index.js.map

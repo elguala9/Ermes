@@ -32,13 +32,19 @@
     "signaling-contract": "*"
   },
   "dependencies": {
-    "contract-handler": "0.0.0"
+    "contract-handler": "0.0.0",
+    "ethers": "^6.14.4"
   },
   "exports": {
     "./index": {
       "import": "./dist/index.js",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./ISignalingSdk": {
+      "import": "./dist/ISignalingSdk.js",
+      "require": "./dist/ISignalingSdk.js",
+      "types": "./dist/ISignalingSdk.d.ts"
     },
     "./ISignlaingSdk": {
       "import": "./dist/ISignlaingSdk.js",
@@ -49,6 +55,16 @@
       "import": "./dist/SignalingSdk.js",
       "require": "./dist/SignalingSdk.js",
       "types": "./dist/SignalingSdk.d.ts"
+    },
+    "./Types": {
+      "import": "./dist/Types.js",
+      "require": "./dist/Types.js",
+      "types": "./dist/Types.d.ts"
+    },
+    "./Utility": {
+      "import": "./dist/Utility.js",
+      "require": "./dist/Utility.js",
+      "types": "./dist/Utility.d.ts"
     },
     "./typeschain/common": {
       "import": "./dist/typeschain/common.js",
