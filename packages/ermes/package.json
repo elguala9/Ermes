@@ -48,26 +48,6 @@
       "require": "./dist/Utility.js",
       "types": "./dist/Utility.d.ts"
     },
-    "./ermes-utility/ChunkHandler": {
-      "import": "./dist/ermes-utility/ChunkHandler.js",
-      "require": "./dist/ermes-utility/ChunkHandler.js",
-      "types": "./dist/ermes-utility/ChunkHandler.d.ts"
-    },
-    "./ermes-utility/IdHandlerFactory": {
-      "import": "./dist/ermes-utility/IdHandlerFactory.js",
-      "require": "./dist/ermes-utility/IdHandlerFactory.js",
-      "types": "./dist/ermes-utility/IdHandlerFactory.d.ts"
-    },
-    "./ermes-utility/IdHandlerRepository": {
-      "import": "./dist/ermes-utility/IdHandlerRepository.js",
-      "require": "./dist/ermes-utility/IdHandlerRepository.js",
-      "types": "./dist/ermes-utility/IdHandlerRepository.d.ts"
-    },
-    "./ermes-utility/IdHandlerService": {
-      "import": "./dist/ermes-utility/IdHandlerService.js",
-      "require": "./dist/ermes-utility/IdHandlerService.js",
-      "types": "./dist/ermes-utility/IdHandlerService.d.ts"
-    },
     "./ermes-implementation/ErmesReadRepo": {
       "import": "./dist/ermes-implementation/ErmesReadRepo.js",
       "require": "./dist/ermes-implementation/ErmesReadRepo.js",
@@ -103,13 +83,30 @@
       "require": "./dist/ermes-implementation/PeerHandler.js",
       "types": "./dist/ermes-implementation/PeerHandler.d.ts"
     },
+    "./ermes-utility/ChunkHandler": {
+      "import": "./dist/ermes-utility/ChunkHandler.js",
+      "require": "./dist/ermes-utility/ChunkHandler.js",
+      "types": "./dist/ermes-utility/ChunkHandler.d.ts"
+    },
+    "./ermes-utility/IdHandlerFactory": {
+      "import": "./dist/ermes-utility/IdHandlerFactory.js",
+      "require": "./dist/ermes-utility/IdHandlerFactory.js",
+      "types": "./dist/ermes-utility/IdHandlerFactory.d.ts"
+    },
+    "./ermes-utility/IdHandlerRepository": {
+      "import": "./dist/ermes-utility/IdHandlerRepository.js",
+      "require": "./dist/ermes-utility/IdHandlerRepository.js",
+      "types": "./dist/ermes-utility/IdHandlerRepository.d.ts"
+    },
+    "./ermes-utility/IdHandlerService": {
+      "import": "./dist/ermes-utility/IdHandlerService.js",
+      "require": "./dist/ermes-utility/IdHandlerService.js",
+      "types": "./dist/ermes-utility/IdHandlerService.d.ts"
+    },
     "./types/wrtc": {
       "import": "./dist/types/wrtc.js",
       "require": "./dist/types/wrtc.js",
       "types": "./dist/types/wrtc.d.ts"
-    },
-    "./types/types/wrtc": {
-      "types": "./dist/types/types/wrtc.d.ts"
     },
     "./ermes-implementation/WebRtc/ErmesWebRtcFactory": {
       "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
@@ -130,6 +127,9 @@
       "import": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
       "require": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
       "types": "./dist/ermes-implementation/WebRtc/NormalizationUtility.d.ts"
+    },
+    "./types/types/wrtc": {
+      "types": "./dist/types/types/wrtc.d.ts"
     }
   }
 }

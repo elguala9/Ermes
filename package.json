@@ -21,7 +21,7 @@
     "test": "npx lage test",
     "clean": "rimraf packages/*/dist",
     "add-js": "ts-node utility/add-js-import.ts",
-    "prepare-for-test": "npm run barrelsby && npm run build && npm run gen-exports",
+    "compile": "npm run barrelsby && npm run build && npm run gen-exports",
     "test:caching": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesCaching.ts",
     "test:storage": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesStorage.ts",
     "test:idhandler": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesIdHandler.ts",
