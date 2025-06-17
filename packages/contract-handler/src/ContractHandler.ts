@@ -5,14 +5,22 @@ export class ContractHandler<C extends BaseContract> implements IContractHandler
     contract: C;
     confirms?: number;
     timeout?: number = 1;
+    protected signer: Signer
 
     constructor(contractFactory: ContractFactory, signer: Signer, address: string) {
+        this.signer = signer;
         let factory = contractFactory.connect(signer);
         this.contract = factory.attach(address) as C;
 
     }
+    getAddressUser(): Promise<string> {
+        return this.signer.getAddress();
+    }
+    getAddressSmartContract(): Promise<string> {
+        return this.contract.getAddress();
+    }
 
-    public async waitTransaction(tx: ContractTransactionResponse): Promise<ContractTransactionReceipt>{
+    protected async waitTransaction(tx: ContractTransactionResponse): Promise<ContractTransactionReceipt>{
         let receipt = await tx.wait(this.confirms, this.timeout);
         if(receipt == null)
             throw new Error("Transaction confirmation exceed timeout");

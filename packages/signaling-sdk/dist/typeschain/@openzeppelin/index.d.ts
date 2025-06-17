@@ -1,0 +1,4 @@
+import type * as contracts from "./contracts.js";
+export type { contracts };
+import type * as contractsUpgradeable from "./contracts-upgradeable.js";
+export type { contractsUpgradeable };

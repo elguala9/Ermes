@@ -11,23 +11,35 @@ class SignalingSdk extends ContractHandler_1.ContractHandler {
      * @param address address of the contract
      * @param offerer in case is undefined, i take the address of the signer
      */
-    constructor(contractFactory, signer, address, offerer) {
+    constructor(contractFactory, signer, address) {
         super(contractFactory, signer, address);
-        this.addListner(offerer);
     }
-    addListner(offerer) {
+    getListner(offerer) {
+        if (this.listener === undefined)
+            throw Error("Listener not found");
+        return this.listener;
+    }
+    async removeLister(offerer) {
+        await this.contract.removeListener(this.contract.filters.proposeAnswer(offerer), this.getListner(offerer));
+    }
+    async addListner(offerer) {
         /**
          * trigger on the propose answer event, filtered by offerer
          */
-        this.contract.on(this.contract.filters.proposeAnswer(offerer), (offerer, answerer, answer, event) => {
+        const listener = (offerer, answerer, answer, event) => {
             console.log("Trigger event:" + offerer + "  ---  " + answerer);
-            let outputStruct = (0, Utility_1.toOutputStruct)(answer);
-            if (this.callbackProposeAnswer)
-                this.callbackProposeAnswer(offerer, answerer, outputStruct);
-        });
+            const outputStruct = (0, Utility_1.toOutputStruct)(answer);
+            // retrive the associated callback
+            let callback = this.callback;
+            if (callback) {
+                callback({ offerer, answerer, outputStruct });
+            }
+        };
+        await this.contract.on(this.contract.filters.proposeAnswer(offerer), listener);
+        this.listener = listener;
     }
-    removeAllListeners() {
-        this.contract.removeAllListeners();
+    async removeAllListeners() {
+        await this.contract.removeAllListeners();
     }
     async setOffer(offer) {
         let offerSerialized = this.serialize(offer);
@@ -49,8 +61,10 @@ class SignalingSdk extends ContractHandler_1.ContractHandler {
         let x = await this.contract.getAnswer(answerer, offerer);
         return (0, Utility_1.toOutputStruct)(x);
     }
-    onAnswer(callback) {
-        this.callbackProposeAnswer = callback;
+    async onAnswer(callback) {
+        let address = await this.getAddressUser();
+        this.addListner(address);
+        this.callback = callback;
     }
 }
 exports.SignalingSdk = SignalingSdk;

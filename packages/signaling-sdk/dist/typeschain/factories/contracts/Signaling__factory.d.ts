@@ -1,0 +1,314 @@
+import { ContractFactory, ContractTransactionResponse } from "ethers";
+import type { Signer, ContractDeployTransaction, ContractRunner } from "ethers";
+import type { NonPayableOverrides } from "../../common";
+import type { Signaling, SignalingInterface } from "../../contracts/Signaling";
+type SignalingConstructorParams = [signer?: Signer] | ConstructorParameters<typeof ContractFactory>;
+export declare class Signaling__factory extends ContractFactory {
+    constructor(...args: SignalingConstructorParams);
+    getDeployTransaction(overrides?: NonPayableOverrides & {
+        from?: string;
+    }): Promise<ContractDeployTransaction>;
+    deploy(overrides?: NonPayableOverrides & {
+        from?: string;
+    }): Promise<Signaling & {
+        deploymentTransaction(): ContractTransactionResponse;
+    }>;
+    connect(runner: ContractRunner | null): Signaling__factory;
+    static readonly bytecode = "0x60a060405230608052348015610013575f80fd5b5060805161114f61003a5f395f81816107530152818161077c0152610936015261114f5ff3fe6080604052600436106100b8575f3560e01c80638da5cb5b11610071578063ddf7c0ce1161004c578063ddf7c0ce14610215578063eb75c41014610234578063f2fde38b14610253575f80fd5b80638da5cb5b1461015b578063ad3cb1cc146101a1578063c4d66de8146101f6575f80fd5b80634f1ef286116100a15780634f1ef2861461011257806352d1902d14610125578063715018a614610147575f80fd5b8063224c06b8146100bc5780634c0b2d94146100dd575b5f80fd5b3480156100c7575f80fd5b506100db6100d6366004610dbe565b610272565b005b3480156100e8575f80fd5b506100fc6100f7366004610e13565b6102f9565b6040516101099190610e91565b60405180910390f35b6100db610120366004610ec2565b6103d9565b348015610130575f80fd5b506101396103f8565b604051908152602001610109565b348015610152575f80fd5b506100db610426565b348015610166575f80fd5b507f9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c199300546040516001600160a01b039091168152602001610109565b3480156101ac575f80fd5b506101e96040518060400160405280600581526020017f352e302e3000000000000000000000000000000000000000000000000000000081525081565b6040516101099190610f0d565b348015610201575f80fd5b506100db610210366004610f1f565b610439565b348015610220575f80fd5b506100db61022f366004610f38565b610574565b34801561023f575f80fd5b506100fc61024e366004610f1f565b610618565b34801561025e575f80fd5b506100db61026d366004610f1f565b6106ed565b60408051808201825282815242602080830191909152335f9081529081905291909120815182919081906102a69082610ffd565b5060208201518160010155905050336001600160a01b03167f9c647382d7799e7e4b4c67ed15f6a91fddfd228ec1949b2eae5f05ca58d61158826040516102ed9190610e91565b60405180910390a25050565b604080518082018252606081525f60208083018290526001600160a01b0386811683526001825284832090861683529052829020825180840190935280549192918290829061034790610f7a565b80601f016020809104026020016040519081016040528092919081815260200182805461037390610f7a565b80156103be5780601f10610395576101008083540402835291602001916103be565b820191905f5260205f20905b8154815290600101906020018083116103a157829003601f168201915b50505050508152602001600182015481525050905092915050565b6103e1610748565b6103ea826107ff565b6103f4828261083e565b5050565b5f61040161092b565b507f360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc90565b61042e610974565b6104375f6109e8565b565b7ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00805468010000000000000000810460ff16159067ffffffffffffffff165f811580156104835750825b90505f8267ffffffffffffffff16600114801561049f5750303b155b9050811580156104ad575080155b156104e4576040517ff92ee8a900000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b845467ffffffffffffffff19166001178555831561051857845468ff00000000000000001916680100000000000000001785555b61052186610a65565b831561056c57845468ff000000000000000019168555604051600181527fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d29060200160405180910390a15b505050505050565b60408051808201825283815242602080830191909152335f908152600182528381206001600160a01b038616825290915291909120815182919081906105ba9082610ffd565b5060208201518160010155905050816001600160a01b0316336001600160a01b03167f5ecfe35cd7e8831a41cd757bcde8154a54a57dae4bfd09f34ae1aa0cce0778af8360405161060b9190610e91565b60405180910390a3505050565b60408051808201909152606081525f60208201526001600160a01b0382165f9081526020819052604090819020815180830190925280548290829061065c90610f7a565b80601f016020809104026020016040519081016040528092919081815260200182805461068890610f7a565b80156106d35780601f106106aa576101008083540402835291602001916106d3565b820191905f5260205f20905b8154815290600101906020018083116106b657829003601f168201915b505050505081526020016001820154815250509050919050565b6106f5610974565b6001600160a01b03811661073c576040517f1e4fbdf70000000000000000000000000000000000000000000000000000000081525f60048201526024015b60405180910390fd5b610745816109e8565b50565b306001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001614806107e157507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166107d57f360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc546001600160a01b031690565b6001600160a01b031614155b156104375760405163703e46dd60e11b815260040160405180910390fd5b610807610974565b6002805463ffffffff16905f61081c836110b9565b91906101000a81548163ffffffff021916908363ffffffff1602179055505050565b816001600160a01b03166352d1902d6040518163ffffffff1660e01b8152600401602060405180830381865afa925050508015610898575060408051601f3d908101601f19168201909252610895918101906110e7565b60015b6108c057604051634c9c8ce360e01b81526001600160a01b0383166004820152602401610733565b7f360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc811461091c576040517faa1d49a400000000000000000000000000000000000000000000000000000000815260048101829052602401610733565b6109268383610a76565b505050565b306001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016146104375760405163703e46dd60e11b815260040160405180910390fd5b336109a67f9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c199300546001600160a01b031690565b6001600160a01b031614610437576040517f118cdaa7000000000000000000000000000000000000000000000000000000008152336004820152602401610733565b7f9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c199300805473ffffffffffffffffffffffffffffffffffffffff1981166001600160a01b03848116918217845560405192169182907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0905f90a3505050565b610a6d610acb565b61074581610b32565b610a7f82610b3a565b6040516001600160a01b038316907fbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b905f90a2805115610ac3576109268282610bbd565b6103f4610c2f565b7ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a005468010000000000000000900460ff16610437576040517fd7e6bcf800000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6106f5610acb565b806001600160a01b03163b5f03610b6f57604051634c9c8ce360e01b81526001600160a01b0382166004820152602401610733565b7f360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc805473ffffffffffffffffffffffffffffffffffffffff19166001600160a01b0392909216919091179055565b60605f80846001600160a01b031684604051610bd991906110fe565b5f60405180830381855af49150503d805f8114610c11576040519150601f19603f3d011682016040523d82523d5f602084013e610c16565b606091505b5091509150610c26858383610c67565b95945050505050565b3415610437576040517fb398979f00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b606082610c7c57610c7782610cdf565b610cd8565b8151158015610c9357506001600160a01b0384163b155b15610cd5576040517f9996b3150000000000000000000000000000000000000000000000000000000081526001600160a01b0385166004820152602401610733565b50805b9392505050565b805115610cef5780518082602001fd5b6040517fd6bda27500000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b634e487b7160e01b5f52604160045260245ffd5b5f82601f830112610d44575f80fd5b813567ffffffffffffffff80821115610d5f57610d5f610d21565b604051601f8301601f19908116603f01168101908282118183101715610d8757610d87610d21565b81604052838152866020858801011115610d9f575f80fd5b836020870160208301375f602085830101528094505050505092915050565b5f60208284031215610dce575f80fd5b813567ffffffffffffffff811115610de4575f80fd5b610df084828501610d35565b949350505050565b80356001600160a01b0381168114610e0e575f80fd5b919050565b5f8060408385031215610e24575f80fd5b610e2d83610df8565b9150610e3b60208401610df8565b90509250929050565b5f5b83811015610e5e578181015183820152602001610e46565b50505f910152565b5f8151808452610e7d816020860160208601610e44565b601f01601f19169290920160200192915050565b602081525f825160406020840152610eac6060840182610e66565b9050602084015160408401528091505092915050565b5f8060408385031215610ed3575f80fd5b610edc83610df8565b9150602083013567ffffffffffffffff811115610ef7575f80fd5b610f0385828601610d35565b9150509250929050565b602081525f610cd86020830184610e66565b5f60208284031215610f2f575f80fd5b610cd882610df8565b5f8060408385031215610f49575f80fd5b823567ffffffffffffffff811115610f5f575f80fd5b610f6b85828601610d35565b925050610e3b60208401610df8565b600181811c90821680610f8e57607f821691505b602082108103610fac57634e487b7160e01b5f52602260045260245ffd5b50919050565b601f82111561092657805f5260205f20601f840160051c81016020851015610fd75750805b601f840160051c820191505b81811015610ff6575f8155600101610fe3565b5050505050565b815167ffffffffffffffff81111561101757611017610d21565b61102b816110258454610f7a565b84610fb2565b602080601f83116001811461105e575f84156110475750858301515b5f19600386901b1c1916600185901b17855561056c565b5f85815260208120601f198616915b8281101561108c5788860151825594840194600190910190840161106d565b50858210156110a957878501515f19600388901b60f8161c191681555b5050505050600190811b01905550565b5f63ffffffff8083168181036110dd57634e487b7160e01b5f52601160045260245ffd5b6001019392505050565b5f602082840312156110f7575f80fd5b5051919050565b5f825161110f818460208701610e44565b919091019291505056fea2646970667358221220be1cbd0095d2aeb97f03d37c3321a8552eb164571507bf25f5aaff0714e9427264736f6c63430008180033";
+    static readonly abi: readonly [{
+        readonly inputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "target";
+            readonly type: "address";
+        }];
+        readonly name: "AddressEmptyCode";
+        readonly type: "error";
+    }, {
+        readonly inputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "implementation";
+            readonly type: "address";
+        }];
+        readonly name: "ERC1967InvalidImplementation";
+        readonly type: "error";
+    }, {
+        readonly inputs: readonly [];
+        readonly name: "ERC1967NonPayable";
+        readonly type: "error";
+    }, {
+        readonly inputs: readonly [];
+        readonly name: "FailedCall";
+        readonly type: "error";
+    }, {
+        readonly inputs: readonly [];
+        readonly name: "InvalidInitialization";
+        readonly type: "error";
+    }, {
+        readonly inputs: readonly [];
+        readonly name: "NotInitializing";
+        readonly type: "error";
+    }, {
+        readonly inputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "owner";
+            readonly type: "address";
+        }];
+        readonly name: "OwnableInvalidOwner";
+        readonly type: "error";
+    }, {
+        readonly inputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "account";
+            readonly type: "address";
+        }];
+        readonly name: "OwnableUnauthorizedAccount";
+        readonly type: "error";
+    }, {
+        readonly inputs: readonly [];
+        readonly name: "UUPSUnauthorizedCallContext";
+        readonly type: "error";
+    }, {
+        readonly inputs: readonly [{
+            readonly internalType: "bytes32";
+            readonly name: "slot";
+            readonly type: "bytes32";
+        }];
+        readonly name: "UUPSUnsupportedProxiableUUID";
+        readonly type: "error";
+    }, {
+        readonly anonymous: false;
+        readonly inputs: readonly [{
+            readonly indexed: false;
+            readonly internalType: "uint64";
+            readonly name: "version";
+            readonly type: "uint64";
+        }];
+        readonly name: "Initialized";
+        readonly type: "event";
+    }, {
+        readonly anonymous: false;
+        readonly inputs: readonly [{
+            readonly indexed: true;
+            readonly internalType: "address";
+            readonly name: "previousOwner";
+            readonly type: "address";
+        }, {
+            readonly indexed: true;
+            readonly internalType: "address";
+            readonly name: "newOwner";
+            readonly type: "address";
+        }];
+        readonly name: "OwnershipTransferred";
+        readonly type: "event";
+    }, {
+        readonly anonymous: false;
+        readonly inputs: readonly [{
+            readonly indexed: true;
+            readonly internalType: "address";
+            readonly name: "implementation";
+            readonly type: "address";
+        }];
+        readonly name: "Upgraded";
+        readonly type: "event";
+    }, {
+        readonly anonymous: false;
+        readonly inputs: readonly [{
+            readonly indexed: true;
+            readonly internalType: "address";
+            readonly name: "offerer";
+            readonly type: "address";
+        }, {
+            readonly indexed: true;
+            readonly internalType: "address";
+            readonly name: "answerer";
+            readonly type: "address";
+        }, {
+            readonly components: readonly [{
+                readonly internalType: "bytes";
+                readonly name: "signal";
+                readonly type: "bytes";
+            }, {
+                readonly internalType: "uint256";
+                readonly name: "creationTime";
+                readonly type: "uint256";
+            }];
+            readonly indexed: false;
+            readonly internalType: "struct Signal";
+            readonly name: "answer";
+            readonly type: "tuple";
+        }];
+        readonly name: "proposeAnswer";
+        readonly type: "event";
+    }, {
+        readonly anonymous: false;
+        readonly inputs: readonly [{
+            readonly indexed: true;
+            readonly internalType: "address";
+            readonly name: "offerer";
+            readonly type: "address";
+        }, {
+            readonly components: readonly [{
+                readonly internalType: "bytes";
+                readonly name: "signal";
+                readonly type: "bytes";
+            }, {
+                readonly internalType: "uint256";
+                readonly name: "creationTime";
+                readonly type: "uint256";
+            }];
+            readonly indexed: false;
+            readonly internalType: "struct Signal";
+            readonly name: "answer";
+            readonly type: "tuple";
+        }];
+        readonly name: "proposeOffer";
+        readonly type: "event";
+    }, {
+        readonly inputs: readonly [];
+        readonly name: "UPGRADE_INTERFACE_VERSION";
+        readonly outputs: readonly [{
+            readonly internalType: "string";
+            readonly name: "";
+            readonly type: "string";
+        }];
+        readonly stateMutability: "view";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "answerer";
+            readonly type: "address";
+        }, {
+            readonly internalType: "address";
+            readonly name: "offerer";
+            readonly type: "address";
+        }];
+        readonly name: "getAnswer";
+        readonly outputs: readonly [{
+            readonly components: readonly [{
+                readonly internalType: "bytes";
+                readonly name: "signal";
+                readonly type: "bytes";
+            }, {
+                readonly internalType: "uint256";
+                readonly name: "creationTime";
+                readonly type: "uint256";
+            }];
+            readonly internalType: "struct Signal";
+            readonly name: "";
+            readonly type: "tuple";
+        }];
+        readonly stateMutability: "view";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "offerer";
+            readonly type: "address";
+        }];
+        readonly name: "getOffer";
+        readonly outputs: readonly [{
+            readonly components: readonly [{
+                readonly internalType: "bytes";
+                readonly name: "signal";
+                readonly type: "bytes";
+            }, {
+                readonly internalType: "uint256";
+                readonly name: "creationTime";
+                readonly type: "uint256";
+            }];
+            readonly internalType: "struct Signal";
+            readonly name: "";
+            readonly type: "tuple";
+        }];
+        readonly stateMutability: "view";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "owner";
+            readonly type: "address";
+        }];
+        readonly name: "initialize";
+        readonly outputs: readonly [];
+        readonly stateMutability: "nonpayable";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [];
+        readonly name: "owner";
+        readonly outputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "";
+            readonly type: "address";
+        }];
+        readonly stateMutability: "view";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [];
+        readonly name: "proxiableUUID";
+        readonly outputs: readonly [{
+            readonly internalType: "bytes32";
+            readonly name: "";
+            readonly type: "bytes32";
+        }];
+        readonly stateMutability: "view";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [];
+        readonly name: "renounceOwnership";
+        readonly outputs: readonly [];
+        readonly stateMutability: "nonpayable";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [{
+            readonly internalType: "bytes";
+            readonly name: "answer";
+            readonly type: "bytes";
+        }, {
+            readonly internalType: "address";
+            readonly name: "offerer";
+            readonly type: "address";
+        }];
+        readonly name: "setAnswer";
+        readonly outputs: readonly [];
+        readonly stateMutability: "nonpayable";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [{
+            readonly internalType: "bytes";
+            readonly name: "offer";
+            readonly type: "bytes";
+        }];
+        readonly name: "setOffer";
+        readonly outputs: readonly [];
+        readonly stateMutability: "nonpayable";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "newOwner";
+            readonly type: "address";
+        }];
+        readonly name: "transferOwnership";
+        readonly outputs: readonly [];
+        readonly stateMutability: "nonpayable";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "newImplementation";
+            readonly type: "address";
+        }, {
+            readonly internalType: "bytes";
+            readonly name: "data";
+            readonly type: "bytes";
+        }];
+        readonly name: "upgradeToAndCall";
+        readonly outputs: readonly [];
+        readonly stateMutability: "payable";
+        readonly type: "function";
+    }];
+    static createInterface(): SignalingInterface;
+    static connect(address: string, runner?: ContractRunner | null): Signaling;
+}
+export {};

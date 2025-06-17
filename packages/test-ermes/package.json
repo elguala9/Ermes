@@ -39,7 +39,8 @@
     "typescript": "^5.8.2",
     "uuid": "^11.1.0",
     "ermes-types": "1.0.0",
-    "iermes": "1.0.0"
+    "iermes": "1.0.0",
+    "signaling-sdk": "1.0.0"
   }
 }
 

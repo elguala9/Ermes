@@ -21,6 +21,8 @@ module.exports = {
         ".": "postbuild"  // runs `npm run postbuild` in root
       }
     },
+
+    network: ["^network"],
         
     // Barrelsby task - nessuna dipendenza, può essere eseguito in parallelo
     barrelsby: {
@@ -28,13 +30,7 @@ module.exports = {
       outputs: ["src/index.ts"]
     },
 
-    /*"add-js": {
-      deps: ["barrelsby"], // <--- garantisce che venga eseguito dopo barrelsby
-      outputs: ["src/index.ts"], // se crea file, puoi elencarli qui
-      run: {
-        ".": "add-js" // <--- esegue `npm run add-js` nel package.json root
-      }
-    },*/
+
     
     // Gen-exports task - richiede la build
     "gen-exports": {
