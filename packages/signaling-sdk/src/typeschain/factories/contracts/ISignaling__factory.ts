@@ -3,7 +3,10 @@
 /* eslint-disable */
 
 import { Contract, Interface, type ContractRunner } from "ethers";
-import type { ISignaling, ISignalingInterface } from "../ISignaling";
+import type {
+  ISignaling,
+  ISignalingInterface,
+} from "../../contracts/ISignaling";
 
 const _abi = [
   {

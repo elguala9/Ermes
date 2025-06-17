@@ -1,1 +1,1 @@
-export { IBeacon__factory } from "./IBeacon__factory.js";
+export { IBeacon__factory } from "./IBeacon__factory";

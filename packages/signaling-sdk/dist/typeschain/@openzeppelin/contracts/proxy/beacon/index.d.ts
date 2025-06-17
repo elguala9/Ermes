@@ -1,1 +1,1 @@
-export type { IBeacon } from "./IBeacon.js";
+export type { IBeacon } from "./IBeacon";

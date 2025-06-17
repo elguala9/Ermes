@@ -10,7 +10,7 @@ module.exports = {
     
     // Test task - viene eseguito dopo build
     test: {
-      deps: ["build"],
+      deps: ["compile"],
       outputs: []
     },
 
@@ -21,8 +21,6 @@ module.exports = {
         ".": "postbuild"  // runs `npm run postbuild` in root
       }
     },
-
-    network: ["^network"],
         
     // Barrelsby task - nessuna dipendenza, può essere eseguito in parallelo
     barrelsby: {

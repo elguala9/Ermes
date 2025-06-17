@@ -1,1 +1,1 @@
-export type { ContextUpgradeable } from "./ContextUpgradeable.js";
+export type { ContextUpgradeable } from "./ContextUpgradeable";

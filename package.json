@@ -20,13 +20,14 @@
     "gen-exports": "npx lage gen-exports",
     "test": "npx lage test",
     "clean": "rimraf packages/*/dist",
-    "add-js": "ts-node utility/add-js-import.ts",
+    "add-js": "ts-node utility/add-js-import.ts -ed typeschain",
     "compile": "npm run barrelsby && npm run build && npm run gen-exports",
     "test:caching": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesCaching.ts",
     "test:storage": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesStorage.ts",
     "test:idhandler": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesIdHandler.ts",
     "test:ermes": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesService.ts",
     "test:ermes-sc": "ts-mocha --project tsconfig.json packages/test-root/src/ErmesSmartContract.ts",
+    "network": "cd packages/signaling-contract && npm run network",
     "postbuild": "npm install"
   },
   "devDependencies": {

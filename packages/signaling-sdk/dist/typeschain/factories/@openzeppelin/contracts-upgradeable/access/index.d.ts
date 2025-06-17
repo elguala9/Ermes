@@ -1,1 +1,1 @@
-export { OwnableUpgradeable__factory } from "./OwnableUpgradeable__factory.js";
+export { OwnableUpgradeable__factory } from "./OwnableUpgradeable__factory";

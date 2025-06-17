@@ -1,1 +1,1 @@
-export type { ERC1967Utils } from "./ERC1967Utils.js";
+export type { ERC1967Utils } from "./ERC1967Utils";

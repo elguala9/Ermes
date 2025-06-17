@@ -1,2 +1,2 @@
-export type { Address } from "./Address.js";
-export type { Errors } from "./Errors.js";
+export type { Address } from "./Address";
+export type { Errors } from "./Errors";

@@ -1,2 +1,2 @@
-export type { ISignaling } from "./ISignaling.js";
-export type { Signaling } from "./Signaling.js";
+export type { ISignaling } from "./ISignaling";
+export type { Signaling } from "./Signaling";

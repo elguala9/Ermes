@@ -1,6 +1,6 @@
-import type * as interfaces from "./interfaces.js";
+import type * as interfaces from "./interfaces";
 export type { interfaces };
-import type * as proxy from "./proxy.js";
+import type * as proxy from "./proxy";
 export type { proxy };
-import type * as utils from "./utils.js";
+import type * as utils from "./utils";
 export type { utils };

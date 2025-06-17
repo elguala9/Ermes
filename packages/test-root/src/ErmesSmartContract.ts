@@ -6,17 +6,18 @@ import { privateKeys } from "./var";
 import * as fs from 'fs';
 import * as path from 'path';
 
-let rpc = "";
+let rpc = "http://127.0.0.1:8545/";
 
 
-function main(){
+async function main(){
     const filePath = path.join(__dirname, '../../../token_info.txt');
 
 // Leggi il file come stringa
     const address: string = fs.readFileSync(filePath, 'utf-8');
 
-    let service_1 = SignalingSdkFactoryNode(rpc, privateKeys[0], );
-    testSignalingSmartContract();
+    let service_1 = await SignalingSdkFactoryNode(rpc, privateKeys[0], address);
+    let service_2 = await SignalingSdkFactoryNode(rpc, privateKeys[1], address);
+    testSignalingSmartContract(service_1, service_2);
 }
 
 main();

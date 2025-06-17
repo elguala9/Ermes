@@ -1,2 +1,2 @@
-export * as openzeppelin from "./@openzeppelin.js";
-export * as contracts from "./contracts.js";
+export * as openzeppelin from "./@openzeppelin";
+export * as contracts from "./contracts";
