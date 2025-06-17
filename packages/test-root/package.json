@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "test-ermes": "1.0.0",
-    "ermes-storage": "1.0.0"
+    "ermes-storage": "1.0.0",
+    "signaling-sdk": "1.0.0"
   }
 }

@@ -6,10 +6,10 @@ export type OutputStruct = {
     signal: InternalSignal;
     creationTime_EpochInSeconds: string;
 };
-export type CallbackSignal = (offerer: AddressType, answerer: AddressType, event: OutputStruct) => void;
-export type OnAnswerInput = {
-    callback: CallbackSignal;
-    offererFilter?: AddressType;
-    answererFilter?: AddressType;
+export type CallbackSignalInput = {
+    offerer: AddressType;
+    answerer: AddressType;
+    outputStruct: OutputStruct;
 };
+export type CallbackSignal = (input: CallbackSignalInput) => void;
 export {};

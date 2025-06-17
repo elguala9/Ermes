@@ -5,8 +5,15 @@ const ethers_1 = require("ethers");
 class ContractHandler {
     constructor(contractFactory, signer, address) {
         this.timeout = 1;
+        this.signer = signer;
         let factory = contractFactory.connect(signer);
         this.contract = factory.attach(address);
+    }
+    getAddressUser() {
+        return this.signer.getAddress();
+    }
+    getAddressSmartContract() {
+        return this.contract.getAddress();
     }
     async waitTransaction(tx) {
         let receipt = await tx.wait(this.confirms, this.timeout);

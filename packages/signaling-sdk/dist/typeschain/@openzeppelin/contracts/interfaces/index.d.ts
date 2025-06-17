@@ -1,0 +1,3 @@
+import type * as draftIerc1822Sol from "./draft-IERC1822.sol.js";
+export type { draftIerc1822Sol };
+export type { IERC1967 } from "./IERC1967.js";

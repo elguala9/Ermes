@@ -1,15 +1,16 @@
 import { ContractHandler } from "contract-handler/ContractHandler";
-import { ContractFactory, ContractTransactionReceipt, Signer } from "ethers";
+import { ContractFactory, ContractTransactionReceipt, Listener, Signer } from "ethers";
 import { ISignalingSdk } from "./ISignalingSdk";
 import { AddressType, AnswerType, CallbackSignal, OfferType, OutputStruct } from "./Types";
 import { Signaling } from "./typeschain";
-import { toOutputStruct } from "./Utility";
 import { proposeAnswerEvent } from "./typeschain/Signaling";
+import { toOutputStruct } from "./Utility";
 
 
 export class SignalingSdk extends ContractHandler<Signaling> implements ISignalingSdk {
     
-    private callbackProposeAnswer?: CallbackSignal;
+    private listener?: Listener;
+    private callback?: CallbackSignal;
 
     /**
      * 
@@ -18,30 +19,48 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
      * @param address address of the contract
      * @param offerer in case is undefined, i take the address of the signer
      */
-    constructor(contractFactory: ContractFactory, signer: Signer, address: string, offerer: AddressType){
+    constructor(contractFactory: ContractFactory, signer: Signer, address: string){
         super(contractFactory, signer, address);
-        this.addListner(offerer);
+
     }
 
-    addListner(offerer: AddressType): void {
+    private getListner(offerer: string): Listener {
+        if(this.listener === undefined)
+            throw Error("Listener not found");
+        return this.listener;
+    }
+
+    async removeLister(offerer: AddressType): Promise<void> {
+        await this.contract.removeListener(this.contract.filters.proposeAnswer(offerer), this.getListner(offerer) );
+    }
+
+    async addListner(offerer: AddressType): Promise<void> {
         /**
          * trigger on the propose answer event, filtered by offerer
          */
-        this.contract.on(this.contract.filters.proposeAnswer(offerer), (
+
+        const listener = (
             offerer: string,
             answerer: string,
             answer: proposeAnswerEvent.OutputObject["answer"],
             event: proposeAnswerEvent.Log
-        )=>{
+        ) => {
             console.log("Trigger event:" + offerer + "  ---  " + answerer);
-            let outputStruct = toOutputStruct(answer);
-            if(this.callbackProposeAnswer)
-                this.callbackProposeAnswer(offerer, answerer, outputStruct);
-        });
+            const outputStruct = toOutputStruct(answer);
+            // retrive the associated callback
+            let callback = this.callback;
+            if (callback) {
+                callback({offerer, answerer, outputStruct});
+            }
+        };
+
+        await this.contract.on(this.contract.filters.proposeAnswer(offerer), listener);
+
+        this.listener = listener;
     }
     
-    removeAllListeners(): void {
-        this.contract.removeAllListeners();
+    async removeAllListeners(): Promise<void> {
+        await this.contract.removeAllListeners();
     }
 
     async setOffer(offer: OfferType): Promise<ContractTransactionReceipt> {
@@ -68,7 +87,9 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
         return toOutputStruct(x);
     }
 
-    onAnswer(callback: CallbackSignal): void {
-        this.callbackProposeAnswer = callback;
-    }    
+    async onAnswer(callback: CallbackSignal): Promise<void> {
+        let address = await this.getAddressUser();
+        this.addListner(address);
+        this.callback = callback;
+    }  
 }
