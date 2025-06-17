@@ -3,7 +3,7 @@ import { ContractFactory, ContractTransactionReceipt, Listener, Signer } from "e
 import { ISignalingSdk } from "./ISignalingSdk";
 import { AddressType, AnswerType, CallbackSignal, OfferType, OutputStruct } from "./Types";
 import { Signaling } from "./typeschain";
-import { proposeAnswerEvent } from "./typeschain/Signaling";
+import { proposeAnswerEvent } from "./typeschain/contracts/Signaling";
 import { toOutputStruct } from "./Utility";
 
 

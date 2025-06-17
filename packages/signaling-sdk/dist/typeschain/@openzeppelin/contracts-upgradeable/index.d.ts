@@ -1,6 +1,6 @@
-import type * as access from "./access.js";
+import type * as access from "./access";
 export type { access };
-import type * as proxy from "./proxy.js";
+import type * as proxy from "./proxy";
 export type { proxy };
-import type * as utils from "./utils.js";
+import type * as utils from "./utils";
 export type { utils };

@@ -1,2 +1,2 @@
-export * as contracts from "./contracts.js";
-export * as contractsUpgradeable from "./contracts-upgradeable.js";
+export * as contracts from "./contracts";
+export * as contractsUpgradeable from "./contracts-upgradeable";

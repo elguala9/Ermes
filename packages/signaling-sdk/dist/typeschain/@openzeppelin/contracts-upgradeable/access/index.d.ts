@@ -1,1 +1,1 @@
-export type { OwnableUpgradeable } from "./OwnableUpgradeable.js";
+export type { OwnableUpgradeable } from "./OwnableUpgradeable";

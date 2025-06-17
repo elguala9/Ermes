@@ -1,1 +1,1 @@
-export { ContextUpgradeable__factory } from "./ContextUpgradeable__factory.js";
+export { ContextUpgradeable__factory } from "./ContextUpgradeable__factory";

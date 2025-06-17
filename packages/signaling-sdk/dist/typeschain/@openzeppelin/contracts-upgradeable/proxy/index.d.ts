@@ -1,2 +1,2 @@
-import type * as utils from "./utils.js";
+import type * as utils from "./utils";
 export type { utils };
