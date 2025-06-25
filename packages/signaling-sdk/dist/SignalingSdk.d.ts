@@ -18,6 +18,7 @@ export declare class SignalingSdk extends ContractHandler<Signaling> implements 
     removeLister(offerer: AddressType): Promise<void>;
     addListner(offerer: AddressType): Promise<void>;
     removeAllListeners(): Promise<void>;
+    private logNonce;
     setOffer(offer: OfferType): Promise<ContractTransactionReceipt>;
     setAnswer(answer: AnswerType, offerer: AddressType): Promise<ContractTransactionReceipt>;
     getOffer(offerer: AddressType): Promise<OutputStruct>;

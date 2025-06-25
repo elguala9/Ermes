@@ -3,7 +3,7 @@ import { IContractHandler } from "./IContractHandler"
 
 export class ContractHandler<C extends BaseContract> implements IContractHandler{
     contract: C;
-    confirms?: number;
+    confirms?: number = 1;
     timeout?: number = 1;
     protected signer: Signer
 
@@ -20,10 +20,15 @@ export class ContractHandler<C extends BaseContract> implements IContractHandler
         return this.contract.getAddress();
     }
 
-    protected async waitTransaction(tx: ContractTransactionResponse): Promise<ContractTransactionReceipt>{
-        let receipt = await tx.wait(this.confirms, this.timeout);
-        if(receipt == null)
-            throw new Error("Transaction confirmation exceed timeout");
+    protected async waitTransaction(tx: ContractTransactionResponse): Promise<ContractTransactionReceipt> {
+        const receipt = await tx.wait(this.confirms, this.timeout);
+
+        if (receipt == null)
+            throw new Error("Transaction confirmation exceeded timeout");
+
+        if (receipt.status === 0)
+            throw new Error("Transaction reverted by the EVM");
+
         return receipt;
     }
 
