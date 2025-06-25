@@ -5,7 +5,7 @@ module.exports = {
       // Dipendenze delle build
       deps: ["^build"],
       // Output da considerare per caching
-      outputs: ["dist/**"]
+      outputs: ["dist/**", "tsconfig.tsbuildinfo"]
     },
     
     // Test task - viene eseguito dopo build
@@ -28,6 +28,9 @@ module.exports = {
       outputs: ["src/index.ts"]
     },
 
+    deploySC: {
+      deps: ["signaling-contract:build"]
+    },
 
     
     // Gen-exports task - richiede la build

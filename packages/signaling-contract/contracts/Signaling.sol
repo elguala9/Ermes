@@ -38,7 +38,7 @@ contract Signaling is ISignaling, UUPSUpgradeable, OwnableUpgradeable{
     function setAnswer(
         bytes memory answer,
         address offerer
-    ) external override {
+    ) external override requireOffer(offerer){
         Signal memory signal = Signal(answer, block.timestamp);
         answers[msg.sender][offerer] = signal;
         emit proposeAnswer(msg.sender, offerer, signal);

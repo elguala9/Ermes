@@ -62,18 +62,32 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
     async removeAllListeners(): Promise<void> {
         await this.contract.removeAllListeners();
     }
+    
+    private async logNonce(){
+        const addr = await this.signer.getAddress();
+        const provider = this.signer.provider!;
+        const latest   = await provider.getTransactionCount(addr, "latest");
+        const pending  = await provider.getTransactionCount(addr, "pending");
+
+        console.log(`Nonce confermato  (latest):  ${latest}`);
+        console.log(`Nonce in mempool (pending): ${pending}`);  
+    }
 
     async setOffer(offer: OfferType): Promise<ContractTransactionReceipt> {
         let offerSerialized: Uint8Array = this.serialize(offer);
+        await this.logNonce();
         let response = await this.contract.setOffer(offerSerialized);
         let receipt = await this.waitTransaction(response);
+        await this.logNonce();
         return receipt;
     }
     
     async setAnswer(answer: AnswerType, offerer: AddressType): Promise<ContractTransactionReceipt> {
         let offerSerialized: Uint8Array = this.serialize(answer);
+        await this.logNonce();
         let response = await this.contract.setAnswer(offerSerialized, offerer);
         let receipt = await this.waitTransaction(response);
+        await this.logNonce();
         return receipt;
     }
 

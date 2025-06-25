@@ -3,6 +3,9 @@ import { ErmesWebRtcFactory } from "ermes/index";
 import { IErmesService, IErmesSignalingService } from "iermes/index";
 import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
 import { CallbackSignalInput } from "signaling-sdk/Types";
+import * as chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+
 
 
 export function testSignalingSmartContract(
@@ -21,14 +24,23 @@ export function testSignalingSmartContract(
     let answer2: string = "Ciao Answer 2";
     let offer3: string = "Ciao Offer 3";
     let answer3: string = "Ciao Answer 3";
+    let snapshotId: string;
 
     before(async function () {
-
+        chai.use(chaiAsPromised);
     })
 
     it('Set Answer Without Offer', async () => {
         const address = await service_1.getAddressUser();   
         await expect(service_1.setAnswer(answer, address)).to.be.rejectedWith(Error);
+        /*        const address = await service_1.getAddressUser();   
+        try {
+            await service_1.setAnswer(answer, address);
+        }
+        catch(e: any){
+            return;
+        }
+        throw new Error("setAnswer should throw an exception");*/
     });
 
 
@@ -37,8 +49,8 @@ export function testSignalingSmartContract(
     });
 
     it('Get Offer', async () => {
-        let _offer = service_1.getOffer(await service_1.getAddressUser());
-        expect(_offer).to.deep.equal(offer);
+        let _offer = await service_1.getOffer(await service_1.getAddressUser());
+        expect(_offer.signal).to.deep.equal(offer);
     });
 
     it('Set Answer', async () => {
@@ -47,7 +59,7 @@ export function testSignalingSmartContract(
 
     it('Get Answer', async () => {
         let _answer = await service_2.getAnswer(await service_2.getAddressUser(), await service_1.getAddressUser());
-        expect(_answer).to.deep.equal(answer);
+        expect(_answer.signal).to.deep.equal(answer);
     });
 
     it('Set Offer 2', async () => {
@@ -55,8 +67,8 @@ export function testSignalingSmartContract(
     });
 
     it('Get Offer 2', async () => {
-        let _offer = service_1.getOffer(await service_1.getAddressUser());
-        expect(_offer).to.deep.equal(offer2);
+        let _offer = await service_1.getOffer(await service_1.getAddressUser());
+        expect(_offer.signal).to.deep.equal(offer2);
     });
 
     it('Set Answer 2', async () => {
@@ -65,15 +77,17 @@ export function testSignalingSmartContract(
 
     it('Get Answer 2', async () => {
         let _answer = await service_2.getAnswer(await service_2.getAddressUser(), await service_1.getAddressUser());
-        expect(_answer).to.deep.equal(answer2);
+        expect(_answer.signal).to.deep.equal(answer2);
     });
 
-     
+    it('Callback Answer 1', async () => {
+        await service_2.onAnswer(callbackDummy);
 
-    it('Callback Answer', async () => {
-        service_1.onAnswer(callbackDummy);
-        await service_2.setAnswer(answer2, await service_1.getAddressUser());
+    });
 
+    it('Callback Answer 2', async () => {
+          await sleep(5_000);    
+        await service_2.setAnswer(answer3, await service_1.getAddressUser());
     });
 
   }
@@ -82,5 +96,11 @@ export function testSignalingSmartContract(
 
 function callbackDummy(input: CallbackSignalInput){
     console.log("Callback called: ", input);
+}
+
+
+/** Attende (delay) un certo numero di millisecondi */
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 

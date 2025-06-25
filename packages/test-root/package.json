@@ -14,7 +14,11 @@
     "url": "git+https://github.com/elguala9/Ermes.git"
   },
   "scripts": {
-
+    "test:caching": "ts-mocha --project tsconfig.json ./src/ErmesCaching.ts",
+    "test:storage": "ts-mocha --project tsconfig.json ./src/ErmesStorage.ts",
+    "test:idhandler": "ts-mocha --project tsconfig.json ./src/ErmesIdHandler.ts",
+    "test:ermes": "ts-mocha --project tsconfig.json ./src/ErmesService.ts",
+    "test:ermes-sc": "ts-mocha --project tsconfig.json ./src/ErmesSmartContract.ts --timeout 15000"
   },
   "bugs": {
     "url": "https://github.com/elguala9/Ermes/issues"

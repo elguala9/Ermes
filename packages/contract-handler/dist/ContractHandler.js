@@ -4,6 +4,7 @@ exports.ContractHandler = void 0;
 const ethers_1 = require("ethers");
 class ContractHandler {
     constructor(contractFactory, signer, address) {
+        this.confirms = 1;
         this.timeout = 1;
         this.signer = signer;
         let factory = contractFactory.connect(signer);
@@ -16,9 +17,11 @@ class ContractHandler {
         return this.contract.getAddress();
     }
     async waitTransaction(tx) {
-        let receipt = await tx.wait(this.confirms, this.timeout);
+        const receipt = await tx.wait(this.confirms, this.timeout);
         if (receipt == null)
-            throw new Error("Transaction confirmation exceed timeout");
+            throw new Error("Transaction confirmation exceeded timeout");
+        if (receipt.status === 0)
+            throw new Error("Transaction reverted by the EVM");
         return receipt;
     }
     retriveLog(receipt) {
