@@ -10,8 +10,8 @@ import { TypedListener } from "./typeschain/common";
 
 export class SignalingSdk extends ContractHandler<Signaling> implements ISignalingSdk {
     
-    private listener?: Listener;
-    private callback?: CallbackSignal;
+    private listenerOnAnswer?: Listener;
+    private callbackOnAnswer?: CallbackSignal;
 
     /**
      * 
@@ -25,20 +25,23 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
 
     }
 
-    private getListner(offerer: string): Listener {
-        if(this.listener === undefined)
+    private getListnerProposeAnswer(): Listener {
+        if(this.listenerOnAnswer === undefined)
             throw Error("Listener not found");
-        return this.listener;
+        return this.listenerOnAnswer;
     }
 
-    async removeLister(offerer: AddressType): Promise<void> {
-        await this.contract.removeListener(this.contract.filters.proposeAnswer(offerer), this.getListner(offerer) );
+    async removeListerProposeAnswer(): Promise<void> {
+        await this.removeListerProposeAnswerPrivate(await this.getAddressUser());
     }
 
-    async addListner(offerer: AddressType): Promise<void> {
-        // avoid more than one trigger
-        if(this.listener !== undefined)
-            this.removeLister(offerer);
+    async removeListerProposeAnswerPrivate(offerer: string): Promise<void> {
+        await this.contract.removeListener(this.contract.filters.proposeAnswer(offerer), this.getListnerProposeAnswer());
+        this.listenerOnAnswer = undefined;
+    }
+
+    private async addListner(offerer: AddressType): Promise<void> {
+
         /**
          * trigger on the propose answer event, filtered by offerer
          */
@@ -46,18 +49,14 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
             payload: ContractEventPayload 
         ) => {
             const [offerer, answerer, answer] = payload.args;
-            console.log("Trigger event:" + offerer + "  ---  "+ answerer + " --- " + answer);
-            console.log("Trigger event:" + answer);
             const outputStruct = toOutputStruct(answer);
-            /*console.log("outputStruct:" + outputStruct);
-            console.log("this.callback:" + this.callback);*/
             // retrive the associated callback
-            if (this.callback) 
-                this.callback({offerer, answerer, outputStruct});
+            if (this.callbackOnAnswer) 
+                this.callbackOnAnswer({offerer, answerer, outputStruct});
             
         };
-        this.listener = listener;
-        await this.contract.on(this.contract.filters.proposeAnswer(offerer), this.listener);
+        this.listenerOnAnswer = listener;
+        await this.contract.on(this.contract.filters.proposeAnswer(offerer), this.listenerOnAnswer);
 
         
     }
@@ -104,9 +103,16 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
         return toOutputStruct(x);
     }
 
+    /**
+     * on answer to your offer
+     * @param callback 
+     */
     async onAnswer(callback: CallbackSignal): Promise<void> {
         let address = await this.getAddressUser();
-        this.addListner(address);
-        this.callback = callback;
+        this.callbackOnAnswer = callback;
+        // i create the listner only if it is not already created
+        if(this.listenerOnAnswer === undefined)
+            this.addListner(address);
+        
     }  
 }
