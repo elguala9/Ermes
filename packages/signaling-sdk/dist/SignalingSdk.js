@@ -26,17 +26,21 @@ class SignalingSdk extends ContractHandler_1.ContractHandler {
         /**
          * trigger on the propose answer event, filtered by offerer
          */
-        const listener = (offerer, answerer, answer, event) => {
-            console.log("Trigger event:" + offerer + "  ---  " + answerer);
+        if (this.listener !== undefined)
+            this.removeLister(offerer);
+        const listener = (payload) => {
+            const [offerer, answerer, answer] = payload.args;
+            console.log("Trigger event:" + offerer + "  ---  " + answerer + " --- " + answer);
+            console.log("Trigger event:" + answer);
             const outputStruct = (0, Utility_1.toOutputStruct)(answer);
+            /*console.log("outputStruct:" + outputStruct);
+            console.log("this.callback:" + this.callback);*/
             // retrive the associated callback
-            let callback = this.callback;
-            if (callback) {
-                callback({ offerer, answerer, outputStruct });
-            }
+            if (this.callback)
+                this.callback({ offerer, answerer, outputStruct });
         };
-        await this.contract.on(this.contract.filters.proposeAnswer(offerer), listener);
         this.listener = listener;
+        await this.contract.on(this.contract.filters.proposeAnswer(offerer), this.listener);
     }
     async removeAllListeners() {
         await this.contract.removeAllListeners();

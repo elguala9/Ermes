@@ -23,7 +23,7 @@
     "clean": "rimraf packages/*/dist",
     "add-js": "ts-node utility/add-js-import.ts -ed typeschain",
     "compile": "npm run barrelsby && npm run build && npm run gen-exports",
-    "prepareTest": "npm run compile && npm run build && npm run gen-exports",
+    "prepareTest": "npm run compile",
     "test:caching": "cd ./packages/test-root && npm run test:caching",
     "test:storage": "cd ./packages/test-root && npm run test:storage",
     "test:idhandler": "cd ./packages/test-root && npm run test:idhandler",
