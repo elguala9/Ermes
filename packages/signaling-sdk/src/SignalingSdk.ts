@@ -1,10 +1,11 @@
 import { ContractHandler } from "contract-handler/ContractHandler";
-import { ContractFactory, ContractTransactionReceipt, Listener, Signer } from "ethers";
+import { ContractEventPayload, ContractFactory, ContractTransactionReceipt, Listener, Signer } from "ethers";
 import { ISignalingSdk } from "./ISignalingSdk";
 import { AddressType, AnswerType, CallbackSignal, OfferType, OutputStruct } from "./Types";
 import { Signaling } from "./typeschain";
 import { proposeAnswerEvent } from "./typeschain/contracts/Signaling";
 import { toOutputStruct } from "./Utility";
+import { TypedListener } from "./typeschain/common";
 
 
 export class SignalingSdk extends ContractHandler<Signaling> implements ISignalingSdk {
@@ -38,25 +39,27 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
         /**
          * trigger on the propose answer event, filtered by offerer
          */
-
+        if(this.listener !== undefined)
+            this.removeLister(offerer);
+        
         const listener = (
-            offerer: string,
-            answerer: string,
-            answer: proposeAnswerEvent.OutputObject["answer"],
-            event: proposeAnswerEvent.Log
+            payload: ContractEventPayload 
         ) => {
-            console.log("Trigger event:" + offerer + "  ---  " + answerer);
+            const [offerer, answerer, answer] = payload.args;
+            console.log("Trigger event:" + offerer + "  ---  "+ answerer + " --- " + answer);
+            console.log("Trigger event:" + answer);
             const outputStruct = toOutputStruct(answer);
+            /*console.log("outputStruct:" + outputStruct);
+            console.log("this.callback:" + this.callback);*/
             // retrive the associated callback
-            let callback = this.callback;
-            if (callback) {
-                callback({offerer, answerer, outputStruct});
-            }
+            if (this.callback) 
+                this.callback({offerer, answerer, outputStruct});
+            
         };
-
-        await this.contract.on(this.contract.filters.proposeAnswer(offerer), listener);
-
         this.listener = listener;
+        await this.contract.on(this.contract.filters.proposeAnswer(offerer), this.listener);
+
+        
     }
     
     async removeAllListeners(): Promise<void> {

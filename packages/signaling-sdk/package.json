@@ -96,21 +96,6 @@
       "require": "./dist/typeschain/@openzeppelin/index.js",
       "types": "./dist/typeschain/@openzeppelin/index.d.ts"
     },
-    "./typeschain/contracts/index": {
-      "import": "./dist/typeschain/contracts/index.js",
-      "require": "./dist/typeschain/contracts/index.js",
-      "types": "./dist/typeschain/contracts/index.d.ts"
-    },
-    "./typeschain/contracts/ISignaling": {
-      "import": "./dist/typeschain/contracts/ISignaling.js",
-      "require": "./dist/typeschain/contracts/ISignaling.js",
-      "types": "./dist/typeschain/contracts/ISignaling.d.ts"
-    },
-    "./typeschain/contracts/Signaling": {
-      "import": "./dist/typeschain/contracts/Signaling.js",
-      "require": "./dist/typeschain/contracts/Signaling.js",
-      "types": "./dist/typeschain/contracts/Signaling.d.ts"
-    },
     "./typeschain/factories/index": {
       "import": "./dist/typeschain/factories/index.js",
       "require": "./dist/typeschain/factories/index.js",
@@ -126,20 +111,35 @@
       "require": "./dist/typeschain/factories/Signaling__factory.js",
       "types": "./dist/typeschain/factories/Signaling__factory.d.ts"
     },
+    "./typeschain/contracts/index": {
+      "import": "./dist/typeschain/contracts/index.js",
+      "require": "./dist/typeschain/contracts/index.js",
+      "types": "./dist/typeschain/contracts/index.d.ts"
+    },
+    "./typeschain/contracts/ISignaling": {
+      "import": "./dist/typeschain/contracts/ISignaling.js",
+      "require": "./dist/typeschain/contracts/ISignaling.js",
+      "types": "./dist/typeschain/contracts/ISignaling.d.ts"
+    },
+    "./typeschain/contracts/Signaling": {
+      "import": "./dist/typeschain/contracts/Signaling.js",
+      "require": "./dist/typeschain/contracts/Signaling.js",
+      "types": "./dist/typeschain/contracts/Signaling.d.ts"
+    },
     "./typeschain/@openzeppelin/contracts/index": {
       "import": "./dist/typeschain/@openzeppelin/contracts/index.js",
       "require": "./dist/typeschain/@openzeppelin/contracts/index.js",
       "types": "./dist/typeschain/@openzeppelin/contracts/index.d.ts"
     },
-    "./typeschain/@openzeppelin/contracts-upgradeable/index": {
-      "import": "./dist/typeschain/@openzeppelin/contracts-upgradeable/index.js",
-      "require": "./dist/typeschain/@openzeppelin/contracts-upgradeable/index.js",
-      "types": "./dist/typeschain/@openzeppelin/contracts-upgradeable/index.d.ts"
-    },
     "./typeschain/factories/@openzeppelin/index": {
       "import": "./dist/typeschain/factories/@openzeppelin/index.js",
       "require": "./dist/typeschain/factories/@openzeppelin/index.js",
       "types": "./dist/typeschain/factories/@openzeppelin/index.d.ts"
+    },
+    "./typeschain/@openzeppelin/contracts-upgradeable/index": {
+      "import": "./dist/typeschain/@openzeppelin/contracts-upgradeable/index.js",
+      "require": "./dist/typeschain/@openzeppelin/contracts-upgradeable/index.js",
+      "types": "./dist/typeschain/@openzeppelin/contracts-upgradeable/index.d.ts"
     },
     "./typeschain/factories/contracts/index": {
       "import": "./dist/typeschain/factories/contracts/index.js",
@@ -166,11 +166,6 @@
       "require": "./dist/typeschain/@openzeppelin/contracts/interfaces/index.js",
       "types": "./dist/typeschain/@openzeppelin/contracts/interfaces/index.d.ts"
     },
-    "./typeschain/@openzeppelin/contracts/proxy/index": {
-      "import": "./dist/typeschain/@openzeppelin/contracts/proxy/index.js",
-      "require": "./dist/typeschain/@openzeppelin/contracts/proxy/index.js",
-      "types": "./dist/typeschain/@openzeppelin/contracts/proxy/index.d.ts"
-    },
     "./typeschain/@openzeppelin/contracts/utils/Address": {
       "import": "./dist/typeschain/@openzeppelin/contracts/utils/Address.js",
       "require": "./dist/typeschain/@openzeppelin/contracts/utils/Address.js",
@@ -185,6 +180,21 @@
       "import": "./dist/typeschain/@openzeppelin/contracts/utils/index.js",
       "require": "./dist/typeschain/@openzeppelin/contracts/utils/index.js",
       "types": "./dist/typeschain/@openzeppelin/contracts/utils/index.d.ts"
+    },
+    "./typeschain/factories/@openzeppelin/contracts/index": {
+      "import": "./dist/typeschain/factories/@openzeppelin/contracts/index.js",
+      "require": "./dist/typeschain/factories/@openzeppelin/contracts/index.js",
+      "types": "./dist/typeschain/factories/@openzeppelin/contracts/index.d.ts"
+    },
+    "./typeschain/@openzeppelin/contracts/proxy/index": {
+      "import": "./dist/typeschain/@openzeppelin/contracts/proxy/index.js",
+      "require": "./dist/typeschain/@openzeppelin/contracts/proxy/index.js",
+      "types": "./dist/typeschain/@openzeppelin/contracts/proxy/index.d.ts"
+    },
+    "./typeschain/factories/@openzeppelin/contracts-upgradeable/index": {
+      "import": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/index.js",
+      "require": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/index.js",
+      "types": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/index.d.ts"
     },
     "./typeschain/@openzeppelin/contracts-upgradeable/access/index": {
       "import": "./dist/typeschain/@openzeppelin/contracts-upgradeable/access/index.js",
@@ -211,16 +221,6 @@
       "require": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/index.js",
       "types": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/index.d.ts"
     },
-    "./typeschain/factories/@openzeppelin/contracts/index": {
-      "import": "./dist/typeschain/factories/@openzeppelin/contracts/index.js",
-      "require": "./dist/typeschain/factories/@openzeppelin/contracts/index.js",
-      "types": "./dist/typeschain/factories/@openzeppelin/contracts/index.d.ts"
-    },
-    "./typeschain/factories/@openzeppelin/contracts-upgradeable/index": {
-      "import": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/index.js",
-      "require": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/index.js",
-      "types": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/index.d.ts"
-    },
     "./typeschain/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable": {
       "import": "./dist/typeschain/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable.js",
       "require": "./dist/typeschain/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable.js",
@@ -230,46 +230,6 @@
       "import": "./dist/typeschain/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/index.js",
       "require": "./dist/typeschain/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/index.js",
       "types": "./dist/typeschain/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/index.d.ts"
-    },
-    "./typeschain/@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils": {
-      "import": "./dist/typeschain/@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.js",
-      "require": "./dist/typeschain/@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.js",
-      "types": "./dist/typeschain/@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.d.ts"
-    },
-    "./typeschain/@openzeppelin/contracts/proxy/ERC1967/index": {
-      "import": "./dist/typeschain/@openzeppelin/contracts/proxy/ERC1967/index.js",
-      "require": "./dist/typeschain/@openzeppelin/contracts/proxy/ERC1967/index.js",
-      "types": "./dist/typeschain/@openzeppelin/contracts/proxy/ERC1967/index.d.ts"
-    },
-    "./typeschain/@openzeppelin/contracts/proxy/beacon/IBeacon": {
-      "import": "./dist/typeschain/@openzeppelin/contracts/proxy/beacon/IBeacon.js",
-      "require": "./dist/typeschain/@openzeppelin/contracts/proxy/beacon/IBeacon.js",
-      "types": "./dist/typeschain/@openzeppelin/contracts/proxy/beacon/IBeacon.d.ts"
-    },
-    "./typeschain/@openzeppelin/contracts/proxy/beacon/index": {
-      "import": "./dist/typeschain/@openzeppelin/contracts/proxy/beacon/index.js",
-      "require": "./dist/typeschain/@openzeppelin/contracts/proxy/beacon/index.js",
-      "types": "./dist/typeschain/@openzeppelin/contracts/proxy/beacon/index.d.ts"
-    },
-    "./typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/index": {
-      "import": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/index.js",
-      "require": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/index.js",
-      "types": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/index.d.ts"
-    },
-    "./typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable": {
-      "import": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.js",
-      "require": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.js",
-      "types": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.d.ts"
-    },
-    "./typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable": {
-      "import": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.js",
-      "require": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.js",
-      "types": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.d.ts"
-    },
-    "./typeschain/factories/@openzeppelin/contracts/proxy/index": {
-      "import": "./dist/typeschain/factories/@openzeppelin/contracts/proxy/index.js",
-      "require": "./dist/typeschain/factories/@openzeppelin/contracts/proxy/index.js",
-      "types": "./dist/typeschain/factories/@openzeppelin/contracts/proxy/index.d.ts"
     },
     "./typeschain/factories/@openzeppelin/contracts/interfaces/IERC1967__factory": {
       "import": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/IERC1967__factory.js",
@@ -281,6 +241,26 @@
       "require": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/index.js",
       "types": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/index.d.ts"
     },
+    "./typeschain/factories/@openzeppelin/contracts/proxy/index": {
+      "import": "./dist/typeschain/factories/@openzeppelin/contracts/proxy/index.js",
+      "require": "./dist/typeschain/factories/@openzeppelin/contracts/proxy/index.js",
+      "types": "./dist/typeschain/factories/@openzeppelin/contracts/proxy/index.d.ts"
+    },
+    "./typeschain/@openzeppelin/contracts/proxy/beacon/IBeacon": {
+      "import": "./dist/typeschain/@openzeppelin/contracts/proxy/beacon/IBeacon.js",
+      "require": "./dist/typeschain/@openzeppelin/contracts/proxy/beacon/IBeacon.js",
+      "types": "./dist/typeschain/@openzeppelin/contracts/proxy/beacon/IBeacon.d.ts"
+    },
+    "./typeschain/@openzeppelin/contracts/proxy/beacon/index": {
+      "import": "./dist/typeschain/@openzeppelin/contracts/proxy/beacon/index.js",
+      "require": "./dist/typeschain/@openzeppelin/contracts/proxy/beacon/index.js",
+      "types": "./dist/typeschain/@openzeppelin/contracts/proxy/beacon/index.d.ts"
+    },
+    "./typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/index": {
+      "import": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/index.js",
+      "require": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/index.js",
+      "types": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/index.d.ts"
+    },
     "./typeschain/factories/@openzeppelin/contracts-upgradeable/access/index": {
       "import": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/access/index.js",
       "require": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/access/index.js",
@@ -291,10 +271,25 @@
       "require": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable__factory.js",
       "types": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable__factory.d.ts"
     },
-    "./typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/index": {
-      "import": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/index.js",
-      "require": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/index.js",
-      "types": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/index.d.ts"
+    "./typeschain/@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils": {
+      "import": "./dist/typeschain/@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.js",
+      "require": "./dist/typeschain/@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.js",
+      "types": "./dist/typeschain/@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.d.ts"
+    },
+    "./typeschain/@openzeppelin/contracts/proxy/ERC1967/index": {
+      "import": "./dist/typeschain/@openzeppelin/contracts/proxy/ERC1967/index.js",
+      "require": "./dist/typeschain/@openzeppelin/contracts/proxy/ERC1967/index.js",
+      "types": "./dist/typeschain/@openzeppelin/contracts/proxy/ERC1967/index.d.ts"
+    },
+    "./typeschain/factories/@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable__factory": {
+      "import": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable__factory.js",
+      "require": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable__factory.js",
+      "types": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable__factory.d.ts"
+    },
+    "./typeschain/factories/@openzeppelin/contracts-upgradeable/utils/index": {
+      "import": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/utils/index.js",
+      "require": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/utils/index.js",
+      "types": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/utils/index.d.ts"
     },
     "./typeschain/factories/@openzeppelin/contracts/utils/Address__factory": {
       "import": "./dist/typeschain/factories/@openzeppelin/contracts/utils/Address__factory.js",
@@ -311,15 +306,20 @@
       "require": "./dist/typeschain/factories/@openzeppelin/contracts/utils/index.js",
       "types": "./dist/typeschain/factories/@openzeppelin/contracts/utils/index.d.ts"
     },
-    "./typeschain/factories/@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable__factory": {
-      "import": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable__factory.js",
-      "require": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable__factory.js",
-      "types": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable__factory.d.ts"
+    "./typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/index": {
+      "import": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/index.js",
+      "require": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/index.js",
+      "types": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/index.d.ts"
     },
-    "./typeschain/factories/@openzeppelin/contracts-upgradeable/utils/index": {
-      "import": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/utils/index.js",
-      "require": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/utils/index.js",
-      "types": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/utils/index.d.ts"
+    "./typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable": {
+      "import": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.js",
+      "require": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.js",
+      "types": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.d.ts"
+    },
+    "./typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable": {
+      "import": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.js",
+      "require": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.js",
+      "types": "./dist/typeschain/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.d.ts"
     },
     "./typeschain/factories/@openzeppelin/contracts/proxy/beacon/IBeacon__factory": {
       "import": "./dist/typeschain/factories/@openzeppelin/contracts/proxy/beacon/IBeacon__factory.js",
@@ -341,6 +341,16 @@
       "require": "./dist/typeschain/factories/@openzeppelin/contracts/proxy/ERC1967/index.js",
       "types": "./dist/typeschain/factories/@openzeppelin/contracts/proxy/ERC1967/index.d.ts"
     },
+    "./typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable__factory": {
+      "import": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable__factory.js",
+      "require": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable__factory.js",
+      "types": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable__factory.d.ts"
+    },
+    "./typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/index": {
+      "import": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/index.js",
+      "require": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/index.js",
+      "types": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/index.d.ts"
+    },
     "./typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/utils/index": {
       "import": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/utils/index.js",
       "require": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/utils/index.js",
@@ -355,16 +365,6 @@
       "import": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable__factory.js",
       "require": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable__factory.js",
       "types": "./dist/typeschain/factories/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable__factory.d.ts"
-    },
-    "./typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable__factory": {
-      "import": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable__factory.js",
-      "require": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable__factory.js",
-      "types": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/IERC1822Proxiable__factory.d.ts"
-    },
-    "./typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/index": {
-      "import": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/index.js",
-      "require": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/index.js",
-      "types": "./dist/typeschain/factories/@openzeppelin/contracts/interfaces/draft-IERC1822.sol/index.d.ts"
     }
   }
 }

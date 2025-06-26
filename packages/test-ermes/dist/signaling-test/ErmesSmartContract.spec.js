@@ -9,7 +9,6 @@ export function testSignalingSmartContract(service_1, service_2) {
         let answer2 = "Ciao Answer 2";
         let offer3 = "Ciao Offer 3";
         let answer3 = "Ciao Answer 3";
-        let snapshotId;
         before(async function () {
             chai.use(chaiAsPromised);
         });
@@ -57,7 +56,7 @@ export function testSignalingSmartContract(service_1, service_2) {
             await service_2.onAnswer(callbackDummy);
         });
         it('Callback Answer 2', async () => {
-            await sleep(5000);
+            await sleep(1000);
             await service_2.setAnswer(answer3, await service_1.getAddressUser());
         });
     });
