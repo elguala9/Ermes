@@ -14,34 +14,31 @@ class SignalingSdk extends ContractHandler_1.ContractHandler {
     constructor(contractFactory, signer, address) {
         super(contractFactory, signer, address);
     }
-    getListner(offerer) {
-        if (this.listener === undefined)
+    getListnerProposeAnswer() {
+        if (this.listenerOnAnswer === undefined)
             throw Error("Listener not found");
-        return this.listener;
+        return this.listenerOnAnswer;
     }
-    async removeLister(offerer) {
-        await this.contract.removeListener(this.contract.filters.proposeAnswer(offerer), this.getListner(offerer));
+    async removeListerProposeAnswer() {
+        await this.removeListerProposeAnswerPrivate(await this.getAddressUser());
+    }
+    async removeListerProposeAnswerPrivate(offerer) {
+        await this.contract.removeListener(this.contract.filters.proposeAnswer(offerer), this.getListnerProposeAnswer());
+        this.listenerOnAnswer = undefined;
     }
     async addListner(offerer) {
-        // avoid more than one trigger
-        if (this.listener !== undefined)
-            this.removeLister(offerer);
         /**
          * trigger on the propose answer event, filtered by offerer
          */
         const listener = (payload) => {
             const [offerer, answerer, answer] = payload.args;
-            console.log("Trigger event:" + offerer + "  ---  " + answerer + " --- " + answer);
-            console.log("Trigger event:" + answer);
             const outputStruct = (0, Utility_1.toOutputStruct)(answer);
-            /*console.log("outputStruct:" + outputStruct);
-            console.log("this.callback:" + this.callback);*/
             // retrive the associated callback
-            if (this.callback)
-                this.callback({ offerer, answerer, outputStruct });
+            if (this.callbackOnAnswer)
+                this.callbackOnAnswer({ offerer, answerer, outputStruct });
         };
-        this.listener = listener;
-        await this.contract.on(this.contract.filters.proposeAnswer(offerer), this.listener);
+        this.listenerOnAnswer = listener;
+        await this.contract.on(this.contract.filters.proposeAnswer(offerer), this.listenerOnAnswer);
     }
     async removeAllListeners() {
         await this.contract.removeAllListeners();
@@ -78,10 +75,16 @@ class SignalingSdk extends ContractHandler_1.ContractHandler {
         let x = await this.contract.getAnswer(answerer, offerer);
         return (0, Utility_1.toOutputStruct)(x);
     }
+    /**
+     * on answer to your offer
+     * @param callback
+     */
     async onAnswer(callback) {
         let address = await this.getAddressUser();
-        this.addListner(address);
-        this.callback = callback;
+        this.callbackOnAnswer = callback;
+        // i create the listner only if it is not already created
+        if (this.listenerOnAnswer === undefined)
+            this.addListner(address);
     }
 }
 exports.SignalingSdk = SignalingSdk;
