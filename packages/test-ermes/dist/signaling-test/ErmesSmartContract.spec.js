@@ -1,5 +1,5 @@
-import { expect } from "chai";
 import * as chai from "chai";
+import { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 export function testSignalingSmartContract(service_1, service_2) {
     describe('Smart Contract Test', function () {
@@ -52,21 +52,7 @@ export function testSignalingSmartContract(service_1, service_2) {
             let _answer = await service_2.getAnswer(await service_2.getAddressUser(), await service_1.getAddressUser());
             expect(_answer.signal).to.deep.equal(answer2);
         });
-        it('Callback Answer 1', async () => {
-            await service_2.onAnswer(callbackDummy);
-        });
-        it('Callback Answer 2', async () => {
-            await sleep(1000);
-            await service_2.setAnswer(answer3, await service_1.getAddressUser());
-        });
     });
 }
 ;
-function callbackDummy(input) {
-    console.log("Callback called: ", input);
-}
-/** Attende (delay) un certo numero di millisecondi */
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 //# sourceMappingURL=ErmesSmartContract.spec.js.map

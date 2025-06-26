@@ -36,12 +36,12 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
     }
 
     async addListner(offerer: AddressType): Promise<void> {
+        // avoid more than one trigger
+        if(this.listener !== undefined)
+            this.removeLister(offerer);
         /**
          * trigger on the propose answer event, filtered by offerer
          */
-        if(this.listener !== undefined)
-            this.removeLister(offerer);
-        
         const listener = (
             payload: ContractEventPayload 
         ) => {

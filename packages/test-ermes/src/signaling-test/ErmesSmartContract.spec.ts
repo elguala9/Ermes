@@ -1,11 +1,7 @@
-import { expect } from "chai";
-import { ErmesWebRtcFactory } from "ermes/index";
-import { IErmesService, IErmesSignalingService } from "iermes/index";
-import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
-import { CallbackSignalInput } from "signaling-sdk/Types";
 import * as chai from "chai";
+import { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-
+import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
 
 
 export function testSignalingSmartContract(
@@ -79,27 +75,9 @@ export function testSignalingSmartContract(
         expect(_answer.signal).to.deep.equal(answer2);
     });
 
-    it('Callback Answer 1', async () => {
-        await service_2.onAnswer(callbackDummy);
-
-    });
-
-    it('Callback Answer 2', async () => {
-        await sleep(1_000);    
-        await service_2.setAnswer(answer3, await service_1.getAddressUser());
-    });
 
   }
 )};
 
 
-function callbackDummy(input: CallbackSignalInput){
-    console.log("Callback called: ", input);
-}
-
-
-/** Attende (delay) un certo numero di millisecondi */
-function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 

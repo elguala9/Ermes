@@ -7,6 +7,7 @@ export * from "./utility";
 export * from "./var";
 export * from "./signaling-test/ErmesConnection.spec";
 export * from "./signaling-test/ErmesSmartContract.spec";
+export * from "./signaling-test/ErmesSmartContractCallback.spec";
 export * from "./standard-test/Ermes.spec";
 export * from "./standard-test/ErmesConnection.spec";
 export * from "./standard-test/IdHandler.spec";
