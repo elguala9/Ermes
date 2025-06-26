@@ -34,7 +34,7 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Signaling__factory = exports.ISignaling__factory = exports.Errors__factory = exports.Address__factory = exports.ERC1967Utils__factory = exports.IBeacon__factory = exports.IERC1967__factory = exports.IERC1822Proxiable__factory = exports.ContextUpgradeable__factory = exports.UUPSUpgradeable__factory = exports.Initializable__factory = exports.OwnableUpgradeable__factory = exports.factories = void 0;
-exports.factories = __importStar(require("./factories/index"));
+exports.factories = __importStar(require("./factories"));
 var OwnableUpgradeable__factory_1 = require("./factories/@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable__factory");
 Object.defineProperty(exports, "OwnableUpgradeable__factory", { enumerable: true, get: function () { return OwnableUpgradeable__factory_1.OwnableUpgradeable__factory; } });
 var Initializable__factory_1 = require("./factories/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable__factory");

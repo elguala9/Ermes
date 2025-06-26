@@ -6,6 +6,7 @@ export * from "./utility.js";
 export * from "./var.js";
 export * from "./signaling-test/ErmesConnection.spec.js";
 export * from "./signaling-test/ErmesSmartContract.spec.js";
+export * from "./signaling-test/ErmesSmartContractCallback.spec.js";
 export * from "./standard-test/Ermes.spec.js";
 export * from "./standard-test/ErmesConnection.spec.js";
 export * from "./standard-test/IdHandler.spec.js";

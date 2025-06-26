@@ -38,6 +38,58 @@ module.exports = {
       deps: ["barrelsby"],
       outputs: []
     },
+
+
+    prepareTest: {
+      command: "npm run prepareTest"
+    },
+
+    // Esegui il deploy degli smart contract (usato da test:ermes-sc)
+    deploySC: {
+      command: 'npm run deploySC',
+      dependsOn: ['prepareTest'],
+    },
+
+    // Test caching
+    'test:caching': {
+      dependsOn: ['prepareTest'],
+      command: 'cd packages/test-root && npm run test:caching',
+    },
+
+    // Test storage
+    'test:storage': {
+      dependsOn: ['prepareTest'],
+      command: 'cd packages/test-root && npm run test:storage',
+    },
+
+    // Test idhandler
+    'test:idhandler': {
+      dependsOn: ['prepareTest'],
+      command: 'cd packages/test-root && npm run test:idhandler',
+    },
+
+    // Test ermes
+    'test:ermes': {
+      dependsOn: ['prepareTest'],
+      command: 'cd packages/test-root && npm run test:ermes',
+    },
+
+    // Test ermes-sc (deploy prima, poi test)
+    'test:ermes-sc': {
+      dependsOn: ['deploySC', 'prepareTest'],
+      command: 'cd packages/test-root && npm run test:ermes-sc',
+    },
+
+    // Tutti i test in sequenza / parallelo dove possibile
+    'test:all': {
+      dependsOn: [
+        'test:caching',
+        'test:idhandler',
+        'test:storage',
+        'test:ermes',
+        'test:ermes-sc',
+      ],
+    },
     
     // Script combinati
     prepare: ["barrelsby", "build", "postbuild", "gen-exports"]
