@@ -5,6 +5,7 @@
 export * from "./compare";
 export * from "./utility";
 export * from "./var";
+export * from "./signaling-test/ErmesBook.spec";
 export * from "./signaling-test/ErmesSignalingConnection.spec";
 export * from "./signaling-test/ErmesSmartContract.spec";
 export * from "./signaling-test/ErmesSmartContractCallback.spec";

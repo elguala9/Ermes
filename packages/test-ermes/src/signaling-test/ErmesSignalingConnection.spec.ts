@@ -6,7 +6,7 @@ import { sleep } from "src/utility.js";
 
 
 
-export function testSignalingConnection<SignalMessage, SocketType>(
+export function testSignalingConnection<SignalMessage>(
   service_1: IErmesSignalingService<SignalMessage>,
   service_2: IErmesSignalingService<SignalMessage>,
   signal_example: SignalMessage

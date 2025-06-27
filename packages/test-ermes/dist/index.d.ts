@@ -4,6 +4,7 @@
 export * from "./compare.js";
 export * from "./utility.js";
 export * from "./var.js";
+export * from "./signaling-test/ErmesBook.spec.js";
 export * from "./signaling-test/ErmesSignalingConnection.spec.js";
 export * from "./signaling-test/ErmesSmartContract.spec.js";
 export * from "./signaling-test/ErmesSmartContractCallback.spec.js";
