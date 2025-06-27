@@ -1,4 +1,5 @@
-import { IdHandlerRepositoryInput, IdHandlerServiceInput, IIdHandlerRepository, IIdHandlerService } from "../index.js";
+import { IdHandlerRepositoryInput, IdHandlerServiceInput } from "src/types/IdHandlerInput.js";
+import { IIdHandlerRepository, IIdHandlerService } from "./IIdHandler.js";
 export interface IIdHandlerFactory {
     /**
      *

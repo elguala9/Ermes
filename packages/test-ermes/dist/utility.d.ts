@@ -16,3 +16,4 @@ export declare function StoreAndRetrive<Type extends MessageType>(service: IErme
  * @returns         Array di MessageData
  */
 export declare function generateUniqueMessageData(n: number, startId?: number, dataLen?: number): MessageData[];
+export declare function sleep(ms: number): Promise<void>;

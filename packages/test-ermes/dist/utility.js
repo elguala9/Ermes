@@ -38,4 +38,7 @@ export function generateUniqueMessageData(n, startId = 1, dataLen = 3) {
         return { id, data };
     });
 }
+export function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 //# sourceMappingURL=utility.js.map

@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import sinon from "sinon";
+import { sleep } from "src/utility.js";
 export function testSignalingSmartContractCallback(service_1, service_2) {
     describe('Smart Contract Test', function () {
         let offer = "Ciao Offer";
@@ -52,8 +53,4 @@ export function testSignalingSmartContractCallback(service_1, service_2) {
     });
 }
 ;
-/** Attende (delay) un certo numero di millisecondi */
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 //# sourceMappingURL=ErmesSmartContractCallback.spec.js.map
