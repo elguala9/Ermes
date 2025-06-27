@@ -23,6 +23,11 @@
       "require": "./dist/Types.js",
       "types": "./dist/Types.d.ts"
     },
+    "./signaling-interface/IErmesBook": {
+      "import": "./dist/signaling-interface/IErmesBook.js",
+      "require": "./dist/signaling-interface/IErmesBook.js",
+      "types": "./dist/signaling-interface/IErmesBook.d.ts"
+    },
     "./signaling-interface/IErmesSignaling": {
       "import": "./dist/signaling-interface/IErmesSignaling.js",
       "require": "./dist/signaling-interface/IErmesSignaling.js",
@@ -32,16 +37,6 @@
       "import": "./dist/signaling-interface/ISignalingErmes.js",
       "require": "./dist/signaling-interface/ISignalingErmes.js",
       "types": "./dist/signaling-interface/ISignalingErmes.d.ts"
-    },
-    "./storage-interface/IErmesCaching": {
-      "import": "./dist/storage-interface/IErmesCaching.js",
-      "require": "./dist/storage-interface/IErmesCaching.js",
-      "types": "./dist/storage-interface/IErmesCaching.d.ts"
-    },
-    "./storage-interface/IErmesStorage": {
-      "import": "./dist/storage-interface/IErmesStorage.js",
-      "require": "./dist/storage-interface/IErmesStorage.js",
-      "types": "./dist/storage-interface/IErmesStorage.d.ts"
     },
     "./standard-interface/IErmes": {
       "import": "./dist/standard-interface/IErmes.js",
@@ -77,6 +72,16 @@
       "import": "./dist/standard-interface/IOrcErmes.js",
       "require": "./dist/standard-interface/IOrcErmes.js",
       "types": "./dist/standard-interface/IOrcErmes.d.ts"
+    },
+    "./storage-interface/IErmesCaching": {
+      "import": "./dist/storage-interface/IErmesCaching.js",
+      "require": "./dist/storage-interface/IErmesCaching.js",
+      "types": "./dist/storage-interface/IErmesCaching.d.ts"
+    },
+    "./storage-interface/IErmesStorage": {
+      "import": "./dist/storage-interface/IErmesStorage.js",
+      "require": "./dist/storage-interface/IErmesStorage.js",
+      "types": "./dist/storage-interface/IErmesStorage.d.ts"
     },
     "./types/ErmesWebRtcInput": {
       "import": "./dist/types/ErmesWebRtcInput.js",

@@ -6,6 +6,7 @@ import { CallbackSignalInput } from "signaling-sdk/Types";
 
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
+import { sleep } from "src/utility.js";
 
 
 export function testSignalingSmartContractCallback(
@@ -77,8 +78,5 @@ export function testSignalingSmartContractCallback(
 
 
 
-/** Attende (delay) un certo numero di millisecondi */
-function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+
 

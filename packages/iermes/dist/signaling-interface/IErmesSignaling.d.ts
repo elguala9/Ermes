@@ -1,15 +1,29 @@
-export type AccountType = string;
-export type OnSignalCallback<Socket> = (peer: AccountType, socket: Socket) => void;
-interface IErmesSignalingPrivate<SignalMessage, SocketType> {
+import { IErmesService } from "src/standard-interface/IErmes.js";
+export type IdAccountType = string;
+export type OnSignalCreateSocketCallbackIpnut = {
+    peer: IdAccountType;
+    ermesService: IErmesService;
+};
+export type OnSignalCreateSocketCallback = (input: OnSignalCreateSocketCallback) => void;
+export type OnSignalCallbackInput<SignalMessageType> = {
+    peer: IdAccountType;
+    signal: SignalMessageType;
+};
+export type OnSignalCallback<SignalMessageType> = (input: OnSignalCallbackInput<SignalMessageType>) => void;
+interface IErmesSignalingPrivate<SignalMessageType> {
     /**
-     *
-     * @param account
-     */
-    connect(account: AccountType): Promise<void>;
+     * connect the server
+    */
+    connect(): Promise<void>;
     /**
      * Disconnect from the signal server
      */
     disconnect(): Promise<void>;
+    /**
+     *
+     * retrive the id account active in the istance
+     */
+    getIdAccount(): Promise<IdAccountType>;
     /**
      * true if the server is online
      */
@@ -19,21 +33,26 @@ interface IErmesSignalingPrivate<SignalMessage, SocketType> {
      * @param to ID of destinatary
      * @param signal signal
     */
-    sendSignal(to: AccountType, signal: SignalMessage): Promise<void>;
+    sendSignal(to: IdAccountType, signal: SignalMessageType): Promise<void>;
     /**
-     * Retrive the signal from the other peer
+     * Retrive the last signal from the other peer
      * @param from account of the peer
     */
-    getSignal(from: AccountType): Promise<SignalMessage>;
-    /**
-     * Retrive the signal from the other peer
-     * @param from account of the peer
-    */
-    onSignal(callback: OnSignalCallback<SocketType>): void;
+    getSignal(from: IdAccountType): Promise<SignalMessageType>;
     removeAllListeners(): void;
 }
-export interface IErmesSignalingService<SignalMessage, SocketType> extends IErmesSignalingPrivate<SignalMessage, SocketType> {
+export interface IErmesSignalingRepository<SignalMessageType> extends IErmesSignalingPrivate<SignalMessageType> {
+    /**
+     * Retrive the signal from the other peers and create the socket for comunication
+    * @param callback function to call when a signal is received
+    */
+    onSignal(callback: OnSignalCallback<SignalMessageType>): Promise<void>;
 }
-export interface IErmesSignalingRepository<SignalMessage, SocketType> extends IErmesSignalingPrivate<SignalMessage, SocketType> {
+export interface IErmesSignalingService<SignalMessageType> extends IErmesSignalingPrivate<SignalMessageType> {
+    /**
+     * Retrive the signal from the other peers and create the socket for comunication
+    * @param callback function to call when a signal is received
+    */
+    onSignal(callback: OnSignalCreateSocketCallback): Promise<void>;
 }
 export {};
