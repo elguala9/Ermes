@@ -19,10 +19,10 @@ class SignalingSdk extends ContractHandler_1.ContractHandler {
             throw Error("Listener not found");
         return this.listenerOnAnswer;
     }
-    async removeListerProposeAnswer() {
-        await this.removeListerProposeAnswerPrivate(await this.getAddressUser());
+    async removeListnerProposeAnswer() {
+        await this.removeListnerProposeAnswerPrivate(await this.getAddressUser());
     }
-    async removeListerProposeAnswerPrivate(offerer) {
+    async removeListnerProposeAnswerPrivate(offerer) {
         await this.contract.removeListener(this.contract.filters.proposeAnswer(offerer), this.getListnerProposeAnswer());
         this.listenerOnAnswer = undefined;
     }

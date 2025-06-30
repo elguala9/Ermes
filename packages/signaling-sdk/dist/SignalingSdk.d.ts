@@ -15,8 +15,8 @@ export declare class SignalingSdk extends ContractHandler<Signaling> implements 
      */
     constructor(contractFactory: ContractFactory, signer: Signer, address: string);
     private getListnerProposeAnswer;
-    removeListerProposeAnswer(): Promise<void>;
-    removeListerProposeAnswerPrivate(offerer: string): Promise<void>;
+    removeListnerProposeAnswer(): Promise<void>;
+    removeListnerProposeAnswerPrivate(offerer: string): Promise<void>;
     private addListner;
     removeAllListeners(): Promise<void>;
     private logNonce;

@@ -22,7 +22,7 @@ export function testSignalingSmartContractCallback(service_1, service_2) {
         it('Remove Listner', async () => {
             const callbackDummy = sinon.stub();
             await service_1.onAnswer(callbackDummy);
-            await service_1.removeListerProposeAnswer();
+            await service_1.removeListnerProposeAnswer();
             await service_2.setAnswer(answer, await service_1.getAddressUser());
             await sleep(5000);
             expect(callbackDummy.called).to.be.false;
@@ -32,7 +32,7 @@ export function testSignalingSmartContractCallback(service_1, service_2) {
             const callbackDummy1 = sinon.stub();
             const callbackDummy2 = sinon.stub();
             await service_1.onAnswer(callbackDummy1);
-            await service_1.removeListerProposeAnswer();
+            await service_1.removeListnerProposeAnswer();
             await service_1.onAnswer(callbackDummy2);
             await service_2.setAnswer(answer, await service_1.getAddressUser());
             await sleep(5000);
