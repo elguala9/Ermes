@@ -12,6 +12,6 @@ export interface ISignalingSdk extends IContractHandler{
     onAnswer(callback: CallbackSignal): Promise<void>;
 
     removeAllListeners(): Promise<void>;
-    removeListerProposeAnswer(): Promise<void>;
+    removeListnerProposeAnswer(): Promise<void>;
     //addListner(offerer: AddressType): void;
 }

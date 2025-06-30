@@ -31,11 +31,11 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
         return this.listenerOnAnswer;
     }
 
-    async removeListerProposeAnswer(): Promise<void> {
-        await this.removeListerProposeAnswerPrivate(await this.getAddressUser());
+    async removeListnerProposeAnswer(): Promise<void> {
+        await this.removeListnerProposeAnswerPrivate(await this.getAddressUser());
     }
 
-    async removeListerProposeAnswerPrivate(offerer: string): Promise<void> {
+    async removeListnerProposeAnswerPrivate(offerer: string): Promise<void> {
         await this.contract.removeListener(this.contract.filters.proposeAnswer(offerer), this.getListnerProposeAnswer());
         this.listenerOnAnswer = undefined;
     }

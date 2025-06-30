@@ -25,7 +25,10 @@
     "simple-peer": "^9.11.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
-    "wrtc": "^0.4.7"
+    "wrtc": "^0.4.7",
+    "iermes": "1.0.0 ",
+    "ermes-types": "1.0.0",
+    "signaling-sdk": "1.0.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",

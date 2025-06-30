@@ -1,5 +1,6 @@
 import { Signal } from "ermes-types";
-import { ErmesWbrtcRepositoryInput, ErmesWebRtcServiceInput, IErmesWebRtcRepository, IErmesWebRtcService } from "../index.js";
+import { ErmesWbrtcRepositoryInput, ErmesWebRtcServiceInput } from "src/types/ErmesWebRtcInput.js";
+import { IErmesWebRtcRepository, IErmesWebRtcService } from "./IErmesWebRtc.js";
 export interface IErmesWebRtcFactory {
     /**
      *
