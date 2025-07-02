@@ -3,6 +3,7 @@
  */
 export * from "./signaling-interface/IErmesBook.js";
 export * from "./signaling-interface/IErmesSignaling.js";
+export * from "./signaling-interface/IErmesSignalingFactory.js";
 export * from "./standard-interface/IErmes.js";
 export * from "./standard-interface/IErmesWebRtc.js";
 export * from "./standard-interface/IErmesWebRtcFactory.js";

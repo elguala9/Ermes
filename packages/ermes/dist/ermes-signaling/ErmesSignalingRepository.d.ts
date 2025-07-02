@@ -13,7 +13,10 @@ export declare class ErmesSignalingRepository implements IErmesSignalingReposito
     pingServer(): Promise<boolean>;
     sendSignal(to: IdAccountType): Promise<void>;
     getSignal(from: string): Promise<OutputStruct>;
+    getSignalOwner(): Promise<OutputStruct>;
     private onAnswer;
     onSignal(callback: OnSignalCallback<OutputStruct>): Promise<void>;
+    compareSignalMessage(signal_1: OutputStruct, signal_2: OutputStruct): boolean;
+    static compareSignalMessage(signal_1: OutputStruct, signal_2: OutputStruct): boolean;
     removeAllListeners(): void;
 }

@@ -44,6 +44,13 @@ export class ErmesSignalingRepository implements IErmesSignalingRepository<Outpu
         return this.signaling.getOffer(from);
     }
 
+    async getSignalOwner(): Promise<OutputStruct> {
+        return {
+            signal: (await this.webRtc.createSignal()).toString(),
+            creationTime_EpochInSeconds: "",
+        }
+    }
+
     private async onAnswer(input: CallbackSignalInput): Promise<void> {
         if(this.onAnswerCallback === undefined) 
             return;
@@ -57,6 +64,14 @@ export class ErmesSignalingRepository implements IErmesSignalingRepository<Outpu
     async onSignal(callback: OnSignalCallback<OutputStruct>): Promise<void> {
         this.onAnswerCallback = callback;
         return;
+    }
+
+    compareSignalMessage(signal_1: OutputStruct, signal_2: OutputStruct): boolean {
+        return ErmesSignalingRepository.compareSignalMessage(signal_1, signal_2);
+    }
+
+    static compareSignalMessage(signal_1: OutputStruct, signal_2: OutputStruct): boolean {
+        return signal_1.signal === signal_2.signal;
     }
 
     removeAllListeners(): void {

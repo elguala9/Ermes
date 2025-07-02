@@ -1,10 +1,8 @@
-import { testErmesServiceAbsentConnection, testErmesServiceConnection, testSignalingSmartContract } from "test-ermes";
-import { factoryAsync } from "./utility/ErmesFactory";
-import { ErmesWebRtcFactory } from "ermes/index";
-import { SignalingSdkFactoryNode } from "signaling-sdk/Factories";
-import { privateKeys } from "./var";
 import * as fs from 'fs';
 import * as path from 'path';
+import { SignalingSdkFactoryNode } from "signaling-sdk/Factories";
+import { testSignalingSmartContract } from "test-ermes";
+import { privateKeys } from "./var";
 
 let rpc = "http://127.0.0.1:8545/";
 

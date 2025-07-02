@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import sinon from "sinon";
 import { sleep } from "src/utility.js";
-export function testSignalingConnection(service_1, service_2, signal_example) {
+export function testSignalingConnection(service_1, service_2) {
     let account_1;
     let account_2;
     describe('IErmesService Connection Tests', function () {
@@ -19,16 +19,18 @@ export function testSignalingConnection(service_1, service_2, signal_example) {
             expect(await service_1.pingServer()).to.equal(true);
         });
         it('Service 1 Send Signal', () => {
-            service_1.sendSignal(account_2, signal_example);
+            service_1.sendSignal(account_2);
         });
         it('Service 2 Get signal', async () => {
+            let signalOwner = await service_1.getSignalOwner();
             let signalRetrived = await service_2.getSignal(account_1);
-            expect(signalRetrived).to.equal(signal_example);
+            let isEqual = service_1.compareSignalMessage(signalOwner, signalRetrived);
+            expect(isEqual).to.equal(true);
         });
         it('Service 2', async () => {
             const callbackDummy = sinon.stub();
             await service_1.onSignal(callbackDummy);
-            await service_2.sendSignal(account_1, signal_example);
+            await service_2.sendSignal(account_1);
             sleep(5000);
             expect(callbackDummy.calledOnce).to.equal(true);
         });

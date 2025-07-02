@@ -19,8 +19,6 @@
     "@types/socket.io": "^3.0.1",
     "@types/socket.io-client": "^1.4.36",
     "express": "^4.21.2",
-    "pouchdb": "^9.0.0",
-    "pouchdb-core": "^9.0.0",
     "serialization-utility": "^1.0.8",
     "simple-peer": "^9.11.1",
     "socket.io": "^4.8.1",
@@ -66,25 +64,20 @@
       "require": "./dist/ermes-implementation/ErmesService.js",
       "types": "./dist/ermes-implementation/ErmesService.d.ts"
     },
-    "./ermes-implementation/ErmesWebRtcFactory": {
-      "import": "./dist/ermes-implementation/ErmesWebRtcFactory.js",
-      "require": "./dist/ermes-implementation/ErmesWebRtcFactory.js",
-      "types": "./dist/ermes-implementation/ErmesWebRtcFactory.d.ts"
+    "./ermes-signaling/ErmesSignalingFactory": {
+      "import": "./dist/ermes-signaling/ErmesSignalingFactory.js",
+      "require": "./dist/ermes-signaling/ErmesSignalingFactory.js",
+      "types": "./dist/ermes-signaling/ErmesSignalingFactory.d.ts"
     },
-    "./ermes-implementation/ErmesWebRtcRepository": {
-      "import": "./dist/ermes-implementation/ErmesWebRtcRepository.js",
-      "require": "./dist/ermes-implementation/ErmesWebRtcRepository.js",
-      "types": "./dist/ermes-implementation/ErmesWebRtcRepository.d.ts"
+    "./ermes-signaling/ErmesSignalingRepository": {
+      "import": "./dist/ermes-signaling/ErmesSignalingRepository.js",
+      "require": "./dist/ermes-signaling/ErmesSignalingRepository.js",
+      "types": "./dist/ermes-signaling/ErmesSignalingRepository.d.ts"
     },
-    "./ermes-implementation/ErmesWebRtcService": {
-      "import": "./dist/ermes-implementation/ErmesWebRtcService.js",
-      "require": "./dist/ermes-implementation/ErmesWebRtcService.js",
-      "types": "./dist/ermes-implementation/ErmesWebRtcService.d.ts"
-    },
-    "./ermes-implementation/PeerHandler": {
-      "import": "./dist/ermes-implementation/PeerHandler.js",
-      "require": "./dist/ermes-implementation/PeerHandler.js",
-      "types": "./dist/ermes-implementation/PeerHandler.d.ts"
+    "./ermes-signaling/ErmesSignalingService": {
+      "import": "./dist/ermes-signaling/ErmesSignalingService.js",
+      "require": "./dist/ermes-signaling/ErmesSignalingService.js",
+      "types": "./dist/ermes-signaling/ErmesSignalingService.d.ts"
     },
     "./ermes-utility/ChunkHandler": {
       "import": "./dist/ermes-utility/ChunkHandler.js",

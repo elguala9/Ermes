@@ -1,2 +1,2 @@
-import { IErmesSignalingService } from "iermes/index";
-export declare function testSignalingConnection<SignalMessage>(service_1: IErmesSignalingService<SignalMessage>, service_2: IErmesSignalingService<SignalMessage>, signal_example: SignalMessage): void;
+import { IErmesSignalingRepository } from "iermes/index";
+export declare function testSignalingConnection<SignalMessage>(service_1: IErmesSignalingRepository<SignalMessage>, service_2: IErmesSignalingRepository<SignalMessage>): void;
