@@ -1,3 +1,2 @@
-// it gives the error but the build is ok
-declare module 'wrtc';
+import wrtc from 'wrtc';
 export default wrtc;

@@ -1,10 +1,10 @@
 import { IErmesService } from "src/standard-interface/IErmes.js";
 export type IdAccountType = string;
-export type OnSignalCreateSocketCallbackIpnut = {
+export type OnSignalCreateSocketCallbackInput = {
     peer: IdAccountType;
     ermesService: IErmesService;
 };
-export type OnSignalCreateSocketCallback = (input: OnSignalCreateSocketCallback) => void;
+export type OnSignalCreateSocketCallback = (input: OnSignalCreateSocketCallbackInput) => void;
 export type OnSignalCallbackInput<SignalMessageType> = {
     peer: IdAccountType;
     signal: SignalMessageType;
@@ -31,7 +31,6 @@ interface IErmesSignalingPrivate {
     /**
      * Send a signal to the other peer
      * @param to ID of destinatary
-     * @param signal signal
     */
     sendSignal(to: IdAccountType): Promise<void>;
     removeAllListeners(): void;
@@ -47,8 +46,23 @@ export interface IErmesSignalingRepository<SignalMessageType> extends IErmesSign
      * @param from account of the peer
     */
     getSignal(from: IdAccountType): Promise<SignalMessageType>;
+    /**
+     * Retrive the signal of the account owner
+    */
+    getSignalOwner(): Promise<SignalMessageType>;
+    /**
+     * true if the two paraemters are the same signal
+     * @param signal_1
+     * @param signal_2
+     */
+    compareSignalMessage(signal_1: SignalMessageType, signal_2: SignalMessageType): boolean;
 }
 export interface IErmesSignalingService extends IErmesSignalingPrivate {
+    /**
+     * create a ErmesService for comunicate with the account
+     * @param of ID of the account to retrive the connection
+     */
+    getErmes(of: IdAccountType): Promise<IErmesService>;
     /**
      * Retrive the signal from the other peers and create the socket for comunication
     * @param callback function to call when a signal is received

@@ -1,6 +1,6 @@
+import { ErmesWebRtcFactory } from "ermes/index";
 import { testErmesServiceAbsentConnection, testErmesServiceConnection } from "test-ermes";
 import { factoryAsync } from "./utility/ErmesFactory";
-import { ErmesWebRtcFactory } from "ermes/index";
 
 let max = 1000;
 let start = 0;

@@ -28,6 +28,12 @@ export class ErmesSignalingRepository {
     getSignal(from) {
         return this.signaling.getOffer(from);
     }
+    async getSignalOwner() {
+        return {
+            signal: (await this.webRtc.createSignal()).toString(),
+            creationTime_EpochInSeconds: "",
+        };
+    }
     async onAnswer(input) {
         if (this.onAnswerCallback === undefined)
             return;
@@ -40,6 +46,12 @@ export class ErmesSignalingRepository {
     async onSignal(callback) {
         this.onAnswerCallback = callback;
         return;
+    }
+    compareSignalMessage(signal_1, signal_2) {
+        return ErmesSignalingRepository.compareSignalMessage(signal_1, signal_2);
+    }
+    static compareSignalMessage(signal_1, signal_2) {
+        return signal_1.signal === signal_2.signal;
     }
     removeAllListeners() {
         this.signaling.removeAllListeners();

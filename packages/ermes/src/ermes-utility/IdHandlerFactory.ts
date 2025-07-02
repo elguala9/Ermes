@@ -1,11 +1,10 @@
-import { IdType, Signal } from "ermes-types";
-import { ErmesWbrtcRepositoryInput, IdHandlerRepositoryInput, IdHandlerServiceInput, IErmesWebRtcRepository, IErmesWebRtcService, IIdHandlerFactory, IIdHandlerRepository, IIdHandlerService } from "iermes/index";
+import { IdHandlerRepositoryInput, IdHandlerServiceInput, IIdHandlerFactory, IIdHandlerRepository, IIdHandlerService } from "iermes/index";
 import { IdHandlerRepository } from "./IdHandlerRepository.js";
 import { IdHandlerService } from "./IdHandlerService.js";
 
 
 export class IdHandlerFactory implements IIdHandlerFactory {
-
+r
     
     createRepository(input: IdHandlerRepositoryInput): IIdHandlerRepository {
         return new IdHandlerRepository(input);
