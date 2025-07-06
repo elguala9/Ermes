@@ -16,8 +16,8 @@ export class ErmesSignalingRepository implements IErmesSignalingRepository<Outpu
     }
 
     async connect(): Promise<void> {
-        let offer = await this.webRtc.createSignal()
-        await this.signaling.setOffer(offer.toString());
+        let offer = await this.webRtc.createSignalString()
+        await this.signaling.setOffer(offer);
     }
 
     async disconnect(): Promise<void> {
@@ -30,14 +30,14 @@ export class ErmesSignalingRepository implements IErmesSignalingRepository<Outpu
 
     async pingServer(): Promise<boolean> {
         // this.signaling. DA FARE IL PING
-        return true;
+        return true; 
     }
 
     async sendSignal(to: IdAccountType): Promise<void> {
         let offer = await this.signaling.getOffer(to);
         this.webRtc.setSignal(offer.signal);
-        let answer = await this.webRtc.createSignal();
-        await this.signaling.setAnswer(answer.toString() ,to);
+        let answer = await this.webRtc.createSignalString();
+        await this.signaling.setAnswer(answer ,to);
     }
 
     getSignal(from: string): Promise<OutputStruct> {
@@ -45,8 +45,9 @@ export class ErmesSignalingRepository implements IErmesSignalingRepository<Outpu
     }
 
     async getSignalOwner(): Promise<OutputStruct> {
+        let signal = await this.webRtc.createSignalString()
         return {
-            signal: (await this.webRtc.createSignal()).toString(),
+            signal: signal,
             creationTime_EpochInSeconds: "",
         }
     }

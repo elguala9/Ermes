@@ -76,9 +76,19 @@ export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
           });
         });
     }
+
+    public async createSignalString(): Promise<string> {
+        let signal = await this.createSignal();
+        return JSON.stringify(signal);
+    }
     
     public setSignal(signal: Signal): void {
         this.peer.signal(signal);
+    }
+
+    
+    public parseSignalString(signalString: string): SignalData {
+        return JSON.parse(signalString) as SignalData;
     }
 
 

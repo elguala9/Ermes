@@ -31,7 +31,7 @@ export function testBook<InfoJsonType>(
   let account_list: IdAccountType[] = Array.from({length: 20}, (_, i) => `account_${i}`);
   
 
-  describe('IErmesService Connection Tests', function () {
+  describe('IErmesBook Tests', function () {
 
 
     before(async function () {

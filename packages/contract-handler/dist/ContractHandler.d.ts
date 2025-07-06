@@ -10,6 +10,6 @@ export declare class ContractHandler<C extends BaseContract> implements IContrac
     getAddressSmartContract(): Promise<string>;
     protected waitTransaction(tx: ContractTransactionResponse): Promise<ContractTransactionReceipt>;
     retriveLog(receipt: ContractTransactionReceipt): string;
-    protected serialize(propose: string): Uint8Array;
-    protected deSerialize(propose: BytesLike): string;
+    serialize(propose: string): Uint8Array;
+    deSerialize(propose: BytesLike): string;
 }

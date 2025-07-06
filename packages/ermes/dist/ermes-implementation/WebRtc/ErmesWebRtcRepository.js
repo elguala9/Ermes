@@ -53,8 +53,15 @@ export class ErmesWebRtcRepository {
             });
         });
     }
+    async createSignalString() {
+        let signal = await this.createSignal();
+        return JSON.stringify(signal);
+    }
     setSignal(signal) {
         this.peer.signal(signal);
+    }
+    parseSignalString(signalString) {
+        return JSON.parse(signalString);
     }
     destroy() {
         this.peer.destroy();

@@ -6,8 +6,8 @@ export class ErmesSignalingRepository {
         this.signaling.onAnswer(this.onAnswer);
     }
     async connect() {
-        let offer = await this.webRtc.createSignal();
-        await this.signaling.setOffer(offer.toString());
+        let offer = await this.webRtc.createSignalString();
+        await this.signaling.setOffer(offer);
     }
     async disconnect() {
         await this.signaling.setOffer(DISCONNECTED_FLAG);
@@ -22,15 +22,16 @@ export class ErmesSignalingRepository {
     async sendSignal(to) {
         let offer = await this.signaling.getOffer(to);
         this.webRtc.setSignal(offer.signal);
-        let answer = await this.webRtc.createSignal();
-        await this.signaling.setAnswer(answer.toString(), to);
+        let answer = await this.webRtc.createSignalString();
+        await this.signaling.setAnswer(answer, to);
     }
     getSignal(from) {
         return this.signaling.getOffer(from);
     }
     async getSignalOwner() {
+        let signal = await this.webRtc.createSignalString();
         return {
-            signal: (await this.webRtc.createSignal()).toString(),
+            signal: signal,
             creationTime_EpochInSeconds: "",
         };
     }

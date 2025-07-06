@@ -6,7 +6,7 @@ import { CallbackSignalInput } from "signaling-sdk/Types";
 
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
-import { sleep } from "src/utility.js";
+import { sleep } from "../utility.js";
 
 
 export function testSignalingSmartContractCallback(
