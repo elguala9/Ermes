@@ -16,6 +16,12 @@ export class ErmesWebRtcService extends ErmesService implements IErmesWebRtcServ
         super(input);
         this._repositoryWebRtc = input.repository;
     }
+    createSignalString(): Promise<string> {
+        return this._repositoryWebRtc.createSignalString();
+    }
+    parseSignalString(signalString: string): SignalData {
+        return this._repositoryWebRtc.parseSignalString(signalString);
+    }
 
     setRepository(repository: IErmesWebRtcRepository): void {
         this._repositoryWebRtc = repository;

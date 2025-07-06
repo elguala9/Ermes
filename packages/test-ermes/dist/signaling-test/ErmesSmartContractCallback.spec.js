@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import sinon from "sinon";
-import { sleep } from "src/utility.js";
+import { sleep } from "../utility.js";
 export function testSignalingSmartContractCallback(service_1, service_2) {
     describe('Smart Contract Test', function () {
         let offer = "Ciao Offer";

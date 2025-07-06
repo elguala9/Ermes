@@ -9,7 +9,9 @@ export declare class ErmesWebRtcRepository implements IErmesWebRtcRepository {
     constructor({ offer, iceServers }: ErmesWbrtcRepositoryInput);
     isClosed(): boolean;
     createSignal(): Promise<SignalData>;
+    createSignalString(): Promise<string>;
     setSignal(signal: Signal): void;
+    parseSignalString(signalString: string): SignalData;
     destroy(): void;
     send(data: SerializableDataType): void;
     onMessage(func: CallbackOnDataRepository): void;

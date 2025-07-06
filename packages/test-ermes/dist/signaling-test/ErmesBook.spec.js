@@ -12,7 +12,7 @@ export function testBook(service_1, service_2, info_example_1, info_example_2, i
     let account_1 = 'account_1';
     let account_2 = 'account_2';
     let account_list = Array.from({ length: 20 }, (_, i) => `account_${i}`);
-    describe('IErmesService Connection Tests', function () {
+    describe('IErmesBook Tests', function () {
         before(async function () {
             chai.use(chaiAsPromised);
         });

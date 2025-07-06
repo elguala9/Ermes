@@ -47,10 +47,10 @@ export class ContractHandler<C extends BaseContract> implements IContractHandler
         return "";
     }
 
-    protected serialize(propose: string): Uint8Array {
+    serialize(propose: string): Uint8Array {
         return ethers.toUtf8Bytes(propose);
     }
-    protected deSerialize(propose: BytesLike): string {
+    deSerialize(propose: BytesLike): string {
         return ethers.toUtf8String(propose);
     }
 

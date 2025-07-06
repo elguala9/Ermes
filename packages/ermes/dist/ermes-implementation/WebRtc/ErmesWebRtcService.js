@@ -4,6 +4,12 @@ export class ErmesWebRtcService extends ErmesService {
         super(input);
         this._repositoryWebRtc = input.repository;
     }
+    createSignalString() {
+        return this._repositoryWebRtc.createSignalString();
+    }
+    parseSignalString(signalString) {
+        return this._repositoryWebRtc.parseSignalString(signalString);
+    }
     setRepository(repository) {
         this._repositoryWebRtc = repository;
         // i also need to set the repo of the base class
