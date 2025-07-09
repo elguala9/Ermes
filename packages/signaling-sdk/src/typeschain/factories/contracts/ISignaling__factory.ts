@@ -70,7 +70,7 @@ const _abi = [
         ],
         indexed: false,
         internalType: "struct Signal",
-        name: "answer",
+        name: "offer",
         type: "tuple",
       },
     ],

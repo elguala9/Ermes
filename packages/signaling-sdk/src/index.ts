@@ -3,7 +3,10 @@
  */
 
 export * from "./Factories";
+export * from "./FactoriesMultiOffer";
+export * from "./ISignalingMultiOfferSdk";
 export * from "./ISignalingSdk";
+export * from "./SignalingMultiOfferSdk";
 export * from "./SignalingSdk";
 export * from "./Types";
 export * from "./Utility";

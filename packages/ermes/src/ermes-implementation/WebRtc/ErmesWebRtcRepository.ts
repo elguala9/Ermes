@@ -2,13 +2,12 @@
 
 import type { Instance, SignalData } from 'simple-peer';
 import Peer from 'simple-peer';
-
 import { ErmesWbrtcRepositoryInput, IErmesWebRtcRepository } from 'iermes/index';
 import wrtc from '../../types/wrtc.js';
 import { CallbackOnDataRepository, SerializableDataType, Signal } from 'ermes-types';
-import { toArrayBuffer } from './NormalizationUtility.js';
 
 
+type NegotiablePeer = Instance & { negotiate?(): void };
 type simpleFunc = () => {};
 export const defaultStun: string = 'stun:stun.l.google.com:19302';
 
@@ -17,6 +16,8 @@ export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
     private peer: Instance;
     private messageBuffer: SerializableDataType[] = [];
     private messageCallback?: CallbackOnDataRepository;
+    private lastSignal?: SignalData;
+    private needsSignal = true;
     
     constructor({ offer, iceServers }: ErmesWbrtcRepositoryInput) {
         this.peer = new Peer({
@@ -61,6 +62,14 @@ export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
         }
         
         
+        // intercetto i cambi di stato ICE
+        rawPc.addEventListener('iceconnectionstatechange', async () => {
+            console.log('[ErmesRepository] ICE state:', rawPc.iceConnectionState);
+            if (rawPc.iceConnectionState === 'disconnected' || rawPc.iceConnectionState === 'failed') {
+                console.log('[ErmesRepository] Forzo ICE‐restart');
+                this.restartIce();
+            }
+        });
     }
 
     isClosed(): boolean {
@@ -68,12 +77,40 @@ export class ErmesWebRtcRepository implements IErmesWebRtcRepository{
     }
 
 
-    public createSignal(): Promise<SignalData> {
-        return new Promise((resolve) => {
-          this.peer.once('signal', (data: SignalData | PromiseLike<SignalData>) => {
-            console.log('[ErmesRepository] Signal emitted!');
+    /** forza una ICE‐restart */
+    private restartIce(): void {
+        this.needsSignal = true;              // <-- segnalo che serve un nuovo signal
+        const p = this.peer as NegotiablePeer;
+        if (typeof p.negotiate === 'function') {
+            p.negotiate();
+        } else {
+            const rawPc = (this.peer as any)._pc as RTCPeerConnection;
+            rawPc.createOffer({ iceRestart: true })
+                 .then(o => rawPc.setLocalDescription(o))
+                 .catch(err => console.error('[Ermes] ICE‐restart failed', err));
+        }
+    }
+
+    public async createSignal(): Promise<SignalData> {
+        // se non serve un nuovo signal, restituisco quello in cache
+        if (!this.needsSignal && this.lastSignal) {
+            return this.lastSignal;
+        }
+
+        return new Promise<SignalData>((resolve, reject) => {
+          const timer = setTimeout(() => {
+            this.peer.off('signal', onSig);
+            reject(new Error('Timeout waiting for signal'));
+          }, 10_000);
+          const onSig = (data: SignalData) => {
+            clearTimeout(timer);
+            this.peer.off('signal', onSig);
+
+            this.lastSignal = data;     // <-- memorizzo per la prossima volta
+            this.needsSignal = false;   // <-- niente nuova negoziazione finché non richiesta
             resolve(data);
-          });
+          };
+          this.peer.once('signal', onSig);
         });
     }
 

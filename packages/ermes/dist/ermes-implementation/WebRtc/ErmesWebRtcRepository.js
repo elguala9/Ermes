@@ -5,6 +5,7 @@ export const defaultStun = 'stun:stun.l.google.com:19302';
 export class ErmesWebRtcRepository {
     constructor({ offer, iceServers }) {
         this.messageBuffer = [];
+        this.needsSignal = true;
         this.peer = new Peer({
             initiator: !offer,
             trickle: false, // puoi anche mettere true per connessioni più rapide
@@ -41,16 +42,50 @@ export class ErmesWebRtcRepository {
         if (offer) {
             this.peer.signal(offer);
         }
+        // intercetto i cambi di stato ICE
+        rawPc.addEventListener('iceconnectionstatechange', async () => {
+            console.log('[ErmesRepository] ICE state:', rawPc.iceConnectionState);
+            if (rawPc.iceConnectionState === 'disconnected' || rawPc.iceConnectionState === 'failed') {
+                console.log('[ErmesRepository] Forzo ICE‐restart');
+                this.restartIce();
+            }
+        });
     }
     isClosed() {
         return !this.isConnected();
     }
-    createSignal() {
-        return new Promise((resolve) => {
-            this.peer.once('signal', (data) => {
-                console.log('[ErmesRepository] Signal emitted!');
+    /** forza una ICE‐restart */
+    restartIce() {
+        this.needsSignal = true; // <-- segnalo che serve un nuovo signal
+        const p = this.peer;
+        if (typeof p.negotiate === 'function') {
+            p.negotiate();
+        }
+        else {
+            const rawPc = this.peer._pc;
+            rawPc.createOffer({ iceRestart: true })
+                .then(o => rawPc.setLocalDescription(o))
+                .catch(err => console.error('[Ermes] ICE‐restart failed', err));
+        }
+    }
+    async createSignal() {
+        // se non serve un nuovo signal, restituisco quello in cache
+        if (!this.needsSignal && this.lastSignal) {
+            return this.lastSignal;
+        }
+        return new Promise((resolve, reject) => {
+            const timer = setTimeout(() => {
+                this.peer.off('signal', onSig);
+                reject(new Error('Timeout waiting for signal'));
+            }, 10000);
+            const onSig = (data) => {
+                clearTimeout(timer);
+                this.peer.off('signal', onSig);
+                this.lastSignal = data; // <-- memorizzo per la prossima volta
+                this.needsSignal = false; // <-- niente nuova negoziazione finché non richiesta
                 resolve(data);
-            });
+            };
+            this.peer.once('signal', onSig);
         });
     }
     async createSignalString() {

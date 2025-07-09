@@ -10,6 +10,8 @@ export * from "./signaling-test/ErmesSerialization.spec";
 export * from "./signaling-test/ErmesSignalingConnectionRepo.spec";
 export * from "./signaling-test/ErmesSmartContract.spec";
 export * from "./signaling-test/ErmesSmartContractCallback.spec";
+export * from "./signaling-test/ErmesSmartContractMultiOffer.spec";
+export * from "./signaling-test/ErmesSmartContractMultiOfferCallback.spec";
 export * from "./standard-test/Ermes.spec";
 export * from "./standard-test/ErmesConnection.spec";
 export * from "./standard-test/IdHandler.spec";

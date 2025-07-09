@@ -49,7 +49,7 @@ export declare class ISignaling__factory {
             }];
             readonly indexed: false;
             readonly internalType: "struct Signal";
-            readonly name: "answer";
+            readonly name: "offer";
             readonly type: "tuple";
         }];
         readonly name: "proposeOffer";

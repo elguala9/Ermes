@@ -9,6 +9,8 @@ export * from "./signaling-test/ErmesSerialization.spec.js";
 export * from "./signaling-test/ErmesSignalingConnectionRepo.spec.js";
 export * from "./signaling-test/ErmesSmartContract.spec.js";
 export * from "./signaling-test/ErmesSmartContractCallback.spec.js";
+export * from "./signaling-test/ErmesSmartContractMultiOffer.spec.js";
+export * from "./signaling-test/ErmesSmartContractMultiOfferCallback.spec.js";
 export * from "./standard-test/Ermes.spec.js";
 export * from "./standard-test/ErmesConnection.spec.js";
 export * from "./standard-test/IdHandler.spec.js";

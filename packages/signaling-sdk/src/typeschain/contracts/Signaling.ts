@@ -182,11 +182,11 @@ export namespace proposeAnswerEvent {
 }
 
 export namespace proposeOfferEvent {
-  export type InputTuple = [offerer: AddressLike, answer: SignalStruct];
-  export type OutputTuple = [offerer: string, answer: SignalStructOutput];
+  export type InputTuple = [offerer: AddressLike, offer: SignalStruct];
+  export type OutputTuple = [offerer: string, offer: SignalStructOutput];
   export interface OutputObject {
     offerer: string;
-    answer: SignalStructOutput;
+    offer: SignalStructOutput;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
