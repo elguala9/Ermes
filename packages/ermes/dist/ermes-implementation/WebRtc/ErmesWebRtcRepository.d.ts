@@ -6,8 +6,12 @@ export declare class ErmesWebRtcRepository implements IErmesWebRtcRepository {
     private peer;
     private messageBuffer;
     private messageCallback?;
+    private lastSignal?;
+    private needsSignal;
     constructor({ offer, iceServers }: ErmesWbrtcRepositoryInput);
     isClosed(): boolean;
+    /** forza una ICE‐restart */
+    private restartIce;
     createSignal(): Promise<SignalData>;
     createSignalString(): Promise<string>;
     setSignal(signal: Signal): void;

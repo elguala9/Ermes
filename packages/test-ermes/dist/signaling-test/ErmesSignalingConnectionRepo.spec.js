@@ -12,8 +12,8 @@ export function testSignalingConnectionRepo(service_1, service_2) {
         it('Service 1 Ping Before connection', async () => {
             expect(await service_1.pingServer()).to.equal(false);
         });
-        it('Service 1 Connect', () => {
-            service_1.connect();
+        it('Service 1 Connect', async () => {
+            await service_1.connect();
         });
         it('Service 1 Ping', async () => {
             expect(await service_1.pingServer()).to.equal(true);

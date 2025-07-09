@@ -32,6 +32,10 @@ module.exports = {
       deps: ["signaling-contract:build"]
     },
 
+    deployMultiOfferSC: {
+      deps: ["signaling-contract:build"]
+    },
+
     
     // Gen-exports task - richiede la build
     "gen-exports": {

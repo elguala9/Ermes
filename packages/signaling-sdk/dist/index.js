@@ -18,7 +18,10 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./Factories.js"), exports);
+__exportStar(require("./FactoriesMultiOffer.js"), exports);
+__exportStar(require("./ISignalingMultiOfferSdk.js"), exports);
 __exportStar(require("./ISignalingSdk.js"), exports);
+__exportStar(require("./SignalingMultiOfferSdk.js"), exports);
 __exportStar(require("./SignalingSdk.js"), exports);
 __exportStar(require("./Types.js"), exports);
 __exportStar(require("./Utility.js"), exports);

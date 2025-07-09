@@ -33,8 +33,8 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Signaling__factory = exports.ISignaling__factory = exports.Errors__factory = exports.Address__factory = exports.ERC1967Utils__factory = exports.IBeacon__factory = exports.IERC1967__factory = exports.IERC1822Proxiable__factory = exports.ContextUpgradeable__factory = exports.UUPSUpgradeable__factory = exports.Initializable__factory = exports.OwnableUpgradeable__factory = exports.factories = void 0;
-exports.factories = __importStar(require("./factories"));
+exports.SignalingMultiOffer__factory = exports.Signaling__factory = exports.ISignalingMultiOffer__factory = exports.ISignaling__factory = exports.Errors__factory = exports.Address__factory = exports.ERC1967Utils__factory = exports.IBeacon__factory = exports.IERC1967__factory = exports.IERC1822Proxiable__factory = exports.ContextUpgradeable__factory = exports.UUPSUpgradeable__factory = exports.Initializable__factory = exports.OwnableUpgradeable__factory = exports.factories = void 0;
+exports.factories = __importStar(require("./factories/index"));
 var OwnableUpgradeable__factory_1 = require("./factories/@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable__factory");
 Object.defineProperty(exports, "OwnableUpgradeable__factory", { enumerable: true, get: function () { return OwnableUpgradeable__factory_1.OwnableUpgradeable__factory; } });
 var Initializable__factory_1 = require("./factories/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable__factory");
@@ -57,6 +57,10 @@ var Errors__factory_1 = require("./factories/@openzeppelin/contracts/utils/Error
 Object.defineProperty(exports, "Errors__factory", { enumerable: true, get: function () { return Errors__factory_1.Errors__factory; } });
 var ISignaling__factory_1 = require("./factories/contracts/ISignaling__factory");
 Object.defineProperty(exports, "ISignaling__factory", { enumerable: true, get: function () { return ISignaling__factory_1.ISignaling__factory; } });
+var ISignalingMultiOffer__factory_1 = require("./factories/contracts/ISignalingMultiOffer__factory");
+Object.defineProperty(exports, "ISignalingMultiOffer__factory", { enumerable: true, get: function () { return ISignalingMultiOffer__factory_1.ISignalingMultiOffer__factory; } });
 var Signaling__factory_1 = require("./factories/contracts/Signaling__factory");
 Object.defineProperty(exports, "Signaling__factory", { enumerable: true, get: function () { return Signaling__factory_1.Signaling__factory; } });
+var SignalingMultiOffer__factory_1 = require("./factories/contracts/SignalingMultiOffer__factory");
+Object.defineProperty(exports, "SignalingMultiOffer__factory", { enumerable: true, get: function () { return SignalingMultiOffer__factory_1.SignalingMultiOffer__factory; } });
 //# sourceMappingURL=index.js.map

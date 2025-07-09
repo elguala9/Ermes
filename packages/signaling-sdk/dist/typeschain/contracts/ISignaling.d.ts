@@ -42,11 +42,11 @@ export declare namespace proposeAnswerEvent {
     type LogDescription = TypedLogDescription<Event>;
 }
 export declare namespace proposeOfferEvent {
-    type InputTuple = [offerer: AddressLike, answer: SignalStruct];
-    type OutputTuple = [offerer: string, answer: SignalStructOutput];
+    type InputTuple = [offerer: AddressLike, offer: SignalStruct];
+    type OutputTuple = [offerer: string, offer: SignalStructOutput];
     interface OutputObject {
         offerer: string;
-        answer: SignalStructOutput;
+        offer: SignalStructOutput;
     }
     type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
     type Filter = TypedDeferredTopicFilter<Event>;

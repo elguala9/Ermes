@@ -27,8 +27,8 @@ export function testSignalingConnectionRepo<SignalMessage>(
       expect(await service_1.pingServer()).to.equal(false);
     });
 
-    it('Service 1 Connect', () => {
-      service_1.connect();
+    it('Service 1 Connect', async () => {
+      await service_1.connect();
     });
 
     

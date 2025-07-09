@@ -10,7 +10,7 @@ struct Signal {
 }
 
 interface ISignaling {
-    event proposeOffer(address indexed offerer, Signal answer);
+    event proposeOffer(address indexed offerer, Signal offer);
     event proposeAnswer(address indexed offerer, address indexed answerer, Signal answer);
 
     function setOffer(bytes memory offer) external;
