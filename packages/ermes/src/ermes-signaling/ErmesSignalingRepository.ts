@@ -1,23 +1,20 @@
 import { IdAccountType, IErmesSignalingRepository, IErmesWebRtcService, OnSignalCallback } from "iermes/index";
 import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
 import { CallbackSignalInput, OutputStruct } from "signaling-sdk/Types";
+/*! $RESERVED$ */
 
 export const DISCONNECTED_FLAG = "DISCONNECTED";
 
 export class ErmesSignalingRepository implements IErmesSignalingRepository<OutputStruct> {
-    private signaling: ISignalingSdk;
-    private webRtc: IErmesWebRtcService;
+    private signaling: IErmesSignalingServer;
     private onAnswerCallback?: OnSignalCallback<OutputStruct>
 
-    constructor(signaling: ISignalingSdk, webRtc: IErmesWebRtcService) {
+    constructor(signaling: IErmesSignalingServer, singalHandler: IErmesSignalingHandler) {
         this.signaling = signaling;
-        this.webRtc = webRtc;
         this.signaling.onAnswer(this.onAnswer);
     }
 
     async connect(): Promise<void> {
-        let offer = await this.webRtc.createSignalString()
-        await this.signaling.setOffer(offer);
     }
 
     async disconnect(): Promise<void> {
@@ -35,8 +32,7 @@ export class ErmesSignalingRepository implements IErmesSignalingRepository<Outpu
 
     async sendSignal(to: IdAccountType): Promise<void> {
         let offer = await this.signaling.getOffer(to);
-        this.webRtc.setSignal(offer.signal);
-        let answer = await this.webRtc.createSignalString();
+
         await this.signaling.setAnswer(answer ,to);
     }
 

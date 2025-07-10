@@ -29,6 +29,7 @@ export function testSignalingConnectionRepo<SignalMessage>(
 
     it('Service 1 Connect', async () => {
       await service_1.connect();
+      await service_1.sendSignal(account_2);
     });
 
     

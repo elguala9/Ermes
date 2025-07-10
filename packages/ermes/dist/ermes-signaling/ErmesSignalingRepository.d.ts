@@ -1,12 +1,11 @@
-import { IdAccountType, IErmesSignalingRepository, IErmesWebRtcService, OnSignalCallback } from "iermes/index";
-import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
+import { IdAccountType, IErmesSignalingRepository, OnSignalCallback } from "iermes/index";
 import { OutputStruct } from "signaling-sdk/Types";
+/*! $RESERVED$ */
 export declare const DISCONNECTED_FLAG = "DISCONNECTED";
 export declare class ErmesSignalingRepository implements IErmesSignalingRepository<OutputStruct> {
     private signaling;
-    private webRtc;
     private onAnswerCallback?;
-    constructor(signaling: ISignalingSdk, webRtc: IErmesWebRtcService);
+    constructor(signaling: IErmesSignalingServer, singalHandler: IErmesSignalingHandler);
     connect(): Promise<void>;
     disconnect(): Promise<void>;
     getIdAccount(): Promise<string>;
