@@ -1,0 +1,81 @@
+import { SignalData } from "simple-peer";
+import {
+  ISignalInfo,
+  ISignalInfoOffer,
+  ISignalInfoAnswer,
+  ReusableOffer,
+  ReusableAnswer
+} from "./ISignalManager.js";
+import {
+  SignalInfo,
+  SignalInfoOffer,
+  SignalInfoAnswer
+} from "./SignalInfo.js";
+
+export class SignalInfoFactory {
+  /**
+   * Create a generic ISignalInfo.  If you pass only a reusableOffer
+   * it will delegate to createSignalInfoOffer; if you pass only a
+   * reusableAnswer it will delegate to createSignalInfoAnswer.
+   */
+  static createSignalInfo(
+    signalData: SignalData,
+    reusableOffer?: ReusableOffer,
+    reusableAnswer?: ReusableAnswer
+  ): ISignalInfo {
+    if (reusableOffer && !reusableAnswer) {
+      return this.createSignalInfoOffer(signalData, reusableOffer);
+    }
+    if (reusableAnswer && !reusableOffer) {
+      return this.createSignalInfoAnswer(signalData, reusableAnswer);
+    }
+    return new SignalInfo(signalData);
+  }
+
+  /** Wrap a raw offer signal + metadata into an ISignalInfoOffer */
+  static createSignalInfoOffer(
+    signalData: SignalData,
+    reusableOffer: ReusableOffer
+  ): ISignalInfoOffer {
+    return new SignalInfoOffer(signalData, reusableOffer);
+  }
+
+  /** Wrap a raw answer signal + metadata into an ISignalInfoAnswer */
+  static createSignalInfoAnswer(
+    signalData: SignalData,
+    reusableAnswer: ReusableAnswer
+  ): ISignalInfoAnswer {
+    return new SignalInfoAnswer(signalData, reusableAnswer);
+  }
+}
+
+import type { Instance } from 'simple-peer';
+import type { ISignalManager }  from './ISignalManager.js';
+import type { IPacketManager }  from './IPacketManager.js';
+import { SignalManager, DEFAULT_ICE_CONFIG } from './SignalManager.js';
+import { PacketManager }                   from './PacketManager.js';
+import { IdAccountType } from "iermes/index";
+
+/**
+ * Factory per il SignalManager.
+ * @param iceConfig  configurazione ICE (se omesso usa DEFAULT_ICE_CONFIG)
+ */
+export function createSignalManager(
+  idAccount: IdAccountType,
+  isInitiator: boolean = true,
+  iceConfig?: RTCConfiguration
+): ISignalManager {
+  return new SignalManager(iceConfig ?? DEFAULT_ICE_CONFIG, idAccount, isInitiator);
+}
+
+/**
+ * Factory per il PacketManager.
+ * @param peer          istanza simple-peer già connessa
+ * @param connectionId  identificativo univoco della connessione
+ */
+export function createPacketManager(
+  peer: Instance,
+  connectionId: string
+): IPacketManager {
+  return new PacketManager(peer, connectionId);
+}

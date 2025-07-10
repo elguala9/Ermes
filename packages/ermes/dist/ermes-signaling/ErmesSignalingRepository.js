@@ -1,13 +1,11 @@
+/*! $RESERVED$ */
 export const DISCONNECTED_FLAG = "DISCONNECTED";
 export class ErmesSignalingRepository {
-    constructor(signaling, webRtc) {
+    constructor(signaling, singalHandler) {
         this.signaling = signaling;
-        this.webRtc = webRtc;
         this.signaling.onAnswer(this.onAnswer);
     }
     async connect() {
-        let offer = await this.webRtc.createSignalString();
-        await this.signaling.setOffer(offer);
     }
     async disconnect() {
         await this.signaling.setOffer(DISCONNECTED_FLAG);
@@ -21,8 +19,6 @@ export class ErmesSignalingRepository {
     }
     async sendSignal(to) {
         let offer = await this.signaling.getOffer(to);
-        this.webRtc.setSignal(offer.signal);
-        let answer = await this.webRtc.createSignalString();
         await this.signaling.setAnswer(answer, to);
     }
     getSignal(from) {
