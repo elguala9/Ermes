@@ -15,11 +15,12 @@ export declare class SignalInfoFactory {
 import type { Instance } from 'simple-peer';
 import type { ISignalManager } from './ISignalManager.js';
 import type { IPacketManager } from './IPacketManager.js';
+import { IdAccountType } from "iermes/index";
 /**
  * Factory per il SignalManager.
  * @param iceConfig  configurazione ICE (se omesso usa DEFAULT_ICE_CONFIG)
  */
-export declare function createSignalManager(iceConfig?: RTCConfiguration): ISignalManager;
+export declare function createSignalManager(idAccount: IdAccountType, isInitiator?: boolean, iceConfig?: RTCConfiguration): ISignalManager;
 /**
  * Factory per il PacketManager.
  * @param peer          istanza simple-peer già connessa

@@ -3,7 +3,8 @@ import { ContractFactory, ContractTransactionReceipt, Signer } from "ethers";
 import { ISignalingSdk } from "./ISignalingSdk";
 import { AddressType, AnswerType, CallbackSignal, OfferType, OutputStruct } from "./Types";
 import { Signaling } from "./typeschain";
-export declare class SignalingSdk extends ContractHandler<Signaling> implements ISignalingSdk {
+import { IdAccountType, IErmesSignalingServer, SignalType } from "iermes/index";
+export declare class SignalingSdk extends ContractHandler<Signaling> implements ISignalingSdk, IErmesSignalingServer {
     private listenerOnAnswer?;
     private callbackOnAnswer?;
     /**
@@ -14,6 +15,15 @@ export declare class SignalingSdk extends ContractHandler<Signaling> implements 
      * @param offerer in case is undefined, i take the address of the signer
      */
     constructor(contractFactory: ContractFactory, signer: Signer, address: string);
+    isConnected(): Promise<boolean>;
+    connect(): Promise<void>;
+    disconnect(): Promise<void>;
+    getIdAccount(): Promise<IdAccountType>;
+    getSignal(from: IdAccountType): Promise<SignalType>;
+    setSignal(signal: SignalType, to?: IdAccountType): Promise<void>;
+    onSignal(callback: (data: SignalType) => void): void;
+    onError(callback: (err: Error) => void): void;
+    onClose(callback: () => void): void;
     private getListnerProposeAnswer;
     removeListnerProposeAnswer(): Promise<void>;
     removeListnerProposeAnswerPrivate(offerer: string): Promise<void>;

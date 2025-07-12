@@ -3,13 +3,14 @@ export class ErmesSignalingService {
         this.repo = repo;
         this.factory = factory;
     }
-    onSignal(callback) {
-        return this.repo.onSignal((input) => {
+    async onSignal(callback) {
+        // to fix
+        /*return this.repo.onSignal((signal: SignalType) => {
             callback({
                 peer: input.peer,
                 ermesService: this.createErmesService(input.signal.signal)
             });
-        });
+        });*/
     }
     connect() {
         return this.repo.connect();
@@ -36,7 +37,7 @@ export class ErmesSignalingService {
     }
     async getErmes(of) {
         let signal = await this.repo.getSignal(of);
-        let ermes = this.createErmesService(signal.signal);
+        let ermes = this.createErmesService(signal);
         return ermes;
     }
 }

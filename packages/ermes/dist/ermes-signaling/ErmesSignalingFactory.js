@@ -1,7 +1,7 @@
 import { ErmesSignalingRepository } from "./ErmesSignalingRepository.js";
 export class ErmesSignalingFactory {
-    create(signaling, webRtc) {
-        return new ErmesSignalingRepository(signaling, webRtc);
+    create(signalingServer, signalHandler) {
+        return new ErmesSignalingRepository(signalingServer, signalHandler);
     }
 }
 //# sourceMappingURL=ErmesSignalingFactory.js.map

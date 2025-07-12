@@ -38,9 +38,6 @@ export class SignalManager implements ISignalManager, IErmesSignalingHandler {
     private isInitiator: boolean
   ) {}
 
-  createErmes(): Promise<IErmesRepository> {
-    throw new Error('Method not implemented.');
-  }
 
 
   async processSignal(signalString: string): Promise<void> {

@@ -1,9 +1,8 @@
-import { IdAccountType, IErmesService, IErmesSignalingRepository, IErmesSignalingService, IErmesWebRtcFactory, OnSignalCreateSocketCallback } from "iermes/index";
-import { OutputStruct } from "signaling-sdk/Types";
+import { IdAccountType, IErmesService, IErmesSignalingRepository, IErmesSignalingService, IErmesWebRtcFactory, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
 export declare class ErmesSignalingService implements IErmesSignalingService {
     private repo;
     private factory;
-    constructor(repo: IErmesSignalingRepository<OutputStruct>, factory: IErmesWebRtcFactory);
+    constructor(repo: IErmesSignalingRepository<SignalType>, factory: IErmesWebRtcFactory);
     onSignal(callback: OnSignalCreateSocketCallback): Promise<void>;
     connect(): Promise<void>;
     disconnect(): Promise<void>;
