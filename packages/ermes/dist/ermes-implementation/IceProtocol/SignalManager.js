@@ -10,68 +10,50 @@ export const DEFAULT_ICE_CONFIG = {
 };
 // -- Class that handles creating and answering reusable offers --
 export class SignalManager {
-    constructor(iceConfig = DEFAULT_ICE_CONFIG) {
+    /**
+     *
+     * @param iceConfig condiguratio of ICE servers
+     * @param idAccount the global account ID of the peer, used to identify the peer in the signaling process
+     * @param isInitiator true -> you will create the offer, false -> you will answer the offer
+     */
+    constructor(iceConfig = DEFAULT_ICE_CONFIG, idAccount, isInitiator) {
         this.iceConfig = iceConfig;
-        this.signals = new Map();
-        this.ownerId = null;
-        this.listeners = new Set();
+        this.idAccount = idAccount;
+        this.isInitiator = isInitiator;
     }
-    async onSignal(callback) {
-        this.listeners.add(callback);
+    async processSignal(signalString) {
+        let signal = JSON.parse(signalString);
+        if (this.isInitiator === true && signal.isOffer() === true)
+            throw new Error('Initiator but processing an offer');
+        if (this.isInitiator === false && signal.isAnswer() === true)
+            throw new Error('Not initiator but processing an answer');
+        // i want to find a wat to delete the "as"
+        if (signal.isOffer())
+            this.offerResponse = await this.processOfferAndCreateAnswer(signal);
+        if (signal.isAnswer())
+            this.answerResponse = await this.processAnswer(signal);
+        throw new Error('Not able to process signal');
     }
-    async getSignal(from) {
-        const signal = this.signals.get(from);
-        if (!signal)
-            throw new Error('Signal not found');
-        return signal;
-    }
-    async getSignalOwner() {
-        if (!this.ownerId)
-            throw new Error('Owner not set');
-        const signal = this.signals.get(this.ownerId);
-        if (!signal)
-            throw new Error('Owner signal not found');
-        return signal;
-    }
-    compareSignalMessage(signal_1, signal_2) {
-        return JSON.stringify(signal_1) === JSON.stringify(signal_2);
-    }
-    async connect() {
-        // Simulate connection logic
-        // In a real implementation, connect to signaling server here
-        return;
-    }
-    async disconnect() {
-        // Simulate disconnect logic
-        this.listeners.clear();
-        return;
-    }
-    async getIdAccount() {
-        if (!this.ownerId)
-            throw new Error('Owner not set');
-        return this.ownerId;
-    }
-    async pingServer() {
-        // Simulate ping logic
-        return true;
-    }
-    async sendSignal(to) {
-        const signal = this.signals.get(to);
-        if (!signal)
-            throw new Error('Signal not found');
-        for (const cb of this.listeners) {
-            await cb(signal);
-        }
-    }
-    removeAllListeners() {
-        this.listeners.clear();
+    /**
+     * Create a real SDP‐offer via SimplePeer and store it as OutputStruct
+     */
+    async createSignal() {
+        let signal = undefined;
+        // I need to chose if create an offer or an answer
+        if (this.isInitiator == true)
+            // I am the initiator, so I create an offer
+            signal = await this.createReusableOffer();
+        if (this.offerResponse !== undefined)
+            signal = this.offerResponse.answer;
+        if (signal === undefined)
+            throw new Error('Signal is undefined, you are not the initiator and you did not parocess an answer');
+        return JSON.stringify(signal);
     }
     /**
      * Create a one‐off SDP offer (trickle ICE disabled), wrap it in a ReusableOffer,
      * then destroy the temporary peer.
      */
-    createReusableOffer(peerId) {
-        const id = peerId ?? `peer-${crypto.randomBytes(4).toString('hex')}`;
+    createReusableOffer() {
         const opts = {
             initiator: true,
             config: this.iceConfig,
@@ -85,7 +67,7 @@ export class SignalManager {
                         sdp: signal.sdp,
                         offerId: crypto.randomBytes(8).toString('hex'),
                         createdAt: Date.now(),
-                        createdBy: id
+                        createdBy: this.idAccount
                     };
                     tempPeer.destroy();
                     let offer = SignalInfoFactory.createSignalInfoOffer(signal, reusableOffer);
@@ -102,8 +84,7 @@ export class SignalManager {
      * Consume a previously generated ReusableOffer, answer it and return
      * both the answer and the live PeerInstance.
      */
-    processOfferAndCreateAnswer(receivedOffer, peerId) {
-        const id = peerId ?? `peer-${crypto.randomBytes(4).toString('hex')}`;
+    processOfferAndCreateAnswer(receivedOffer) {
         const connectionId = crypto.randomBytes(8).toString('hex');
         const opts = {
             initiator: false,
@@ -121,7 +102,7 @@ export class SignalManager {
                         connectionId,
                         offerId: infoOffer.offerId,
                         createdAt: Date.now(),
-                        createdBy: id,
+                        createdBy: this.idAccount,
                         targetPeer: infoOffer.createdBy
                     };
                     let answer = SignalInfoFactory.createSignalInfoAnswer(signal, reusableAnswer);

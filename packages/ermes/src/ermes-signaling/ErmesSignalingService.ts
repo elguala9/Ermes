@@ -1,25 +1,26 @@
-import { IdAccountType, IErmesService, IErmesSignalingRepository, IErmesSignalingService, IErmesWebRtcFactory, IErmesWebRtcService, OnSignalCallback, OnSignalCallbackInput, OnSignalCreateSocketCallback } from "iermes/index";
+import { IdAccountType, IErmesService, IErmesSignalingRepository, IErmesSignalingService, IErmesWebRtcFactory, IErmesWebRtcService, OnSignalCallback, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
 import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
 import { CallbackSignalInput, OutputStruct } from "signaling-sdk/Types";
 
 
 
 export class ErmesSignalingService implements IErmesSignalingService {
-    private repo: IErmesSignalingRepository<OutputStruct>;
+    private repo: IErmesSignalingRepository<SignalType>;
     private factory: IErmesWebRtcFactory;
 
-    constructor(repo: IErmesSignalingRepository<OutputStruct>, factory: IErmesWebRtcFactory) {
+    constructor(repo: IErmesSignalingRepository<SignalType>, factory: IErmesWebRtcFactory) {
         this.repo = repo;
         this.factory = factory;
     }
 
-    onSignal(callback: OnSignalCreateSocketCallback): Promise<void> {
-        return this.repo.onSignal((input: OnSignalCallbackInput<OutputStruct>) => {
+    async onSignal(callback: OnSignalCreateSocketCallback): Promise<void> {
+        // to fix
+        /*return this.repo.onSignal((signal: SignalType) => {
             callback({
                 peer: input.peer,
                 ermesService: this.createErmesService(input.signal.signal)
             });
-        });
+        });*/
     }
     connect(): Promise<void> {
         return this.repo.connect();
@@ -48,7 +49,7 @@ export class ErmesSignalingService implements IErmesSignalingService {
 
     async getErmes(of: IdAccountType): Promise<IErmesService>{
         let signal = await this.repo.getSignal(of);
-        let ermes = this.createErmesService(signal.signal);
+        let ermes = this.createErmesService(signal);
         return ermes;
     }
     

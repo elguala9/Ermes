@@ -3,16 +3,14 @@ import { ContractEventPayload, ContractFactory, ContractTransactionReceipt, List
 import { ISignalingSdk } from "./ISignalingSdk";
 import { AddressType, AnswerType, CallbackSignal, OfferType, OutputStruct } from "./Types";
 import { Signaling } from "./typeschain";
-import { proposeAnswerEvent } from "./typeschain/contracts/Signaling";
 import { toOutputStruct } from "./Utility";
-import { TypedListener } from "./typeschain/common";
+import { IdAccountType, IErmesSignalingServer, SignalType } from "iermes/index";
 
 
-export class SignalingSdk extends ContractHandler<Signaling> implements ISignalingSdk {
+export class SignalingSdk extends ContractHandler<Signaling> implements ISignalingSdk, IErmesSignalingServer {
     
     private listenerOnAnswer?: Listener;
     private callbackOnAnswer?: CallbackSignal;
-
     /**
      * 
      * @param contractFactory factory of typeschain by hardhat
@@ -23,6 +21,57 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
     constructor(contractFactory: ContractFactory, signer: Signer, address: string){
         super(contractFactory, signer, address);
 
+    }
+
+    async isConnected(): Promise<boolean> {
+        return this.signer.provider !== null && this.signer.provider !== undefined;
+    }
+
+    async connect(): Promise<void> {
+        return;
+    }
+    
+    async disconnect(): Promise<void> {
+        return this.removeAllListeners();
+    }
+
+    getIdAccount(): Promise<IdAccountType> {
+        return super.getAddressUser();
+    }
+    
+    async getSignal(from: IdAccountType): Promise<SignalType> {
+        let addressuser = await super.getAddressUser();
+        let outputAnswer = await this.getAnswer(addressuser, from);
+        let outputOfferer = await this.getOffer(from);
+
+        // to not return empty signals
+        let outputStructToReturn: OutputStruct = outputOfferer;
+
+        // I always take the most recent signal
+        if(outputAnswer.creationTime_EpochInSeconds > outputOfferer.creationTime_EpochInSeconds)
+            outputStructToReturn = outputAnswer;
+
+        return outputAnswer.signal;    
+
+    }
+    async setSignal(signal: SignalType, to?: IdAccountType): Promise<void> {
+        if(to === undefined)
+            await this.setOffer(signal);
+        else
+            await this.setAnswer(signal, to);
+    }
+    onSignal(callback: (data: SignalType) => void): void {
+        this.onAnswer((input) => {
+           callback(input.outputStruct.signal);
+        }) 
+    }
+
+    onError(callback: (err: Error) => void): void {
+        throw new Error("Method not implemented.");
+    }
+
+    onClose(callback: () => void): void {
+        throw new Error("Method not implemented.");
     }
 
     private getListnerProposeAnswer(): Listener {

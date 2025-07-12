@@ -1,6 +1,4 @@
-import { IErmesSignalingFactory, IErmesSignalingRepository, IErmesWebRtcService } from "iermes/index";
-import { OutputStruct } from "signaling-sdk/Types";
-import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
+import { IErmesSignalingFactory, IErmesSignalingHandler, IErmesSignalingRepository, IErmesSignalingServer, SignalType } from "iermes/index";
 export declare class ErmesSignalingFactory implements IErmesSignalingFactory {
-    create(signaling: ISignalingSdk, webRtc: IErmesWebRtcService): IErmesSignalingRepository<OutputStruct>;
+    create(signalingServer: IErmesSignalingServer, signalHandler: IErmesSignalingHandler): IErmesSignalingRepository<SignalType>;
 }

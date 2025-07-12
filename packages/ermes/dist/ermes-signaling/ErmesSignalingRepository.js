@@ -1,43 +1,38 @@
 /*! $RESERVED$ */
 export const DISCONNECTED_FLAG = "DISCONNECTED";
 export class ErmesSignalingRepository {
-    constructor(signaling, singalHandler) {
-        this.signaling = signaling;
-        this.signaling.onAnswer(this.onAnswer);
+    constructor(signalingServer, signalHandler) {
+        this.signalingServer = signalingServer;
+        this.signalHandler = signalHandler;
+        this.signalingServer.onSignal(this.onSignalPrivate);
     }
     async connect() {
+        await this.signalingServer.connect();
     }
     async disconnect() {
-        await this.signaling.setOffer(DISCONNECTED_FLAG);
+        await this.signalingServer.disconnect();
     }
     getIdAccount() {
-        return this.signaling.getAddressUser();
+        return this.signalingServer.getIdAccount();
     }
     async pingServer() {
-        // this.signaling. DA FARE IL PING
+        // this.signalingServer. DA FARE IL PING
         return true;
     }
     async sendSignal(to) {
-        let offer = await this.signaling.getOffer(to);
-        await this.signaling.setAnswer(answer, to);
+        let signal = await this.signalHandler.createSignal();
+        await this.signalingServer.setSignal(to, signal);
     }
-    getSignal(from) {
-        return this.signaling.getOffer(from);
+    async getSignal(from) {
+        return this.signalingServer.getSignal(from);
     }
     async getSignalOwner() {
-        let signal = await this.webRtc.createSignalString();
-        return {
-            signal: signal,
-            creationTime_EpochInSeconds: "",
-        };
+        return this.signalHandler.createSignal();
     }
-    async onAnswer(input) {
+    async onSignalPrivate(input) {
         if (this.onAnswerCallback === undefined)
             return;
-        this.onAnswerCallback({
-            peer: input.answerer,
-            signal: input.outputStruct
-        });
+        this.onAnswerCallback(input);
         return;
     }
     async onSignal(callback) {
@@ -48,10 +43,10 @@ export class ErmesSignalingRepository {
         return ErmesSignalingRepository.compareSignalMessage(signal_1, signal_2);
     }
     static compareSignalMessage(signal_1, signal_2) {
-        return signal_1.signal === signal_2.signal;
+        return signal_1 === signal_2;
     }
     removeAllListeners() {
-        this.signaling.removeAllListeners();
+        this.signalingServer.removeAllListeners();
         this.onAnswerCallback = undefined;
     }
 }

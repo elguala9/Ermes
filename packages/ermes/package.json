@@ -49,16 +49,6 @@
       "require": "./dist/Utility.js",
       "types": "./dist/Utility.d.ts"
     },
-    "./ermes-signaling/ErmesSignalingFactory": {
-      "import": "./dist/ermes-signaling/ErmesSignalingFactory.js",
-      "require": "./dist/ermes-signaling/ErmesSignalingFactory.js",
-      "types": "./dist/ermes-signaling/ErmesSignalingFactory.d.ts"
-    },
-    "./ermes-signaling/ErmesSignalingService": {
-      "import": "./dist/ermes-signaling/ErmesSignalingService.js",
-      "require": "./dist/ermes-signaling/ErmesSignalingService.js",
-      "types": "./dist/ermes-signaling/ErmesSignalingService.d.ts"
-    },
     "./ermes-implementation/ErmesReadRepo": {
       "import": "./dist/ermes-implementation/ErmesReadRepo.js",
       "require": "./dist/ermes-implementation/ErmesReadRepo.js",
@@ -94,30 +84,20 @@
       "require": "./dist/ermes-utility/IdHandlerService.js",
       "types": "./dist/ermes-utility/IdHandlerService.d.ts"
     },
+    "./ermes-signaling/ErmesSignalingFactory": {
+      "import": "./dist/ermes-signaling/ErmesSignalingFactory.js",
+      "require": "./dist/ermes-signaling/ErmesSignalingFactory.js",
+      "types": "./dist/ermes-signaling/ErmesSignalingFactory.d.ts"
+    },
+    "./ermes-signaling/ErmesSignalingService": {
+      "import": "./dist/ermes-signaling/ErmesSignalingService.js",
+      "require": "./dist/ermes-signaling/ErmesSignalingService.js",
+      "types": "./dist/ermes-signaling/ErmesSignalingService.d.ts"
+    },
     "./types/wrtc": {
       "import": "./dist/types/wrtc.js",
       "require": "./dist/types/wrtc.js",
       "types": "./dist/types/wrtc.d.ts"
-    },
-    "./ermes-implementation/WebRtc/ErmesWebRtcFactory": {
-      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
-      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
-      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.d.ts"
-    },
-    "./ermes-implementation/WebRtc/ErmesWebRtcRepository": {
-      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.js",
-      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.js",
-      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.d.ts"
-    },
-    "./ermes-implementation/WebRtc/ErmesWebRtcService": {
-      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.js",
-      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.js",
-      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.d.ts"
-    },
-    "./ermes-implementation/WebRtc/NormalizationUtility": {
-      "import": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
-      "require": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
-      "types": "./dist/ermes-implementation/WebRtc/NormalizationUtility.d.ts"
     },
     "./ermes-implementation/IceProtocol/ErmesIceRepository": {
       "import": "./dist/ermes-implementation/IceProtocol/ErmesIceRepository.js",
@@ -153,6 +133,26 @@
       "import": "./dist/ermes-implementation/IceProtocol/SignalManager.js",
       "require": "./dist/ermes-implementation/IceProtocol/SignalManager.js",
       "types": "./dist/ermes-implementation/IceProtocol/SignalManager.d.ts"
+    },
+    "./ermes-implementation/WebRtc/ErmesWebRtcFactory": {
+      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
+      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
+      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.d.ts"
+    },
+    "./ermes-implementation/WebRtc/ErmesWebRtcRepository": {
+      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.js",
+      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.js",
+      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.d.ts"
+    },
+    "./ermes-implementation/WebRtc/ErmesWebRtcService": {
+      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.js",
+      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.js",
+      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.d.ts"
+    },
+    "./ermes-implementation/WebRtc/NormalizationUtility": {
+      "import": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
+      "require": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
+      "types": "./dist/ermes-implementation/WebRtc/NormalizationUtility.d.ts"
     },
     "./types/types/wrtc": {
       "types": "./dist/types/types/wrtc.d.ts"

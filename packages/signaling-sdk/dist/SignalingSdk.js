@@ -14,6 +14,46 @@ class SignalingSdk extends ContractHandler_1.ContractHandler {
     constructor(contractFactory, signer, address) {
         super(contractFactory, signer, address);
     }
+    async isConnected() {
+        return this.signer.provider !== null && this.signer.provider !== undefined;
+    }
+    async connect() {
+        return;
+    }
+    async disconnect() {
+        return this.removeAllListeners();
+    }
+    getIdAccount() {
+        return super.getAddressUser();
+    }
+    async getSignal(from) {
+        let addressuser = await super.getAddressUser();
+        let outputAnswer = await this.getAnswer(addressuser, from);
+        let outputOfferer = await this.getOffer(from);
+        // to not return empty signals
+        let outputStructToReturn = outputOfferer;
+        // I always take the most recent signal
+        if (outputAnswer.creationTime_EpochInSeconds > outputOfferer.creationTime_EpochInSeconds)
+            outputStructToReturn = outputAnswer;
+        return outputAnswer.signal;
+    }
+    async setSignal(signal, to) {
+        if (to === undefined)
+            await this.setOffer(signal);
+        else
+            await this.setAnswer(signal, to);
+    }
+    onSignal(callback) {
+        this.onAnswer((input) => {
+            callback(input.outputStruct.signal);
+        });
+    }
+    onError(callback) {
+        throw new Error("Method not implemented.");
+    }
+    onClose(callback) {
+        throw new Error("Method not implemented.");
+    }
     getListnerProposeAnswer() {
         if (this.listenerOnAnswer === undefined)
             throw Error("Listener not found");

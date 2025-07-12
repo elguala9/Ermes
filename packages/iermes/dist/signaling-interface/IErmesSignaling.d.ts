@@ -5,11 +5,7 @@ export type OnSignalCreateSocketCallbackInput = {
     ermesService: IErmesService;
 };
 export type OnSignalCreateSocketCallback = (input: OnSignalCreateSocketCallbackInput) => void;
-export type OnSignalCallbackInput<SignalMessageType> = {
-    peer: IdAccountType;
-    signal: SignalMessageType;
-};
-export type OnSignalCallback<SignalMessageType> = (input: OnSignalCallbackInput<SignalMessageType>) => void;
+export type OnSignalCallback<SignalMessageType> = (input: SignalMessageType) => void;
 interface IErmesSignalingPrivate {
     /**
      * connect the server
