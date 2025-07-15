@@ -10,15 +10,7 @@ export type OnSignalCreateSocketCallback = (input: OnSignalCreateSocketCallbackI
 export type OnSignalCallback<SignalMessageType> = (input: SignalMessageType) => void
 
 interface IErmesSignalingPrivate {
-    /**
-     * connect the server 
-    */
-    connect(): Promise<void>;
-
-    /**
-     * Disconnect from the signal server
-     */
-    disconnect(): Promise<void>;
+    destroy(): Promise<void>;
 
     /**
      * 
@@ -29,7 +21,7 @@ interface IErmesSignalingPrivate {
     /**
      * true if the server is online
      */
-    pingServer(): Promise<boolean>
+    isConnected(): Promise<boolean>
 
     /**
      * Send a signal to the other peer

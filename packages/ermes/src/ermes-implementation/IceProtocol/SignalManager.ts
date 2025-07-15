@@ -1,14 +1,12 @@
-import SimplePeer, {
-  Instance as PeerInstance,
-  SignalData,
-  Options as PeerOptions
-} from 'simple-peer';
 import crypto from 'crypto';
-import { AnswerResponse, ISignalInfo, ISignalInfoAnswer, ISignalInfoOffer, ISignalManager, OfferResponse, ReusableAnswer, ReusableOffer } from './ISignalManager.js';
+import { IErmesSignalingHandler, SocketReadyCallback } from 'iermes/index';
+import { IdAccountType } from 'iermes/signaling-interface/IErmesSignaling';
+import SimplePeer, {
+  Options as PeerOptions,
+  SignalData
+} from 'simple-peer';
 import { SignalInfoFactory } from './Factories.js';
-import { IdAccountType, IErmesSignalingRepository, OnSignalCallback } from 'iermes/signaling-interface/IErmesSignaling';
-import { OutputStruct } from 'signaling-sdk/Types';
-import { IErmesRepository, IErmesSignalingHandler } from 'iermes/index';
+import { AnswerResponse, ISignalInfo, ISignalInfoAnswer, ISignalInfoOffer, ISignalManager, OfferResponse, ReusableAnswer, ReusableOffer } from './ISignalManager.js';
 
 // -- Default ICE configuration you can override --
 
@@ -19,12 +17,15 @@ export const DEFAULT_ICE_CONFIG: RTCConfiguration = {
   ]
 };
 
+export type PeerType = SimplePeer.Instance;
+
 // -- Class that handles creating and answering reusable offers --
 
-export class SignalManager implements ISignalManager, IErmesSignalingHandler {
+export class SignalManager implements ISignalManager, IErmesSignalingHandler<PeerType> {
 
   private answerResponse?: AnswerResponse
   private offerResponse?: OfferResponse;
+  private callbackSocketReady?: SocketReadyCallback<PeerType>;
 
   /**
    * 
@@ -37,6 +38,26 @@ export class SignalManager implements ISignalManager, IErmesSignalingHandler {
     private idAccount: IdAccountType,
     private isInitiator: boolean
   ) {}
+
+  async getSocket(): Promise<PeerType> {
+    if(this.answerResponse)
+      return this.answerResponse.peer;
+    if(this.offerResponse)
+      return this.offerResponse.peer;
+    throw new Error('Socket not ready, you need to create a signal or process an answer');
+  }
+  
+  async isSocketReady(): Promise<boolean> {
+    if(this.answerResponse)
+      return true;
+    if(this.offerResponse)
+      return true;
+    return false;
+  }
+
+  async onSocketReady(callback: SocketReadyCallback<PeerType>): Promise<void> {
+    this.callbackSocketReady = callback;
+  }
 
 
 
@@ -57,8 +78,12 @@ export class SignalManager implements ISignalManager, IErmesSignalingHandler {
       this.answerResponse = await this.processAnswer(signal as ISignalInfoAnswer);
       
 
+    if(this.offerResponse === undefined && this.answerResponse === undefined)
+      throw new Error('Not able to process signal');
 
-    throw new Error('Not able to process signal');
+    if(this.callbackSocketReady !== undefined) {
+      this.callbackSocketReady(await this.getSocket());
+    }
     
   }
   

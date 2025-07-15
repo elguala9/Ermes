@@ -7,14 +7,7 @@ export type OnSignalCreateSocketCallbackInput = {
 export type OnSignalCreateSocketCallback = (input: OnSignalCreateSocketCallbackInput) => void;
 export type OnSignalCallback<SignalMessageType> = (input: SignalMessageType) => void;
 interface IErmesSignalingPrivate {
-    /**
-     * connect the server
-    */
-    connect(): Promise<void>;
-    /**
-     * Disconnect from the signal server
-     */
-    disconnect(): Promise<void>;
+    destroy(): Promise<void>;
     /**
      *
      * retrive the id account active in the istance
@@ -23,7 +16,7 @@ interface IErmesSignalingPrivate {
     /**
      * true if the server is online
      */
-    pingServer(): Promise<boolean>;
+    isConnected(): Promise<boolean>;
     /**
      * Send a signal to the other peer
      * @param to ID of destinatary

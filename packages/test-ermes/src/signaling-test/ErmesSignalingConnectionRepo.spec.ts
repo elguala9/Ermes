@@ -23,19 +23,14 @@ export function testSignalingConnectionRepo<SignalMessage>(
       account_2 = await service_2.getIdAccount();
     })
 
-    it('Service 1 Ping Before connection', async () => {
-      expect(await service_1.pingServer()).to.equal(false);
+    it('Service 1 Ping', async () => {
+      expect(await service_1.isConnected()).to.equal(true);
     });
 
     it('Service 1 Connect', async () => {
-      await service_1.connect();
       await service_1.sendSignal(account_2);
     });
 
-    
-    it('Service 1 Ping', async () => {
-      expect(await service_1.pingServer()).to.equal(true);
-    });
 
     it('Service 2 Get signal', async () => {
       let signalOwner = await service_1.getSignalOwner();
