@@ -7,6 +7,7 @@ export * from "./var.js";
 export * from "./signaling-test/ErmesBook.spec.js";
 export * from "./signaling-test/ErmesSerialization.spec.js";
 export * from "./signaling-test/ErmesSignalingConnectionRepo.spec.js";
+export * from "./signaling-test/ErmesSignalingServer.spec.js";
 export * from "./signaling-test/ErmesSmartContract.spec.js";
 export * from "./signaling-test/ErmesSmartContractCallback.spec.js";
 export * from "./signaling-test/ErmesSmartContractMultiOffer.spec.js";

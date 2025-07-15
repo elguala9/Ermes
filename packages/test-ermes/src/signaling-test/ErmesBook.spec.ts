@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { IErmesBookService, IErmesSignalingService, IdAccountType, OnSignalCallbackInput, OnSignalCreateSocketCallback } from "iermes/index";
+import { IErmesBookService, IErmesSignalingService, IdAccountType,  OnSignalCreateSocketCallback } from "iermes/index";
 import sinon from "sinon";
 import { sleep } from "src/utility.js";
 import * as chai from "chai";

@@ -16,8 +16,7 @@ export declare class SignalingSdk extends ContractHandler<Signaling> implements 
      */
     constructor(contractFactory: ContractFactory, signer: Signer, address: string);
     isConnected(): Promise<boolean>;
-    connect(): Promise<void>;
-    disconnect(): Promise<void>;
+    destroy(): Promise<void>;
     getIdAccount(): Promise<IdAccountType>;
     getSignal(from: IdAccountType): Promise<SignalType>;
     setSignal(signal: SignalType, to?: IdAccountType): Promise<void>;

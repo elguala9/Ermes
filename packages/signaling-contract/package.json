@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "hardhat compile && node scripts/fix-typechain-index.js",
-    "deploySC": "NO TO USE hardhat run ./ignition/modules/DeploySignaling.ts --network localhost",
+    "deploySC": "hardhat run ./ignition/modules/DeploySignaling.ts --network localhost",
     "deployMultiOfferSC": "hardhat run ./ignition/modules/DeploySignalingMultiOffer.ts --network localhost",
     "network": "npx hardhat node"
   },

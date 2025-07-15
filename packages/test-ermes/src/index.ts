@@ -8,6 +8,7 @@ export * from "./var";
 export * from "./signaling-test/ErmesBook.spec";
 export * from "./signaling-test/ErmesSerialization.spec";
 export * from "./signaling-test/ErmesSignalingConnectionRepo.spec";
+export * from "./signaling-test/ErmesSignalingServer.spec";
 export * from "./signaling-test/ErmesSmartContract.spec";
 export * from "./signaling-test/ErmesSmartContractCallback.spec";
 export * from "./signaling-test/ErmesSmartContractMultiOffer.spec";
