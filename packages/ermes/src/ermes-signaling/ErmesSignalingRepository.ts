@@ -1,3 +1,4 @@
+import { SocketType } from "dgram";
 import { IdAccountType, IErmesSignalingHandler, IErmesSignalingRepository, IErmesSignalingServer, IErmesWebRtcService, OnSignalCallback, SignalType } from "iermes/index";
 import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
 import { CallbackSignalInput, OutputStruct } from "signaling-sdk/Types";
@@ -8,25 +9,20 @@ export const DISCONNECTED_FLAG = "DISCONNECTED";
 export class ErmesSignalingRepository implements IErmesSignalingRepository<SignalType> {
     private onAnswerCallback?: OnSignalCallback<SignalType>
 
-    constructor(private signalingServer: IErmesSignalingServer, private signalHandler: IErmesSignalingHandler) {
+    constructor(private signalingServer: IErmesSignalingServer, private signalHandler: IErmesSignalingHandler<SocketType>) {
         this.signalingServer.onSignal(this.onSignalPrivate);
     }
 
-    async connect(): Promise<void> {
-        await this.signalingServer.connect();
+    async isConnected(): Promise<boolean> {
+        return await this.signalingServer.isConnected();
     }
 
-    async disconnect(): Promise<void> {
-        await this.signalingServer.disconnect();
+    async destroy(): Promise<void> {
+        await this.signalingServer.destroy();
     }
 
     getIdAccount(): Promise<string> {
         return this.signalingServer.getIdAccount();
-    }
-
-    async pingServer(): Promise<boolean> {
-        // this.signalingServer. DA FARE IL PING
-        return true; 
     }
 
     async sendSignal(to: IdAccountType): Promise<void> {

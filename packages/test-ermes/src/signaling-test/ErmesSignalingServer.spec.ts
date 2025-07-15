@@ -23,7 +23,7 @@ export function testSignalingServer(
   let signal_of_service_2_test_callback_for_service_3: string = "CiaoCallback3";
 
 
-  describe('IErmesService Connection Tests', function () {
+  describe('IErmesSignalingServer Tests', function () {
 
 
     before(async function () {
