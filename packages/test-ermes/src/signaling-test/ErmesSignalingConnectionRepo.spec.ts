@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { IErmesSignalingRepository, IErmesSignalingService, IdAccountType, OnSignalCallback, OnSignalCallbackInput, OnSignalCreateSocketCallback } from "iermes/index";
+import { IErmesSignalingRepository, IdAccountType, OnSignalCallback } from "iermes/index";
 import sinon from "sinon";
 import { sleep } from "../utility.js";
 
@@ -56,7 +56,7 @@ export function testSignalingConnectionRepo<SignalMessage>(
     });
 
     it('Service 2 On Signal', async () => {
-      const callbackDummy = sinon.stub<[OnSignalCallbackInput<SignalMessage>], void>();
+      const callbackDummy = sinon.stub<[SignalMessage], void>();
       await service_1.onSignal(callbackDummy);
       await service_2.sendSignal(account_1);
       sleep(5_000);

@@ -17,25 +17,22 @@ class SignalingSdk extends ContractHandler_1.ContractHandler {
     async isConnected() {
         return this.signer.provider !== null && this.signer.provider !== undefined;
     }
-    async connect() {
-        return;
-    }
-    async disconnect() {
+    async destroy() {
         return this.removeAllListeners();
     }
     getIdAccount() {
         return super.getAddressUser();
     }
     async getSignal(from) {
-        let addressuser = await super.getAddressUser();
-        let outputAnswer = await this.getAnswer(addressuser, from);
+        let addressUser = await super.getAddressUser();
+        let outputAnswer = await this.getAnswer(from, addressUser);
         let outputOfferer = await this.getOffer(from);
         // to not return empty signals
         let outputStructToReturn = outputOfferer;
         // I always take the most recent signal
         if (outputAnswer.creationTime_EpochInSeconds > outputOfferer.creationTime_EpochInSeconds)
             outputStructToReturn = outputAnswer;
-        return outputAnswer.signal;
+        return outputStructToReturn.signal;
     }
     async setSignal(signal, to) {
         if (to === undefined)

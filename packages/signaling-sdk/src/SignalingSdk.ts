@@ -26,12 +26,8 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
     async isConnected(): Promise<boolean> {
         return this.signer.provider !== null && this.signer.provider !== undefined;
     }
-
-    async connect(): Promise<void> {
-        return;
-    }
     
-    async disconnect(): Promise<void> {
+    async destroy(): Promise<void> {
         return this.removeAllListeners();
     }
 
@@ -40,8 +36,8 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
     }
     
     async getSignal(from: IdAccountType): Promise<SignalType> {
-        let addressuser = await super.getAddressUser();
-        let outputAnswer = await this.getAnswer(addressuser, from);
+        let addressUser = await super.getAddressUser();
+        let outputAnswer = await this.getAnswer(from, addressUser);
         let outputOfferer = await this.getOffer(from);
 
         // to not return empty signals
@@ -51,7 +47,7 @@ export class SignalingSdk extends ContractHandler<Signaling> implements ISignali
         if(outputAnswer.creationTime_EpochInSeconds > outputOfferer.creationTime_EpochInSeconds)
             outputStructToReturn = outputAnswer;
 
-        return outputAnswer.signal;    
+        return outputStructToReturn.signal;    
 
     }
     async setSignal(signal: SignalType, to?: IdAccountType): Promise<void> {

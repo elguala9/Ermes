@@ -21,8 +21,8 @@ export function testSignalingSmartContractCallback(
     let offer: string = "Ciao Offer";
     let answer: string = "Ciao Answer";
 
-      it('Set Offer', async () => {
-        await service_1.setOffer(offer);
+    it('Set Offer', async () => {
+      await service_1.setOffer(offer);
     });
 
     it('Callback Answer', async () => {

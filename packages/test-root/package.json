@@ -19,6 +19,7 @@
     "test:idhandler": "ts-mocha --project tsconfig.json ./src/ErmesIdHandler.ts",
     "test:ermes": "ts-mocha --project tsconfig.json ./src/ErmesService.ts",
     "test:ermes-signaling-repo": "ts-mocha --project tsconfig.json ./src/ErmesSignalingRepo.ts --timeout 35000",
+    "test:ermes-signaling-server": "ts-mocha --project tsconfig.json ./src/ErmesSignalingServer.ts --timeout 35000",
     "test:ermes-serialization": "ts-mocha --project tsconfig.json ./src/ErmesSerialization.ts  --timeout 15000",
     "test:ermes-sc": "npm run test:ermes-sc-standard && npm run test:ermes-sc-callback",
     "test:ermes-sc-standard": "ts-mocha --project tsconfig.json ./src/ErmesSmartContract.ts --timeout 15000",
