@@ -1,0 +1,1 @@
+{"version":3,"file":"ErmesSignalingHandler.spec.js","sourceRoot":"","sources":["../../src/signaling-test/ErmesSignalingHandler.spec.ts"],"names":[],"mappings":"AAOA,MAAM,UAAU,oBAAoB,CAClC,SAA6C;IAO7C,QAAQ,CAAC,8BAA8B,EAAE;QAGvC,EAAE,CAAC,yCAAyC,EAAE,KAAK,IAAI,EAAE;YACvD,IAAI,MAAM,GAAG,MAAM,SAAS,CAAC,YAAY,EAAE,CAAA;QAE7C,CAAC,CAAC,CAAC;IAGL,CAAC,CACF,CAAA;AAAA,CAAC;AAAA,CAAC"}

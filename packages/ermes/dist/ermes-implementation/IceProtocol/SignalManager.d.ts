@@ -1,13 +1,16 @@
-import { AnswerResponse, ISignalInfoAnswer, ISignalInfoOffer, ISignalManager, OfferResponse } from './ISignalManager.js';
+import { IErmesSignalingHandler, SocketReadyCallback } from 'iermes/index';
 import { IdAccountType } from 'iermes/signaling-interface/IErmesSignaling';
-import { IErmesSignalingHandler } from 'iermes/index';
+import SimplePeer from 'simple-peer';
+import { AnswerResponse, ISignalInfoAnswer, ISignalInfoOffer, ISignalManager, OfferResponse } from './ISignalManager.js';
 export declare const DEFAULT_ICE_CONFIG: RTCConfiguration;
-export declare class SignalManager implements ISignalManager, IErmesSignalingHandler {
+export type PeerType = SimplePeer.Instance;
+export declare class SignalManager implements ISignalManager, IErmesSignalingHandler<PeerType> {
     private iceConfig;
     private idAccount;
     private isInitiator;
     private answerResponse?;
     private offerResponse?;
+    private callbackSocketReady?;
     /**
      *
      * @param iceConfig condiguratio of ICE servers
@@ -15,6 +18,9 @@ export declare class SignalManager implements ISignalManager, IErmesSignalingHan
      * @param isInitiator true -> you will create the offer, false -> you will answer the offer
      */
     constructor(iceConfig: RTCConfiguration | undefined, idAccount: IdAccountType, isInitiator: boolean);
+    getSocket(): Promise<PeerType>;
+    isSocketReady(): Promise<boolean>;
+    onSocketReady(callback: SocketReadyCallback<PeerType>): Promise<void>;
     processSignal(signalString: string): Promise<void>;
     /**
      * Create a real SDP‐offer via SimplePeer and store it as OutputStruct

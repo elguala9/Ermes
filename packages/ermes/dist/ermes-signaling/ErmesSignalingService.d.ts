@@ -1,15 +1,15 @@
-import { IdAccountType, IErmesService, IErmesSignalingRepository, IErmesSignalingService, IErmesWebRtcFactory, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
+import { IdAccountType, IErmesRepository, IErmesSignalingRepository, IErmesSignalingService, IErmesWebRtcFactory, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
 export declare class ErmesSignalingService implements IErmesSignalingService {
     private repo;
     private factory;
     constructor(repo: IErmesSignalingRepository<SignalType>, factory: IErmesWebRtcFactory);
+    destroy(): Promise<void>;
+    isConnected(): Promise<boolean>;
     onSignal(callback: OnSignalCreateSocketCallback): Promise<void>;
-    connect(): Promise<void>;
-    disconnect(): Promise<void>;
+    getSignal(from: IdAccountType): Promise<SignalType>;
     getIdAccount(): Promise<IdAccountType>;
-    pingServer(): Promise<boolean>;
     sendSignal(to: IdAccountType): Promise<void>;
     removeAllListeners(): void;
     private createErmesService;
-    getErmes(of: IdAccountType): Promise<IErmesService>;
+    getErmes(of: IdAccountType): Promise<IErmesRepository>;
 }

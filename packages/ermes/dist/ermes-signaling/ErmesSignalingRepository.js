@@ -6,18 +6,14 @@ export class ErmesSignalingRepository {
         this.signalHandler = signalHandler;
         this.signalingServer.onSignal(this.onSignalPrivate);
     }
-    async connect() {
-        await this.signalingServer.connect();
+    async isConnected() {
+        return await this.signalingServer.isConnected();
     }
-    async disconnect() {
-        await this.signalingServer.disconnect();
+    async destroy() {
+        await this.signalingServer.destroy();
     }
     getIdAccount() {
         return this.signalingServer.getIdAccount();
-    }
-    async pingServer() {
-        // this.signalingServer. DA FARE IL PING
-        return true;
     }
     async sendSignal(to) {
         let signal = await this.signalHandler.createSignal();

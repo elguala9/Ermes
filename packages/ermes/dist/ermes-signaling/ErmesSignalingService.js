@@ -3,6 +3,12 @@ export class ErmesSignalingService {
         this.repo = repo;
         this.factory = factory;
     }
+    destroy() {
+        return this.repo.destroy();
+    }
+    isConnected() {
+        return this.repo.isConnected();
+    }
     async onSignal(callback) {
         // to fix
         /*return this.repo.onSignal((signal: SignalType) => {
@@ -12,17 +18,11 @@ export class ErmesSignalingService {
             });
         });*/
     }
-    connect() {
-        return this.repo.connect();
-    }
-    disconnect() {
-        return this.repo.disconnect();
+    async getSignal(from) {
+        return this.repo.getSignal(from);
     }
     getIdAccount() {
         return this.repo.getIdAccount();
-    }
-    pingServer() {
-        return this.repo.pingServer();
     }
     sendSignal(to) {
         return this.repo.sendSignal(to);
@@ -31,9 +31,7 @@ export class ErmesSignalingService {
         return this.repo.removeAllListeners();
     }
     createErmesService(signal) {
-        return this.factory.createService(undefined, {
-            offer: signal
-        });
+        throw new Error("Method not implemented.");
     }
     async getErmes(of) {
         let signal = await this.repo.getSignal(of);

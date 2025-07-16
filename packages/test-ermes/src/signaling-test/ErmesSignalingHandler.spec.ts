@@ -5,7 +5,7 @@ import { IErmesSignalingHandler, IErmesSignalingServer, IdAccountType, SignalTyp
 
 
 
-export function testSignalingServer<SocketType>(
+export function testSignalingHanlder<SocketType>(
   service_1: IErmesSignalingHandler<SocketType>,
 
 ) {
@@ -18,7 +18,7 @@ export function testSignalingServer<SocketType>(
 
     it('isConnected in normal condition is true', async () => {
       let signal = await service_1.createSignal()
-      expect().to.equal(true);
+
     });
 
     

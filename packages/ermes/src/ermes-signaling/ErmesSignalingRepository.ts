@@ -1,7 +1,5 @@
-import { SocketType } from "dgram";
-import { IdAccountType, IErmesSignalingHandler, IErmesSignalingRepository, IErmesSignalingServer, IErmesWebRtcService, OnSignalCallback, SignalType } from "iermes/index";
-import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
-import { CallbackSignalInput, OutputStruct } from "signaling-sdk/Types";
+import { IdAccountType, IErmesSignalingHandler, IErmesSignalingRepository, IErmesSignalingServer, OnSignalCallback, SignalType } from "iermes/index";
+import { PeerType } from "src/ermes-implementation/IceProtocol/SignalManager.js";
 /*! $RESERVED$ */
 
 export const DISCONNECTED_FLAG = "DISCONNECTED";
@@ -9,7 +7,10 @@ export const DISCONNECTED_FLAG = "DISCONNECTED";
 export class ErmesSignalingRepository implements IErmesSignalingRepository<SignalType> {
     private onAnswerCallback?: OnSignalCallback<SignalType>
 
-    constructor(private signalingServer: IErmesSignalingServer, private signalHandler: IErmesSignalingHandler<SocketType>) {
+    constructor(
+        private signalingServer: IErmesSignalingServer, 
+        private signalHandler: IErmesSignalingHandler<PeerType>
+    ) {
         this.signalingServer.onSignal(this.onSignalPrivate);
     }
 

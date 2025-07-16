@@ -1,11 +1,14 @@
 import {
-  Instance as PeerInstance
+  Instance as PeerInstance,
+  SignalData
 } from 'simple-peer';
 import { IPacketManager } from './IPacketManager.js';
+import { IErmesRepository, IErmesWebRtcRepository } from 'iermes/index';
+import { CallbackOnDataRepository, Signal } from 'ermes-types';
 
 // -- Class that handles sending/receiving packets over an established peer --
 
-export class PacketManager implements IPacketManager {
+export class PacketManager implements IPacketManager, IErmesRepository {
   private peer: PeerInstance;
   private connectionId: string;
 
@@ -16,6 +19,22 @@ export class PacketManager implements IPacketManager {
   constructor(peer: PeerInstance, connectionId: string) {
     this.peer = peer;
     this.connectionId = connectionId;
+  }
+  onMessage(callback: CallbackOnDataRepository): void {
+    throw new Error('Method not implemented.');
+  }
+  destroy(force: boolean): void {
+    throw new Error('Method not implemented.');
+  }
+  isClosed(): boolean {
+    throw new Error('Method not implemented.');
+  }
+  
+  waitForConnect(timeoutMs?: unknown): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+  waitForClose(timeoutMs?: number): Promise<void> {
+    throw new Error('Method not implemented.');
   }
 
   /**

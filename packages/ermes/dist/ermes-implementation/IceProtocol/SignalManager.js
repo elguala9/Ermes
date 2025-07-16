@@ -1,5 +1,5 @@
-import SimplePeer from 'simple-peer';
 import crypto from 'crypto';
+import SimplePeer from 'simple-peer';
 import { SignalInfoFactory } from './Factories.js';
 // -- Default ICE configuration you can override --
 export const DEFAULT_ICE_CONFIG = {
@@ -21,6 +21,23 @@ export class SignalManager {
         this.idAccount = idAccount;
         this.isInitiator = isInitiator;
     }
+    async getSocket() {
+        if (this.answerResponse)
+            return this.answerResponse.peer;
+        if (this.offerResponse)
+            return this.offerResponse.peer;
+        throw new Error('Socket not ready, you need to create a signal or process an answer');
+    }
+    async isSocketReady() {
+        if (this.answerResponse)
+            return true;
+        if (this.offerResponse)
+            return true;
+        return false;
+    }
+    async onSocketReady(callback) {
+        this.callbackSocketReady = callback;
+    }
     async processSignal(signalString) {
         let signal = JSON.parse(signalString);
         if (this.isInitiator === true && signal.isOffer() === true)
@@ -32,7 +49,11 @@ export class SignalManager {
             this.offerResponse = await this.processOfferAndCreateAnswer(signal);
         if (signal.isAnswer())
             this.answerResponse = await this.processAnswer(signal);
-        throw new Error('Not able to process signal');
+        if (this.offerResponse === undefined && this.answerResponse === undefined)
+            throw new Error('Not able to process signal');
+        if (this.callbackSocketReady !== undefined) {
+            this.callbackSocketReady(await this.getSocket());
+        }
     }
     /**
      * Create a real SDP‐offer via SimplePeer and store it as OutputStruct
