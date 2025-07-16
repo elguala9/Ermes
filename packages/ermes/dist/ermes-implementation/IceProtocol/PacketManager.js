@@ -8,6 +8,21 @@ export class PacketManager {
         this.peer = peer;
         this.connectionId = connectionId;
     }
+    onMessage(callback) {
+        throw new Error('Method not implemented.');
+    }
+    destroy(force) {
+        throw new Error('Method not implemented.');
+    }
+    isClosed() {
+        throw new Error('Method not implemented.');
+    }
+    waitForConnect(timeoutMs) {
+        throw new Error('Method not implemented.');
+    }
+    waitForClose(timeoutMs) {
+        throw new Error('Method not implemented.');
+    }
     /**
      * Send a message if the peer is connected.
      */

@@ -11,7 +11,7 @@ export function testSignalingServer(service_1, service_2, service_3) {
     let signal_of_service_2_general_test_callback = "CiaoCallback1";
     let signal_of_service_3_general_test_callback = "CiaoCallback2";
     let signal_of_service_2_test_callback_for_service_3 = "CiaoCallback3";
-    describe('IErmesService Connection Tests', function () {
+    describe('IErmesSignalingServer Tests', function () {
         before(async function () {
             account_1 = await service_1.getIdAccount();
             account_2 = await service_2.getIdAccount();

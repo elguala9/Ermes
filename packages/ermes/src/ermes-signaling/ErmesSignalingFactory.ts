@@ -1,14 +1,13 @@
-import { IErmesSignalingFactory, IErmesSignalingHandler, IErmesSignalingRepository, IErmesSignalingServer, IErmesWebRtcService, SignalType } from "iermes/index";
-import { ISignalingMultiOfferSdk } from "signaling-sdk/ISignalingMultiOfferSdk";
+import { IErmesSignalingFactory, IErmesSignalingHandler, IErmesSignalingRepository, IErmesSignalingServer, SignalType } from "iermes/index";
 
-import { OutputStruct } from "signaling-sdk/Types";
+
 import { ErmesSignalingRepository } from "./ErmesSignalingRepository.js";
-import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
+import { PeerType } from "src/ermes-implementation/IceProtocol/SignalManager.js";
 
 
 
 export class ErmesSignalingFactory implements IErmesSignalingFactory {
-  create(signalingServer: IErmesSignalingServer, signalHandler: IErmesSignalingHandler): IErmesSignalingRepository<SignalType> {
+  create(signalingServer: IErmesSignalingServer, signalHandler: IErmesSignalingHandler<PeerType>): IErmesSignalingRepository<SignalType> {
     return new ErmesSignalingRepository(signalingServer, signalHandler);
   }
 

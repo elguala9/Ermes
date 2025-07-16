@@ -1,4 +1,4 @@
-import { IdAccountType, IErmesService, IErmesSignalingRepository, IErmesSignalingService, IErmesWebRtcFactory, IErmesWebRtcService, OnSignalCallback, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
+import { IdAccountType, IErmesRepository, IErmesService, IErmesSignalingRepository, IErmesSignalingService, IErmesWebRtcFactory, IErmesWebRtcService, OnSignalCallback, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
 import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
 import { CallbackSignalInput, OutputStruct } from "signaling-sdk/Types";
 
@@ -12,6 +12,12 @@ export class ErmesSignalingService implements IErmesSignalingService {
         this.repo = repo;
         this.factory = factory;
     }
+    destroy(): Promise<void> {
+        return this.repo.destroy();
+    }
+    isConnected(): Promise<boolean> {
+        return this.repo.isConnected();
+    }
 
     async onSignal(callback: OnSignalCreateSocketCallback): Promise<void> {
         // to fix
@@ -22,18 +28,13 @@ export class ErmesSignalingService implements IErmesSignalingService {
             });
         });*/
     }
-    connect(): Promise<void> {
-        return this.repo.connect();
-    }
-    disconnect(): Promise<void> {
-        return this.repo.disconnect();
+    async getSignal(from: IdAccountType): Promise<SignalType> {
+        return this.repo.getSignal(from);
     }
     getIdAccount(): Promise<IdAccountType> {
         return this.repo.getIdAccount();
     }
-    pingServer(): Promise<boolean> {
-        return this.repo.pingServer();
-    }
+
     sendSignal(to: IdAccountType): Promise<void> {
         return this.repo.sendSignal(to);
     }
@@ -41,13 +42,11 @@ export class ErmesSignalingService implements IErmesSignalingService {
         return this.repo.removeAllListeners();
     }
 
-    private createErmesService(signal: string): IErmesService {
-        return this.factory.createService(undefined, {
-            offer: signal
-        });
+    private createErmesService(signal: string): IErmesRepository {
+        throw new Error("Method not implemented.");
     }
 
-    async getErmes(of: IdAccountType): Promise<IErmesService>{
+    async getErmes(of: IdAccountType): Promise<IErmesRepository>{
         let signal = await this.repo.getSignal(of);
         let ermes = this.createErmesService(signal);
         return ermes;

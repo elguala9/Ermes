@@ -1,6 +1,8 @@
 import { Instance as PeerInstance } from 'simple-peer';
 import { IPacketManager } from './IPacketManager.js';
-export declare class PacketManager implements IPacketManager {
+import { IErmesRepository } from 'iermes/index';
+import { CallbackOnDataRepository } from 'ermes-types';
+export declare class PacketManager implements IPacketManager, IErmesRepository {
     private peer;
     private connectionId;
     /**
@@ -8,6 +10,11 @@ export declare class PacketManager implements IPacketManager {
      * @param connectionId  your generated connection identifier
      */
     constructor(peer: PeerInstance, connectionId: string);
+    onMessage(callback: CallbackOnDataRepository): void;
+    destroy(force: boolean): void;
+    isClosed(): boolean;
+    waitForConnect(timeoutMs?: unknown): Promise<void>;
+    waitForClose(timeoutMs?: number): Promise<void>;
     /**
      * Send a message if the peer is connected.
      */
