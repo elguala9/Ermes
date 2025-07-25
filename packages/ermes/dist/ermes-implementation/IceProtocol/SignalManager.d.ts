@@ -1,43 +1,29 @@
-import { IErmesSignalingHandler, SocketReadyCallback } from 'iermes/index';
+import { IErmesSignalingHandler, SocketDTO, SocketReadyCallback } from 'iermes/index';
 import { IdAccountType } from 'iermes/signaling-interface/IErmesSignaling';
-import SimplePeer from 'simple-peer';
-import { AnswerResponse, ISignalInfoAnswer, ISignalInfoOffer, ISignalManager, OfferResponse } from './ISignalManager.js';
+import { AnswerResponse, ISignalInfoAnswer, ISignalInfoOffer, OfferResponse, Response } from 'ermes-types';
+import { PeerType } from 'ermes-types';
+import { ISignalManager } from './ISignalManager.js';
 export declare const DEFAULT_ICE_CONFIG: RTCConfiguration;
-export type PeerType = SimplePeer.Instance;
 export declare class SignalManager implements ISignalManager, IErmesSignalingHandler<PeerType> {
     private iceConfig;
     private idAccount;
-    private isInitiator;
-    private answerResponse?;
-    private offerResponse?;
-    private callbackSocketReady?;
+    private signalManagerMapping;
     /**
-     *
-     * @param iceConfig condiguratio of ICE servers
+     * @param iceConfig configuration of ICE servers
      * @param idAccount the global account ID of the peer, used to identify the peer in the signaling process
-     * @param isInitiator true -> you will create the offer, false -> you will answer the offer
      */
-    constructor(iceConfig: RTCConfiguration | undefined, idAccount: IdAccountType, isInitiator: boolean);
-    getSocket(): Promise<PeerType>;
-    isSocketReady(): Promise<boolean>;
-    onSocketReady(callback: SocketReadyCallback<PeerType>): Promise<void>;
-    processSignal(signalString: string): Promise<void>;
-    /**
-     * Create a real SDP‐offer via SimplePeer and store it as OutputStruct
-     */
-    createSignal(): Promise<string>;
-    /**
-     * Create a one‐off SDP offer (trickle ICE disabled), wrap it in a ReusableOffer,
-     * then destroy the temporary peer.
-     */
+    constructor(iceConfig: RTCConfiguration | undefined, idAccount: IdAccountType);
+    getAllPeerIds(): Promise<IdAccountType[]>;
+    softClearConnection(remotePeerId: IdAccountType): Promise<void>;
+    clearConnection(remotePeerId: IdAccountType): Promise<void>;
+    destroy(): Promise<void>;
+    getResponse(peerId: IdAccountType): Promise<Response>;
+    getSocket(of: IdAccountType): Promise<SocketDTO<PeerType>>;
+    isSocketReady(of: IdAccountType): Promise<boolean>;
+    onSocketReady(from: IdAccountType, callback: SocketReadyCallback<SocketDTO<PeerType>>): Promise<void>;
+    processSignal(signalString: string, from: IdAccountType): Promise<void>;
+    createSignal(remotePeerId?: IdAccountType): Promise<string>;
     createReusableOffer(): Promise<ISignalInfoOffer>;
-    /**
-     * Consume a previously generated ReusableOffer, answer it and return
-     * both the answer and the live PeerInstance.
-     */
-    processOfferAndCreateAnswer(receivedOffer: ISignalInfoOffer): Promise<OfferResponse>;
-    /**
-     * Consume a ReusableAnswer on the initiator side to finalize the connection.
-     */
-    processAnswer(receivedAnswer: ISignalInfoAnswer): Promise<AnswerResponse>;
+    processOfferAndCreateAnswer(receivedOffer: ISignalInfoOffer, peerId: IdAccountType): Promise<OfferResponse>;
+    processAnswer(receivedAnswer: ISignalInfoAnswer, peerId: IdAccountType): Promise<AnswerResponse>;
 }

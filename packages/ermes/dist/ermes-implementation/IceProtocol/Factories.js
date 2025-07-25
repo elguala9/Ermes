@@ -23,21 +23,12 @@ export class SignalInfoFactory {
         return new SignalInfoAnswer(signalData, reusableAnswer);
     }
 }
-import { SignalManager, DEFAULT_ICE_CONFIG } from './SignalManager.js';
-import { PacketManager } from './PacketManager.js';
+import { DEFAULT_ICE_CONFIG, SignalManager } from "./SignalManager.js";
 /**
  * Factory per il SignalManager.
  * @param iceConfig  configurazione ICE (se omesso usa DEFAULT_ICE_CONFIG)
  */
 export function createSignalManager(idAccount, isInitiator = true, iceConfig) {
-    return new SignalManager(iceConfig ?? DEFAULT_ICE_CONFIG, idAccount, isInitiator);
-}
-/**
- * Factory per il PacketManager.
- * @param peer          istanza simple-peer già connessa
- * @param connectionId  identificativo univoco della connessione
- */
-export function createPacketManager(peer, connectionId) {
-    return new PacketManager(peer, connectionId);
+    return new SignalManager(iceConfig ?? DEFAULT_ICE_CONFIG, idAccount);
 }
 //# sourceMappingURL=Factories.js.map

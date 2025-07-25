@@ -4,4 +4,5 @@
 
 export * from "./ErmesType";
 export * from "./PaginationTypes";
+export * from "./SignalingType";
 export * from "./WebRtc";

@@ -1,4 +1,5 @@
-import { IdAccountType, IErmesRepository, IErmesService, IErmesSignalingRepository, IErmesSignalingService, IErmesWebRtcFactory, IErmesWebRtcService, OnSignalCallback, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
+import { SocketType } from "dgram";
+import { IErmesFactory, IdAccountType, IErmesRepository, IErmesService, IErmesSignalingFactory, IErmesSignalingRepository, IErmesSignalingService, IErmesWebRtcFactory, IErmesWebRtcService, OnSignalCallback, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
 import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
 import { CallbackSignalInput, OutputStruct } from "signaling-sdk/Types";
 
@@ -6,11 +7,12 @@ import { CallbackSignalInput, OutputStruct } from "signaling-sdk/Types";
 
 export class ErmesSignalingService implements IErmesSignalingService {
     private repo: IErmesSignalingRepository<SignalType>;
-    private factory: IErmesWebRtcFactory;
 
-    constructor(repo: IErmesSignalingRepository<SignalType>, factory: IErmesWebRtcFactory) {
+
+    constructor(repo: IErmesSignalingRepository<SignalType>, 
+        private ermesFactory: IErmesFactory<SocketType>
+    ) {
         this.repo = repo;
-        this.factory = factory;
     }
     destroy(): Promise<void> {
         return this.repo.destroy();
@@ -42,14 +44,6 @@ export class ErmesSignalingService implements IErmesSignalingService {
         return this.repo.removeAllListeners();
     }
 
-    private createErmesService(signal: string): IErmesRepository {
-        throw new Error("Method not implemented.");
-    }
 
-    async getErmes(of: IdAccountType): Promise<IErmesRepository>{
-        let signal = await this.repo.getSignal(of);
-        let ermes = this.createErmesService(signal);
-        return ermes;
-    }
     
 }

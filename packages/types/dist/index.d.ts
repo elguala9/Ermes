@@ -3,4 +3,5 @@
  */
 export * from "./ErmesType.js";
 export * from "./PaginationTypes.js";
+export * from "./SignalingType.js";
 export * from "./WebRtc.js";

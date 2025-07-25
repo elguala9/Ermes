@@ -13,6 +13,8 @@ export * from "./ermes-implementation/IceProtocol/ISignalManager";
 export * from "./ermes-implementation/IceProtocol/PacketManager";
 export * from "./ermes-implementation/IceProtocol/SignalInfo";
 export * from "./ermes-implementation/IceProtocol/SignalManager";
+export * from "./ermes-implementation/IceProtocol/SignalManagerMapping";
+export * from "./ermes-implementation/IceProtocol/Factories/PacketManagerFactory";
 export * from "./ermes-implementation/WebRtc/ErmesWebRtcFactory";
 export * from "./ermes-implementation/WebRtc/ErmesWebRtcRepository";
 export * from "./ermes-implementation/WebRtc/ErmesWebRtcService";

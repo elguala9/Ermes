@@ -59,11 +59,7 @@ export interface IErmesSignalingRepository<SignalMessageType>  extends IErmesSig
 } 
 
 export interface IErmesSignalingService  extends IErmesSignalingPrivate{
-    /**
-     * create a IErmesRepository for comunicate with the account
-     * @param of ID of the account to retrive the connection
-     */
-    getErmes(of: IdAccountType): Promise<IErmesRepository>
+
     /**
      * Retrive the signal from the other peers and create the socket for comunication
     * @param callback function to call when a signal is received

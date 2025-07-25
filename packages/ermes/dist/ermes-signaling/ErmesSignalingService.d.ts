@@ -1,8 +1,9 @@
-import { IdAccountType, IErmesRepository, IErmesSignalingRepository, IErmesSignalingService, IErmesWebRtcFactory, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
+import { SocketType } from "dgram";
+import { IErmesFactory, IdAccountType, IErmesSignalingRepository, IErmesSignalingService, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
 export declare class ErmesSignalingService implements IErmesSignalingService {
+    private ermesFactory;
     private repo;
-    private factory;
-    constructor(repo: IErmesSignalingRepository<SignalType>, factory: IErmesWebRtcFactory);
+    constructor(repo: IErmesSignalingRepository<SignalType>, ermesFactory: IErmesFactory<SocketType>);
     destroy(): Promise<void>;
     isConnected(): Promise<boolean>;
     onSignal(callback: OnSignalCreateSocketCallback): Promise<void>;
@@ -10,6 +11,4 @@ export declare class ErmesSignalingService implements IErmesSignalingService {
     getIdAccount(): Promise<IdAccountType>;
     sendSignal(to: IdAccountType): Promise<void>;
     removeAllListeners(): void;
-    private createErmesService;
-    getErmes(of: IdAccountType): Promise<IErmesRepository>;
 }

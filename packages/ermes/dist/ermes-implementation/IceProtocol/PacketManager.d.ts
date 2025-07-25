@@ -1,6 +1,6 @@
 import { Instance as PeerInstance } from 'simple-peer';
 import { IPacketManager } from './IPacketManager.js';
-import { IErmesRepository } from 'iermes/index';
+import { IErmesRepository, SocketDTO } from 'iermes/index';
 import { CallbackOnDataRepository } from 'ermes-types';
 export declare class PacketManager implements IPacketManager, IErmesRepository {
     private peer;
@@ -9,7 +9,7 @@ export declare class PacketManager implements IPacketManager, IErmesRepository {
      * @param peer          the established SimplePeer instance
      * @param connectionId  your generated connection identifier
      */
-    constructor(peer: PeerInstance, connectionId: string);
+    constructor(socketDTO: SocketDTO<PeerInstance>);
     onMessage(callback: CallbackOnDataRepository): void;
     destroy(force: boolean): void;
     isClosed(): boolean;

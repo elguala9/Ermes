@@ -1,3 +1,4 @@
+import { PeerType } from "ermes-types";
 import { IErmesSignalingRepository } from "./IErmesSignaling.js";
 import { IErmesSignalingHandler } from "./IErmesSignalingHandler.js";
 import { IErmesSignalingServer, SignalType } from "./IErmesSignalingServer.js";

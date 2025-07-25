@@ -3,7 +3,7 @@ import {
   SignalData
 } from 'simple-peer';
 import { IPacketManager } from './IPacketManager.js';
-import { IErmesRepository, IErmesWebRtcRepository } from 'iermes/index';
+import { IErmesRepository, IErmesWebRtcRepository, SocketDTO } from 'iermes/index';
 import { CallbackOnDataRepository, Signal } from 'ermes-types';
 
 // -- Class that handles sending/receiving packets over an established peer --
@@ -12,13 +12,14 @@ export class PacketManager implements IPacketManager, IErmesRepository {
   private peer: PeerInstance;
   private connectionId: string;
 
+
   /**
    * @param peer          the established SimplePeer instance
    * @param connectionId  your generated connection identifier
    */
-  constructor(peer: PeerInstance, connectionId: string) {
-    this.peer = peer;
-    this.connectionId = connectionId;
+  constructor(socketDTO: SocketDTO<PeerInstance>) {
+    this.peer = socketDTO.socket;
+    this.connectionId = socketDTO.connectionId;
   }
   onMessage(callback: CallbackOnDataRepository): void {
     throw new Error('Method not implemented.');

@@ -1,5 +1,5 @@
 import type { SignalData } from 'simple-peer';
-import type { ReusableOffer, ReusableAnswer, ISignalInfo, ISignalInfoOffer, ISignalInfoAnswer } from './ISignalManager.js';
+import type { ReusableOffer, ReusableAnswer, ISignalInfo, ISignalInfoOffer, ISignalInfoAnswer } from 'ermes-types';
 /**
  * Base implementation of ISignalInfo
  */

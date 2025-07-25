@@ -2,12 +2,14 @@ import { IErmesSignalingFactory, IErmesSignalingHandler, IErmesSignalingReposito
 
 
 import { ErmesSignalingRepository } from "./ErmesSignalingRepository.js";
-import { PeerType } from "src/ermes-implementation/IceProtocol/SignalManager.js";
+import { PeerType } from "ermes-types";
 
 
 
 export class ErmesSignalingFactory implements IErmesSignalingFactory {
-  create(signalingServer: IErmesSignalingServer, signalHandler: IErmesSignalingHandler<PeerType>): IErmesSignalingRepository<SignalType> {
+  create(signalingServer: IErmesSignalingServer, 
+    signalHandler: IErmesSignalingHandler<PeerType>)
+    : IErmesSignalingRepository<SignalType> {
     return new ErmesSignalingRepository(signalingServer, signalHandler);
   }
 
