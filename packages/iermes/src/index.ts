@@ -8,6 +8,7 @@ export * from "./signaling-interface/IErmesSignalingFactory";
 export * from "./signaling-interface/IErmesSignalingHandler";
 export * from "./signaling-interface/IErmesSignalingServer";
 export * from "./standard-interface/IErmes";
+export * from "./standard-interface/IErmesFactory";
 export * from "./standard-interface/IErmesIce";
 export * from "./standard-interface/IErmesWebRtc";
 export * from "./standard-interface/IErmesWebRtcFactory";

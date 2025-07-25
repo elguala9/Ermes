@@ -1,7 +1,7 @@
 export class ErmesSignalingService {
-    constructor(repo, factory) {
+    constructor(repo, ermesFactory) {
+        this.ermesFactory = ermesFactory;
         this.repo = repo;
-        this.factory = factory;
     }
     destroy() {
         return this.repo.destroy();
@@ -29,14 +29,6 @@ export class ErmesSignalingService {
     }
     removeAllListeners() {
         return this.repo.removeAllListeners();
-    }
-    createErmesService(signal) {
-        throw new Error("Method not implemented.");
-    }
-    async getErmes(of) {
-        let signal = await this.repo.getSignal(of);
-        let ermes = this.createErmesService(signal);
-        return ermes;
     }
 }
 //# sourceMappingURL=ErmesSignalingService.js.map

@@ -1,3 +1,4 @@
+import SimplePeer from 'simple-peer';
 export declare enum MessageValue {
     base = 0,
     chunk = 1,
@@ -58,3 +59,4 @@ export type CallbackOnMessageReceived = {
 export type SerializableDataType = Uint8Array;
 export type CallbackOnDataRepository = (data: SerializableDataType) => void;
 export type CallbackOnMessageService = (data: TypeOfData, messageWithId: MessageWithId) => void;
+export type PeerType = SimplePeer.Instance;

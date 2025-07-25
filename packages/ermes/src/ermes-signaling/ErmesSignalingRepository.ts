@@ -1,5 +1,5 @@
-import { IdAccountType, IErmesSignalingHandler, IErmesSignalingRepository, IErmesSignalingServer, OnSignalCallback, SignalType } from "iermes/index";
-import { PeerType } from "src/ermes-implementation/IceProtocol/SignalManager.js";
+import { PeerType } from "ermes-types";
+import { IdAccountType, IErmesSignalingFactory, IErmesSignalingHandler, IErmesSignalingRepository, IErmesSignalingServer, OnSignalCallback, SignalType } from "iermes/index";
 /*! $RESERVED$ */
 
 export const DISCONNECTED_FLAG = "DISCONNECTED";

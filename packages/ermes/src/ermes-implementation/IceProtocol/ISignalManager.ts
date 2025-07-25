@@ -1,61 +1,13 @@
 // -- Interfaces for our reusable handshake blobs --
 
-import { 
-    SignalData,
-    Instance as PeerInstance,
- } from "simple-peer";
-
-/** An SDP‐offer enriched with metadata for reuse */
-export type ReusableOffer = {
-  sdp: string;
-  offerId: string;
-  createdAt: number;
-  createdBy: string;
-}
-
-/** An SDP‐answer enriched with metadata tying it back to an offer */
-export type ReusableAnswer = {
-  answerId: string;
-  connectionId: string;
-  offerId: string;
-  createdAt: number;
-  createdBy: string;
-  targetPeer: string;
-};
-
-/** Result of processing an offer and creating an answer */
-export type OfferResponse = {
-  answer: ISignalInfoAnswer;
-  peer: PeerInstance;
-  connectionId: string;
-}
-
-/** Result of processing an answer to finalize a handshake */
-export type AnswerResponse = {
-  peer: PeerInstance;
-  connectionId: string;
-  remotePeerId: string;
-}
+import { AnswerResponse, ISignalInfoAnswer, ISignalInfoOffer, OfferResponse, Response } from "ermes-types";
+import { IdAccountType } from "iermes/signaling-interface/IErmesSignaling";
 
 
 
-export interface ISignalInfo {
-    signalData: SignalData; 
 
-    isOffer(): boolean;
-    isAnswer(): boolean;
-    getSignalData(): SignalData;
-}
 
-export interface ISignalInfoOffer extends ISignalInfo {
-    reusableOffer: ReusableOffer;  
-    getOfferInfo(): ReusableOffer;
-}
 
-export interface ISignalInfoAnswer extends ISignalInfo {
-    reusableAnswer: ReusableAnswer;  
-    getAnswerInfo(): ReusableAnswer;
-}
 
 export interface ISignalManager {
     /**
@@ -69,11 +21,17 @@ export interface ISignalManager {
      */
     processOfferAndCreateAnswer(
         receivedOffer: ISignalInfoOffer,
-        peerId?: string
+        peerId: string
     ): Promise<OfferResponse>;
 
     /**
      * Finalize a handshake by consuming the ReusableAnswer.
      */
-    processAnswer(receivedAnswer: ISignalInfoAnswer): Promise<AnswerResponse>;
+    processAnswer(receivedAnswer: ISignalInfoAnswer, peerId: IdAccountType): Promise<AnswerResponse>;
+
+
+    /**
+     * Finalize a handshake by consuming the ReusableAnswer.
+     */
+    getResponse(peerId: IdAccountType): Promise<Response>;
 }

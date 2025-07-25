@@ -1,12 +1,5 @@
 import { SignalData } from "simple-peer";
 import {
-  ISignalInfo,
-  ISignalInfoOffer,
-  ISignalInfoAnswer,
-  ReusableOffer,
-  ReusableAnswer
-} from "./ISignalManager.js";
-import {
   SignalInfo,
   SignalInfoOffer,
   SignalInfoAnswer
@@ -52,9 +45,11 @@ export class SignalInfoFactory {
 import type { Instance } from 'simple-peer';
 import type { ISignalManager }  from './ISignalManager.js';
 import type { IPacketManager }  from './IPacketManager.js';
-import { SignalManager, DEFAULT_ICE_CONFIG } from './SignalManager.js';
+
 import { PacketManager }                   from './PacketManager.js';
 import { IdAccountType } from "iermes/index";
+import { DEFAULT_ICE_CONFIG, SignalManager } from "./SignalManager.js";
+import { ISignalInfo, ISignalInfoAnswer, ISignalInfoOffer, ReusableAnswer, ReusableOffer } from "ermes-types";
 
 /**
  * Factory per il SignalManager.
@@ -65,17 +60,6 @@ export function createSignalManager(
   isInitiator: boolean = true,
   iceConfig?: RTCConfiguration
 ): ISignalManager {
-  return new SignalManager(iceConfig ?? DEFAULT_ICE_CONFIG, idAccount, isInitiator);
+  return new SignalManager(iceConfig ?? DEFAULT_ICE_CONFIG, idAccount);
 }
 
-/**
- * Factory per il PacketManager.
- * @param peer          istanza simple-peer già connessa
- * @param connectionId  identificativo univoco della connessione
- */
-export function createPacketManager(
-  peer: Instance,
-  connectionId: string
-): IPacketManager {
-  return new PacketManager(peer, connectionId);
-}

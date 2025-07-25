@@ -1,8 +1,8 @@
+import { CallbackOnDataRepository, SerializableDataType, Signal } from "ermes-types";
 import { IErmesIceRepository } from "iermes/standard-interface/IErmesIce";
-import { SerializableDataType, CallbackOnDataRepository, Signal } from "ermes-types";
 import { SignalData } from "simple-peer";
-import { ISignalManager } from "./ISignalManager.js";
 import { IPacketManager } from "./IPacketManager.js";
+import { ISignalManager } from "./ISignalManager.js";
 export declare class ErmesIceRepository implements IErmesIceRepository {
     private signalManager;
     private packetManager;

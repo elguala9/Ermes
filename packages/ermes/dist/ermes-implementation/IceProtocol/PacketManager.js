@@ -4,9 +4,9 @@ export class PacketManager {
      * @param peer          the established SimplePeer instance
      * @param connectionId  your generated connection identifier
      */
-    constructor(peer, connectionId) {
-        this.peer = peer;
-        this.connectionId = connectionId;
+    constructor(socketDTO) {
+        this.peer = socketDTO.socket;
+        this.connectionId = socketDTO.connectionId;
     }
     onMessage(callback) {
         throw new Error('Method not implemented.');

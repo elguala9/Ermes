@@ -5,7 +5,7 @@ import type {
   ISignalInfo,
   ISignalInfoOffer,
   ISignalInfoAnswer
-} from './ISignalManager.js';
+} from 'ermes-types';
 
 /**
  * Base implementation of ISignalInfo

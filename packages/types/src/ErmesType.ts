@@ -1,5 +1,8 @@
 //export type MessageContent = 't' | 'v' | 'i' | 'm' | 's'
-
+import SimplePeer, {
+  Options as PeerOptions,
+  SignalData
+} from 'simple-peer';
 
 
 
@@ -115,3 +118,5 @@ export type CallbackOnDataRepository = (data: SerializableDataType) => void;
 
 // type of the callback when a message arrive
 export type CallbackOnMessageService = (data: TypeOfData, messageWithId: MessageWithId) => void;
+
+export type PeerType = SimplePeer.Instance;

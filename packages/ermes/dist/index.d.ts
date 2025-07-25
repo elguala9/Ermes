@@ -12,6 +12,8 @@ export * from "./ermes-implementation/IceProtocol/ISignalManager.js";
 export * from "./ermes-implementation/IceProtocol/PacketManager.js";
 export * from "./ermes-implementation/IceProtocol/SignalInfo.js";
 export * from "./ermes-implementation/IceProtocol/SignalManager.js";
+export * from "./ermes-implementation/IceProtocol/SignalManagerMapping.js";
+export * from "./ermes-implementation/IceProtocol/Factories/PacketManagerFactory.js";
 export * from "./ermes-implementation/WebRtc/ErmesWebRtcFactory.js";
 export * from "./ermes-implementation/WebRtc/ErmesWebRtcRepository.js";
 export * from "./ermes-implementation/WebRtc/ErmesWebRtcService.js";

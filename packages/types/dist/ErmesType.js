@@ -1,5 +1,4 @@
 "use strict";
-//export type MessageContent = 't' | 'v' | 'i' | 'm' | 's'
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageValue = void 0;
 // b -> base message 

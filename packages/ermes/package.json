@@ -134,6 +134,16 @@
       "require": "./dist/ermes-implementation/IceProtocol/SignalManager.js",
       "types": "./dist/ermes-implementation/IceProtocol/SignalManager.d.ts"
     },
+    "./ermes-implementation/IceProtocol/SignalManagerMapping": {
+      "import": "./dist/ermes-implementation/IceProtocol/SignalManagerMapping.js",
+      "require": "./dist/ermes-implementation/IceProtocol/SignalManagerMapping.js",
+      "types": "./dist/ermes-implementation/IceProtocol/SignalManagerMapping.d.ts"
+    },
+    "./ermes-implementation/IceProtocol/SignalManagerOrc": {
+      "import": "./dist/ermes-implementation/IceProtocol/SignalManagerOrc.js",
+      "require": "./dist/ermes-implementation/IceProtocol/SignalManagerOrc.js",
+      "types": "./dist/ermes-implementation/IceProtocol/SignalManagerOrc.d.ts"
+    },
     "./ermes-implementation/WebRtc/ErmesWebRtcFactory": {
       "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
       "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
@@ -156,6 +166,11 @@
     },
     "./types/types/wrtc": {
       "types": "./dist/types/types/wrtc.d.ts"
+    },
+    "./ermes-implementation/IceProtocol/Factories/PacketManagerFactory": {
+      "import": "./dist/ermes-implementation/IceProtocol/Factories/PacketManagerFactory.js",
+      "require": "./dist/ermes-implementation/IceProtocol/Factories/PacketManagerFactory.js",
+      "types": "./dist/ermes-implementation/IceProtocol/Factories/PacketManagerFactory.d.ts"
     }
   }
 }
