@@ -6,10 +6,10 @@ export class SignalInfo {
         this.signalData = signalData;
     }
     isOffer() {
-        return this.signalData.type === 'offer';
+        return this.signalData.type == 'offer';
     }
     isAnswer() {
-        return this.signalData.type === 'answer';
+        return this.signalData.type == 'answer';
     }
     getSignalData() {
         return this.signalData;

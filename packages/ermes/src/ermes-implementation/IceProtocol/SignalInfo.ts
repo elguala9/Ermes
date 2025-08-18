@@ -18,11 +18,11 @@ export class SignalInfo implements ISignalInfo {
   }
 
   public isOffer(): boolean {
-    return this.signalData.type === 'offer';
+    return this.signalData.type == 'offer';
   }
 
   public isAnswer(): boolean {
-    return this.signalData.type === 'answer';
+    return this.signalData.type == 'answer';
   }
 
   public getSignalData(): SignalData {

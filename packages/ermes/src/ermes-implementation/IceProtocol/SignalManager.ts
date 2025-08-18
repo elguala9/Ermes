@@ -1,15 +1,18 @@
+import { plainToInstance } from 'class-transformer';
 import crypto from 'crypto';
+import { AnswerResponse, ISignalInfoAnswer, ISignalInfoOffer, OfferResponse, PeerType, Response, ReusableAnswer, ReusableOffer } from 'ermes-types';
 import { IErmesSignalingHandler, SocketDTO, SocketReadyCallback } from 'iermes/index';
 import { IdAccountType } from 'iermes/signaling-interface/IErmesSignaling';
 import SimplePeer, {
   Options as PeerOptions,
   SignalData
 } from 'simple-peer';
+import wrtc from 'wrtc';
 import { SignalInfoFactory } from './Factories.js';
-import { AnswerResponse, ISignalInfo, ISignalInfoAnswer, ISignalInfoOffer, OfferResponse, Response, ReusableAnswer, ReusableOffer } from 'ermes-types';
-import { SignalManagerMapping } from './SignalManagerMapping.js';
-import { PeerType } from 'ermes-types';
 import { ISignalManager } from './ISignalManager.js';
+import { SignalInfo, SignalInfoAnswer, SignalInfoOffer } from './SignalInfo.js';
+import { SignalManagerMapping } from './SignalManagerMapping.js';
+
 
 export const DEFAULT_ICE_CONFIG: RTCConfiguration = {
   iceServers: [
@@ -23,11 +26,9 @@ export class SignalManager implements ISignalManager, IErmesSignalingHandler<Pee
   
   /**
    * @param iceConfig configuration of ICE servers
-   * @param idAccount the global account ID of the peer, used to identify the peer in the signaling process 
    */
   constructor(
-    private iceConfig: RTCConfiguration = DEFAULT_ICE_CONFIG,
-    private idAccount: IdAccountType
+    private iceConfig: RTCConfiguration = DEFAULT_ICE_CONFIG
   ) {
     this.signalManagerMapping = new SignalManagerMapping();
   }
@@ -123,14 +124,24 @@ export class SignalManager implements ISignalManager, IErmesSignalingHandler<Pee
   }
 
   async processSignal(signalString: string, from: IdAccountType): Promise<void> {
-    let signal: ISignalInfo = JSON.parse(signalString) as ISignalInfo;
+    let signal: SignalInfo = plainToInstance(SignalInfo, JSON.parse(signalString) as object);
+    //let signal: SignalInfo = new SignalInfo(parsedSignal);
+
+    if(!signal.isOffer() && !signal.isAnswer()) {
+      throw new Error('Not able to process signal, it is neither an offer nor an answer');
+    }
     
-    if(signal.isOffer()) 
-      await this.processOfferAndCreateAnswer(signal as ISignalInfoOffer, from);
+    if(signal.isOffer()) {
+      // Crea un'istanza SignalInfoOffer usando il costruttore
+      let signalInfoOffer: SignalInfoOffer = plainToInstance(SignalInfoOffer, signal);
+      await this.processOfferAndCreateAnswer(signalInfoOffer, from);
+    }
     
-    
-    if(signal.isAnswer()) 
-      await this.processAnswer(signal as ISignalInfoAnswer, from);
+    if(signal.isAnswer()) {
+      // Crea un'istanza SignalInfoAnswer usando il costruttore
+      let signalInfoAnswer: SignalInfoAnswer = plainToInstance(SignalInfoAnswer, signal);
+      await this.processAnswer(signalInfoAnswer, from);
+    }
 
     if(!this.signalManagerMapping.hasOfferResponse(from) && 
        !this.signalManagerMapping.hasAnswerResponse(from)) {
@@ -144,7 +155,7 @@ export class SignalManager implements ISignalManager, IErmesSignalingHandler<Pee
   }
 
   async createSignal(remotePeerId?: IdAccountType): Promise<string> {
-    let signal: ISignalInfo | undefined = undefined;
+    let signal: SignalInfo | undefined = undefined;
     
     if(remotePeerId == undefined) {
       // I am the initiator, so I create an offer
@@ -164,38 +175,45 @@ export class SignalManager implements ISignalManager, IErmesSignalingHandler<Pee
   }
 
   public createReusableOffer(): Promise<ISignalInfoOffer> {
-    // Implementation unchanged
     const opts: PeerOptions = {
       initiator: true,
-      config:    this.iceConfig,
-      trickle:   false
+      config: this.iceConfig,
+      trickle: false
     };
-    const tempPeer = new SimplePeer(opts);
+    const peer = new SimplePeer({ ...opts, wrtc });
 
     return new Promise<ISignalInfoOffer>((resolve, reject) => {
-      tempPeer.on('signal', (signal: SignalData) => {
+      peer.on('signal', (signal: SignalData) => {
         if (signal.type === 'offer') {
           const reusableOffer: ReusableOffer = {
             sdp: signal.sdp!,
-            offerId:   crypto.randomBytes(8).toString('hex'),
-            createdAt: Date.now(),
-            createdBy: this.idAccount
+            offerId: crypto.randomBytes(8).toString('hex')
           };
-          tempPeer.destroy();
-          let offer: ISignalInfoOffer = SignalInfoFactory.createSignalInfoOffer(signal, reusableOffer);
+          
+          // NON distruggere il peer, salvalo per dopo!
+          const tempResponse: AnswerResponse = {
+            peer,
+            connectionId: reusableOffer.offerId,
+            remotePeerId: 'pending' // Verrà aggiornato quando ricevi l'answer
+          };
+          
+          // Salva il peer in attesa dell'answer
+          this.signalManagerMapping.setAnswerResponse('pending-' + reusableOffer.offerId, tempResponse);
+          
+          let offer: SignalInfoOffer = SignalInfoFactory.createSignalInfoOffer(signal, reusableOffer);
           resolve(offer);
         }
       });
 
-      tempPeer.on('error', (err: Error) => {
-        tempPeer.destroy();
+      peer.on('error', (err: Error) => {
+        peer.destroy();
         reject(err);
       });
     });
   }
 
   public processOfferAndCreateAnswer(
-    receivedOffer: ISignalInfoOffer,
+    receivedOffer: SignalInfoOffer,
     peerId: IdAccountType
   ): Promise<OfferResponse> {
     // Implementation unchanged
@@ -205,7 +223,10 @@ export class SignalManager implements ISignalManager, IErmesSignalingHandler<Pee
       config:    this.iceConfig,
       trickle:   false
     };
-    const peer = new SimplePeer(opts);
+    const peer = new SimplePeer({
+      ...opts,
+      wrtc
+    });
     let infoOffer = receivedOffer.getOfferInfo()
 
     return new Promise<OfferResponse>((resolve, reject) => {
@@ -216,9 +237,7 @@ export class SignalManager implements ISignalManager, IErmesSignalingHandler<Pee
             answerId:     crypto.randomBytes(8).toString('hex'),
             connectionId,
             offerId:      infoOffer.offerId,
-            createdAt:    Date.now(),
-            createdBy:    this.idAccount,
-            targetPeer:   infoOffer.createdBy
+            targetPeer:   peerId
           };
           let answer: ISignalInfoAnswer = SignalInfoFactory.createSignalInfoAnswer(signal, reusableAnswer);
           const response = { answer, peer, connectionId };
@@ -239,32 +258,53 @@ export class SignalManager implements ISignalManager, IErmesSignalingHandler<Pee
   }
 
   public processAnswer(
-    receivedAnswer: ISignalInfoAnswer,
+    receivedAnswer: SignalInfoAnswer,
     peerId: IdAccountType
   ): Promise<AnswerResponse> {
-    // Implementation unchanged
-    const connectionId = receivedAnswer.getAnswerInfo().connectionId;
-    const peer = new SimplePeer({
-      initiator: true,
-      config:    this.iceConfig,
-      trickle:   false
-    });
-
+    const answerInfo = receivedAnswer.getAnswerInfo();
+    
+    // Trova il peer originale che ha creato l'offer
+    const pendingKey = 'pending-' + answerInfo.offerId;
+    const pendingResponse = this.signalManagerMapping.getAnswerResponse(pendingKey);
+    
+    if (!pendingResponse) {
+      throw new Error('No pending offer found for this answer');
+    }
+    
+    const peer = pendingResponse.peer;
+    
     return new Promise<AnswerResponse>((resolve, reject) => {
-      peer.once('signal', () => peer.signal(receivedAnswer.getSignalData()));
+      const timeout = setTimeout(() => {
+        console.error('Timeout in processAnswer');
+        peer.destroy();
+        reject(new Error('Connection timeout'));
+      }, 10000);
+
+      // Ora usa il peer originale per processare l'answer
+      peer.signal(receivedAnswer.getSignalData());
 
       peer.once('connect', () => {
-        let answerResp: AnswerResponse = {
+        console.log('Peer connected successfully');
+        clearTimeout(timeout);
+        
+        // Rimuovi il pending e salva il definitivo
+        this.signalManagerMapping.removePeer(pendingKey);
+        
+        const answerResp: AnswerResponse = {
           peer,
-          connectionId,
-          remotePeerId: receivedAnswer.getAnswerInfo().createdBy
+          connectionId: answerInfo.connectionId,
+          remotePeerId: peerId
         };
+        
         this.signalManagerMapping.setAnswerResponse(peerId, answerResp);
         resolve(answerResp);
       });
 
-      peer.on('error', (err: Error) => reject(err));
-      peer.on('close', () => peer.destroy());
+      peer.on('error', (err: Error) => {
+        console.error('Peer error:', err);
+        clearTimeout(timeout);
+        reject(err);
+      });
     });
   }
 }

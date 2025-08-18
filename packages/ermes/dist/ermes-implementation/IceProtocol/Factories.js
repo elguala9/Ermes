@@ -27,8 +27,9 @@ import { DEFAULT_ICE_CONFIG, SignalManager } from "./SignalManager.js";
 /**
  * Factory per il SignalManager.
  * @param iceConfig  configurazione ICE (se omesso usa DEFAULT_ICE_CONFIG)
+ * @deprecated
  */
-export function createSignalManager(idAccount, isInitiator = true, iceConfig) {
-    return new SignalManager(iceConfig ?? DEFAULT_ICE_CONFIG, idAccount);
+export function createSignalManager(idAccount, iceConfig) {
+    return new SignalManager(iceConfig ?? DEFAULT_ICE_CONFIG);
 }
 //# sourceMappingURL=Factories.js.map

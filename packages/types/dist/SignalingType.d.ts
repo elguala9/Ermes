@@ -3,16 +3,12 @@ import { Instance as PeerInstance, SignalData } from "simple-peer";
 export type ReusableOffer = {
     sdp: string;
     offerId: string;
-    createdAt: number;
-    createdBy: string;
 };
 /** An SDP‐answer enriched with metadata tying it back to an offer */
 export type ReusableAnswer = {
     answerId: string;
     connectionId: string;
     offerId: string;
-    createdAt: number;
-    createdBy: string;
     targetPeer: string;
 };
 /** Result of processing an offer and creating an answer */
