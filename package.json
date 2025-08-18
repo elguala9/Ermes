@@ -32,7 +32,7 @@
     "test:ermes-signaling-repo": "npm run prepareTest && npm run deploySC && cd ./packages/test-root && npm run test:ermes-signaling-repo",
     "test:ermes-sc": "npm run prepareTest && npm run deploySC && cd ./packages/test-root && npm run test:ermes-sc",
     "test:ermes-signaling-server": "npm run prepareTest && npm run deploySC && cd ./packages/test-root && npm run test:ermes-signaling-server",
-    "test:ermes-sc-multi-offer": "npm run prepareTest && npm run deployMultiOfferSC && cd ./packages/test-root && npm run test:ermes-sc-multi-offer",
+    "test:ermes-handler": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-handler",
     "test:ermes-serialization": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-serialization",
     "test:all": "npm run test:caching && npm run test:idhandler && npm run test:idhandler && npm run test:ermes && npm run test:ermes-sc",
     "network": "cd packages/signaling-contract && npm run network",
@@ -53,6 +53,7 @@
     "typescript-json-schema": "^0.65.1"
   },
   "dependencies": {
+    "class-transformer": "^0.5.1",
     "ermes": "1.0.0",
     "ermes-storage": "1.0.0",
     "ermes-types": "^1.0.0",
@@ -61,4 +62,3 @@
     "observable-list": "^1.0.0"
   }
 }
-

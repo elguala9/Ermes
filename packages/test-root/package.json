@@ -8,7 +8,7 @@
   ],
   "author": "Luca Gualandi <lgualandi@omniagroup.it>",
   "homepage": "https://github.com/elguala9/InterfaceErmes/tree/main/packages/test-root#readme",
-  "license": "ISC",
+  "license": "GPL-2.0-only",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/elguala9/Ermes.git"
@@ -24,6 +24,7 @@
     "test:ermes-sc": "npm run test:ermes-sc-standard && npm run test:ermes-sc-callback",
     "test:ermes-sc-standard": "ts-mocha --project tsconfig.json ./src/ErmesSmartContract.ts --timeout 15000",
     "test:ermes-sc-callback": "ts-mocha --project tsconfig.json ./src/ErmesSmartContractCallback.ts --timeout 15000",
+    "test:ermes-handler": "ts-mocha --project tsconfig.json ./src/ErmesSignalingHandler.ts --timeout 30000",
     "test:ermes-sc-multi-offer": "npm run test:ermes-sc-multi-offer-standard && npm run test:ermes-sc-multi-offer-callback",
     "test:ermes-sc-multi-offer-standard": "ts-mocha --project tsconfig.json ./src/ErmesSmartContractMultiOffer.ts --timeout 15000",
     "test:ermes-sc-multi-offer-callback": "ts-mocha --project tsconfig.json ./src/ErmesSmartContractMultiOfferCallback.ts --timeout 15000"

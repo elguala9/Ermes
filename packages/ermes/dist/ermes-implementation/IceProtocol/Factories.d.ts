@@ -17,5 +17,6 @@ import { ISignalInfo, ISignalInfoAnswer, ISignalInfoOffer, ReusableAnswer, Reusa
 /**
  * Factory per il SignalManager.
  * @param iceConfig  configurazione ICE (se omesso usa DEFAULT_ICE_CONFIG)
+ * @deprecated
  */
-export declare function createSignalManager(idAccount: IdAccountType, isInitiator?: boolean, iceConfig?: RTCConfiguration): ISignalManager;
+export declare function createSignalManager(idAccount: IdAccountType, iceConfig?: RTCConfiguration): ISignalManager;

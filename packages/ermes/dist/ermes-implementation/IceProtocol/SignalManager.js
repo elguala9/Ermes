@@ -1,6 +1,9 @@
+import { plainToInstance } from 'class-transformer';
 import crypto from 'crypto';
 import SimplePeer from 'simple-peer';
+import wrtc from 'wrtc';
 import { SignalInfoFactory } from './Factories.js';
+import { SignalInfo, SignalInfoAnswer, SignalInfoOffer } from './SignalInfo.js';
 import { SignalManagerMapping } from './SignalManagerMapping.js';
 export const DEFAULT_ICE_CONFIG = {
     iceServers: [
@@ -11,11 +14,9 @@ export const DEFAULT_ICE_CONFIG = {
 export class SignalManager {
     /**
      * @param iceConfig configuration of ICE servers
-     * @param idAccount the global account ID of the peer, used to identify the peer in the signaling process
      */
-    constructor(iceConfig = DEFAULT_ICE_CONFIG, idAccount) {
+    constructor(iceConfig = DEFAULT_ICE_CONFIG) {
         this.iceConfig = iceConfig;
-        this.idAccount = idAccount;
         this.signalManagerMapping = new SignalManagerMapping();
     }
     async getAllPeerIds() {
@@ -87,11 +88,21 @@ export class SignalManager {
         this.signalManagerMapping.setCallback(from, callback);
     }
     async processSignal(signalString, from) {
-        let signal = JSON.parse(signalString);
-        if (signal.isOffer())
-            await this.processOfferAndCreateAnswer(signal, from);
-        if (signal.isAnswer())
-            await this.processAnswer(signal, from);
+        let signal = plainToInstance(SignalInfo, JSON.parse(signalString));
+        //let signal: SignalInfo = new SignalInfo(parsedSignal);
+        if (!signal.isOffer() && !signal.isAnswer()) {
+            throw new Error('Not able to process signal, it is neither an offer nor an answer');
+        }
+        if (signal.isOffer()) {
+            // Crea un'istanza SignalInfoOffer usando il costruttore
+            let signalInfoOffer = plainToInstance(SignalInfoOffer, signal);
+            await this.processOfferAndCreateAnswer(signalInfoOffer, from);
+        }
+        if (signal.isAnswer()) {
+            // Crea un'istanza SignalInfoAnswer usando il costruttore
+            let signalInfoAnswer = plainToInstance(SignalInfoAnswer, signal);
+            await this.processAnswer(signalInfoAnswer, from);
+        }
         if (!this.signalManagerMapping.hasOfferResponse(from) &&
             !this.signalManagerMapping.hasAnswerResponse(from)) {
             throw new Error('Not able to process signal');
@@ -119,29 +130,33 @@ export class SignalManager {
         return JSON.stringify(signal);
     }
     createReusableOffer() {
-        // Implementation unchanged
         const opts = {
             initiator: true,
             config: this.iceConfig,
             trickle: false
         };
-        const tempPeer = new SimplePeer(opts);
+        const peer = new SimplePeer({ ...opts, wrtc });
         return new Promise((resolve, reject) => {
-            tempPeer.on('signal', (signal) => {
+            peer.on('signal', (signal) => {
                 if (signal.type === 'offer') {
                     const reusableOffer = {
                         sdp: signal.sdp,
-                        offerId: crypto.randomBytes(8).toString('hex'),
-                        createdAt: Date.now(),
-                        createdBy: this.idAccount
+                        offerId: crypto.randomBytes(8).toString('hex')
                     };
-                    tempPeer.destroy();
+                    // NON distruggere il peer, salvalo per dopo!
+                    const tempResponse = {
+                        peer,
+                        connectionId: reusableOffer.offerId,
+                        remotePeerId: 'pending' // Verrà aggiornato quando ricevi l'answer
+                    };
+                    // Salva il peer in attesa dell'answer
+                    this.signalManagerMapping.setAnswerResponse('pending-' + reusableOffer.offerId, tempResponse);
                     let offer = SignalInfoFactory.createSignalInfoOffer(signal, reusableOffer);
                     resolve(offer);
                 }
             });
-            tempPeer.on('error', (err) => {
-                tempPeer.destroy();
+            peer.on('error', (err) => {
+                peer.destroy();
                 reject(err);
             });
         });
@@ -154,7 +169,10 @@ export class SignalManager {
             config: this.iceConfig,
             trickle: false
         };
-        const peer = new SimplePeer(opts);
+        const peer = new SimplePeer({
+            ...opts,
+            wrtc
+        });
         let infoOffer = receivedOffer.getOfferInfo();
         return new Promise((resolve, reject) => {
             peer.on('signal', (signal) => {
@@ -164,9 +182,7 @@ export class SignalManager {
                         answerId: crypto.randomBytes(8).toString('hex'),
                         connectionId,
                         offerId: infoOffer.offerId,
-                        createdAt: Date.now(),
-                        createdBy: this.idAccount,
-                        targetPeer: infoOffer.createdBy
+                        targetPeer: peerId
                     };
                     let answer = SignalInfoFactory.createSignalInfoAnswer(signal, reusableAnswer);
                     const response = { answer, peer, connectionId };
@@ -181,26 +197,40 @@ export class SignalManager {
         });
     }
     processAnswer(receivedAnswer, peerId) {
-        // Implementation unchanged
-        const connectionId = receivedAnswer.getAnswerInfo().connectionId;
-        const peer = new SimplePeer({
-            initiator: true,
-            config: this.iceConfig,
-            trickle: false
-        });
+        const answerInfo = receivedAnswer.getAnswerInfo();
+        // Trova il peer originale che ha creato l'offer
+        const pendingKey = 'pending-' + answerInfo.offerId;
+        const pendingResponse = this.signalManagerMapping.getAnswerResponse(pendingKey);
+        if (!pendingResponse) {
+            throw new Error('No pending offer found for this answer');
+        }
+        const peer = pendingResponse.peer;
         return new Promise((resolve, reject) => {
-            peer.once('signal', () => peer.signal(receivedAnswer.getSignalData()));
+            const timeout = setTimeout(() => {
+                console.error('Timeout in processAnswer');
+                peer.destroy();
+                reject(new Error('Connection timeout'));
+            }, 10000);
+            // Ora usa il peer originale per processare l'answer
+            peer.signal(receivedAnswer.getSignalData());
             peer.once('connect', () => {
-                let answerResp = {
+                console.log('Peer connected successfully');
+                clearTimeout(timeout);
+                // Rimuovi il pending e salva il definitivo
+                this.signalManagerMapping.removePeer(pendingKey);
+                const answerResp = {
                     peer,
-                    connectionId,
-                    remotePeerId: receivedAnswer.getAnswerInfo().createdBy
+                    connectionId: answerInfo.connectionId,
+                    remotePeerId: peerId
                 };
                 this.signalManagerMapping.setAnswerResponse(peerId, answerResp);
                 resolve(answerResp);
             });
-            peer.on('error', (err) => reject(err));
-            peer.on('close', () => peer.destroy());
+            peer.on('error', (err) => {
+                console.error('Peer error:', err);
+                clearTimeout(timeout);
+                reject(err);
+            });
         });
     }
 }

@@ -6,13 +6,12 @@ import { CallbackSignalInput } from "signaling-sdk/Types";
 
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
-import { sleep } from "../utility.js";
-import { ISignalingMultiOfferSdk } from "signaling-sdk/ISignalingMultiOfferSdk";
+import { sleep } from "../../utility.js";
 
 
-export function testSignalingSmartContractMultiOfferCallback(
-  service_1: ISignalingMultiOfferSdk,
-  service_2: ISignalingMultiOfferSdk
+export function testSignalingSmartContractCallback(
+  service_1: ISignalingSdk,
+  service_2: ISignalingSdk
 ) {
 
 
@@ -22,8 +21,8 @@ export function testSignalingSmartContractMultiOfferCallback(
     let offer: string = "Ciao Offer";
     let answer: string = "Ciao Answer";
 
-      it('Set Offer', async () => {
-        await service_1.setOffer(offer, await service_2.getAddressUser());
+    it('Set Offer', async () => {
+      await service_1.setOffer(offer);
     });
 
     it('Callback Answer', async () => {

@@ -54,12 +54,12 @@ import { ISignalInfo, ISignalInfoAnswer, ISignalInfoOffer, ReusableAnswer, Reusa
 /**
  * Factory per il SignalManager.
  * @param iceConfig  configurazione ICE (se omesso usa DEFAULT_ICE_CONFIG)
+ * @deprecated
  */
 export function createSignalManager(
   idAccount: IdAccountType,
-  isInitiator: boolean = true,
   iceConfig?: RTCConfiguration
 ): ISignalManager {
-  return new SignalManager(iceConfig ?? DEFAULT_ICE_CONFIG, idAccount);
+  return new SignalManager(iceConfig ?? DEFAULT_ICE_CONFIG);
 }
 
