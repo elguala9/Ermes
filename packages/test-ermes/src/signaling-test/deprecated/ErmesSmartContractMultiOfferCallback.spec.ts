@@ -1,5 +1,4 @@
 import { expect } from "chai";
-import { ErmesWebRtcFactory } from "ermes/index";
 import { IErmesService, IErmesSignalingService } from "iermes/index";
 import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
 import { CallbackSignalInput } from "signaling-sdk/Types";

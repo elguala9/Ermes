@@ -1,5 +1,4 @@
 import { expect } from "chai";
-import { ErmesWebRtcFactory } from "ermes/index";
 import { IErmesService } from "iermes/index";
 
 

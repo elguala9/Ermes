@@ -84,6 +84,31 @@ export class SignalManager {
         return this.signalManagerMapping.hasAnswerResponse(of) ||
             this.signalManagerMapping.hasOfferResponse(of);
     }
+    /**
+     * Waits for a connection to be established with the specified peer
+     * @param peerId The remote peer ID to wait for connection
+     * @param ms Maximum time to wait in milliseconds
+     * @returns Promise that resolves when connection is established or rejects on timeout
+     */
+    async waitForConnect(peerId, ms) {
+        return new Promise(async (resolve, reject) => {
+            // Set up timeout
+            const timeout = setTimeout(() => {
+                reject(new Error(`Connection timeout after ${ms}ms for peer ${peerId}`));
+            }, ms);
+            // Check if already connected
+            if (await this.isSocketReady(peerId)) {
+                clearTimeout(timeout);
+                resolve(await this.getSocket(peerId));
+                return;
+            }
+            // Set up a callback to be notified when the socket is ready
+            this.onSocketReady(peerId, (socketDto) => {
+                clearTimeout(timeout);
+                resolve(socketDto);
+            });
+        });
+    }
     async onSocketReady(from, callback) {
         this.signalManagerMapping.setCallback(from, callback);
     }

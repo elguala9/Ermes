@@ -63,6 +63,8 @@ export interface IErmesSignalingHandler<SocketType>{
      */
     getAllPeerIds(): Promise<IdAccountType[]>;
 
+    waitForConnect(peerId: IdAccountType, ms: number): Promise<SocketDTO<SocketType>>
+
     destroy(): Promise<void>;
 
 }

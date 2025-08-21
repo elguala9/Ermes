@@ -1,9 +1,12 @@
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
 import { ErmesSendRepo } from "./ErmesSendRepo.js";
+import { DEFAULT_MAX_SIZE } from "../Utility.js";
 export class ErmesService {
     constructor({ maxBuffer, maxByte, repository, idHandler, callbackOnMessageReceived }) {
         this._repository = repository;
-        this.ermesSendRepo = new ErmesSendRepo(repository, idHandler, maxByte ?? 1024);
+        if ((maxByte ?? DEFAULT_MAX_SIZE) > DEFAULT_MAX_SIZE)
+            throw new Error(`maxByte cannot exceed ${DEFAULT_MAX_SIZE}`);
+        this.ermesSendRepo = new ErmesSendRepo(repository, idHandler, maxByte ?? DEFAULT_MAX_SIZE);
         this.ermesReadRepo = new ErmesReadRepo(repository, this.handleServiceMessage, {
             callbackOnMessageReceived,
             maxBufferSize: maxBuffer ?? 100

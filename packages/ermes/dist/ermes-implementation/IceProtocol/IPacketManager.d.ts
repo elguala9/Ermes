@@ -2,7 +2,7 @@ export interface IPacketManager {
     /**
      * Send a data packet if the underlying peer is connected.
      */
-    send(data: ArrayBuffer): boolean;
+    sendData(data: ArrayBuffer): boolean;
     /**
      * Register a callback to handle incoming data packets.
      */

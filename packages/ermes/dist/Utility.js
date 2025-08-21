@@ -1,4 +1,5 @@
 import { MessageValue } from "ermes-types";
+export const DEFAULT_MAX_SIZE = 1024;
 /**
  * Splits an ArrayBuffer into chunks of a maximum size.
  *
