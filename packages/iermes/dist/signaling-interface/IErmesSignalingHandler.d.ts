@@ -49,5 +49,6 @@ export interface IErmesSignalingHandler<SocketType> {
      * return all peer IDs that had/have connections (if not cleared)
      */
     getAllPeerIds(): Promise<IdAccountType[]>;
+    waitForConnect(peerId: IdAccountType, ms: number): Promise<SocketDTO<SocketType>>;
     destroy(): Promise<void>;
 }

@@ -18,6 +18,13 @@ export declare class SignalManager implements ISignalManager, IErmesSignalingHan
     getResponse(peerId: IdAccountType): Promise<Response>;
     getSocket(of: IdAccountType): Promise<SocketDTO<PeerType>>;
     isSocketReady(of: IdAccountType): Promise<boolean>;
+    /**
+     * Waits for a connection to be established with the specified peer
+     * @param peerId The remote peer ID to wait for connection
+     * @param ms Maximum time to wait in milliseconds
+     * @returns Promise that resolves when connection is established or rejects on timeout
+     */
+    waitForConnect(peerId: IdAccountType, ms: number): Promise<SocketDTO<PeerType>>;
     onSocketReady(from: IdAccountType, callback: SocketReadyCallback<SocketDTO<PeerType>>): Promise<void>;
     processSignal(signalString: string, from: IdAccountType): Promise<void>;
     createSignal(remotePeerId?: IdAccountType): Promise<string>;

@@ -16,6 +16,7 @@ export * from "./signaling-test/deprecated/ErmesSmartContractMultiOffer.spec";
 export * from "./signaling-test/deprecated/ErmesSmartContractMultiOfferCallback.spec";
 export * from "./standard-test/Ermes.spec";
 export * from "./standard-test/ErmesConnection.spec";
+export * from "./standard-test/ErmesRepository.spec";
 export * from "./standard-test/IdHandler.spec";
 export * from "./storage-test/ErmesCaching.spec";
 export * from "./storage-test/ErmesCachingStorage.spec";

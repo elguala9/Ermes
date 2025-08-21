@@ -34,6 +34,7 @@
     "test:ermes-signaling-server": "npm run prepareTest && npm run deploySC && cd ./packages/test-root && npm run test:ermes-signaling-server",
     "test:ermes-handler": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-handler",
     "test:ermes-serialization": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-serialization",
+    "test:ermes-repository": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-repository",
     "test:all": "npm run test:caching && npm run test:idhandler && npm run test:idhandler && npm run test:ermes && npm run test:ermes-sc",
     "network": "cd packages/signaling-contract && npm run network",
     "postbuild": "npm install"

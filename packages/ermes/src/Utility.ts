@@ -2,6 +2,8 @@ import { ChunkMessage, IdType, MessageType, MessageValue, TypeOfData } from "erm
 import { IIdHandlerService } from "iermes/index";
 
 
+export const DEFAULT_MAX_SIZE: number = 1024; 
+
 /**
  * Splits an ArrayBuffer into chunks of a maximum size.
  * 
