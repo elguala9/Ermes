@@ -19,7 +19,7 @@
     "@types/socket.io": "^3.0.1",
     "@types/socket.io-client": "^1.4.36",
     "express": "^4.21.2",
-    "serialization-utility": "^1.0.8",
+    "serialization-utility": "^1.1.2",
     "simple-peer": "^9.11.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
@@ -64,16 +64,6 @@
       "require": "./dist/ermes-implementation/ErmesService.js",
       "types": "./dist/ermes-implementation/ErmesService.d.ts"
     },
-    "./ermes-signaling/ErmesSignalingFactory": {
-      "import": "./dist/ermes-signaling/ErmesSignalingFactory.js",
-      "require": "./dist/ermes-signaling/ErmesSignalingFactory.js",
-      "types": "./dist/ermes-signaling/ErmesSignalingFactory.d.ts"
-    },
-    "./ermes-signaling/ErmesSignalingService": {
-      "import": "./dist/ermes-signaling/ErmesSignalingService.js",
-      "require": "./dist/ermes-signaling/ErmesSignalingService.js",
-      "types": "./dist/ermes-signaling/ErmesSignalingService.d.ts"
-    },
     "./ermes-utility/ChunkHandler": {
       "import": "./dist/ermes-utility/ChunkHandler.js",
       "require": "./dist/ermes-utility/ChunkHandler.js",
@@ -93,6 +83,21 @@
       "import": "./dist/ermes-utility/IdHandlerService.js",
       "require": "./dist/ermes-utility/IdHandlerService.js",
       "types": "./dist/ermes-utility/IdHandlerService.d.ts"
+    },
+    "./ermes-utility/Serialization": {
+      "import": "./dist/ermes-utility/Serialization.js",
+      "require": "./dist/ermes-utility/Serialization.js",
+      "types": "./dist/ermes-utility/Serialization.d.ts"
+    },
+    "./ermes-signaling/ErmesSignalingFactory": {
+      "import": "./dist/ermes-signaling/ErmesSignalingFactory.js",
+      "require": "./dist/ermes-signaling/ErmesSignalingFactory.js",
+      "types": "./dist/ermes-signaling/ErmesSignalingFactory.d.ts"
+    },
+    "./ermes-signaling/ErmesSignalingService": {
+      "import": "./dist/ermes-signaling/ErmesSignalingService.js",
+      "require": "./dist/ermes-signaling/ErmesSignalingService.js",
+      "types": "./dist/ermes-signaling/ErmesSignalingService.d.ts"
     },
     "./types/wrtc": {
       "import": "./dist/types/wrtc.js",

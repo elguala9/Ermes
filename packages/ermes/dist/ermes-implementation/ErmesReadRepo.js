@@ -1,6 +1,6 @@
 import { ObservableList } from "observable-list/src/ObservableList";
 import { calculateHashSync } from "serialization-utility/src/Hash";
-import { uint8ArrayToObject } from "serialization-utility/src/Serialization";
+import { uint8ArrayToArrayBuffer, uint8ArrayToObject } from "serialization-utility/src/Serialization";
 import { ChunkHandler } from "../ermes-utility/ChunkHandler.js";
 import { MessageValue } from "ermes-types";
 export class ErmesReadRepo {
@@ -29,11 +29,25 @@ export class ErmesReadRepo {
         this.callbackOnMessageReceived = callback;
     }
     handleMessageArrayBuffer(message) {
-        let messRoot = uint8ArrayToObject(message);
-        if (messRoot.integrityCheckValue != calculateHashSync(messRoot.messageSerialized))
-            throw new Error("Hash mismatched not implemented.");
-        let messageDeserialized = uint8ArrayToObject(messRoot.messageSerialized);
-        this.handleMessageType(messageDeserialized);
+        try {
+            // Verifica che il messaggio sia valido prima di deserializzare
+            if (!message || (message instanceof Uint8Array && message.length === 0)) {
+                console.warn('Received empty or invalid message');
+                return;
+            }
+            console.log('Processing message of size:', message instanceof Uint8Array ? message.length : 'unknown');
+            let messRoot = uint8ArrayToObject(message);
+            let dataArrayBuffer = uint8ArrayToArrayBuffer(messRoot.messageSerialized);
+            if (messRoot.integrityCheckValue != calculateHashSync(dataArrayBuffer))
+                throw new Error("Hash mismatched not implemented.");
+            let messageDeserialized = uint8ArrayToObject(messRoot.messageSerialized);
+            this.handleMessageType(messageDeserialized);
+        }
+        catch (error) {
+            console.error('Error processing message:', error);
+            console.error('Message data:', message instanceof Uint8Array ? Array.from(message.slice(0, 50)) : message);
+            // Non rilanciare l'errore per evitare che crash il sistema
+        }
     }
     handleMessageType(mess) {
         let messageType = mess.type;

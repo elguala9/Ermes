@@ -65,30 +65,28 @@ export type MessageDataGeneric<DataType> = MessageWithId & {
     data: DataType;
 }
 
-export type ChunkMessageGeneric<DataType> = MessageDataGeneric<DataType> & { //if i send the message in multiple pieces
-    ref_id: IdType; // id of the complete message
-    index: number; // index of the chunk
-    roof: number; // number of all the pieces
-}
+export type ChunkId = number; // 8 bytes
 
+export const MAX_HEADER = 81; // 24 bytes, ChunkMessageGeneric
 
-export type ChunkMessage = ChunkMessageGeneric<TypeOfData> & { //if i send the message in multiple pieces
+export type ChunkMessageGeneric<DataType> = MessageDataGeneric<DataType> & { //24 bytes
+    ref_id: IdType; // 8 bytes
+    index: ChunkId; // 8 bytes
+    roof: number; // 8 bytes
+};
 
-}
+export type ChunkMessage = ChunkMessageGeneric<TypeOfData> & {};
 
-
- // ----------------------------------------------------------
 export type ServiceMessage = MessageWithId & {
-    arrayChunkInfo?: ChunkInfo[];
-    arrayId?: IdType[]; // id of theservice message
-    reason: ServiceReason;
-}
+    arrayChunkInfo?: ChunkInfo[]; // 16 bytes each
+    arrayId?: IdType[]; // 8 bytes each
+    reason: ServiceReason; // 1 byte
+};
 
-
-export type ChunkInfo = {
-    index?: number[];
-    chunkId: string; // id of the message of which the ServiceMessage is referring
-} 
+export type ChunkInfo = { // 16 bytes
+    index?: number[]; // 8 bytes each
+    chunkId: ChunkId;  // 8 bytes
+};
 
 export type MessageRootErmes = MessageRoot<string>;
 export type MessageDataErmes = MessageData;
