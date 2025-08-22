@@ -1,9 +1,5 @@
-/*import { testErmesService } from "test-ermes";
-import { factoryAsync } from "./utility/ErmesFactory";
-
-let max = 1000;
-let start = 0;
+import { testErmesService } from "test-ermes";
+import { factoryService } from "./utility/ErmesServiceFatory";
 
 
-
-testErmesService(factoryAsync);*/
+testErmesService(factoryService);

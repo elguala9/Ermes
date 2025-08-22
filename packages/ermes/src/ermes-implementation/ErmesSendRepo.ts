@@ -1,10 +1,9 @@
 
-import { ChunkMessage, InternalMessage, MessageData, MessageDataErmes, MessageRoot, MessageType, SerializableDataType, TypeOfData } from "ermes-types";
-import { buffer } from "stream/consumers";
+import { ChunkMessage, InternalMessage, MAX_HEADER, MessageDataErmes, MessageRoot, MessageType, SerializableDataType, TypeOfData } from "ermes-types";
 import { IErmesRepository, IIdHandlerService } from "iermes/index";
-import { chunkArrayBuffer, getMessageType } from "../Utility.js";
-import { objectToArrayBuffer, objectToUint8Array } from "serialization-utility/src/Serialization";
 import { calculateHashSync } from "serialization-utility/src/Hash";
+import { objectToUint8Array, uint8ArrayToArrayBuffer } from "serialization-utility/src/Serialization";
+import { chunkArrayBuffer, getMessageType } from "../Utility.js";
 
 
 export type MessageRootErmes = MessageRoot<string>;
@@ -24,7 +23,7 @@ export class ErmesSendRepo {
         if(maxByte >= 1200)
             throw new Error("Max byte cannot be more that 1299")
         this._repository = repository;
-        this._maxByte = maxByte;
+        this._maxByte = maxByte + MAX_HEADER;
         this._idHandler = idHandler;
     }
 
@@ -33,10 +32,9 @@ export class ErmesSendRepo {
     // metodo esposto all'utente per mandare il messaggio
     send(rawData: TypeOfData): void {
         
-        //let rawData: SerializableDataType = objectToArrayBuffer(data);
         let newId = this._idHandler.getNewId();
-        if(buffer.length > this._maxByte){
-            let rawDataArray: ChunkMessage[] = chunkArrayBuffer(this._idHandler, rawData, newId, this._maxByte);
+        if(rawData.length > this._maxByte){
+            let rawDataArray: ChunkMessage[] = chunkArrayBuffer(this._idHandler, rawData, newId, this._maxByte - 300);
             this.sendMessageType(rawDataArray);
             return; 
         }
@@ -55,9 +53,10 @@ export class ErmesSendRepo {
                 type: getMessageType(element)
             }
             let rawData: TypeOfData = objectToUint8Array(internalMessage);
+            let rawDataArrayBuffer = uint8ArrayToArrayBuffer(rawData);
             let messageRoot: MessageRootErmes = {
                 messageSerialized: rawData,
-                integrityCheckValue: calculateHashSync(rawData)
+                integrityCheckValue: calculateHashSync(rawDataArrayBuffer)
             };
             this.sendRootMessage(messageRoot);
         }); 

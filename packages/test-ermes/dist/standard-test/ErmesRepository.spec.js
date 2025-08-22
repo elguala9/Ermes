@@ -123,6 +123,155 @@ export function testErmesRepository(repository_1, repository_2) {
                 done(error);
             }
         });
+        // --- Data comparison tests ---
+        it('should maintain data integrity - exact byte comparison', function (done) {
+            this.timeout(5000);
+            const originalData = new Uint8Array([1, 2, 3, 4, 5, 255, 0, 128, 64]);
+            let callbackInvoked = false;
+            const callback = (receivedData) => {
+                if (callbackInvoked)
+                    return;
+                callbackInvoked = true;
+                try {
+                    expect(receivedData).to.be.instanceOf(Uint8Array);
+                    const received = receivedData;
+                    // Test length
+                    expect(received.length).to.equal(originalData.length, 'Data length should match');
+                    // Test each byte
+                    for (let i = 0; i < originalData.length; i++) {
+                        expect(received[i]).to.equal(originalData[i], `Byte at position ${i} should match`);
+                    }
+                    // Test deep equality
+                    expect(Array.from(received)).to.deep.equal(Array.from(originalData), 'Complete data should match');
+                    done();
+                }
+                catch (error) {
+                    done(error);
+                }
+            };
+            repository_2.onMessage(callback);
+            setTimeout(() => repository_1.send(originalData), 100);
+        });
+        it('should maintain data integrity - complex pattern', function (done) {
+            this.timeout(5000);
+            // Create a more complex pattern
+            const originalData = new Uint8Array(100);
+            for (let i = 0; i < originalData.length; i++) {
+                originalData[i] = (i * 7 + 13) % 256; // Complex mathematical pattern
+            }
+            let callbackInvoked = false;
+            const callback = (receivedData) => {
+                if (callbackInvoked)
+                    return;
+                callbackInvoked = true;
+                try {
+                    expect(receivedData).to.be.instanceOf(Uint8Array);
+                    const received = receivedData;
+                    // Verify pattern integrity
+                    expect(received.length).to.equal(originalData.length, 'Pattern length should match');
+                    for (let i = 0; i < originalData.length; i++) {
+                        const expectedValue = (i * 7 + 13) % 256;
+                        expect(received[i]).to.equal(expectedValue, `Pattern mismatch at position ${i}: expected ${expectedValue}, got ${received[i]}`);
+                        expect(received[i]).to.equal(originalData[i], `Original data mismatch at position ${i}`);
+                    }
+                    done();
+                }
+                catch (error) {
+                    done(error);
+                }
+            };
+            repository_2.onMessage(callback);
+            setTimeout(() => repository_1.send(originalData), 100);
+        });
+        it('should maintain data integrity - bidirectional comparison', function (done) {
+            this.timeout(8000);
+            const data1to2 = new Uint8Array([11, 22, 33, 44, 55]);
+            const data2to1 = new Uint8Array([66, 77, 88, 99, 110]);
+            let received1 = false;
+            let received2 = false;
+            function checkComplete() {
+                if (received1 && received2) {
+                    done();
+                }
+            }
+            const callback1 = (receivedData) => {
+                if (received1)
+                    return;
+                received1 = true;
+                try {
+                    expect(receivedData).to.be.instanceOf(Uint8Array);
+                    const received = receivedData;
+                    expect(received.length).to.equal(data2to1.length, 'Bidirectional data1 length mismatch');
+                    expect(Array.from(received)).to.deep.equal(Array.from(data2to1), 'Bidirectional data1 content mismatch');
+                    checkComplete();
+                }
+                catch (error) {
+                    done(error);
+                }
+            };
+            const callback2 = (receivedData) => {
+                if (received2)
+                    return;
+                received2 = true;
+                try {
+                    expect(receivedData).to.be.instanceOf(Uint8Array);
+                    const received = receivedData;
+                    expect(received.length).to.equal(data1to2.length, 'Bidirectional data2 length mismatch');
+                    expect(Array.from(received)).to.deep.equal(Array.from(data1to2), 'Bidirectional data2 content mismatch');
+                    checkComplete();
+                }
+                catch (error) {
+                    done(error);
+                }
+            };
+            repository_1.onMessage(callback1);
+            repository_2.onMessage(callback2);
+            setTimeout(() => {
+                repository_1.send(data1to2);
+                repository_2.send(data2to1);
+            }, 100);
+        });
+        it('should maintain data integrity - multiple sequential messages', function (done) {
+            this.timeout(10000);
+            const messages = [
+                new Uint8Array([1, 2, 3]),
+                new Uint8Array([4, 5, 6, 7]),
+                new Uint8Array([8, 9]),
+                new Uint8Array([10, 11, 12, 13, 14])
+            ];
+            const receivedMessages = [];
+            let callbackInvoked = false;
+            const callback = (receivedData) => {
+                try {
+                    expect(receivedData).to.be.instanceOf(Uint8Array);
+                    const received = receivedData;
+                    receivedMessages.push(received);
+                    if (receivedMessages.length === messages.length) {
+                        if (callbackInvoked)
+                            return;
+                        callbackInvoked = true;
+                        // Compare each message
+                        for (let i = 0; i < messages.length; i++) {
+                            expect(receivedMessages[i].length).to.equal(messages[i].length, `Message ${i} length mismatch`);
+                            expect(Array.from(receivedMessages[i])).to.deep.equal(Array.from(messages[i]), `Message ${i} content mismatch`);
+                        }
+                        done();
+                    }
+                }
+                catch (error) {
+                    if (!callbackInvoked) {
+                        callbackInvoked = true;
+                        done(error);
+                    }
+                }
+            };
+            repository_2.onMessage(callback);
+            // Send messages with small delays
+            setTimeout(() => repository_1.send(messages[0]), 100);
+            setTimeout(() => repository_1.send(messages[1]), 200);
+            setTimeout(() => repository_1.send(messages[2]), 300);
+            setTimeout(() => repository_1.send(messages[3]), 400);
+        });
         it('should throw error for extremely large data', function () {
             this.timeout(3000);
             // Create data that exceeds WebRTC limits (1MB)

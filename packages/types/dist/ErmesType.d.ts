@@ -26,9 +26,11 @@ export type MessageData = MessageDataGeneric<TypeOfData> & MessageWithId & {};
 export type MessageDataGeneric<DataType> = MessageWithId & {
     data: DataType;
 };
+export type ChunkId = number;
+export declare const MAX_HEADER = 81;
 export type ChunkMessageGeneric<DataType> = MessageDataGeneric<DataType> & {
     ref_id: IdType;
-    index: number;
+    index: ChunkId;
     roof: number;
 };
 export type ChunkMessage = ChunkMessageGeneric<TypeOfData> & {};
@@ -39,7 +41,7 @@ export type ServiceMessage = MessageWithId & {
 };
 export type ChunkInfo = {
     index?: number[];
-    chunkId: string;
+    chunkId: ChunkId;
 };
 export type MessageRootErmes = MessageRoot<string>;
 export type MessageDataErmes = MessageData;

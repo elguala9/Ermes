@@ -6,6 +6,7 @@ import { IPacketManager } from './IPacketManager.js';
 import { IErmesRepository, IErmesWebRtcRepository, SocketDTO } from 'iermes/index';
 import { CallbackOnDataRepository, SerializableDataType, Signal } from 'ermes-types';
 import { DEFAULT_MAX_SIZE } from '../../Utility.js';
+import { arrayBufferToUint8Array, uint8ArrayToArrayBuffer } from 'serialization-utility/src/Serialization';
 
 // -- Class that handles sending/receiving packets over an established peer --
 
@@ -26,20 +27,18 @@ export class PacketManager implements IPacketManager, IErmesRepository {
   send(data: SerializableDataType): void {
     // Convert SerializableDataType to ArrayBuffer and use existing sendData
     if (data.byteLength > DEFAULT_MAX_SIZE) {
-      throw new Error(`Data size exceeds maximum allowed size of ${DEFAULT_MAX_SIZE}`);
+      throw new Error(`Data size exceeds maximum allowed size of ${DEFAULT_MAX_SIZE}, size:${data.byteLength}`);
     }
     let buffer: ArrayBuffer;
     
     if (data instanceof ArrayBuffer) {
       buffer = data;
-    } else if (typeof data === 'string') {
-      buffer = new TextEncoder().encode(data).buffer;
     } else if (data instanceof Uint8Array) {
       // Copy the underlying buffer to ensure it's a true ArrayBuffer
-      buffer = data.slice().buffer;
+      buffer = uint8ArrayToArrayBuffer(data);
     } else {
-      // If it's truly always bytes, this shouldn't happen
-      throw new Error('Unexpected data type - expected binary data');
+      // SerializableDataType should only be Uint8Array or ArrayBuffer, never string
+      throw new Error('Unexpected data type - expected binary data (Uint8Array or ArrayBuffer)');
     }
     
     const success = this.sendData(buffer);
@@ -52,7 +51,7 @@ export class PacketManager implements IPacketManager, IErmesRepository {
     // Use existing receive method and adapt the callback
     this.receive((data: ArrayBuffer) => {
       // Since data is always bytes, just pass it directly as Uint8Array
-      const uint8Array = new Uint8Array(data);
+      const uint8Array = arrayBufferToUint8Array(data);
       callback(uint8Array);
     });
   }
@@ -161,8 +160,29 @@ export class PacketManager implements IPacketManager, IErmesRepository {
    * Register a callback to receive incoming data packets.
    */
   public receive(callback: (data: ArrayBuffer) => void): void {
-    this.peer.on('data', (data: any) => {
+    this.peer.on('data', (data: ArrayBuffer) => {
       console.log(`📥 [${this.connectionId}] Received:`, data.toString?.().slice(0, 50) ?? data);
+      
+      // Assicurati che i dati siano nel formato corretto
+      /*let processedData: ArrayBuffer;
+      
+      if (data instanceof ArrayBuffer) {
+        processedData = data;
+      } else if (data instanceof Uint8Array) {
+        processedData = uint8ArrayToArrayBuffer(data);
+      } else if (Buffer.isBuffer(data)) {
+        // Convert Node.js Buffer to ArrayBuffer
+        const arrayBuffer = new ArrayBuffer(data.length);
+        const view = new Uint8Array(arrayBuffer);
+        for (let i = 0; i < data.length; i++) {
+          view[i] = data[i];
+        }
+        processedData = arrayBuffer;
+      } else {
+        console.error('Received data in unexpected format:', typeof data, data);
+        return;
+      }*/
+      
       callback(data);
     });
   }

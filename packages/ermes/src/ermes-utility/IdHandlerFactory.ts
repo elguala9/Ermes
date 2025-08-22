@@ -4,7 +4,7 @@ import { IdHandlerService } from "./IdHandlerService.js";
 
 
 export class IdHandlerFactory implements IIdHandlerFactory {
-r
+
     
     createRepository(input: IdHandlerRepositoryInput): IIdHandlerRepository {
         return new IdHandlerRepository(input);

@@ -1,6 +1,6 @@
 import { ObservableList } from "observable-list/src/ObservableList";
 import { calculateHashSync } from "serialization-utility/src/Hash";
-import { arrayBufferToObject, numericMapToUint8Array, restoreTypedArrays, uint8ArrayToObject } from "serialization-utility/src/Serialization";
+import { uint8ArrayToArrayBuffer, uint8ArrayToObject } from "serialization-utility/src/Serialization";
 
 import { ChunkHandler } from "../ermes-utility/ChunkHandler.js";
 
@@ -9,6 +9,7 @@ import { IErmesRepository } from "iermes/index";
 
 
 type MessageRootErmes = MessageRoot<string>;
+
 
 
 export type ErmesReadRepoOptions = {
@@ -55,11 +56,26 @@ export class ErmesReadRepo {
     }
 
     private handleMessageArrayBuffer(message: SerializableDataType): void{
-        let messRoot: MessageRootErmes = uint8ArrayToObject(message);
-        if(messRoot.integrityCheckValue != calculateHashSync(messRoot.messageSerialized))
-            throw new Error("Hash mismatched not implemented.");
-        let messageDeserialized: InternalMessage<MessageType> = uint8ArrayToObject(messRoot.messageSerialized)
-        this.handleMessageType(messageDeserialized);
+        try {
+            // Verifica che il messaggio sia valido prima di deserializzare
+            if (!message || (message instanceof Uint8Array && message.length === 0)) {
+                console.warn('Received empty or invalid message');
+                return;
+            }
+            
+            console.log('Processing message of size:', message instanceof Uint8Array ? message.length : 'unknown');
+
+            let messRoot: MessageRootErmes = uint8ArrayToObject<MessageRootErmes>(message);
+            let dataArrayBuffer = uint8ArrayToArrayBuffer(messRoot.messageSerialized)
+            if(messRoot.integrityCheckValue != calculateHashSync(dataArrayBuffer))
+                throw new Error("Hash mismatched not implemented.");
+            let messageDeserialized: InternalMessage<MessageType> = uint8ArrayToObject(messRoot.messageSerialized)
+            this.handleMessageType(messageDeserialized);
+        } catch (error) {
+            console.error('Error processing message:', error);
+            console.error('Message data:', message instanceof Uint8Array ? Array.from(message.slice(0, 50)) : message);
+            // Non rilanciare l'errore per evitare che crash il sistema
+        }
     }
 
     private handleMessageType(mess: InternalMessage<MessageType>): void{
