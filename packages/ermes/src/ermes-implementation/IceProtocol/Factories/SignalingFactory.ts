@@ -3,7 +3,7 @@ import {
   SignalInfo,
   SignalInfoOffer,
   SignalInfoAnswer
-} from "./SignalInfo.js";
+} from "../SignalInfo.js";
 
 export class SignalInfoFactory {
   /**
@@ -43,12 +43,12 @@ export class SignalInfoFactory {
 }
 
 import type { Instance } from 'simple-peer';
-import type { ISignalManager }  from './ISignalManager.js';
-import type { IPacketManager }  from './IPacketManager.js';
+import type { ISignalManager }  from '../ISignalManager.js';
+import type { IPacketManager }  from '../IPacketManager.js';
 
-import { PacketManager }                   from './PacketManager.js';
+import { PacketManager }                   from '../PacketManager.js';
 import { IdAccountType } from "iermes/index";
-import { DEFAULT_ICE_CONFIG, SignalManager } from "./SignalManager.js";
+import { DEFAULT_ICE_CONFIG, SignalManager } from "../SignalManager.js";
 import { ISignalInfo, ISignalInfoAnswer, ISignalInfoOffer, ReusableAnswer, ReusableOffer } from "ermes-types";
 
 /**

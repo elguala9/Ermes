@@ -2,7 +2,7 @@ import { plainToInstance } from 'class-transformer';
 import crypto from 'crypto';
 import SimplePeer from 'simple-peer';
 import wrtc from 'wrtc';
-import { SignalInfoFactory } from './Factories.js';
+import { SignalInfoFactory } from './Factories/SignalingFactory.js';
 import { SignalInfo, SignalInfoAnswer, SignalInfoOffer } from './SignalInfo.js';
 import { SignalManagerMapping } from './SignalManagerMapping.js';
 export const DEFAULT_ICE_CONFIG = {

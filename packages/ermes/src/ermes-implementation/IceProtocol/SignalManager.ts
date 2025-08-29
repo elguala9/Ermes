@@ -8,7 +8,7 @@ import SimplePeer, {
   SignalData
 } from 'simple-peer';
 import wrtc from 'wrtc';
-import { SignalInfoFactory } from './Factories.js';
+import { SignalInfoFactory } from './Factories/SignalingFactory.js';
 import { ISignalManager } from './ISignalManager.js';
 import { SignalInfo, SignalInfoAnswer, SignalInfoOffer } from './SignalInfo.js';
 import { SignalManagerMapping } from './SignalManagerMapping.js';
