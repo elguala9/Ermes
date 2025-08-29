@@ -33,11 +33,13 @@ export class ErmesSendRepo {
     send(rawData: TypeOfData): void {
         
         let newId = this._idHandler.getNewId();
+        
         if(rawData.length > this._maxByte){
             let rawDataArray: ChunkMessage[] = chunkArrayBuffer(this._idHandler, rawData, newId, this._maxByte - 300);
             this.sendMessageType(rawDataArray);
             return; 
         }
+        
         let message: MessageDataErmes = {
             data: rawData,
             id: newId

@@ -47,7 +47,7 @@ export const examplesId: IdType[] = [31,32,33,34,35,36,37,38,39,40];
 
 // 5) ChunkInfo  (usiamo 41–50 per i chunkId, per tenerli unici)
 export const examplesChunkInfo: ChunkInfo[] = Array.from({ length: 10 }, (_, i) => ({
-  chunkId: `c${41 + i}`,
+  chunkId: 41 + i,
   ...(i % 3 === 1 ? { index: [i] } : i % 3 === 2 ? { index: [i - 1, i] } : {})
 }));
 

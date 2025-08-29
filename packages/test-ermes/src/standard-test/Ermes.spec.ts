@@ -78,7 +78,6 @@ export function testErmesService(
     });
 
     it('Large Data Test', async function() {
-      this.timeout(10000);
       // Test with larger data (but under WebRTC limits)
       const largeData = new Uint8Array(8192); // 8KB
       for (let i = 0; i < largeData.length; i++) {
@@ -96,6 +95,37 @@ export function testErmesService(
 
       service_1.send(largeData);
       const result = await received;
+      
+      // Enhanced comparison logging without array truncation
+      console.log(`[Large Data Test] Comparing arrays:`);
+      console.log(`  Original length: ${largeData.length}, type: ${Object.prototype.toString.call(largeData)}`);
+      console.log(`  Received length: ${result.length}, type: ${Object.prototype.toString.call(result)}`);
+      console.log(`  Arrays equal: ${result.length === largeData.length && result.every((val, idx) => val === largeData[idx])}`);
+      
+      if (result.length !== largeData.length) {
+        console.log(`  ❌ Length mismatch!`);
+      } else {
+        // Find first difference
+        let firstDiff = -1;
+        for (let i = 0; i < result.length; i++) {
+          if (result[i] !== largeData[i]) {
+            firstDiff = i;
+            break;
+          }
+        }
+        
+        if (firstDiff >= 0) {
+          console.log(`  ❌ First difference at index ${firstDiff}: received ${result[firstDiff]}, expected ${largeData[firstDiff]}`);
+          console.log(`  Context around difference (indices ${Math.max(0, firstDiff-5)} to ${Math.min(result.length-1, firstDiff+5)}):`);
+          for (let i = Math.max(0, firstDiff-5); i <= Math.min(result.length-1, firstDiff+5); i++) {
+            const marker = i === firstDiff ? ' 👈' : '';
+            console.log(`    [${i}] received: ${result[i]}, expected: ${largeData[i]}${marker}`);
+          }
+        } else {
+          console.log(`  ✅ All values match`);
+        }
+      }
+      
       expect(result).to.deep.equal(largeData);
     });
 
@@ -129,6 +159,36 @@ export function testErmesService(
       
       const result = await received;
       console.log(`Received big message of ${result.length} bytes`);
+      
+      // Enhanced comparison logging without array truncation
+      console.log(`[Big Message Test] Comparing arrays:`);
+      console.log(`  Original length: ${bigData.length}, type: ${Object.prototype.toString.call(bigData)}`);
+      console.log(`  Received length: ${result.length}, type: ${Object.prototype.toString.call(result)}`);
+      console.log(`  Arrays equal: ${result.length === bigData.length && result.every((val, idx) => val === bigData[idx])}`);
+      
+      if (result.length !== bigData.length) {
+        console.log(`  ❌ Length mismatch!`);
+      } else {
+        // Find first difference
+        let firstDiff = -1;
+        for (let i = 0; i < result.length; i++) {
+          if (result[i] !== bigData[i]) {
+            firstDiff = i;
+            break;
+          }
+        }
+        
+        if (firstDiff >= 0) {
+          console.log(`  ❌ First difference at index ${firstDiff}: received ${result[firstDiff]}, expected ${bigData[firstDiff]}`);
+          console.log(`  Context around difference (indices ${Math.max(0, firstDiff-5)} to ${Math.min(result.length-1, firstDiff+5)}):`);
+          for (let i = Math.max(0, firstDiff-5); i <= Math.min(result.length-1, firstDiff+5); i++) {
+            const marker = i === firstDiff ? ' 👈' : '';
+            console.log(`    [${i}] received: ${result[i]}, expected: ${bigData[i]}${marker}`);
+          }
+        } else {
+          console.log(`  ✅ All values match`);
+        }
+      }
       
       expect(result.length).to.equal(bigSize);
       expect(result).to.deep.equal(bigData);

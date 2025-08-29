@@ -26,7 +26,7 @@ export class ChunkHandler {
         if(this.isDuplicate(chunk))
             return undefined;
         this.chunks.set(chunk.index, chunk.data); // I insert the new chunk
-        if(this.roof === this.chunks.size - 1){ // if true this is the last chunk
+        if(this.roof === this.chunks.size){ // if true this is the last chunk
             this.isCompleted = true;
             return this.handleLastChunk();
         }
@@ -47,8 +47,10 @@ export class ChunkHandler {
     // create the original message by merging the chunks
     public createData(): TypeOfData | undefined{
         const sortedValues = getSortedValues(this.chunks);
-        if(this.isCompleted)
-            return composeUint8Array(sortedValues.values)
+        if(this.isCompleted) {
+            const result = composeUint8Array(sortedValues.values);
+            return result;
+        }
         return undefined;
     }
 
@@ -74,7 +76,14 @@ function getSortedValues<K, V>(
   entries.sort((entry1, entry2) => {
     const key1 = entry1[0];
     const key2 = entry2[0];
-    return compareFn ? compareFn(key1, key2) : ('' + key1).localeCompare('' + key2);
+    // Use numeric comparison for chunk indices instead of lexicographic
+    if (compareFn) {
+      return compareFn(key1, key2);
+    } else if (typeof key1 === 'number' && typeof key2 === 'number') {
+      return key1 - key2;
+    } else {
+      return ('' + key1).localeCompare('' + key2);
+    }
   });
   return {indexes: entries.map(entry => entry[0]), values: entries.map(entry => entry[1])}; // i need both to verify missing chunks
 }
