@@ -124,7 +124,7 @@ export class PacketManager {
     sendData(data) {
         if (this.peer.connected) {
             this.peer.send(data);
-            console.log(`📤 [${this.connectionId}] Sent:`, data.toString().slice(0, 50));
+            //console.log(`📤 [${this.connectionId}] Sent:`, data.toString().slice(0, 50));
             return true;
         }
         console.warn(`⚠️ [${this.connectionId}] Cannot send, peer not connected`);
@@ -135,7 +135,7 @@ export class PacketManager {
      */
     receive(callback) {
         this.peer.on('data', (data) => {
-            console.log(`📥 [${this.connectionId}] Received:`, data.toString?.().slice(0, 50) ?? data);
+            //console.log(`📥 [${this.connectionId}] Received:`, data.toString?.().slice(0, 50) ?? data);
             // Assicurati che i dati siano nel formato corretto
             /*let processedData: ArrayBuffer;
             

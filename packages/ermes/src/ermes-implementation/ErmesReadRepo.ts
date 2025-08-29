@@ -63,7 +63,7 @@ export class ErmesReadRepo {
                 return;
             }
             
-            console.log('Processing message of size:', message instanceof Uint8Array ? message.length : 'unknown');
+            //console.log('Processing message of size:', message instanceof Uint8Array ? message.length : 'unknown');
 
             let messRoot: MessageRootErmes = uint8ArrayToObject<MessageRootErmes>(message);
             let dataArrayBuffer = uint8ArrayToArrayBuffer(messRoot.messageSerialized)

@@ -15,12 +15,13 @@ export function chunkArrayBuffer(idHanlder: IIdHandlerService, buffer: TypeOfDat
     const totalLength = buffer.length;
     const numChunks = Math.ceil(totalLength / maxByte);
     const chunks: ChunkMessage[] = [];
-  
+    
     for (let i = 0; i < numChunks; i++) {
         const start = i * maxByte;
         const end = Math.min(start + maxByte, totalLength);
         // The ArrayBuffer slice method returns a new ArrayBuffer from the original.
         const chunkBuffer = buffer.slice(start, end);
+                
       
         chunks.push({
             data: chunkBuffer,
@@ -30,7 +31,7 @@ export function chunkArrayBuffer(idHanlder: IIdHandlerService, buffer: TypeOfDat
             ref_id
         });
     }
-  
+      
     return chunks;
 }
 

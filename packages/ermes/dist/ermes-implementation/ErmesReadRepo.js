@@ -35,7 +35,7 @@ export class ErmesReadRepo {
                 console.warn('Received empty or invalid message');
                 return;
             }
-            console.log('Processing message of size:', message instanceof Uint8Array ? message.length : 'unknown');
+            //console.log('Processing message of size:', message instanceof Uint8Array ? message.length : 'unknown');
             let messRoot = uint8ArrayToObject(message);
             let dataArrayBuffer = uint8ArrayToArrayBuffer(messRoot.messageSerialized);
             if (messRoot.integrityCheckValue != calculateHashSync(dataArrayBuffer))

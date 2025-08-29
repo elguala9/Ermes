@@ -169,13 +169,13 @@
       "require": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
       "types": "./dist/ermes-implementation/WebRtc/NormalizationUtility.d.ts"
     },
-    "./types/types/wrtc": {
-      "types": "./dist/types/types/wrtc.d.ts"
-    },
     "./ermes-implementation/IceProtocol/Factories/PacketManagerFactory": {
       "import": "./dist/ermes-implementation/IceProtocol/Factories/PacketManagerFactory.js",
       "require": "./dist/ermes-implementation/IceProtocol/Factories/PacketManagerFactory.js",
       "types": "./dist/ermes-implementation/IceProtocol/Factories/PacketManagerFactory.d.ts"
+    },
+    "./types/types/wrtc": {
+      "types": "./dist/types/types/wrtc.d.ts"
     }
   }
 }
