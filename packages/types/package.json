@@ -6,7 +6,7 @@
   "files": [
     "dist"
   ],
-  "license": "GPL-2.0-only",
+  "license": "LGPL-3.0-or-later",
   "scripts": {
     "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts",
     "build": "tsc -b"

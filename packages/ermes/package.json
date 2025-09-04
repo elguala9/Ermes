@@ -2,7 +2,7 @@
   "name": "ermes",
   "version": "1.0.0",
   "description": "Implementation of ermes interfaces",
-  "license": "GPL-2.0-only",
+  "license": "LGPL-3.0-or-later",
   "author": "Luca Gualandi",
   "type": "module",
   "main": "dist/index.js",

@@ -7,7 +7,7 @@
   ],
   "author": "Luca Gualandi <lgualandi@omniagroup.it>",
   "homepage": "https://github.com/elguala9/InterfaceErmes/tree/main/packages/contract-handler#readme",
-  "license": "GPL-2.0-only",
+  "license": "LGPL-3.0-or-later",
   "main": "dist/index.js",
   "directories": {
     "lib": "lib",

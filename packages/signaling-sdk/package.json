@@ -7,7 +7,7 @@
   ],
   "author": "Luca Gualandi <lgualandi@omniagroup.it>",
   "homepage": "https://github.com/elguala9/InterfaceErmes/tree/main/packages/signaling-sdk#readme",
-  "license": "GPL-2.0-only",
+  "license": "LGPL-3.0-or-later",
   "main": "lib/signaling-sdk.js",
   "directories": {
     "lib": "lib",
