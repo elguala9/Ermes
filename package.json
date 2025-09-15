@@ -22,7 +22,7 @@
     "deployMultiOfferSC": "npx lage deployMultiOfferSC --no-cache",
     "test": "npx lage test",
     "clean": "rimraf packages/*/dist",
-    "add-js": "ts-node utility/add-js-import.ts -ed typeschain",
+    "add-js": "npx add-js-import -ed typeschain",
     "compile": "npm run barrelsby && npm run build && npm run gen-exports",
     "prepareTest": "npm run compile",
     "test:caching": "npm run prepareTest && cd ./packages/test-root && npm run test:caching",
@@ -52,7 +52,8 @@
     "ts-json-schema-generator": "^2.4.0",
     "ts-mocha": "^11.1.0",
     "ts-node": "^10.9.2",
-    "typescript-json-schema": "^0.65.1"
+    "typescript-json-schema": "^0.65.1",
+    "add-js-import": "^1.0.2"
   },
   "dependencies": {
     "class-transformer": "^0.5.1",

@@ -64,6 +64,16 @@
       "require": "./dist/ermes-implementation/ErmesService.js",
       "types": "./dist/ermes-implementation/ErmesService.d.ts"
     },
+    "./ermes-signaling/ErmesSignalingFactory": {
+      "import": "./dist/ermes-signaling/ErmesSignalingFactory.js",
+      "require": "./dist/ermes-signaling/ErmesSignalingFactory.js",
+      "types": "./dist/ermes-signaling/ErmesSignalingFactory.d.ts"
+    },
+    "./ermes-signaling/ErmesSignalingService": {
+      "import": "./dist/ermes-signaling/ErmesSignalingService.js",
+      "require": "./dist/ermes-signaling/ErmesSignalingService.js",
+      "types": "./dist/ermes-signaling/ErmesSignalingService.d.ts"
+    },
     "./ermes-utility/ChunkHandler": {
       "import": "./dist/ermes-utility/ChunkHandler.js",
       "require": "./dist/ermes-utility/ChunkHandler.js",
@@ -88,16 +98,6 @@
       "import": "./dist/ermes-utility/Serialization.js",
       "require": "./dist/ermes-utility/Serialization.js",
       "types": "./dist/ermes-utility/Serialization.d.ts"
-    },
-    "./ermes-signaling/ErmesSignalingFactory": {
-      "import": "./dist/ermes-signaling/ErmesSignalingFactory.js",
-      "require": "./dist/ermes-signaling/ErmesSignalingFactory.js",
-      "types": "./dist/ermes-signaling/ErmesSignalingFactory.d.ts"
-    },
-    "./ermes-signaling/ErmesSignalingService": {
-      "import": "./dist/ermes-signaling/ErmesSignalingService.js",
-      "require": "./dist/ermes-signaling/ErmesSignalingService.js",
-      "types": "./dist/ermes-signaling/ErmesSignalingService.d.ts"
     },
     "./types/wrtc": {
       "import": "./dist/types/wrtc.js",

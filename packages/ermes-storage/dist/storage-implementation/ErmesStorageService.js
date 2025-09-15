@@ -3,7 +3,7 @@ export class ErmesStorageService {
         this.repo = repo;
     }
     destroy() {
-        throw new Error("Method not implemented.");
+        return this.repo.destroy();
     }
     clear() {
         return this.repo.clear();

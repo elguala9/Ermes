@@ -5,7 +5,6 @@ export * from "./Utility.js";
 export * from "./ermes-implementation/ErmesReadRepo.js";
 export * from "./ermes-implementation/ErmesSendRepo.js";
 export * from "./ermes-implementation/ErmesService.js";
-export * from "./ermes-implementation/IceProtocol/ErmesIceRepository.js";
 export * from "./ermes-implementation/IceProtocol/IPacketManager.js";
 export * from "./ermes-implementation/IceProtocol/ISignalManager.js";
 export * from "./ermes-implementation/IceProtocol/PacketManager.js";

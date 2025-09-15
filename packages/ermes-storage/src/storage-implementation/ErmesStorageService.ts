@@ -16,7 +16,7 @@ export class ErmesStorageService<
     this.repo = repo;
   }
   destroy(): Promise<void> {
-    throw new Error("Method not implemented.");
+    return this.repo.destroy();
   }
   clear(): Promise<void> {
     return this.repo.clear();

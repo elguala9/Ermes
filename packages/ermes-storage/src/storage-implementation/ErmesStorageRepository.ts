@@ -1,46 +1,111 @@
 import { IdType, MessageType } from "ermes-types";
 import { IErmesStorageRepository } from "iermes/index";
 import PouchDB from "pouchdb";
+import { ClientWorkDB } from "workdb/ClientWorkDB";
 
-import { createRxDatabase, RxDatabase } from "rxdb";
-import { getRxStorageLocalstorage } from "rxdb/plugins/storage-localstorage";
+// Default collection name constant
+const DEFAULT_COLLECTION = "ermes_messages";
 
-// Generic repository backed by PouchDB
+// Generic repository backed by PouchDB through WorkDB
 export class ErmesStorageRepository<  
   DataJson extends MessageType  
 > implements IErmesStorageRepository<DataJson> {
 
-  private _db!: RxDatabase;
-  private ready: Promise<void>;
-  private _idStorage: string;
+  private _db: ClientWorkDB;
   private _numberOfElements: number = 0;
+  private _collection: string;
 
-  constructor(idStorage: string) {
-    this._idStorage = idStorage;
-    // initialize database and collections
-    this.ready = this.init(idStorage);
+  constructor(db: ClientWorkDB, collection: string = DEFAULT_COLLECTION) {
+    this._db = db;
+    this._collection = collection;
+    // Initialize the count - this will be updated during usage
+    this._loadElementCount();
   }
-  destroy(): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  private async _loadElementCount(): Promise<void> {
+    try {
+      // Try to count existing documents to initialize the counter
+      const ids = await this.listOfIds();
+      this._numberOfElements = ids.length;
+    } catch (error) {
+      console.warn('Failed to load element count:', error);
+      this._numberOfElements = 0;
+    }
   }
 
-  private async init(idStorage: string): Promise<void> {
-    this._db = await createRxDatabase({
-      name: idStorage,
-      storage: getRxStorageLocalstorage()
-    });
-    await this._db.addCollections({
+  async store(data: DataJson): Promise<void> {
+    if (!data.id) {
+      throw new Error('Data must have an id property');
+    }
 
-    });
+    try {
+      const itemId = {
+        id: data.id.toString(),
+        collection: this._collection
+      };
+
+      const item = {
+        item: data as any // Cast needed since workdb expects JsonObject
+      };
+
+      // Try to retrieve existing document first to handle updates
+      const existingItem = await this._db.retrieve(itemId);
+      
+      if (existingItem) {
+        // Update existing document
+        await this._db.update({ ...itemId, ...item });
+      } else {
+        // Create new document
+        await this._db.create({ ...itemId, ...item });
+        this._numberOfElements++;
+      }
+    } catch (error) {
+      throw new Error(`Failed to store data: ${error}`);
+    }
+  }
+
+  async retrieve(id: IdType): Promise<DataJson | undefined> {
+    try {
+      const itemId = {
+        id: id.toString(),
+        collection: this._collection
+      };
+
+      const result = await this._db.retrieve(itemId);
+      
+      if (result && result.item) {
+        return result.item as DataJson;
+      }
+      
+      return undefined;
+    } catch (error) {
+      throw new Error(`Failed to retrieve data: ${error}`);
+    }
+  }
+
+  async delete(id: IdType): Promise<void> {
+    try {
+      const itemId = {
+        id: id.toString(),
+        collection: this._collection
+      };
+
+      // Check if the element exists before deleting it
+      const existingItem = await this._db.retrieve(itemId);
+      
+      if (existingItem) {
+        await this._db.delete(itemId);
+        this._numberOfElements = Math.max(0, this._numberOfElements - 1);
+      }
+      // If it doesn't exist, it's not an error (idempotent delete)
+    } catch (error) {
+      throw new Error(`Failed to delete data: ${error}`);
+    }
   }
 
   async clear(): Promise<void> {
-    await this.ready;
-    await this._db.remove();
+    await this._db.deleteCollection(this._collection);
     this._numberOfElements = 0;
-    // re-init
-    this.ready = this.init(this._idStorage);
-    await this.ready;
   }
 
   numberOfElements(): number {
@@ -48,55 +113,21 @@ export class ErmesStorageRepository<
   }
 
   async listOfIds(): Promise<IdType[]> {
-    await this.ready;
-    const ids: IdType[] = [];
-    // gather from each collection
-    for (const name of ['service','data','chunk'] as const) {
-      const coll = this._db.collections[name];
-      const docs = await coll.find().exec();
-      docs.forEach(doc => ids.push((doc as any).id));
-    }
-    return ids;
-  }
-
-  async store(dataJson: DataJson): Promise<void> {
-    await this.ready;
-    // determine collection: chunk has index+roof, service has reason, else data
-    const collName =
-      'index' in dataJson && 'roof' in dataJson ? 'chunk' :
-      'reason' in dataJson              ? 'service' :
-                                          'data';
-    const coll = this._db.collections[collName];
-    // insert record
-    await coll.insert(dataJson as any);
-    this._numberOfElements++;
-  }
-
-  async retrieve(id: IdType): Promise<DataJson | undefined> {
-    await this.ready;
-    // search in each collection
-    for (const name of ['service','data','chunk'] as const) {
-      const coll = this._db.collections[name];
-      const doc = await coll.findOne(id.toString()).exec();
-      if (doc) {
-        return doc.toJSON() as DataJson;
-      }
-    }
-    return undefined;
-  }
-
-  async delete(id: IdType): Promise<void> {
-    await this.ready;
-    // find and remove
-    for (const name of ['service','data','chunk'] as const) {
-      const coll = this._db.collections[name];
-      const doc = await coll.findOne(id.toString()).exec();
-      if (doc) {
-        await doc.remove();
-        this._numberOfElements--;
-        return;
-      }
+    try {
+      const itemIds = await this._db.getItemsInCollection(this._collection);
+      // Convert string IDs back to numbers
+      return itemIds.map(id => parseInt(id, 10)).filter(id => !isNaN(id));
+    } catch (error) {
+      throw new Error(`Failed to list IDs: ${error}`);
     }
   }
 
+  async destroy(): Promise<void> {
+    try {
+      await this._db.clearDatabase();
+      this._numberOfElements = 0;
+    } catch (error) {
+      throw new Error(`Failed to destroy database: ${error}`);
+    }
+  }
 }
