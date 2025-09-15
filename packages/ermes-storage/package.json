@@ -80,10 +80,8 @@
     }
   },
   "dependencies": {
-    "@sinclair/typebox": "^0.34.33",
     "ermes-types": "1.0.0",
-    "rxdb": "^16.12.0",
-    "rxjs": "^7.8.2"
+    "workdb": "^1.0.1"
   },
   "devDependencies": {}
 }
