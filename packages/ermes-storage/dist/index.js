@@ -6,4 +6,5 @@ export * from "./caching-implementation/ErmesCachingRepository.js";
 export * from "./caching-implementation/ErmesCachingService.js";
 export * from "./storage-implementation/ErmesStorageRepository.js";
 export * from "./storage-implementation/ErmesStorageService.js";
+export * from "./storage-implementation/Factories.ts.js";
 //# sourceMappingURL=index.js.map

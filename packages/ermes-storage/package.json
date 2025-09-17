@@ -73,6 +73,11 @@
       "require": "./dist/storage-implementation/ErmesStorageService.js",
       "types": "./dist/storage-implementation/ErmesStorageService.d.ts"
     },
+    "./storage-implementation/Factories.ts": {
+      "import": "./dist/storage-implementation/Factories.ts.js",
+      "require": "./dist/storage-implementation/Factories.ts.js",
+      "types": "./dist/storage-implementation/Factories.ts.d.ts"
+    },
     "./storage-implementation/SchemaDefinition": {
       "import": "./dist/storage-implementation/SchemaDefinition.js",
       "require": "./dist/storage-implementation/SchemaDefinition.js",

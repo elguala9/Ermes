@@ -21,7 +21,7 @@ export class ErmesStorageService {
         return this.repo.retrieve(id);
     }
     async delete(id) {
-        this.repo.delete(id);
+        return this.repo.delete(id);
     }
 }
 //# sourceMappingURL=ErmesStorageService.js.map

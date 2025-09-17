@@ -23,7 +23,7 @@ export class ErmesCachingService {
         return this._repo.retrieve(id);
     }
     async delete(id) {
-        this._repo.delete(id);
+        return this._repo.delete(id);
     }
 }
 //# sourceMappingURL=ErmesCachingService.js.map

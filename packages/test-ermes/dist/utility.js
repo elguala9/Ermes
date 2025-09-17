@@ -6,14 +6,15 @@ import { expect } from "chai";
  * @param eqFunc the function that check if two objects of the type passed are equal
  */
 export async function StoreAndRetrive(service, examples, eqFunc) {
-    examples.forEach(element => {
-        service.store(element);
-    });
+    // Store all examples and wait for each one to complete
+    for (const element of examples) {
+        await service.store(element);
+    }
     // for each want a funciont, that in this case need to be asyn because of the await
     for (let i = 0; i < examples.length; i++) {
         let res = await service.retrieve(examples[i].id);
         if (res === undefined)
-            throw new Error("Not found id" + examples[i].id);
+            throw new Error("Not found id " + examples[i].id);
         let isEqual = eqFunc(examples[i], res);
         expect(isEqual).to.equal(true);
     }

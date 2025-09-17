@@ -11,9 +11,9 @@ export function testService(service: IErmesStorageAndCaching<any>) {
 
 
         it('Message Data', async () => {
-            examplesMessageData.forEach(element => {
-                service.store(element);  
-            });
+            for (const element of examplesMessageData) {
+                await service.store(element);
+            }
 
             // for each want a funciont, that in this case need to be asyn because of the await
             for(let i = 0; i<examplesMessageData.length; i++ ){
@@ -48,7 +48,7 @@ export function testService(service: IErmesStorageAndCaching<any>) {
 
         it('Clear', async () => {
             await service.clear();
-            service.store(examplesMessageData[0]);
+            await service.store(examplesMessageData[0]);
             let shouldNotBeUndefined = await service.retrieve(examplesMessageData[0].id);
             expect(shouldNotBeUndefined).to.not.equal(undefined);
             await service.clear();
