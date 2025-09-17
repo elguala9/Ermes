@@ -7,3 +7,4 @@ export * from "./caching-implementation/ErmesCachingRepository";
 export * from "./caching-implementation/ErmesCachingService";
 export * from "./storage-implementation/ErmesStorageRepository";
 export * from "./storage-implementation/ErmesStorageService";
+export * from "./storage-implementation/Factories.ts";

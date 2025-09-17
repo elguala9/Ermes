@@ -29,8 +29,14 @@ export class ErmesStorageRepository {
                 id: data.id.toString(),
                 collection: this._collection
             };
+            // Convert Uint8Array to regular array for JSON serialization (like in your test)
+            const serializedData = { ...data };
+            if ('data' in serializedData && serializedData.data instanceof Uint8Array) {
+                // TO DO: verify that Array.from is the correct way to do it
+                serializedData.data = Array.from(serializedData.data);
+            }
             const item = {
-                item: data // Cast needed since workdb expects JsonObject
+                item: serializedData
             };
             // Try to retrieve existing document first to handle updates
             const existingItem = await this._db.retrieve(itemId);
@@ -56,7 +62,12 @@ export class ErmesStorageRepository {
             };
             const result = await this._db.retrieve(itemId);
             if (result && result.item) {
-                return result.item;
+                // Reconstruct Uint8Array from regular array (like in your test)
+                const deserializedData = { ...result.item };
+                if ('data' in deserializedData && Array.isArray(deserializedData.data)) {
+                    deserializedData.data = new Uint8Array(deserializedData.data);
+                }
+                return deserializedData;
             }
             return undefined;
         }
@@ -70,15 +81,27 @@ export class ErmesStorageRepository {
                 id: id.toString(),
                 collection: this._collection
             };
-            // Check if the element exists before deleting it
+            // First check if the item exists
             const existingItem = await this._db.retrieve(itemId);
             if (existingItem) {
+                // Item exists, delete it
                 await this._db.delete(itemId);
                 this._numberOfElements = Math.max(0, this._numberOfElements - 1);
+                // Verify the deletion was successful
+                const verifyDeleted = await this._db.retrieve(itemId);
+                if (verifyDeleted) {
+                    throw new Error(`Failed to delete item ${id}: item still exists after deletion`);
+                }
             }
-            // If it doesn't exist, it's not an error (idempotent delete)
+            // If item doesn't exist, that's fine (idempotent delete)
         }
         catch (error) {
+            // Check if the error is about item not existing during the delete operation
+            if (error instanceof Error && error.message.includes('does not exist')) {
+                // This is fine - the item was already deleted or never existed
+                return;
+            }
+            // For other errors, re-throw
             throw new Error(`Failed to delete data: ${error}`);
         }
     }
@@ -103,6 +126,11 @@ export class ErmesStorageRepository {
         try {
             await this._db.clearDatabase();
             this._numberOfElements = 0;
+            // Destroy the object by nulling its internal references
+            // @ts-expect-error we want to null the reference to indicate destruction
+            this._db = null;
+            // @ts-expect-error we want to null the reference to indicate destruction  
+            this._collection = null;
         }
         catch (error) {
             throw new Error(`Failed to destroy database: ${error}`);

@@ -40,7 +40,7 @@ export class ErmesCachingService<
   }
 
   async delete(id: IdType): Promise<void> {
-    this._repo.delete(id);
+    return this._repo.delete(id);
   }
 
 }
