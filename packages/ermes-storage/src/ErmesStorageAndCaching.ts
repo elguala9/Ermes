@@ -3,9 +3,17 @@ import { IErmesCachingService, IErmesStorageAndCaching, IErmesStorageRepository,
 import { ClientWorkDB } from "workdb/ClientWorkDB";
 
 
-type IErmesCachingServiceOptions = {
-  maxNumberOfElementCached?: number;
-  cachingMode?: "lifo" | "fifo"; 
+type ErmesCachingServiceOptionsInput = Partial<ErmesCachingServiceOptions>
+
+// so that i do not have undefined everywhere
+type ErmesCachingServiceOptions = {
+  maxNumberOfElementCached: number;
+  cachingMode: "lifo" | "fifo"; 
+}
+
+const defaultOpts: ErmesCachingServiceOptions = {
+  maxNumberOfElementCached: 100,
+  cachingMode: "fifo"
 }
 
 // Generic repository backed by PouchDB through WorkDB
@@ -15,15 +23,14 @@ export class ErmesStorageAndCaching<
 
   storage: IErmesStorageService<DataJson>;
   caching: IErmesCachingService<DataJson>;
-  opts : IErmesCachingServiceOptions;
+  opts : ErmesCachingServiceOptions;
 
   constructor(storage: IErmesStorageService<DataJson>, 
     caching: IErmesCachingService<DataJson>,
-    opts: IErmesCachingServiceOptions) {
+    opts: ErmesCachingServiceOptionsInput) {
     this.storage = storage;
     this.caching = caching;
-    // default caching mode is FIFO
-    this.opts = { ...opts, cachingMode: opts.cachingMode || "fifo" };
+    this.opts = { ...defaultOpts, ...opts };
   }
 
   async flush(): Promise<void> {
@@ -40,7 +47,7 @@ export class ErmesStorageAndCaching<
   }
 
   private async _storeInCache(data: DataJson): Promise<void> {
-    const maxCacheSize = this.opts.maxNumberOfElementCached || 1000;
+    const maxCacheSize = this.opts.maxNumberOfElementCached;
     const currentCacheSize = this.caching.numberOfElements();
     
     if (currentCacheSize < maxCacheSize) {
@@ -53,7 +60,7 @@ export class ErmesStorageAndCaching<
   }
 
   private async _evictAndStore(data: DataJson): Promise<void> {
-    const cachingMode = this.opts.cachingMode || "fifo";
+    const cachingMode = this.opts.cachingMode;
     const cacheIds = await this.caching.listOfIds();
     
     if (cacheIds.length === 0) {

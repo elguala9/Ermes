@@ -1,9 +1,13 @@
+const defaultOpts = {
+    maxNumberOfElementCached: 100,
+    cachingMode: "fifo"
+};
 // Generic repository backed by PouchDB through WorkDB
 export class ErmesStorageAndCaching {
     constructor(storage, caching, opts) {
         this.storage = storage;
         this.caching = caching;
-        this.opts = opts;
+        this.opts = { ...defaultOpts, ...opts };
     }
     async flush() {
         // Get all IDs from cache
@@ -16,18 +20,49 @@ export class ErmesStorageAndCaching {
             }
         }
     }
-    async store(data) {
-        // Always store in persistent storage
-        await this.storage.store(data);
-        // Check if we should also store in cache based on available space
-        const maxCacheSize = this.opts.maxNumberOfElementCached || 1000; // Default to 1000 if not specified
+    async _storeInCache(data) {
+        const maxCacheSize = this.opts.maxNumberOfElementCached;
         const currentCacheSize = this.caching.numberOfElements();
         if (currentCacheSize < maxCacheSize) {
-            // Cache has space, store there too
+            // Cache has space, store directly
             await this.caching.store(data);
         }
-        // If cache is full, we don't store in cache - only in persistent storage
-        // The cache will be populated when items are retrieved if needed
+        else {
+            // Cache is full, apply eviction policy
+            await this._evictAndStore(data);
+        }
+    }
+    async _evictAndStore(data) {
+        const cachingMode = this.opts.cachingMode;
+        const cacheIds = await this.caching.listOfIds();
+        if (cacheIds.length === 0) {
+            // Cache is empty, just store
+            await this.caching.store(data);
+            return;
+        }
+        if (cachingMode === "fifo") {
+            await this._evictFifo(cacheIds);
+        }
+        else if (cachingMode === "lifo") {
+            await this._evictLifo(cacheIds);
+        }
+        await this.caching.store(data);
+    }
+    async _evictFifo(cacheIds) {
+        // FIFO: Remove the oldest (first inserted) item
+        const oldestId = cacheIds[0];
+        await this.caching.delete(oldestId);
+    }
+    async _evictLifo(cacheIds) {
+        // LIFO: Remove the newest (last inserted) item
+        const newestId = cacheIds[cacheIds.length - 1];
+        await this.caching.delete(newestId);
+    }
+    async store(data) {
+        // Always store in persistent storage first
+        await this.storage.store(data);
+        // Then handle caching with eviction policies
+        await this._storeInCache(data);
     }
     async retrieve(id) {
         // Try cache first (faster)
