@@ -9,7 +9,7 @@ export declare class ErmesStorageRepository<DataJson extends MessageType> implem
     private _loadElementCount;
     store(data: DataJson): Promise<void>;
     retrieve(id: IdType): Promise<DataJson | undefined>;
-    delete(id: IdType): Promise<void>;
+    delete(id: IdType): Promise<boolean>;
     clear(): Promise<void>;
     numberOfElements(): number;
     listOfIds(): Promise<IdType[]>;

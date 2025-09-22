@@ -1,5 +1,5 @@
 import { MessageType } from "ermes-types";
-import { IErmesStorageAndCaching } from "./IErmesStorageReserved.js";
+import { IErmesStorageAndCachingReserved } from "./IErmesStorageReserved.js";
 
 
 /**
@@ -7,7 +7,7 @@ import { IErmesStorageAndCaching } from "./IErmesStorageReserved.js";
  */
 export interface IErmesCachingRepository<
     DataJson extends MessageType
-    > extends IErmesStorageAndCaching<DataJson>{
+    > extends IErmesStorageAndCachingReserved<DataJson>{
 }
 
 /**

@@ -13,5 +13,5 @@ export declare class ErmesCachingRepository<D extends MessageType> implements IE
     listOfIds(): Promise<IdType[]>;
     store(data: D): Promise<void>;
     retrieve(id: IdType): Promise<D | undefined>;
-    delete(id: IdType): Promise<void>;
+    delete(id: IdType): Promise<boolean>;
 }

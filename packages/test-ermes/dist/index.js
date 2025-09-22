@@ -15,9 +15,11 @@ export * from "./signaling-test/deprecated/ErmesSmartContractMultiOffer.spec.js"
 export * from "./signaling-test/deprecated/ErmesSmartContractMultiOfferCallback.spec.js";
 export * from "./standard-test/Ermes.spec.js";
 export * from "./standard-test/ErmesConnection.spec.js";
+export * from "./standard-test/ErmesMessagingFailure.spec.js";
 export * from "./standard-test/ErmesRepository.spec.js";
 export * from "./standard-test/IdHandler.spec.js";
 export * from "./storage-test/ErmesCaching.spec.js";
 export * from "./storage-test/ErmesCachingStorage.spec.js";
 export * from "./storage-test/ErmesStorage.spec.js";
+export * from "./storage-test/ErmesStorageAndCaching.spec.js";
 //# sourceMappingURL=index.js.map

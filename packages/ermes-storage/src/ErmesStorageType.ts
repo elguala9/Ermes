@@ -1,12 +1,4 @@
-import { ChunkMessageGeneric, MessageChunkErmes, MessageDataErmes, IdType, ServiceMessage } from "ermes-types";
-
-
-
-
-
-
-
-
+import { MessageChunkErmes, MessageDataErmes, ServiceMessage } from "ermes-types";
 
 export type StorageType<DataJson> = DataJson 
 export type MessageTypeStorage = ServiceMessageStorage | ServiceMessageStorage | MessageChunkStorage;

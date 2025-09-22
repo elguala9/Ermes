@@ -47,7 +47,7 @@ export class ErmesCachingRepository<
     return this._buffer.get(id);
   }
 
-  async delete(id: IdType): Promise<void> {
-    this._buffer.delete(id);
+  async delete(id: IdType): Promise<boolean> {
+    return this._buffer.delete(id);
   }
 }

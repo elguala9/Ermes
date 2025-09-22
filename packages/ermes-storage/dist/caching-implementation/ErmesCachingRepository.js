@@ -35,7 +35,7 @@ export class ErmesCachingRepository {
         return this._buffer.get(id);
     }
     async delete(id) {
-        this._buffer.delete(id);
+        return this._buffer.delete(id);
     }
 }
 //# sourceMappingURL=ErmesCachingRepository.js.map

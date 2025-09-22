@@ -1,7 +1,7 @@
 import { CallbackOnDataArrived, CallbackOnMessageReceived, CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, ChunkInfo, IdType, ServiceMessage, TypeOfData } from "ermes-types";
 
 
-import { ErmesServiceInput, IErmesWebRtcRepository } from "iermes/index";
+import { ErmesServiceInput } from "iermes/index";
 import { IErmesRepository, IErmesService } from "iermes/standard-interface/IErmes";
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
 import { ErmesSendRepo } from "./ErmesSendRepo.js";
@@ -45,15 +45,9 @@ export class ErmesService implements IErmesService{
         throw new Error("Method not implemented.");
     }
 
-    // this function is NEEDED. 
-    // What i want: be able to pass an undefined messageCallback to the constructor
-    // The problem: messageDataCallback and messageCallback are different types, i cannot directly pass messageCallback
-    //              this means that i need to create a function like  (mess ) => this.messageCallback(mess.data)
-    //              but this function (dummy) will never be undefined and i will lose messages
-    // Solution: create a method that will set messageDataCallback undefined or defined, based on messageCallback
     
 
-    setRepository(repository: IErmesWebRtcRepository): void {
+    setRepository(repository: IErmesRepository): void {
         this._repository = repository;
     }
     isClosed(): boolean {

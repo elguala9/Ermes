@@ -37,7 +37,7 @@ export class ErmesStorageService<
     return this.repo.retrieve(id);
   }
 
-  async delete(id: IdType): Promise<void> {
+  async delete(id: IdType): Promise<boolean> {
     return this.repo.delete(id);
   }
 

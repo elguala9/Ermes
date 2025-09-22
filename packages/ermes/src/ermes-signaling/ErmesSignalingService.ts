@@ -1,7 +1,5 @@
 import { SocketType } from "dgram";
-import { IErmesFactory, IdAccountType, IErmesRepository, IErmesService, IErmesSignalingFactory, IErmesSignalingRepository, IErmesSignalingService, IErmesWebRtcFactory, IErmesWebRtcService, OnSignalCallback, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
-import { ISignalingSdk } from "signaling-sdk/ISignalingSdk";
-import { CallbackSignalInput, OutputStruct } from "signaling-sdk/Types";
+import { IdAccountType, IErmesFactory, IErmesSignalingRepository, IErmesSignalingService, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
 
 
 
