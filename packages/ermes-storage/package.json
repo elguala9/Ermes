@@ -33,6 +33,11 @@
     "url": "https://github.com/elguala9/Ermes/issues"
   },
   "exports": {
+    "./ErmesStorageAndCaching": {
+      "import": "./dist/ErmesStorageAndCaching.js",
+      "require": "./dist/ErmesStorageAndCaching.js",
+      "types": "./dist/ErmesStorageAndCaching.d.ts"
+    },
     "./ErmesStorageType": {
       "import": "./dist/ErmesStorageType.js",
       "require": "./dist/ErmesStorageType.js",

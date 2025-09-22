@@ -9,5 +9,5 @@ export declare class ErmesStorageService<DataJson extends MessageType> implement
     listOfIds(): Promise<IdType[]>;
     store(data: DataJson): Promise<void>;
     retrieve(id: IdType): Promise<DataJson | undefined>;
-    delete(id: IdType): Promise<void>;
+    delete(id: IdType): Promise<boolean>;
 }

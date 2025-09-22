@@ -1,6 +1,5 @@
 import { IdType, MessageType } from "ermes-types";
 import { IErmesStorageRepository } from "iermes/index";
-import PouchDB from "pouchdb";
 import { ClientWorkDB } from "workdb/ClientWorkDB";
 
 // Default collection name constant
@@ -96,39 +95,30 @@ export class ErmesStorageRepository<
     }
   }
 
-  async delete(id: IdType): Promise<void> {
-    try {
-      const itemId = {
-        id: id.toString(),
-        collection: this._collection
-      };
+  async delete(id: IdType): Promise<boolean> {
 
-      // First check if the item exists
-      const existingItem = await this._db.retrieve(itemId);
+    const itemId = {
+      id: id.toString(),
+      collection: this._collection
+    };
+
+    // First check if the item exists
+    const existingItem = await this._db.retrieve(itemId);
+    
+    if (existingItem) {
+      // Item exists, delete it
+      await this._db.delete(itemId);
+      this._numberOfElements = Math.max(0, this._numberOfElements - 1);
       
-      if (existingItem) {
-        // Item exists, delete it
-        await this._db.delete(itemId);
-        this._numberOfElements = Math.max(0, this._numberOfElements - 1);
-        
-        // Verify the deletion was successful
-        const verifyDeleted = await this._db.retrieve(itemId);
-        if (verifyDeleted) {
-          throw new Error(`Failed to delete item ${id}: item still exists after deletion`);
-        }
+      // Verify the deletion was successful
+      const verifyDeleted = await this._db.retrieve(itemId);
+      if (verifyDeleted) {
+        throw new Error(`Failed to delete item ${id}: item still exists after deletion`);
       }
-      // If item doesn't exist, that's fine (idempotent delete)
-      
-    } catch (error) {
-      // Check if the error is about item not existing during the delete operation
-      if (error instanceof Error && error.message.includes('does not exist')) {
-        // This is fine - the item was already deleted or never existed
-        return;
-      }
-      
-      // For other errors, re-throw
-      throw new Error(`Failed to delete data: ${error}`);
+      return true;
     }
+    return false;
+      
   }
 
   async clear(): Promise<void> {

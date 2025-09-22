@@ -3,10 +3,15 @@ import { IdType, MessageType } from "ermes-types";
 /**
  * repository that avoid source code duplication
  */
-export interface IErmesStorageAndCaching<DataJson extends MessageType> {
+export interface IErmesStorageAndCachingReserved<DataJson extends MessageType> {
     store(data: DataJson): Promise<void>;
     retrieve(id: IdType): Promise<DataJson | undefined>;
-    delete(id: IdType): Promise<void>;
+    /**
+     *
+     * @param id
+     * @returns — true if an element existed and has been removed, or false if the element does not exist.
+     */
+    delete(id: IdType): Promise<boolean>;
     clear(): Promise<void>;
     numberOfElements(): number;
     listOfIds(): Promise<IdType[]>;

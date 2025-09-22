@@ -1,11 +1,11 @@
 import { expect } from "chai";
 import type { MessageData } from "ermes-types";
-import { IErmesStorageAndCaching } from "iermes/index";
+import { IErmesStorageAndCachingReserved } from "iermes/index";
 import { eqChunkMessage, eqMessageData, eqServiceMessage } from "../compare.js";
 import { generateUniqueMessageData, StoreAndRetrive } from "../utility.js";
 import { examplesChunkMessage, examplesMessageData, examplesServiceMessage } from "../var.js";
 
-export function testService(service: IErmesStorageAndCaching<any>) {
+export function testService(service: IErmesStorageAndCachingReserved<any>) {
 
     describe('Service Tests', () => {
 

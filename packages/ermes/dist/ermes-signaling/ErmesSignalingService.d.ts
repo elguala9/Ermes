@@ -1,5 +1,5 @@
 import { SocketType } from "dgram";
-import { IErmesFactory, IdAccountType, IErmesSignalingRepository, IErmesSignalingService, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
+import { IdAccountType, IErmesFactory, IErmesSignalingRepository, IErmesSignalingService, OnSignalCreateSocketCallback, SignalType } from "iermes/index";
 export declare class ErmesSignalingService implements IErmesSignalingService {
     private ermesFactory;
     private repo;

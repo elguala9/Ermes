@@ -1,12 +1,12 @@
 import { MessageType } from "ermes-types";
-import { IErmesStorageAndCaching } from "./IErmesStorageReserved.js";
+import { IErmesStorageAndCachingReserved } from "./IErmesStorageReserved.js";
 
 /**
  * repository that handle the storage of the messages, both arrived and sent
  */
 export interface IErmesStorageRepository<
   DataJson extends MessageType
-> extends IErmesStorageAndCaching<DataJson>{
+> extends IErmesStorageAndCachingReserved<DataJson>{
 
 }
 /**
