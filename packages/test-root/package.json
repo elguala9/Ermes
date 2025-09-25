@@ -17,6 +17,7 @@
     "clean_db": "powershell -Command \"Get-ChildItem -Directory -Filter 'test-db*' | Remove-Item -Recurse -Force\"",
     "test:caching": "ts-mocha --project tsconfig.json ./src/ErmesCaching.ts",
     "test:storage": "npm run clean_db && ts-mocha --project tsconfig.json ./src/ErmesStorage.ts",
+    "test:store-caching": "npm run clean_db && ts-mocha --project tsconfig.json ./src/ErmesStoreCaching.ts",
     "test:idhandler": "ts-mocha --project tsconfig.json ./src/ErmesIdHandler.ts",
     "test:ermes": "ts-mocha --project tsconfig.json ./src/ErmesService.ts",
     "test:ermes-signaling-repo": "ts-mocha --project tsconfig.json ./src/ErmesSignalingRepo.ts --timeout 35000",

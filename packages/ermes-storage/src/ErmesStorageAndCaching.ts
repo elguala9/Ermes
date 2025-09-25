@@ -21,8 +21,8 @@ export class ErmesStorageAndCaching<
   DataJson extends MessageType  
 > implements IErmesStorageAndCaching<DataJson> {
 
-  storage: IErmesStorageService<DataJson>;
-  caching: IErmesCachingService<DataJson>;
+  public storage: IErmesStorageService<DataJson>;
+  public caching: IErmesCachingService<DataJson>;
   opts : ErmesCachingServiceOptions;
 
   constructor(storage: IErmesStorageService<DataJson>, 
@@ -163,3 +163,6 @@ export class ErmesStorageAndCaching<
 
   
 }
+
+
+export type ErmesStorageAndCachingMessages = ErmesStorageAndCaching<MessageType>

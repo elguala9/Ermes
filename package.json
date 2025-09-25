@@ -27,6 +27,7 @@
     "prepareTest": "npm run compile",
     "test:caching": "npm run prepareTest && cd ./packages/test-root && npm run test:caching",
     "test:storage": "npm run prepareTest && cd ./packages/test-root && npm run test:storage",
+    "test:store-caching": "npm run prepareTest && cd ./packages/test-root && npm run test:store-caching",
     "test:idhandler": "npm run prepareTest && cd ./packages/test-root && npm run test:idhandler",
     "test:ermes": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes",
     "test:ermes-signaling-repo": "npm run prepareTest && npm run deploySC && cd ./packages/test-root && npm run test:ermes-signaling-repo",
@@ -36,7 +37,7 @@
     "test:ermes-serialization": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-serialization",
     "test:ermes-repository": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-repository",
     "test:ermes-service": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-service",
-    "test:all": "npm run test:caching && npm run test:idhandler && npm run test:idhandler && npm run test:ermes && npm run test:ermes-sc",
+    "test:all": "npm run test:caching && npm run test:storage && npm run test:store-caching && npm run test:idhandler && npm run test:ermes && npm run test:ermes-sc",
     "network": "cd packages/signaling-contract && npm run network",
     "postbuild": "npm install"
   },

@@ -4,7 +4,6 @@ import { examplesMessageData, examplesChunkMessage } from "../var.js";
 import { eqMessageData, eqChunkMessage } from "../compare.js";
 export function testStorageAndCaching(service, cachingService, storageService, maxCachingSize) {
     describe('IErmesStorageAndCachingService Tests', () => {
-        testService(service);
         describe('Flush Tests', () => {
             it('should flush cache data to storage', async () => {
                 await service.clear();
@@ -172,6 +171,12 @@ export function testStorageAndCaching(service, cachingService, storageService, m
                 }
             });
         });
+        it('should flush multiple types of data with cache limits', async () => {
+            await service.clear();
+            await cachingService.clear();
+            await storageService.clear();
+        });
+        testService(service);
     });
 }
 //# sourceMappingURL=ErmesStorageAndCaching.spec.js.map
