@@ -23,4 +23,5 @@ export declare class ErmesStorageAndCaching<DataJson extends MessageType> implem
     listOfIds(): Promise<IdType[]>;
     destroy(): Promise<void>;
 }
+export type ErmesStorageAndCachingMessages = ErmesStorageAndCaching<MessageType>;
 export {};

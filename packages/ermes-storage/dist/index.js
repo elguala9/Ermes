@@ -5,10 +5,10 @@ export * from "./ErmesStorageAndCaching.js";
 export * from "./ErmesStorageType.js";
 export * from "./caching-implementation/ErmesCachingRepository.js";
 export * from "./caching-implementation/ErmesCachingService.js";
-export * from "./factories/ErmesCachingFacories.js";
-export * from "./factories/ErmesCachingStorageFacories.js";
-export * from "./factories/ErmesStorageFacories.js";
+export * from "./factories/ErmesCachingFactories.js";
+export * from "./factories/ErmesCachingStorageFactories.js";
+export * from "./factories/ErmesStorageFactories.js";
+export * from "./factories/Factories.ts.js";
 export * from "./storage-implementation/ErmesStorageRepository.js";
 export * from "./storage-implementation/ErmesStorageService.js";
-export * from "./storage-implementation/Factories.ts.js";
 //# sourceMappingURL=index.js.map

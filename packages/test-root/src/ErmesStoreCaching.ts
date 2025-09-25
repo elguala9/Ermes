@@ -1,6 +1,12 @@
-import { createErmesStorageAndCaching, ErmesStorageAndCaching } from "ermes-storage/index";
+import { createErmesStorageAndCaching, createWorkDB, ErmesStorageAndCachingMessages } from "ermes-storage/index";
+import { MessageType } from "ermes-types";
 import { testStorageAndCaching } from "test-ermes";
 
-let obj: ErmesStorageAndCaching = createErmesStorageAndCaching();
+let workDb = createWorkDB({
+    dataPath: "./test-db",
+    platform: "node"
+});
 
-testStorageAndCaching(obj);
+let obj: ErmesStorageAndCachingMessages = createErmesStorageAndCaching<MessageType>(workDb) as ErmesStorageAndCachingMessages;
+
+testStorageAndCaching(obj, obj.caching, obj.storage, 100);

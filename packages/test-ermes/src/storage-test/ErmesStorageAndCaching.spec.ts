@@ -1,17 +1,17 @@
 import { expect } from "chai";
-import { IErmesCachingService, IErmesStorageAndCaching } from "iermes/index";
+import { IErmesCachingService, IErmesStorageAndCaching, IErmesStorageService } from "iermes/index";
 import { testService } from "./ErmesCachingStorage.spec.js";
 import { examplesMessageData, examplesChunkMessage } from "../var.js";
 import { eqMessageData, eqChunkMessage } from "../compare.js";
 
 export function testStorageAndCaching(service: IErmesStorageAndCaching<any>,
-    cachingService: IErmesStorageAndCaching<any>,
-    storageService: IErmesStorageAndCaching<any>,
+    cachingService: IErmesCachingService<any>,
+    storageService: IErmesStorageService<any>,
     maxCachingSize: number
 ) {
 
     describe('IErmesStorageAndCachingService Tests', () => {
-        testService(service);
+        
 
         describe('Flush Tests', () => {
             
@@ -224,5 +224,13 @@ export function testStorageAndCaching(service: IErmesStorageAndCaching<any>,
                 }
             });
         });
+
+        it('should flush multiple types of data with cache limits', async () => {
+            await service.clear();
+            await cachingService.clear();
+            await storageService.clear();   
+        });
+
+        testService(service);
     });
 }
