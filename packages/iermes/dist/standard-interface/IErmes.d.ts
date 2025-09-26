@@ -1,4 +1,4 @@
-import { TypeOfDataExternal, CallbackOnDataRepository, CallbackOnMessageSended, CallbackOnMessageSending, SerializableDataType, CallbackOnMessageReceived } from "ermes-types";
+import { TypeOfDataExternal, CallbackOnDataArrived, CallbackOnDataRepository, CallbackOnMessageSended, CallbackOnMessageSending, SerializableDataType } from "ermes-types";
 export interface CallbackFunction {
     (): boolean;
 }
@@ -57,7 +57,7 @@ export interface IErmesService extends IErmesPrivate {
      * on message arrived call the callback
      * @param messageCallback the callback
      */
-    onMessage(callback: CallbackOnMessageReceived): void;
+    onMessage(callback: CallbackOnDataArrived): void;
     /**
      * the message that the service is sending
      * @param callback the callback called

@@ -28,13 +28,8 @@ export function testErmesService(
       const payload = new Uint8Array([1, 2, 3, 4]);
       // Promessa che si risolve al primo messaggio ricevuto
       const received = new Promise((resolve) => {
-        service_2.onMessage({
-          callbackOnData: (data: Uint8Array) => {
-            resolve(data);
-            },
-          callbackonMessage: (data) => {
-            resolve(data);
-          }
+        service_2.onMessage((data: Uint8Array) => {
+          resolve(data);
         });
       });
 
@@ -54,15 +49,12 @@ export function testErmesService(
       let receivedCount = 0;
 
       const allReceived = new Promise<void>((resolve) => {
-        service_2.onMessage({
-          callbackOnData: (data: Uint8Array) => {
-            received.push(data);
-            receivedCount++;
-            if (receivedCount === messages.length) {
-              resolve();
-            }
-          },
-          callbackonMessage: () => {}
+        service_2.onMessage((data: Uint8Array) => {
+          received.push(data);
+          receivedCount++;
+          if (receivedCount === messages.length) {
+            resolve();
+          }
         });
       });
 
@@ -85,11 +77,8 @@ export function testErmesService(
       }
 
       const received = new Promise<Uint8Array>((resolve) => {
-        service_2.onMessage({
-          callbackOnData: (data: Uint8Array) => {
-            resolve(data);
-          },
-          callbackonMessage: () => {}
+        service_2.onMessage((data: Uint8Array) => {
+          resolve(data);
         });
       });
 
@@ -145,12 +134,9 @@ export function testErmesService(
           reject(new Error('Timeout waiting for big message'));
         }, 15000);
 
-        service_2.onMessage({
-          callbackOnData: (data: Uint8Array) => {
-            clearTimeout(timeout);
-            resolve(data);
-          },
-          callbackonMessage: () => {}
+        service_2.onMessage((data: Uint8Array) => {
+          clearTimeout(timeout);
+          resolve(data);
         });
       });
 
@@ -215,12 +201,9 @@ export function testErmesService(
           reject(new Error('Timeout waiting for very big message'));
         }, 25000);
 
-        service_2.onMessage({
-          callbackOnData: (data: Uint8Array) => {
-            clearTimeout(timeout);
-            resolve(data);
-          },
-          callbackonMessage: () => {}
+        service_2.onMessage((data: Uint8Array) => {
+          clearTimeout(timeout);
+          resolve(data);
         });
       });
 
@@ -260,22 +243,16 @@ export function testErmesService(
       const bothReceived = new Promise<void>((resolve) => {
         let count = 0;
         
-        service_1.onMessage({
-          callbackOnData: (data: Uint8Array) => {
-            received1 = data;
-            count++;
-            if (count === 2) resolve();
-          },
-          callbackonMessage: () => {}
+        service_1.onMessage((data: Uint8Array) => {
+          received1 = data;
+          count++;
+          if (count === 2) resolve();
         });
 
-        service_2.onMessage({
-          callbackOnData: (data: Uint8Array) => {
-            received2 = data;
-            count++;
-            if (count === 2) resolve();
-          },
-          callbackonMessage: () => {}
+        service_2.onMessage((data: Uint8Array) => {
+          received2 = data;
+          count++;
+          if (count === 2) resolve();
         });
       });
 
@@ -293,11 +270,8 @@ export function testErmesService(
       const emptyData = new Uint8Array(0);
 
       const received = new Promise<Uint8Array>((resolve) => {
-        service_2.onMessage({
-          callbackOnData: (data: Uint8Array) => {
-            resolve(data);
-          },
-          callbackonMessage: () => {}
+        service_2.onMessage((data: Uint8Array) => {
+          resolve(data);
         });
       });
 
@@ -319,14 +293,11 @@ export function testErmesService(
       }
 
       const allReceived = new Promise<void>((resolve) => {
-        service_2.onMessage({
-          callbackOnData: (data: Uint8Array) => {
-            received.push(data);
-            if (received.length === messageCount) {
-              resolve();
-            }
-          },
-          callbackonMessage: () => {}
+        service_2.onMessage((data: Uint8Array) => {
+          received.push(data);
+          if (received.length === messageCount) {
+            resolve();
+          }
         });
       });
 
@@ -357,11 +328,8 @@ export function testErmesService(
       // Send a quick test message to verify connection is still active
       const testPayload = new Uint8Array([99, 100]);
       const received = new Promise<Uint8Array>((resolve) => {
-        service_2.onMessage({
-          callbackOnData: (data: Uint8Array) => {
-            resolve(data);
-          },
-          callbackonMessage: () => {}
+        service_2.onMessage((data: Uint8Array) => {
+          resolve(data);
         });
       });
 

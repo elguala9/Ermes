@@ -21,6 +21,21 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./types/ErmesInput": {
+      "import": "./dist/types/ErmesInput.js",
+      "require": "./dist/types/ErmesInput.js",
+      "types": "./dist/types/ErmesInput.d.ts"
+    },
+    "./types/ErmesWebRtcInput": {
+      "import": "./dist/types/ErmesWebRtcInput.js",
+      "require": "./dist/types/ErmesWebRtcInput.js",
+      "types": "./dist/types/ErmesWebRtcInput.d.ts"
+    },
+    "./types/IdHandlerInput": {
+      "import": "./dist/types/IdHandlerInput.js",
+      "require": "./dist/types/IdHandlerInput.js",
+      "types": "./dist/types/IdHandlerInput.d.ts"
+    },
     "./signaling-interface/IErmesBook": {
       "import": "./dist/signaling-interface/IErmesBook.js",
       "require": "./dist/signaling-interface/IErmesBook.js",
@@ -90,21 +105,6 @@
       "import": "./dist/standard-interface/IOrcErmes.js",
       "require": "./dist/standard-interface/IOrcErmes.js",
       "types": "./dist/standard-interface/IOrcErmes.d.ts"
-    },
-    "./types/ErmesInput": {
-      "import": "./dist/types/ErmesInput.js",
-      "require": "./dist/types/ErmesInput.js",
-      "types": "./dist/types/ErmesInput.d.ts"
-    },
-    "./types/ErmesWebRtcInput": {
-      "import": "./dist/types/ErmesWebRtcInput.js",
-      "require": "./dist/types/ErmesWebRtcInput.js",
-      "types": "./dist/types/ErmesWebRtcInput.d.ts"
-    },
-    "./types/IdHandlerInput": {
-      "import": "./dist/types/IdHandlerInput.js",
-      "require": "./dist/types/IdHandlerInput.js",
-      "types": "./dist/types/IdHandlerInput.d.ts"
     },
     "./storage-interface/IErmesCaching": {
       "import": "./dist/storage-interface/IErmesCaching.js",

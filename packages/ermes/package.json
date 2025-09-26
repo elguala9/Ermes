@@ -19,14 +19,15 @@
     "@types/socket.io": "^3.0.1",
     "@types/socket.io-client": "^1.4.36",
     "express": "^4.21.2",
-    "serialization-utility": "^1.1.2",
+    "serialization-utility": "^1.2.0",
     "simple-peer": "^9.11.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "wrtc": "^0.4.7",
     "iermes": "1.0.0 ",
     "ermes-types": "1.0.0",
-    "signaling-sdk": "1.0.0"
+    "signaling-sdk": "1.0.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",

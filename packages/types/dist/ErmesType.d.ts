@@ -8,6 +8,7 @@ export type ServiceReason = 'c' | 's' | 'x';
 export type MessageType = MessageData | ChunkMessage | ServiceMessage;
 export type IntegrityCheckType = string | number | boolean;
 export type IdType = number;
+export type IdChunkType = string;
 export type TypeOfData = Uint8Array;
 export type TypeOfDataExternal = Uint8Array;
 export type IdPeer = string;
@@ -26,11 +27,11 @@ export type MessageData = MessageDataGeneric<TypeOfData> & MessageWithId & {};
 export type MessageDataGeneric<DataType> = MessageWithId & {
     data: DataType;
 };
-export type ChunkId = number;
+export type ChunkIndexType = number;
 export declare const MAX_HEADER = 81;
 export type ChunkMessageGeneric<DataType> = MessageDataGeneric<DataType> & {
-    ref_id: IdType;
-    index: ChunkId;
+    ref_id: IdChunkType;
+    index: ChunkIndexType;
     roof: number;
 };
 export type ChunkMessage = ChunkMessageGeneric<TypeOfData> & {};
@@ -41,7 +42,7 @@ export type ServiceMessage = MessageWithId & {
 };
 export type ChunkInfo = {
     index?: number[];
-    chunkId: ChunkId;
+    chunkId: ChunkIndexType;
 };
 export type MessageRootErmes = MessageRoot<string>;
 export type MessageDataErmes = MessageData;

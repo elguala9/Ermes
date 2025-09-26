@@ -5,7 +5,7 @@ import { composeUint8Array } from "serialization-utility/src/Array";
 export class ChunkHandler {
     constructor(id, roof) {
         this.chunks = new Map();
-        this.isCompleted = false; // if the chink as been completed
+        this.isCompleted = false; // if the chunk has been completed
         this.id = id;
         this.roof = roof;
     }

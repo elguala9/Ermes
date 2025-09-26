@@ -29,6 +29,9 @@ export type IntegrityCheckType = string | number | boolean
 // type of the id
 export type IdType = number 
 
+// id of the chunk
+export type IdChunkType = string 
+
 // this is the type used by the ermes service
 export type TypeOfData = Uint8Array;
 
@@ -65,13 +68,13 @@ export type MessageDataGeneric<DataType> = MessageWithId & {
     data: DataType;
 }
 
-export type ChunkId = number; // 8 bytes
+export type ChunkIndexType = number; // 8 bytes
 
 export const MAX_HEADER = 81; // 24 bytes, ChunkMessageGeneric
 
 export type ChunkMessageGeneric<DataType> = MessageDataGeneric<DataType> & { //24 bytes
-    ref_id: IdType; // 8 bytes
-    index: ChunkId; // 8 bytes
+    ref_id: IdChunkType; // 8 bytes
+    index: ChunkIndexType; // 8 bytes
     roof: number; // 8 bytes
 };
 
@@ -85,7 +88,7 @@ export type ServiceMessage = MessageWithId & {
 
 export type ChunkInfo = { // 16 bytes
     index?: number[]; // 8 bytes each
-    chunkId: ChunkId;  // 8 bytes
+    chunkId: ChunkIndexType;  // 8 bytes
 };
 
 export type MessageRootErmes = MessageRoot<string>;

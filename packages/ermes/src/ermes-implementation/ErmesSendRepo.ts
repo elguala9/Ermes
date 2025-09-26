@@ -1,9 +1,10 @@
 
-import { ChunkMessage, InternalMessage, MAX_HEADER, MessageDataErmes, MessageRoot, MessageType, SerializableDataType, TypeOfData } from "ermes-types";
+import { ChunkMessage, IdChunkType, IdType, InternalMessage, MAX_HEADER, MessageDataErmes, MessageRoot, MessageType, SerializableDataType, TypeOfData } from "ermes-types";
 import { IErmesRepository, IIdHandlerService } from "iermes/index";
 import { calculateHashSync } from "serialization-utility/src/Hash";
 import { objectToUint8Array, uint8ArrayToArrayBuffer } from "serialization-utility/src/Serialization";
-import { chunkArrayBuffer, getMessageType } from "../Utility.js";
+import { chunkArrayBuffer, createMessageDataErmes, getMessageType } from "../utility.js";
+import { v4 } from 'uuid';
 
 
 export type MessageRootErmes = MessageRoot<string>;
@@ -32,23 +33,22 @@ export class ErmesSendRepo {
     // metodo esposto all'utente per mandare il messaggio
     send(rawData: TypeOfData): void {
         
-        let newId = this._idHandler.getNewId();
-        
         if(rawData.length > this._maxByte){
-            let rawDataArray: ChunkMessage[] = chunkArrayBuffer(this._idHandler, rawData, newId, this._maxByte - 300);
+            // i need a different id for the chunked message
+            let uuid = v4();
+            let chunkedId: IdChunkType = uuid.toString();
+            let rawDataArray: ChunkMessage[] = chunkArrayBuffer(this._idHandler, rawData, chunkedId, this._maxByte - 300);
             this.sendMessageType(rawDataArray);
             return; 
         }
         
-        let message: MessageDataErmes = {
-            data: rawData,
-            id: newId
-        }
+        let newId: IdType = this._idHandler.getNewId();
+        let message: MessageDataErmes = createMessageDataErmes(rawData, newId);
         this.sendMessageType([message]);
     }
 
     // qui trasformo i messaggi in root message, passando per l'internal messagge
-    private sendMessageType(array: MessageType[]): void {
+    public sendMessageType(array: MessageType[]): void {
         array.forEach(element => {
             let internalMessage: MessageInternalErmes = {
                 message: element,
@@ -75,3 +75,5 @@ export class ErmesSendRepo {
         this._repository.send(dataRaw);
     }    
 }
+
+
