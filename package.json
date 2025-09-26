@@ -23,7 +23,7 @@
     "test": "npx lage test",
     "clean": "rimraf packages/*/dist",
     "add-js": "npx add-js-import -ed typeschain",
-    "compile": "npm run barrelsby && npm run build && npm run gen-exports",
+    "compile": "npm run barrelsby && npm run build && npm run gen-exports && npm run add-js",
     "prepareTest": "npm run compile",
     "test:caching": "npm run prepareTest && cd ./packages/test-root && npm run test:caching",
     "test:storage": "npm run prepareTest && cd ./packages/test-root && npm run test:storage",
@@ -37,7 +37,8 @@
     "test:ermes-serialization": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-serialization",
     "test:ermes-repository": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-repository",
     "test:ermes-service": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-service",
-    "test:all": "npm run test:caching && npm run test:storage && npm run test:store-caching && npm run test:idhandler && npm run test:ermes && npm run test:ermes-sc",
+    "test:ermes-book": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-book",
+    "test:all": "npm run test:caching && npm run test:storage && npm run test:store-caching && npm run test:idhandler && npm run test:ermes && npm run test:ermes-sc && npm run test:ermes-book",
     "network": "cd packages/signaling-contract && npm run network",
     "postbuild": "npm install"
   },

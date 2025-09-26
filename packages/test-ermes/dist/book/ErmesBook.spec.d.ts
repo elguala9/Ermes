@@ -6,25 +6,25 @@ import { IErmesBookService } from "iermes/index";
  * @param info_example_1
  * @param info_example_2
  */
-export declare function testBook<InfoJsonType>(service_1: IErmesBookService<InfoJsonType>, service_2: IErmesBookService<InfoJsonType>, info_example_1: InfoJsonType, info_example_2: InfoJsonType, info_example_array: [
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType,
-    InfoJsonType
+export declare function testBook<Input, InfoJsonType>(service_1: IErmesBookService<Input, InfoJsonType>, service_2: IErmesBookService<Input, InfoJsonType>, info_example_1: Input, info_example_2: Input, info_example_array: [
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input,
+    Input
 ]): void;
