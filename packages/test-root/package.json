@@ -31,7 +31,8 @@
     "test:ermes-service": "ts-mocha --project tsconfig.json ./src/ErmesService.ts --timeout 30000",
     "test:ermes-sc-multi-offer": "npm run test:ermes-sc-multi-offer-standard && npm run test:ermes-sc-multi-offer-callback",
     "test:ermes-sc-multi-offer-standard": "ts-mocha --project tsconfig.json ./src/ErmesSmartContractMultiOffer.ts --timeout 15000",
-    "test:ermes-sc-multi-offer-callback": "ts-mocha --project tsconfig.json ./src/ErmesSmartContractMultiOfferCallback.ts --timeout 15000"
+    "test:ermes-sc-multi-offer-callback": "ts-mocha --project tsconfig.json ./src/ErmesSmartContractMultiOfferCallback.ts --timeout 15000",
+    "test:ermes-book": "npm run clean_db && ts-mocha --project tsconfig.json ./src/ErmesBook.ts --timeout 10000"
   },
   "bugs": {
     "url": "https://github.com/elguala9/Ermes/issues"
@@ -42,6 +43,7 @@
   "dependencies": {
     "test-ermes": "1.0.0",
     "ermes-storage": "1.0.0",
-    "signaling-sdk": "1.0.0"
+    "signaling-sdk": "1.0.0",
+    "ermes": "1.0.0"
   }
 }
