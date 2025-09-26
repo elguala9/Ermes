@@ -1,7 +1,8 @@
 import { MAX_HEADER } from "ermes-types";
 import { calculateHashSync } from "serialization-utility/src/Hash";
 import { objectToUint8Array, uint8ArrayToArrayBuffer } from "serialization-utility/src/Serialization";
-import { chunkArrayBuffer, getMessageType } from "../Utility.js";
+import { chunkArrayBuffer, createMessageDataErmes, getMessageType } from "../utility.js";
+import { v4 } from 'uuid';
 export class ErmesSendRepo {
     constructor(repository, idHandler, maxByte = 1024) {
         if (maxByte >= 1200)
@@ -13,16 +14,16 @@ export class ErmesSendRepo {
     // lock the call of certain methods
     // metodo esposto all'utente per mandare il messaggio
     send(rawData) {
-        let newId = this._idHandler.getNewId();
         if (rawData.length > this._maxByte) {
-            let rawDataArray = chunkArrayBuffer(this._idHandler, rawData, newId, this._maxByte - 300);
+            // i need a different id for the chunked message
+            let uuid = v4();
+            let chunkedId = uuid.toString();
+            let rawDataArray = chunkArrayBuffer(this._idHandler, rawData, chunkedId, this._maxByte - 300);
             this.sendMessageType(rawDataArray);
             return;
         }
-        let message = {
-            data: rawData,
-            id: newId
-        };
+        let newId = this._idHandler.getNewId();
+        let message = createMessageDataErmes(rawData, newId);
         this.sendMessageType([message]);
     }
     // qui trasformo i messaggi in root message, passando per l'internal messagge

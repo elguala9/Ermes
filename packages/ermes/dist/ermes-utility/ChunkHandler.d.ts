@@ -1,4 +1,4 @@
-import { IdType, MessageChunkErmes, TypeOfData } from "ermes-types";
+import { IdChunkType, IdType, MessageChunkErmes, TypeOfData } from "ermes-types";
 /**
  * class used to handle chunk
  */
@@ -7,8 +7,8 @@ export declare class ChunkHandler {
     private roof;
     private chunks;
     private isCompleted;
-    constructor(id: IdType, roof: number);
-    getId(): IdType;
+    constructor(id: IdChunkType, roof: IdType);
+    getId(): IdChunkType;
     addChunk(chunk: MessageChunkErmes): TypeOfData | undefined;
     private isDuplicate;
     private handleLastChunk;

@@ -1,23 +1,22 @@
 
-import { IdType, MessageChunkErmes, TypeOfData } from "ermes-types";
+import { IdChunkType, IdType, MessageChunkErmes, TypeOfData } from "ermes-types";
 import { composeUint8Array } from "serialization-utility/src/Array";
 
 /**
  * class used to handle chunk
  */
 export class ChunkHandler {
-    private id: IdType; // the id of the message
-    private roof: number; // the id of the message
-    private chunks: Map<number, TypeOfData> = new Map<number, TypeOfData>();
-    private isCompleted: boolean = false; // if the chink as been completed
-      
+    private id: IdChunkType; // the id of the chunked message
+    private roof: number; // the id of the chunk
+    private chunks: Map<IdType, TypeOfData> = new Map<IdType, TypeOfData>();
+    private isCompleted: boolean = false; // if the chunk has been completed
 
-    constructor(id: IdType, roof: number){
+    constructor(id: IdChunkType, roof: IdType){
         this.id = id;
         this.roof = roof;
     }
 
-    public getId(): IdType{
+    public getId(): IdChunkType{
         return this.id;
     }
 

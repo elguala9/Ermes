@@ -14,13 +14,8 @@ export function testErmesService(f) {
             const payload = new Uint8Array([1, 2, 3, 4]);
             // Promessa che si risolve al primo messaggio ricevuto
             const received = new Promise((resolve) => {
-                service_2.onMessage({
-                    callbackOnData: (data) => {
-                        resolve(data);
-                    },
-                    callbackonMessage: (data) => {
-                        resolve(data);
-                    }
+                service_2.onMessage((data) => {
+                    resolve(data);
                 });
             });
             service_1.send(payload);
@@ -37,15 +32,12 @@ export function testErmesService(f) {
             const received = [];
             let receivedCount = 0;
             const allReceived = new Promise((resolve) => {
-                service_2.onMessage({
-                    callbackOnData: (data) => {
-                        received.push(data);
-                        receivedCount++;
-                        if (receivedCount === messages.length) {
-                            resolve();
-                        }
-                    },
-                    callbackonMessage: () => { }
+                service_2.onMessage((data) => {
+                    received.push(data);
+                    receivedCount++;
+                    if (receivedCount === messages.length) {
+                        resolve();
+                    }
                 });
             });
             for (const msg of messages) {
@@ -64,11 +56,8 @@ export function testErmesService(f) {
                 largeData[i] = i % 256;
             }
             const received = new Promise((resolve) => {
-                service_2.onMessage({
-                    callbackOnData: (data) => {
-                        resolve(data);
-                    },
-                    callbackonMessage: () => { }
+                service_2.onMessage((data) => {
+                    resolve(data);
                 });
             });
             service_1.send(largeData);
@@ -117,12 +106,9 @@ export function testErmesService(f) {
                 const timeout = setTimeout(() => {
                     reject(new Error('Timeout waiting for big message'));
                 }, 15000);
-                service_2.onMessage({
-                    callbackOnData: (data) => {
-                        clearTimeout(timeout);
-                        resolve(data);
-                    },
-                    callbackonMessage: () => { }
+                service_2.onMessage((data) => {
+                    clearTimeout(timeout);
+                    resolve(data);
                 });
             });
             console.log(`Sending big message of ${bigSize} bytes...`);
@@ -178,12 +164,9 @@ export function testErmesService(f) {
                 const timeout = setTimeout(() => {
                     reject(new Error('Timeout waiting for very big message'));
                 }, 25000);
-                service_2.onMessage({
-                    callbackOnData: (data) => {
-                        clearTimeout(timeout);
-                        resolve(data);
-                    },
-                    callbackonMessage: () => { }
+                service_2.onMessage((data) => {
+                    clearTimeout(timeout);
+                    resolve(data);
                 });
             });
             console.log(`Sending very big message of ${maxSize} bytes...`);
@@ -216,23 +199,17 @@ export function testErmesService(f) {
             let received2 = null;
             const bothReceived = new Promise((resolve) => {
                 let count = 0;
-                service_1.onMessage({
-                    callbackOnData: (data) => {
-                        received1 = data;
-                        count++;
-                        if (count === 2)
-                            resolve();
-                    },
-                    callbackonMessage: () => { }
+                service_1.onMessage((data) => {
+                    received1 = data;
+                    count++;
+                    if (count === 2)
+                        resolve();
                 });
-                service_2.onMessage({
-                    callbackOnData: (data) => {
-                        received2 = data;
-                        count++;
-                        if (count === 2)
-                            resolve();
-                    },
-                    callbackonMessage: () => { }
+                service_2.onMessage((data) => {
+                    received2 = data;
+                    count++;
+                    if (count === 2)
+                        resolve();
                 });
             });
             // Send from both directions
@@ -246,11 +223,8 @@ export function testErmesService(f) {
             this.timeout(5000);
             const emptyData = new Uint8Array(0);
             const received = new Promise((resolve) => {
-                service_2.onMessage({
-                    callbackOnData: (data) => {
-                        resolve(data);
-                    },
-                    callbackonMessage: () => { }
+                service_2.onMessage((data) => {
+                    resolve(data);
                 });
             });
             service_1.send(emptyData);
@@ -268,14 +242,11 @@ export function testErmesService(f) {
                 messages.push(new Uint8Array([i % 256, (i + 1) % 256]));
             }
             const allReceived = new Promise((resolve) => {
-                service_2.onMessage({
-                    callbackOnData: (data) => {
-                        received.push(data);
-                        if (received.length === messageCount) {
-                            resolve();
-                        }
-                    },
-                    callbackonMessage: () => { }
+                service_2.onMessage((data) => {
+                    received.push(data);
+                    if (received.length === messageCount) {
+                        resolve();
+                    }
                 });
             });
             // Send all messages rapidly
@@ -299,11 +270,8 @@ export function testErmesService(f) {
             // Send a quick test message to verify connection is still active
             const testPayload = new Uint8Array([99, 100]);
             const received = new Promise((resolve) => {
-                service_2.onMessage({
-                    callbackOnData: (data) => {
-                        resolve(data);
-                    },
-                    callbackonMessage: () => { }
+                service_2.onMessage((data) => {
+                    resolve(data);
                 });
             });
             service_1.send(testPayload);

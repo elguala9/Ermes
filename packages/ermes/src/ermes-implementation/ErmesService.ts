@@ -1,29 +1,29 @@
-import { CallbackOnDataArrived, CallbackOnMessageReceived, CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, ChunkInfo, IdType, ServiceMessage, TypeOfData } from "ermes-types";
+import { CallbackOnDataArrived, CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, ChunkInfo, IdType, MessageType, ServiceMessage, TypeOfData } from "ermes-types";
 
 
-import { ErmesServiceInput } from "iermes/index";
+import { ErmesServiceInput, IErmesStorageAndCaching } from "iermes/index";
 import { IErmesRepository, IErmesService } from "iermes/standard-interface/IErmes";
 import { ErmesReadRepo } from "./ErmesReadRepo.js";
 import { ErmesSendRepo } from "./ErmesSendRepo.js";
-import { DEFAULT_MAX_SIZE } from "../Utility.js";
+import { createMessageDataErmes, DEFAULT_MAX_SIZE } from "../utility.js";
 
-
-
-
-
+const DATA_NOT_FOUND: Uint8Array = new TextEncoder().encode("DATA NOT FOUND");
+const NO_STORAGE_ENABLE: Uint8Array = new TextEncoder().encode("NO STORAGE ENABLE");
 
 
 export class ErmesService implements IErmesService{
     private _repository: IErmesRepository
     protected ermesSendRepo: ErmesSendRepo;
     protected ermesReadRepo: ErmesReadRepo;
+    protected ermesStorageAndCaching?: IErmesStorageAndCaching<MessageType>;
 
     constructor({
             maxBuffer,
             maxByte,
             repository,
             idHandler,
-            callbackOnMessageReceived
+            callbackOnDataArrived,
+            ermesStorageAndCaching
             }: ErmesServiceInput
         ){
         this._repository = repository;
@@ -31,11 +31,11 @@ export class ErmesService implements IErmesService{
             throw new Error(`maxByte cannot exceed ${DEFAULT_MAX_SIZE}`);
         this.ermesSendRepo = new ErmesSendRepo(repository, idHandler, maxByte ?? DEFAULT_MAX_SIZE)
         this.ermesReadRepo = new ErmesReadRepo(repository, this.handleServiceMessage, {
-            callbackOnMessageReceived,
+            callbackOnDataArrived,
             maxBufferSize: maxBuffer ?? 100
         })
 
-        
+        this.ermesStorageAndCaching = ermesStorageAndCaching;
     }
 
     onMessageSending(callback: CallbackOnMessageSending): void {
@@ -54,7 +54,7 @@ export class ErmesService implements IErmesService{
         return this._repository.isClosed();
     }
     
-    onMessage(messageCallback: CallbackOnMessageReceived): void {
+    onMessage(messageCallback: CallbackOnDataArrived): void {
         this.ermesReadRepo.setMessageDataCallback(messageCallback);
     }
 
@@ -64,20 +64,32 @@ export class ErmesService implements IErmesService{
         if(mess.reason == "c")
             throw new Error("Not implemented")
 
-        // here i handle resend of messages
-        if(mess.arrayChunkInfo !== undefined)
-            this.sendMissingChunks(mess.arrayChunkInfo)
         if(mess.arrayId !== undefined)
-            this.sendMissingBaseMessage(mess.arrayId)
+            this.sendMissingMessages(mess.arrayId)
     }
 
-    private sendMissingBaseMessage(arrayId: IdType[]){
-        throw new Error("sendMissingBaseMessage not implemented");
+    private async sendMissingMessages(arrayId: IdType[]){
+        let items: MessageType[] = [];
+        for(const id of arrayId){
+            // IF NOT STORAGE ENABLED I SEND A MESSAGE TO INFORM THE PEER
+            if(this.ermesStorageAndCaching === undefined){
+                items.push(createMessageDataErmes(NO_STORAGE_ENABLE, id));
+                continue;
+            }
+            const mess = await this.ermesStorageAndCaching.retrieve(id);
+            // if mess is undefined i send a message to inform the peer
+            if(mess === undefined){
+                items.push(createMessageDataErmes(DATA_NOT_FOUND, id));
+                continue;
+            }
+            items.push(mess);
+        }
+        if(items.length === 0)
+            throw new Error("Error during sendMissingBaseMessage, empty items array");
+        // send all the messages together
+        this.ermesSendRepo.sendMessageType(items);
     }
 
-    private sendMissingChunks(arrayChunkInfo: ChunkInfo[]){
-        throw new Error("sendMissingChunk not implemented");
-    }
 
     // metodo esposto all'utente per mandare il messaggio
     send(message: TypeOfData): void {

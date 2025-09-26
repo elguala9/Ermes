@@ -19,6 +19,8 @@ export function chunkArrayBuffer(idHanlder, buffer, ref_id, maxByte) {
         chunks.push({
             data: chunkBuffer,
             index: i,
+            // TO DO: need to find a smarter method in order to avoid this field
+            // because it takes too much space
             roof: numChunks,
             id: idHanlder.getNewId(),
             ref_id
@@ -38,4 +40,28 @@ export function getMessageType(message) {
     // Otherwise, assume it's a base message.
     return MessageValue.base;
 }
-//# sourceMappingURL=Utility.js.map
+/**
+ * Creates a MessageDataErmes object from raw data and a new ID.
+ *
+ * @param rawData - The data to be included in the message (Uint8Array).
+ * @param newId - The ID to be assigned to the message.
+ * @returns A MessageDataErmes object with the provided data and ID.
+ */
+export function createMessageDataErmes(rawData, newId) {
+    return {
+        data: rawData,
+        id: newId
+    };
+}
+/**
+ * Creates a MessageDataErmes object from raw data and generates a new ID using the provided ID handler.
+ *
+ * @param idHandler - The ID handler service to generate a new ID.
+ * @param rawData - The data to be included in the message (Uint8Array).
+ * @returns A MessageDataErmes object with the provided data and a newly generated ID.
+ */
+export function createMessageDataErmesWithNewId(idHandler, rawData) {
+    const newId = idHandler.getNewId();
+    return createMessageDataErmes(rawData, newId);
+}
+//# sourceMappingURL=utility.js.map

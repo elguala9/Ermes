@@ -42,7 +42,7 @@ export const examplesMessageData = Array.from({ length: 10 }, (_, i) => ({
 // 8) ChunkMessage    (IDs 71–80)
 export const examplesChunkMessage = Array.from({ length: 9 }, (_, i) => ({
     id: 72 + i,
-    ref_id: 71,
+    ref_id: "chunk-ref-71",
     data: new Uint8Array([i, i + 1]),
     index: i,
     roof: i + 2

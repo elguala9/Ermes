@@ -2,6 +2,7 @@ import type {
   ServiceReason,
   IntegrityCheckType,
   IdType,
+  IdChunkType,
   ChunkInfo,
   MessageWithId,
   MessageData,
@@ -65,7 +66,7 @@ export const examplesMessageData: MessageData[] = Array.from({ length: 10 }, (_,
 // 8) ChunkMessage    (IDs 71–80)
 export const examplesChunkMessage: ChunkMessage[] = Array.from({ length: 9 }, (_, i) => ({
   id: 72 + i,
-  ref_id: 71,
+  ref_id: "chunk-ref-71",
   data: new Uint8Array([i, i + 1]),
   index: i,
   roof: i + 2
