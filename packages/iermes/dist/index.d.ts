@@ -9,6 +9,7 @@ export * from "./signaling-interface/IErmesSignalingServer.js";
 export * from "./standard-interface/IErmes.js";
 export * from "./standard-interface/IErmesFactory.js";
 export * from "./standard-interface/IErmesIce.js";
+export * from "./standard-interface/IErmesMessageControl.js";
 export * from "./standard-interface/IErmesWebRtc.js";
 export * from "./standard-interface/IIdHandler.js";
 export * from "./standard-interface/IIdHandlerFactory.js";
