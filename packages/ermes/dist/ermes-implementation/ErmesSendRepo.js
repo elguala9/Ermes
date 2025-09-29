@@ -11,6 +11,18 @@ export class ErmesSendRepo {
         this._maxByte = maxByte + MAX_HEADER;
         this._idHandler = idHandler;
     }
+    /**
+     * Set callback for when a message is being sent
+     */
+    setCallbackOnDataSending(callback) {
+        this.callbackOnMessageSending = callback;
+    }
+    /**
+     * Set callback for when a message has been sent
+     */
+    setCallbackOnDataSended(callback) {
+        this.callbackOnMessageSended = callback;
+    }
     // lock the call of certain methods
     // metodo esposto all'utente per mandare il messaggio
     send(rawData) {
@@ -19,11 +31,19 @@ export class ErmesSendRepo {
             let uuid = v4();
             let chunkedId = uuid.toString();
             let rawDataArray = chunkArrayBuffer(this._idHandler, rawData, chunkedId, this._maxByte - 300);
+            // Call the sending callback for each chunk if set
+            if (this.callbackOnMessageSending) {
+                rawDataArray.forEach(chunk => this.callbackOnMessageSending(chunk));
+            }
             this.sendMessageType(rawDataArray);
             return;
         }
         let newId = this._idHandler.getNewId();
         let message = createMessageDataErmes(rawData, newId);
+        // Call the sending callback if set
+        if (this.callbackOnMessageSending) {
+            this.callbackOnMessageSending(message);
+        }
         this.sendMessageType([message]);
     }
     // qui trasformo i messaggi in root message, passando per l'internal messagge
@@ -35,11 +55,15 @@ export class ErmesSendRepo {
             };
             let rawData = objectToUint8Array(internalMessage);
             let rawDataArrayBuffer = uint8ArrayToArrayBuffer(rawData);
+            if (this.callbackOnMessageSending !== undefined)
+                this.callbackOnMessageSending(element);
             let messageRoot = {
                 messageSerialized: rawData,
                 integrityCheckValue: calculateHashSync(rawDataArrayBuffer)
             };
             this.sendRootMessage(messageRoot);
+            if (this.callbackOnMessageSended !== undefined)
+                this.callbackOnMessageSended(element);
         });
     }
     // invio del messaggio all'altro peer, passando da una serializzazione
@@ -50,6 +74,9 @@ export class ErmesSendRepo {
     // effettiva chiamata alla repo. Ci va una logica che in caso di errore memorizzi il messaggio
     sendWithRepo(dataRaw) {
         this._repository.send(dataRaw);
+        // For now, we assume the message was sent successfully
+        // In a real implementation, you might want to wait for confirmation
+        // TODO: Implement proper message tracking and confirmation
     }
 }
 //# sourceMappingURL=ErmesSendRepo.js.map

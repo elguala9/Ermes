@@ -1,4 +1,4 @@
-import { CallbackOnDataArrived, CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, ChunkInfo, IdType, MessageType, ServiceMessage, TypeOfData } from "ermes-types";
+import { CallbackOnDataArrived, CallbackOnDataSended, CallbackOnDataSending, CallbackOnMessageService, ChunkInfo, IdType, MessageType, ServiceMessage, TypeOfData } from "ermes-types";
 
 
 import { ErmesServiceInput, IErmesStorageAndCaching } from "iermes/index";
@@ -16,6 +16,10 @@ export class ErmesService implements IErmesService{
     protected ermesSendRepo: ErmesSendRepo;
     protected ermesReadRepo: ErmesReadRepo;
     protected ermesStorageAndCaching?: IErmesStorageAndCaching<MessageType>;
+    
+    // Local callback variables
+    private _callbackOnDataSending?: CallbackOnDataSending;
+    private _callbackOnDataSended?: CallbackOnDataSended;
 
     constructor({
             maxBuffer,
@@ -34,18 +38,17 @@ export class ErmesService implements IErmesService{
             callbackOnDataArrived,
             maxBufferSize: maxBuffer ?? 100
         })
-
+        if(this.ermesStorageAndCaching !== undefined)
+            this.ermesSendRepo.setCallbackOnDataSending(this.ermesStorageAndCaching.store);
         this.ermesStorageAndCaching = ermesStorageAndCaching;
     }
 
-    onMessageSending(callback: CallbackOnMessageSending): void {
-        throw new Error("Method not implemented.");
+    onDataSending(callback: CallbackOnDataSending): void {
+        this._callbackOnDataSending = callback;
     }
-    onMessageSended(callback: CallbackOnMessageSended): void {
-        throw new Error("Method not implemented.");
+    onDataSended(callback: CallbackOnDataSended): void {
+        this._callbackOnDataSended = callback;
     }
-
-    
 
     setRepository(repository: IErmesRepository): void {
         this._repository = repository;
@@ -71,7 +74,7 @@ export class ErmesService implements IErmesService{
     private async sendMissingMessages(arrayId: IdType[]){
         let items: MessageType[] = [];
         for(const id of arrayId){
-            // IF NOT STORAGE ENABLED I SEND A MESSAGE TO INFORM THE PEER
+            // if not storage is enabled i send a message to inform the peer
             if(this.ermesStorageAndCaching === undefined){
                 items.push(createMessageDataErmes(NO_STORAGE_ENABLE, id));
                 continue;
@@ -93,7 +96,17 @@ export class ErmesService implements IErmesService{
 
     // metodo esposto all'utente per mandare il messaggio
     send(message: TypeOfData): void {
+        // Call sending callback before sending
+        if (this._callbackOnDataSending) {
+            this._callbackOnDataSending(message);
+        }
+        
         this.ermesSendRepo.send(message);
+        
+        // Call sent callback after sending
+        if (this._callbackOnDataSended) {
+            this._callbackOnDataSended(message);
+        }
     }    
 
     close(){

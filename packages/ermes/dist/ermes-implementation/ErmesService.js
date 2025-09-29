@@ -13,13 +13,15 @@ export class ErmesService {
             callbackOnDataArrived,
             maxBufferSize: maxBuffer ?? 100
         });
+        if (this.ermesStorageAndCaching !== undefined)
+            this.ermesSendRepo.setCallbackOnDataSending(this.ermesStorageAndCaching.store);
         this.ermesStorageAndCaching = ermesStorageAndCaching;
     }
-    onMessageSending(callback) {
-        throw new Error("Method not implemented.");
+    onDataSending(callback) {
+        this._callbackOnDataSending = callback;
     }
-    onMessageSended(callback) {
-        throw new Error("Method not implemented.");
+    onDataSended(callback) {
+        this._callbackOnDataSended = callback;
     }
     setRepository(repository) {
         this._repository = repository;
@@ -41,7 +43,7 @@ export class ErmesService {
     async sendMissingMessages(arrayId) {
         let items = [];
         for (const id of arrayId) {
-            // IF NOT STORAGE ENABLED I SEND A MESSAGE TO INFORM THE PEER
+            // if not storage is enabled i send a message to inform the peer
             if (this.ermesStorageAndCaching === undefined) {
                 items.push(createMessageDataErmes(NO_STORAGE_ENABLE, id));
                 continue;
@@ -61,7 +63,15 @@ export class ErmesService {
     }
     // metodo esposto all'utente per mandare il messaggio
     send(message) {
+        // Call sending callback before sending
+        if (this._callbackOnDataSending) {
+            this._callbackOnDataSending(message);
+        }
         this.ermesSendRepo.send(message);
+        // Call sent callback after sending
+        if (this._callbackOnDataSended) {
+            this._callbackOnDataSended(message);
+        }
     }
     close() {
         this._repository.destroy(false);

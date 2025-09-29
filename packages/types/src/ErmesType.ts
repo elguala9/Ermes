@@ -101,10 +101,14 @@ export type CallbackOnMessageData = (serviceMessage: MessageDataErmes) => void
 
 
 export type CallbackOnMessage = (message: MessageType) => void
+export type CallbackOnData = (message: TypeOfData) => void
+
 export type CallbackOnDataArrived = (data: TypeOfDataExternal) => void
 export type CallbackOnDataArrivedFrom = (data: TypeOfDataExternal, peer: IdPeer) => void;
 export type CallbackOnMessageSending = CallbackOnMessage
 export type CallbackOnMessageSended = CallbackOnMessage
+export type CallbackOnDataSending = CallbackOnData
+export type CallbackOnDataSended = CallbackOnData
 export type CallbackOnMessageReceived = {
     callbackonMessage: CallbackOnMessage;
     callbackOnData: CallbackOnDataArrived;

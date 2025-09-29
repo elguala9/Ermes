@@ -126,7 +126,7 @@
   },
   "dependencies": {
     "ermes-types": "1.0.0",
-    "workdb": "^1.0.1"
+    "workdb": "^1.1.0"
   },
   "devDependencies": {}
 }

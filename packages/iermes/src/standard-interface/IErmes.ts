@@ -1,15 +1,4 @@
-import {TypeOfDataExternal, CallbackOnDataArrived, CallbackOnDataRepository, CallbackOnMessageSended, CallbackOnMessageSending, CallbackOnMessageService, SerializableDataType, TypeOfData, CallbackOnMessageReceived } from "ermes-types";
-
-
-
-export interface CallbackFunction {
-    // false -> problems
-    (): boolean;
-}
-
-
-
-
+import {TypeOfDataExternal, CallbackOnDataArrived, CallbackOnDataRepository, CallbackOnDataSended, CallbackOnDataSending, CallbackOnMessageService, SerializableDataType, TypeOfData, CallbackOnMessageReceived } from "ermes-types";
 
      
 /**
@@ -83,12 +72,12 @@ export interface IErmesService extends IErmesPrivate  {
      * the message that the service is sending
      * @param callback the callback called
      */
-    onMessageSending(callback: CallbackOnMessageSending): void
+    onDataSending(callback: CallbackOnDataSending): void
     /**
      * the message that the service sended (not confirmed if arrived)
      * @param callback the callback called
      */
-    onMessageSended(callback: CallbackOnMessageSended): void
+    onDataSended(callback: CallbackOnDataSended): void
     /**
      * send data
      * @param data the data that will be send over webrtc

@@ -1,5 +1,5 @@
 
-import { ChunkMessage, IdChunkType, IdType, InternalMessage, MAX_HEADER, MessageDataErmes, MessageRoot, MessageType, SerializableDataType, TypeOfData } from "ermes-types";
+import { CallbackOnDataSended, CallbackOnDataSending, CallbackOnMessageSended, CallbackOnMessageSending, ChunkMessage, IdChunkType, IdType, InternalMessage, MAX_HEADER, MessageDataErmes, MessageRoot, MessageType, SerializableDataType, TypeOfData } from "ermes-types";
 import { IErmesRepository, IIdHandlerService } from "iermes/index";
 import { calculateHashSync } from "serialization-utility/src/Hash";
 import { objectToUint8Array, uint8ArrayToArrayBuffer } from "serialization-utility/src/Serialization";
@@ -19,6 +19,8 @@ export class ErmesSendRepo {
     private _repository: NewType
     private _maxByte: number;
     private _idHandler: IIdHandlerService
+    private callbackOnMessageSending?: CallbackOnMessageSending;
+    private callbackOnMessageSended?: CallbackOnMessageSended;
 
     constructor(repository: IErmesRepository, idHandler: IIdHandlerService, maxByte: number = 1024){
         if(maxByte >= 1200)
@@ -26,6 +28,20 @@ export class ErmesSendRepo {
         this._repository = repository;
         this._maxByte = maxByte + MAX_HEADER;
         this._idHandler = idHandler;
+    }
+
+    /**
+     * Set callback for when a message is being sent
+     */
+    public setCallbackOnDataSending(callback: CallbackOnMessageSending): void {
+        this.callbackOnMessageSending = callback;
+    }
+
+    /**
+     * Set callback for when a message has been sent
+     */
+    public setCallbackOnDataSended(callback: CallbackOnMessageSended): void {
+        this.callbackOnMessageSended = callback;
     }
 
     // lock the call of certain methods
@@ -38,12 +54,24 @@ export class ErmesSendRepo {
             let uuid = v4();
             let chunkedId: IdChunkType = uuid.toString();
             let rawDataArray: ChunkMessage[] = chunkArrayBuffer(this._idHandler, rawData, chunkedId, this._maxByte - 300);
+            
+            // Call the sending callback for each chunk if set
+            if (this.callbackOnMessageSending) {
+                rawDataArray.forEach(chunk => this.callbackOnMessageSending!(chunk));
+            }
+            
             this.sendMessageType(rawDataArray);
             return; 
         }
         
         let newId: IdType = this._idHandler.getNewId();
         let message: MessageDataErmes = createMessageDataErmes(rawData, newId);
+        
+        // Call the sending callback if set
+        if (this.callbackOnMessageSending) {
+            this.callbackOnMessageSending(message);
+        }
+        
         this.sendMessageType([message]);
     }
 
@@ -56,11 +84,15 @@ export class ErmesSendRepo {
             }
             let rawData: TypeOfData = objectToUint8Array(internalMessage);
             let rawDataArrayBuffer = uint8ArrayToArrayBuffer(rawData);
+            if(this.callbackOnMessageSending!== undefined)
+                this.callbackOnMessageSending(element);
             let messageRoot: MessageRootErmes = {
                 messageSerialized: rawData,
                 integrityCheckValue: calculateHashSync(rawDataArrayBuffer)
             };
             this.sendRootMessage(messageRoot);
+            if(this.callbackOnMessageSended!== undefined)
+                this.callbackOnMessageSended(element);
         }); 
     }
 
@@ -73,6 +105,10 @@ export class ErmesSendRepo {
     // effettiva chiamata alla repo. Ci va una logica che in caso di errore memorizzi il messaggio
     private sendWithRepo(dataRaw: SerializableDataType): void {
         this._repository.send(dataRaw);
+        
+        // For now, we assume the message was sent successfully
+        // In a real implementation, you might want to wait for confirmation
+        // TODO: Implement proper message tracking and confirmation
     }    
 }
 
