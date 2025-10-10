@@ -12,7 +12,7 @@ export type ErmesMessageControlServiceOpts = {
 export class ErmesMessageControlService implements IErmesMessageControlService {
     private readonly repository: IErmesMessageControlRepository;
     private externalCallback?: CallbackIdsToRequest; // Callback fornita dall'utente
-    private opts: ErmesMessageControlServiceOpts;
+    private readonly opts: ErmesMessageControlServiceOpts;
     private idsCountChange: number = 0; // how many time the set of the unarrived ids has changed
     
     constructor(repository: IErmesMessageControlRepository, opts: ErmesMessageControlServiceOpts) {
@@ -39,7 +39,7 @@ export class ErmesMessageControlService implements IErmesMessageControlService {
     /**
      * Set callback for additional ID request logic - stores the external callback
      */
-    async setCallbackIdsToRequest(callback: CallbackIdsToRequest): Promise<void> {
+    async setCallbackIdsToRequest(callback: CallbackIdsToRequest) {
         this.externalCallback = callback;
     }
 

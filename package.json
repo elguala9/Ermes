@@ -38,7 +38,9 @@
     "test:ermes-repository": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-repository",
     "test:ermes-service": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-service",
     "test:ermes-book": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-book",
-    "test:all": "npm run test:caching && npm run test:storage && npm run test:store-caching && npm run test:idhandler && npm run test:ermes && npm run test:ermes-sc && npm run test:ermes-book",
+    "test:ermes-message-control": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-message-control",
+    "test:ermes-message-control-persistence": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-message-control-persistence",
+    "test:all": "npm run test:caching && npm run test:storage && npm run test:store-caching && npm run test:idhandler && npm run test:ermes && npm run test:ermes-sc && npm run test:ermes-book && npm run test:ermes-message-control",
     "network": "cd packages/signaling-contract && npm run network",
     "postbuild": "npm install"
   },

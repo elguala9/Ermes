@@ -1,4 +1,4 @@
-import {TypeOfDataExternal, CallbackOnDataArrived, CallbackOnDataRepository, CallbackOnDataSended, CallbackOnDataSending, CallbackOnMessageService, SerializableDataType, TypeOfData, CallbackOnMessageReceived, IdType } from "ermes-types";
+import { IdType } from "ermes-types";
 
 
 export type CallbackIdsToRequest = (ids: IdType[]) => Promise<void>;
@@ -20,7 +20,7 @@ export interface IErmesMessageControlPrivate {
     idsToRequest(): Promise<IdType[]>
 
 
-    setCallbackIdsToRequest(callback: CallbackIdsToRequest): Promise<void>
+    setCallbackIdsToRequest(callback: CallbackIdsToRequest): void
 
     clear(): Promise<void>
 

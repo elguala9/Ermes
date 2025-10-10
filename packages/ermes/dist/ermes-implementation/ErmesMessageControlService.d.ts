@@ -10,7 +10,7 @@ export type ErmesMessageControlServiceOpts = {
 export declare class ErmesMessageControlService implements IErmesMessageControlService {
     private readonly repository;
     private externalCallback?;
-    private opts;
+    private readonly opts;
     private idsCountChange;
     constructor(repository: IErmesMessageControlRepository, opts: ErmesMessageControlServiceOpts);
     /**

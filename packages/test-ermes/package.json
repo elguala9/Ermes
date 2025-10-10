@@ -24,7 +24,8 @@
     "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts",
     "build": "tsc -b",
     "test:book": "mocha --require ts-node/register 'src/book/ErmesBook.spec.ts' --timeout 10000",
-    "test:book-repo": "mocha --require ts-node/register 'src/signaling-test/ErmesBookRepository.spec.ts' --timeout 10000"
+    "test:book-repo": "mocha --require ts-node/register 'src/signaling-test/ErmesBookRepository.spec.ts' --timeout 10000",
+    "test:message-control-persistence": "ts-mocha --project tsconfig.json ./src/standard-test/ErmesMessageControlPersistence.spec.ts --timeout 30000"
   },
   "bugs": {
     "url": "https://github.com/elguala9/Ermes/issues"

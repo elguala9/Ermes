@@ -14,7 +14,7 @@ export interface IErmesMessageControlPrivate {
      * @returns the ids of the messages that are missing
      */
     idsToRequest(): Promise<IdType[]>;
-    setCallbackIdsToRequest(callback: CallbackIdsToRequest): Promise<void>;
+    setCallbackIdsToRequest(callback: CallbackIdsToRequest): void;
     clear(): Promise<void>;
     destroy(): Promise<void>;
 }
