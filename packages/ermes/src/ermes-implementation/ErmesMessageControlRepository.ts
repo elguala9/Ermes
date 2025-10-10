@@ -35,6 +35,15 @@ export class ErmesMessageControlRepository implements IErmesMessageControlReposi
         // if i do not have last id i take it
         if(this.lastId === null) {
             this.lastId = id;
+            // If first ID is not 1, add missing IDs 1 to id-1
+            if (id > 1) {
+                for (let i = 1; i < id; i++) {
+                    this.missingIds.add(i);
+                }
+                if (this.callbackIdsToRequest !== undefined) {
+                    await this.callbackIdsToRequest(Array.from(this.missingIds));
+                }
+            }
             return;
         }
         // correct order, so ok
@@ -44,7 +53,9 @@ export class ErmesMessageControlRepository implements IErmesMessageControlReposi
         }
         // i have a gap
         if(id > this.lastId + 1) {
-            this.missingIds.add(id);
+            for (let i = this.lastId + 1; i < id; i++) {
+                this.missingIds.add(i);
+            }
             this.lastId = id;
             if (this.callbackIdsToRequest !== undefined) {
                 await this.callbackIdsToRequest(Array.from(this.missingIds));
@@ -82,7 +93,9 @@ export class ErmesMessageControlRepository implements IErmesMessageControlReposi
     }
 
     async saveState(): Promise<void> {
-        this.db.createOrUpdate({
+        console.log('SaveState: Saving missing IDs:', Array.from(this.missingIds), 'lastId:', this.lastId, 'to collection:', this.collection);
+        
+        await this.db.createOrUpdate({
             id: 'message_control_state',
             collection: this.collection,
             item: {
@@ -90,27 +103,34 @@ export class ErmesMessageControlRepository implements IErmesMessageControlReposi
                 timestamp: Date.now(),
             },
         });
-        this.db.createOrUpdate({
+        await this.db.createOrUpdate({
             id: 'message_control_state_last_id',
             collection: this.collection,
             item: {
                 last_id: this.lastId
             },
         });
+        
+        console.log('SaveState: State saved successfully');
     }
 
     public async loadState(): Promise<void> {
+        console.log('LoadState: Loading from collection:', this.collection);
+        
         // Load missing IDs
         const missingIdsData = await this.db.retrieve({
             id: 'message_control_state',
             collection: this.collection
         });
         
+        console.log('LoadState: Retrieved missing IDs data:', missingIdsData);
+        
         if (missingIdsData && missingIdsData.item) {
             const data = missingIdsData.item as MessageControlData;
             if (data.missing_ids && Array.isArray(data.missing_ids)) {
                 // Convert array back to Set
                 this.missingIds = new Set(data.missing_ids);
+                console.log('LoadState: Loaded missing IDs:', Array.from(this.missingIds));
             }
         }
         
@@ -120,9 +140,12 @@ export class ErmesMessageControlRepository implements IErmesMessageControlReposi
             collection: this.collection
         });
         
+        console.log('LoadState: Retrieved last ID data:', lastIdData);
+        
         if (lastIdData && lastIdData.item) {
             const data = lastIdData.item as { last_id: IdType | null };
             this.lastId = data.last_id;
+            console.log('LoadState: Loaded last ID:', this.lastId);
         }
     }
 }

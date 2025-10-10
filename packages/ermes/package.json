@@ -80,6 +80,26 @@
       "require": "./dist/ermes-implementation/ErmesService.js",
       "types": "./dist/ermes-implementation/ErmesService.d.ts"
     },
+    "./ermes-signaling/ErmesBookRepository": {
+      "import": "./dist/ermes-signaling/ErmesBookRepository.js",
+      "require": "./dist/ermes-signaling/ErmesBookRepository.js",
+      "types": "./dist/ermes-signaling/ErmesBookRepository.d.ts"
+    },
+    "./ermes-signaling/ErmesBookService": {
+      "import": "./dist/ermes-signaling/ErmesBookService.js",
+      "require": "./dist/ermes-signaling/ErmesBookService.js",
+      "types": "./dist/ermes-signaling/ErmesBookService.d.ts"
+    },
+    "./ermes-signaling/ErmesSignalingFactory": {
+      "import": "./dist/ermes-signaling/ErmesSignalingFactory.js",
+      "require": "./dist/ermes-signaling/ErmesSignalingFactory.js",
+      "types": "./dist/ermes-signaling/ErmesSignalingFactory.d.ts"
+    },
+    "./ermes-signaling/ErmesSignalingService": {
+      "import": "./dist/ermes-signaling/ErmesSignalingService.js",
+      "require": "./dist/ermes-signaling/ErmesSignalingService.js",
+      "types": "./dist/ermes-signaling/ErmesSignalingService.d.ts"
+    },
     "./ermes-utility/ChunkHandler": {
       "import": "./dist/ermes-utility/ChunkHandler.js",
       "require": "./dist/ermes-utility/ChunkHandler.js",
@@ -105,26 +125,6 @@
       "require": "./dist/ermes-utility/Serialization.js",
       "types": "./dist/ermes-utility/Serialization.d.ts"
     },
-    "./ermes-signaling/ErmesBookRepository": {
-      "import": "./dist/ermes-signaling/ErmesBookRepository.js",
-      "require": "./dist/ermes-signaling/ErmesBookRepository.js",
-      "types": "./dist/ermes-signaling/ErmesBookRepository.d.ts"
-    },
-    "./ermes-signaling/ErmesBookService": {
-      "import": "./dist/ermes-signaling/ErmesBookService.js",
-      "require": "./dist/ermes-signaling/ErmesBookService.js",
-      "types": "./dist/ermes-signaling/ErmesBookService.d.ts"
-    },
-    "./ermes-signaling/ErmesSignalingFactory": {
-      "import": "./dist/ermes-signaling/ErmesSignalingFactory.js",
-      "require": "./dist/ermes-signaling/ErmesSignalingFactory.js",
-      "types": "./dist/ermes-signaling/ErmesSignalingFactory.d.ts"
-    },
-    "./ermes-signaling/ErmesSignalingService": {
-      "import": "./dist/ermes-signaling/ErmesSignalingService.js",
-      "require": "./dist/ermes-signaling/ErmesSignalingService.js",
-      "types": "./dist/ermes-signaling/ErmesSignalingService.d.ts"
-    },
     "./types/wrtc": {
       "import": "./dist/types/wrtc.js",
       "require": "./dist/types/wrtc.js",
@@ -139,26 +139,6 @@
       "import": "./dist/ermes-implementation/factories/ErmesServiceFactory.js",
       "require": "./dist/ermes-implementation/factories/ErmesServiceFactory.js",
       "types": "./dist/ermes-implementation/factories/ErmesServiceFactory.d.ts"
-    },
-    "./ermes-implementation/WebRtc/ErmesWebRtcFactory": {
-      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
-      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
-      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.d.ts"
-    },
-    "./ermes-implementation/WebRtc/ErmesWebRtcRepository": {
-      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.js",
-      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.js",
-      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.d.ts"
-    },
-    "./ermes-implementation/WebRtc/ErmesWebRtcService": {
-      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.js",
-      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.js",
-      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.d.ts"
-    },
-    "./ermes-implementation/WebRtc/NormalizationUtility": {
-      "import": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
-      "require": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
-      "types": "./dist/ermes-implementation/WebRtc/NormalizationUtility.d.ts"
     },
     "./ermes-implementation/IceProtocol/ErmesIceRepository": {
       "import": "./dist/ermes-implementation/IceProtocol/ErmesIceRepository.js",
@@ -205,13 +185,33 @@
       "require": "./dist/ermes-implementation/IceProtocol/SignalManagerOrc.js",
       "types": "./dist/ermes-implementation/IceProtocol/SignalManagerOrc.d.ts"
     },
-    "./types/types/wrtc": {
-      "types": "./dist/types/types/wrtc.d.ts"
+    "./ermes-implementation/WebRtc/ErmesWebRtcFactory": {
+      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
+      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.js",
+      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcFactory.d.ts"
+    },
+    "./ermes-implementation/WebRtc/ErmesWebRtcRepository": {
+      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.js",
+      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.js",
+      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcRepository.d.ts"
+    },
+    "./ermes-implementation/WebRtc/ErmesWebRtcService": {
+      "import": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.js",
+      "require": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.js",
+      "types": "./dist/ermes-implementation/WebRtc/ErmesWebRtcService.d.ts"
+    },
+    "./ermes-implementation/WebRtc/NormalizationUtility": {
+      "import": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
+      "require": "./dist/ermes-implementation/WebRtc/NormalizationUtility.js",
+      "types": "./dist/ermes-implementation/WebRtc/NormalizationUtility.d.ts"
     },
     "./ermes-signaling/factories/ErmesBookFactories": {
       "import": "./dist/ermes-signaling/factories/ErmesBookFactories.js",
       "require": "./dist/ermes-signaling/factories/ErmesBookFactories.js",
       "types": "./dist/ermes-signaling/factories/ErmesBookFactories.d.ts"
+    },
+    "./types/types/wrtc": {
+      "types": "./dist/types/types/wrtc.d.ts"
     },
     "./ermes-implementation/IceProtocol/Factories/PacketManagerFactory": {
       "import": "./dist/ermes-implementation/IceProtocol/Factories/PacketManagerFactory.js",
