@@ -30,6 +30,7 @@
     "test:store-caching": "npm run prepareTest && cd ./packages/test-root && npm run test:store-caching",
     "test:idhandler": "npm run prepareTest && cd ./packages/test-root && npm run test:idhandler",
     "test:ermes": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes",
+    "test:ermes-data-retransmission": "npm run prepareTest && cd ./packages/test-root && npm run test:ermes-data-retransmission",
     "test:ermes-signaling-repo": "npm run prepareTest && npm run deploySC && cd ./packages/test-root && npm run test:ermes-signaling-repo",
     "test:ermes-sc": "npm run prepareTest && npm run deploySC && cd ./packages/test-root && npm run test:ermes-sc",
     "test:ermes-signaling-server": "npm run prepareTest && npm run deploySC && cd ./packages/test-root && npm run test:ermes-signaling-server",

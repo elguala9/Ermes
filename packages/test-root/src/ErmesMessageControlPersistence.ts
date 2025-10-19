@@ -1,6 +1,6 @@
 import { WorkDBFactory } from "ermes-storage/index";
 import { testErmesMessageControlPersistence } from "test-ermes";
-import { createMessageControlRepository, createMessageControlRepositoryWithState } from "ermes/index";
+import { createMessageControlRepository } from "ermes/index";
 
 describe('ErmesMessageControlPersistence Integration Tests', function () {
   console.log('Running message control persistence tests...');

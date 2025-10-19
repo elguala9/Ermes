@@ -20,6 +20,7 @@
     "test:store-caching": "npm run clean_db && ts-mocha --project tsconfig.json ./src/ErmesStoreCaching.ts",
     "test:idhandler": "ts-mocha --project tsconfig.json ./src/ErmesIdHandler.ts",
     "test:ermes": "ts-mocha --project tsconfig.json ./src/ErmesService.ts",
+    "test:ermes-data-retransmission": "npm run clean_db && ts-mocha --project tsconfig.json ./src/ErmesServiceDataRetransmission.ts --timeout 30000",
     "test:ermes-signaling-repo": "ts-mocha --project tsconfig.json ./src/ErmesSignalingRepo.ts --timeout 35000",
     "test:ermes-signaling-server": "ts-mocha --project tsconfig.json ./src/ErmesSignalingServer.ts --timeout 35000",
     "test:ermes-serialization": "ts-mocha --project tsconfig.json ./src/ErmesSerialization.ts  --timeout 15000",
@@ -34,7 +35,7 @@
     "test:ermes-sc-multi-offer-callback": "ts-mocha --project tsconfig.json ./src/ErmesSmartContractMultiOfferCallback.ts --timeout 15000",
     "test:ermes-book": "npm run clean_db && ts-mocha --project tsconfig.json ./src/ErmesBook.ts --timeout 10000",
     "test:ermes-message-control": "npm run clean_db && ts-mocha --project tsconfig.json ./src/ErmesMessageControlService.ts --timeout 30000",
-    "test:ermes-message-control-persistence": "ts-mocha --project tsconfig.json ./src/ErmesMessageControlPersistence.ts --timeout 30000"
+    "test:ermes-message-control-persistence": "npm run clean_db && ts-mocha --project tsconfig.json ./src/ErmesMessageControlPersistence.ts --timeout 30000"
   },
   "bugs": {
     "url": "https://github.com/elguala9/Ermes/issues"

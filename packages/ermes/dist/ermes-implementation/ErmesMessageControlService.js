@@ -13,8 +13,8 @@ export class ErmesMessageControlService {
     /**
      * Record that an ID has arrived - delegates to repository
      */
-    async idArrived(id) {
-        await this.repository.idArrived(id);
+    idArrived(id) {
+        this.repository.idArrived(id);
     }
     /**
      * Get the list of missing IDs that should be requested - delegates to repository
@@ -23,9 +23,15 @@ export class ErmesMessageControlService {
         return await this.repository.idsToRequest();
     }
     /**
+     * Get the count of missing IDs - delegates to repository
+     */
+    numberOfMissingIds() {
+        return this.repository.numberOfMissingIds();
+    }
+    /**
      * Set callback for additional ID request logic - stores the external callback
      */
-    async setCallbackIdsToRequest(callback) {
+    setCallbackIdsToRequest(callback) {
         this.externalCallback = callback;
     }
     /**
@@ -49,13 +55,6 @@ export class ErmesMessageControlService {
             await this.repository.saveState();
             this.idsCountChange = 0;
         }
-    }
-    /**
-     * Set up the default callback for ID requests (deprecated - now automatic)
-     */
-    async setupDefaultCallback() {
-        // Non più necessario - la callback interna è già impostata nel costruttore
-        console.warn('setupDefaultCallback is deprecated - internal callback is set automatically');
     }
     /**
      * Clear all stored data - delegates to repository

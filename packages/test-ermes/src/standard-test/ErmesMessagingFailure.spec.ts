@@ -1,7 +1,5 @@
 import { expect } from "chai";
-import type { IdType, MessageData } from "ermes-types";
-import { IErmesService, IIdHandlerService } from "iermes/index";
-import { Console } from "node:console";
+import { IErmesService } from "iermes/index";
 
 /**
  * Interface for controlling message failures

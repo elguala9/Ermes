@@ -12,10 +12,14 @@ export declare class ErmesMessageControlRepository implements IErmesMessageContr
     private missingIds;
     private lastId;
     constructor(db: ClientWorkDB, loadState: boolean);
-    idArrived(id: IdType): Promise<void>;
+    idArrived(id: IdType): void;
+    private handleInitialId;
+    private handleSequenceGap;
+    private notifyMissingIds;
     private cleanIdArrived;
     idsToRequest(): Promise<IdType[]>;
-    setCallbackIdsToRequest(callback: CallbackIdsToRequest): Promise<void>;
+    numberOfMissingIds(): number;
+    setCallbackIdsToRequest(callback: CallbackIdsToRequest): void;
     clear(): Promise<void>;
     destroy(): Promise<void>;
     saveState(): Promise<void>;

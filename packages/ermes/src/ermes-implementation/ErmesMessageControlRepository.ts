@@ -31,19 +31,10 @@ export class ErmesMessageControlRepository implements IErmesMessageControlReposi
         // loadState() is now public and should be called manually after construction
     }
 
-    async idArrived(id: IdType): Promise<void> {
+    idArrived(id: IdType) {
         // if i do not have last id i take it
         if(this.lastId === null) {
-            this.lastId = id;
-            // If first ID is not 1, add missing IDs 1 to id-1
-            if (id > 1) {
-                for (let i = 1; i < id; i++) {
-                    this.missingIds.add(i);
-                }
-                if (this.callbackIdsToRequest !== undefined) {
-                    await this.callbackIdsToRequest(Array.from(this.missingIds));
-                }
-            }
+            this.handleInitialId(id);
             return;
         }
         // correct order, so ok
@@ -53,21 +44,44 @@ export class ErmesMessageControlRepository implements IErmesMessageControlReposi
         }
         // i have a gap
         if(id > this.lastId + 1) {
-            for (let i = this.lastId + 1; i < id; i++) {
-                this.missingIds.add(i);
-            }
-            this.lastId = id;
-            if (this.callbackIdsToRequest !== undefined) {
-                await this.callbackIdsToRequest(Array.from(this.missingIds));
-            }
+            this.handleSequenceGap(id);
             return;
         }
         // out of order id, should never happen
         if(id < this.lastId) {
             this.cleanIdArrived(id);
-            return; 
         }
+    }
 
+    private handleInitialId(id: IdType): void {
+        this.lastId = id;
+        // If first ID is not 1, add missing IDs 1 to id-1
+        if (id > 1) {
+            for (let i = 1; i < id; i++) {
+                this.missingIds.add(i);
+            }
+            this.notifyMissingIds();
+        }
+    }
+
+    private handleSequenceGap(id: IdType): void {
+        if (this.lastId === null) {
+            // This should never happen based on our logic, but handle it anyway
+            this.handleInitialId(id);
+            return;
+        }
+        
+        for (let i = this.lastId + 1; i < id; i++) {
+            this.missingIds.add(i);
+        }
+        this.lastId = id;
+        this.notifyMissingIds();
+    }
+
+    private notifyMissingIds(): void {
+        if (this.callbackIdsToRequest !== undefined) {
+            this.callbackIdsToRequest(Array.from(this.missingIds));
+        }
     }
 
     private cleanIdArrived(id: IdType): void {
@@ -80,7 +94,11 @@ export class ErmesMessageControlRepository implements IErmesMessageControlReposi
         return Array.from(this.missingIds).sort((a, b) => a - b);
     }
 
-    async setCallbackIdsToRequest(callback: CallbackIdsToRequest): Promise<void> {
+    numberOfMissingIds(): number {
+        return this.missingIds.size;
+    }
+
+    setCallbackIdsToRequest(callback: CallbackIdsToRequest): void {
         this.callbackIdsToRequest = callback;
     }
 

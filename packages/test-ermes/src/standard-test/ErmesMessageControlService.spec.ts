@@ -75,7 +75,7 @@ export function testErmesMessageControlService(
       let callbackCalled = false;
       let receivedIds: IdType[] = [];
 
-      await service.setCallbackIdsToRequest(async (ids: IdType[]) => {
+      service.setCallbackIdsToRequest(async (ids: IdType[]) => {
         callbackCalled = true;
         receivedIds = ids;
       });

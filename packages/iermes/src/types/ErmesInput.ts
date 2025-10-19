@@ -1,8 +1,9 @@
-import { CallbackOnDataArrived, CallbackOnMessageReceived, MessageInternalErmes, MessageType, Signal } from "ermes-types"
+import { CallbackOnDataArrived, MessageType, Signal } from "ermes-types"
 import { IErmesRepository } from "../standard-interface/IErmes.js"
 import { IErmesWebRtcRepository } from "../standard-interface/IErmesWebRtc.js"
 import { IIdHandlerService } from "../standard-interface/IIdHandler.js"
 import { IErmesStorageAndCaching } from "../storage-interface/IErmesStorageAndCaching.js"
+import { IErmesMessageControlService } from "src/standard-interface/IErmesMessageControl.js"
 
 
 
@@ -16,6 +17,9 @@ export type ErmesServiceInputGeneric<RepoType> = {
     maxByte?: number;
     maxBuffer?: number;
     ermesStorageAndCaching?: IErmesStorageAndCaching<MessageType>;
+    ermesMessageControlService?: IErmesMessageControlService;
+    missingMessagesCheckIntervalMs?: number;
+    missingMessagesThreshold?: number;
 }
 
 
