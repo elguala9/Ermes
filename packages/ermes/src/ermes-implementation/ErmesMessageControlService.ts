@@ -25,8 +25,8 @@ export class ErmesMessageControlService implements IErmesMessageControlService {
     /**
      * Record that an ID has arrived - delegates to repository
      */
-    async idArrived(id: IdType): Promise<void> {
-        await this.repository.idArrived(id);
+    idArrived(id: IdType) {
+        this.repository.idArrived(id);
     }
 
     /**
@@ -37,9 +37,16 @@ export class ErmesMessageControlService implements IErmesMessageControlService {
     }
 
     /**
+     * Get the count of missing IDs - delegates to repository
+     */
+    numberOfMissingIds(): number {
+        return this.repository.numberOfMissingIds();
+    }
+
+    /**
      * Set callback for additional ID request logic - stores the external callback
      */
-    async setCallbackIdsToRequest(callback: CallbackIdsToRequest) {
+    setCallbackIdsToRequest(callback: CallbackIdsToRequest): void {
         this.externalCallback = callback;
     }
 
@@ -68,13 +75,6 @@ export class ErmesMessageControlService implements IErmesMessageControlService {
         }
     }
 
-    /**
-     * Set up the default callback for ID requests (deprecated - now automatic)
-     */
-    public async setupDefaultCallback(): Promise<void> {
-        // Non più necessario - la callback interna è già impostata nel costruttore
-        console.warn('setupDefaultCallback is deprecated - internal callback is set automatically');
-    }
 
     /**
      * Clear all stored data - delegates to repository

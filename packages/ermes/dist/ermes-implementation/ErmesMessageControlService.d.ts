@@ -16,15 +16,19 @@ export declare class ErmesMessageControlService implements IErmesMessageControlS
     /**
      * Record that an ID has arrived - delegates to repository
      */
-    idArrived(id: IdType): Promise<void>;
+    idArrived(id: IdType): void;
     /**
      * Get the list of missing IDs that should be requested - delegates to repository
      */
     idsToRequest(): Promise<IdType[]>;
     /**
+     * Get the count of missing IDs - delegates to repository
+     */
+    numberOfMissingIds(): number;
+    /**
      * Set callback for additional ID request logic - stores the external callback
      */
-    setCallbackIdsToRequest(callback: CallbackIdsToRequest): Promise<void>;
+    setCallbackIdsToRequest(callback: CallbackIdsToRequest): void;
     /**
      * Private callback function that handles both internal operations and external callback
      * This function is always called by the repository when IDs need to be requested
@@ -34,10 +38,6 @@ export declare class ErmesMessageControlService implements IErmesMessageControlS
      * Perform internal service operations when IDs need to be requested
      */
     private performInternalOperations;
-    /**
-     * Set up the default callback for ID requests (deprecated - now automatic)
-     */
-    setupDefaultCallback(): Promise<void>;
     /**
      * Clear all stored data - delegates to repository
      */

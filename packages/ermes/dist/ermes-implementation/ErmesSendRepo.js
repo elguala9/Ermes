@@ -1,82 +1,145 @@
 import { MAX_HEADER } from "ermes-types";
 import { calculateHashSync } from "serialization-utility/src/Hash";
 import { objectToUint8Array, uint8ArrayToArrayBuffer } from "serialization-utility/src/Serialization";
-import { chunkArrayBuffer, createMessageDataErmes, getMessageType } from "../utility.js";
 import { v4 } from 'uuid';
+import { chunkArrayBuffer, createMessageDataErmes, getMessageType } from "../utility.js";
+/**
+ * ErmesSendRepo - Handles message sending and serialization
+ *
+ * Main responsibilities:
+ * - Serialization of user data into Ermes messages
+ * - Automatic fragmentation for large messages
+ * - Calculation and addition of integrity hash
+ * - Management of unique IDs via IdHandler
+ * - Sending via transport repository
+ * - Callbacks to notify user of sending
+ */
 export class ErmesSendRepo {
+    /**
+     * ErmesSendRepo constructor
+     *
+     * @param repository Transport repository for sending messages
+     * @param idHandler Service to generate unique IDs for messages
+     * @param maxByte Maximum message size (default: 1024 bytes)
+     */
     constructor(repository, idHandler, maxByte = 1024) {
         if (maxByte >= 1200)
             throw new Error("Max byte cannot be more that 1299");
         this._repository = repository;
-        this._maxByte = maxByte + MAX_HEADER;
+        this._maxByte = maxByte + MAX_HEADER; // Add space for headers
         this._idHandler = idHandler;
     }
     /**
-     * Set callback for when a message is being sent
+     * Set callback called before sending a message
+     * Used mainly for storage/caching
+     *
+     * @param callback Function to call before sending
      */
     setCallbackOnDataSending(callback) {
         this.callbackOnMessageSending = callback;
     }
     /**
-     * Set callback for when a message has been sent
+     * Set callback called after sending a message
+     *
+     * @param callback Function to call after sending
      */
     setCallbackOnDataSended(callback) {
         this.callbackOnMessageSended = callback;
     }
-    // lock the call of certain methods
-    // metodo esposto all'utente per mandare il messaggio
+    /**
+     * Main method for sending user data
+     *
+     * Sending process:
+     * 1. Generate unique ID for message
+     * 2. Create MessageDataErmes with data
+     * 3. Determine if fragmentation is needed
+     * 4. Send message (whole or fragmented)
+     *
+     * @param rawData Raw data to send
+     */
     send(rawData) {
+        // If data exceeds maximum size, fragmentation is necessary
         if (rawData.length > this._maxByte) {
-            // i need a different id for the chunked message
+            // Generate unique ID for fragmented message
             let uuid = v4();
             let chunkedId = uuid.toString();
+            // Create chunk array with optimal size (300 byte margin for headers)
             let rawDataArray = chunkArrayBuffer(this._idHandler, rawData, chunkedId, this._maxByte - 300);
-            // Call the sending callback for each chunk if set
+            // Notify callback for each chunk (for storage/caching)
             if (this.callbackOnMessageSending) {
                 rawDataArray.forEach(chunk => this.callbackOnMessageSending(chunk));
             }
             this.sendMessageType(rawDataArray);
             return;
         }
+        // Small message: direct sending without fragmentation
         let newId = this._idHandler.getNewId();
         let message = createMessageDataErmes(rawData, newId);
-        // Call the sending callback if set
+        // Notify callback before sending (for storage/caching)
         if (this.callbackOnMessageSending) {
             this.callbackOnMessageSending(message);
         }
         this.sendMessageType([message]);
     }
-    // qui trasformo i messaggi in root message, passando per l'internal messagge
+    /**
+     * Convert MessageType to root messages and send via repository
+     *
+     * Serialization process:
+     * 1. Create InternalMessage with type and content
+     * 2. Serialize to Uint8Array
+     * 3. Calculate integrity hash
+     * 4. Create MessageRoot with hash and data
+     * 5. Serialize root and send
+     *
+     * @param messageTypeArray Array of messages to send
+     */
     sendMessageType(array) {
         array.forEach(element => {
+            // Create internal message with automatically determined type
             let internalMessage = {
                 message: element,
                 type: getMessageType(element)
             };
+            // Serialize internal message
             let rawData = objectToUint8Array(internalMessage);
             let rawDataArrayBuffer = uint8ArrayToArrayBuffer(rawData);
+            // Notify pre-send callback (if not already done in send())
             if (this.callbackOnMessageSending !== undefined)
                 this.callbackOnMessageSending(element);
+            // Create root message with integrity hash
             let messageRoot = {
                 messageSerialized: rawData,
                 integrityCheckValue: calculateHashSync(rawDataArrayBuffer)
             };
+            // Send serialized root message
             this.sendRootMessage(messageRoot);
+            // Notify post-send callback
             if (this.callbackOnMessageSended !== undefined)
                 this.callbackOnMessageSended(element);
         });
     }
-    // invio del messaggio all'altro peer, passando da una serializzazione
+    /**
+     * Serialize and send a MessageRoot via transport repository
+     *
+     * @param message Root message with hash and data to send
+     */
     sendRootMessage(message) {
         let rawData = objectToUint8Array(message);
         this.sendWithRepo(rawData);
     }
-    // effettiva chiamata alla repo. Ci va una logica che in caso di errore memorizzi il messaggio
+    /**
+     * Actual sending via transport repository
+     *
+     * Interface point with transport layer (WebRTC, WebSocket, etc.)
+     * Future: implement retry logic and reception confirmations
+     *
+     * @param dataRaw Serialized data ready for sending
+     */
     sendWithRepo(dataRaw) {
         this._repository.send(dataRaw);
-        // For now, we assume the message was sent successfully
-        // In a real implementation, you might want to wait for confirmation
-        // TODO: Implement proper message tracking and confirmation
+        // For now we assume sending is always successful
+        // In a real implementation, should wait for confirmation
+        // NOTE: In future implement message tracking and confirmations
     }
 }
 //# sourceMappingURL=ErmesSendRepo.js.map

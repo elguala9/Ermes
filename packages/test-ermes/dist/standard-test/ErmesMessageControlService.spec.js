@@ -53,7 +53,7 @@ export function testErmesMessageControlService(repository) {
         it('should handle callback setup', async function () {
             let callbackCalled = false;
             let receivedIds = [];
-            await service.setCallbackIdsToRequest(async (ids) => {
+            service.setCallbackIdsToRequest(async (ids) => {
                 callbackCalled = true;
                 receivedIds = ids;
             });

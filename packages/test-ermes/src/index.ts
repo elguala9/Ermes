@@ -20,6 +20,7 @@ export * from "./standard-test/ErmesMessageControlPersistence.spec.js";
 export * from "./standard-test/ErmesMessageControlService.spec.js";
 export * from "./standard-test/ErmesMessagingFailure.spec.js";
 export * from "./standard-test/ErmesRepository.spec.js";
+export * from "./standard-test/ErmesServiceDataRetransmission.spec.js";
 export * from "./standard-test/IdHandler.spec.js";
 export * from "./storage-test/ErmesCaching.spec.js";
 export * from "./storage-test/ErmesCachingStorage.spec.js";

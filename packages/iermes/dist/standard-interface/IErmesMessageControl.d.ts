@@ -6,14 +6,15 @@ export type CallbackIdsToRequest = (ids: IdType[]) => Promise<void>;
  */
 export interface IErmesMessageControlPrivate {
     /**
-     * true if the connection has been closed
+     * store the id that arrived
      */
-    idArrived(id: IdType): Promise<void>;
+    idArrived(id: IdType): void;
     /**
      * request the ids of the messages that are missing
      * @returns the ids of the messages that are missing
      */
     idsToRequest(): Promise<IdType[]>;
+    numberOfMissingIds(): number;
     setCallbackIdsToRequest(callback: CallbackIdsToRequest): void;
     clear(): Promise<void>;
     destroy(): Promise<void>;

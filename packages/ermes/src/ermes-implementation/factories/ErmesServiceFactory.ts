@@ -1,6 +1,5 @@
 import { CallbackOnDataArrived, MessageType } from "ermes-types";
 import { 
-    ErmesServiceInput, 
     IErmesRepository, 
     IIdHandlerService, 
     IErmesStorageAndCaching

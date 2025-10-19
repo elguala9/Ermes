@@ -2,7 +2,6 @@ import type {
   ServiceReason,
   IntegrityCheckType,
   IdType,
-  IdChunkType,
   ChunkInfo,
   MessageWithId,
   MessageData,
