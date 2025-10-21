@@ -35,16 +35,16 @@ export declare class ErmesReadRepo {
     /** Callback called after processing each message (for missing checks) */
     private readonly callbackOnMessageProcessed?;
     /** Service for missing message control */
-    protected ermesMessageControlService: IErmesMessageControlService;
+    protected ermesMessageControlService?: IErmesMessageControlService;
     /**
      * ErmesReadRepo constructor
      *
      * @param repository Transport repository for communication
      * @param callbackServiceMessage Callback to handle service messages (control, missing requests, etc.)
-     * @param ermesMessageControlService Service to track and manage missing messages
+     * @param ermesMessageControlService Service to track and manage missing messages (optional)
      * @param options Configuration options (buffer size, callbacks, etc.)
      */
-    constructor(repository: IErmesRepository, callbackServiceMessage: CallBackServiceMessage, ermesMessageControlService: IErmesMessageControlService, { maxBufferSize, callbackOnDataArrived, callbackOnMessageProcessed }: ErmesReadRepoOptions);
+    constructor(repository: IErmesRepository, callbackServiceMessage: CallBackServiceMessage, ermesMessageControlService: IErmesMessageControlService | undefined, { maxBufferSize, callbackOnDataArrived, callbackOnMessageProcessed }: ErmesReadRepoOptions);
     /**
      * Set callback for service messages
      *

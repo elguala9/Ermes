@@ -46,35 +46,20 @@
       "require": "./dist/signaling-interface/IErmesSignalingServer.js",
       "types": "./dist/signaling-interface/IErmesSignalingServer.d.ts"
     },
-    "./storage-interface/IErmesCaching": {
-      "import": "./dist/storage-interface/IErmesCaching.js",
-      "require": "./dist/storage-interface/IErmesCaching.js",
-      "types": "./dist/storage-interface/IErmesCaching.d.ts"
-    },
-    "./storage-interface/IErmesStorage": {
-      "import": "./dist/storage-interface/IErmesStorage.js",
-      "require": "./dist/storage-interface/IErmesStorage.js",
-      "types": "./dist/storage-interface/IErmesStorage.d.ts"
-    },
-    "./types/ErmesInput": {
-      "import": "./dist/types/ErmesInput.js",
-      "require": "./dist/types/ErmesInput.js",
-      "types": "./dist/types/ErmesInput.d.ts"
-    },
-    "./types/ErmesWebRtcInput": {
-      "import": "./dist/types/ErmesWebRtcInput.js",
-      "require": "./dist/types/ErmesWebRtcInput.js",
-      "types": "./dist/types/ErmesWebRtcInput.d.ts"
-    },
-    "./types/IdHandlerInput": {
-      "import": "./dist/types/IdHandlerInput.js",
-      "require": "./dist/types/IdHandlerInput.js",
-      "types": "./dist/types/IdHandlerInput.d.ts"
-    },
     "./standard-interface/IErmes": {
       "import": "./dist/standard-interface/IErmes.js",
       "require": "./dist/standard-interface/IErmes.js",
       "types": "./dist/standard-interface/IErmes.d.ts"
+    },
+    "./standard-interface/IErmesConnection": {
+      "import": "./dist/standard-interface/IErmesConnection.js",
+      "require": "./dist/standard-interface/IErmesConnection.js",
+      "types": "./dist/standard-interface/IErmesConnection.d.ts"
+    },
+    "./standard-interface/IErmesConnectionsHandler": {
+      "import": "./dist/standard-interface/IErmesConnectionsHandler.js",
+      "require": "./dist/standard-interface/IErmesConnectionsHandler.js",
+      "types": "./dist/standard-interface/IErmesConnectionsHandler.d.ts"
     },
     "./standard-interface/IErmesFactory": {
       "import": "./dist/standard-interface/IErmesFactory.js",
@@ -90,16 +75,6 @@
       "import": "./dist/standard-interface/IErmesMessageControl.js",
       "require": "./dist/standard-interface/IErmesMessageControl.js",
       "types": "./dist/standard-interface/IErmesMessageControl.d.ts"
-    },
-    "./standard-interface/IErmesWebRtc": {
-      "import": "./dist/standard-interface/IErmesWebRtc.js",
-      "require": "./dist/standard-interface/IErmesWebRtc.js",
-      "types": "./dist/standard-interface/IErmesWebRtc.d.ts"
-    },
-    "./standard-interface/IErmesWebRtcFactory": {
-      "import": "./dist/standard-interface/IErmesWebRtcFactory.js",
-      "require": "./dist/standard-interface/IErmesWebRtcFactory.js",
-      "types": "./dist/standard-interface/IErmesWebRtcFactory.d.ts"
     },
     "./standard-interface/IIdHandler": {
       "import": "./dist/standard-interface/IIdHandler.js",
@@ -120,6 +95,26 @@
       "import": "./dist/standard-interface/IOrcErmes.js",
       "require": "./dist/standard-interface/IOrcErmes.js",
       "types": "./dist/standard-interface/IOrcErmes.d.ts"
+    },
+    "./types/ErmesInput": {
+      "import": "./dist/types/ErmesInput.js",
+      "require": "./dist/types/ErmesInput.js",
+      "types": "./dist/types/ErmesInput.d.ts"
+    },
+    "./types/IdHandlerInput": {
+      "import": "./dist/types/IdHandlerInput.js",
+      "require": "./dist/types/IdHandlerInput.js",
+      "types": "./dist/types/IdHandlerInput.d.ts"
+    },
+    "./storage-interface/IErmesCaching": {
+      "import": "./dist/storage-interface/IErmesCaching.js",
+      "require": "./dist/storage-interface/IErmesCaching.js",
+      "types": "./dist/storage-interface/IErmesCaching.d.ts"
+    },
+    "./storage-interface/IErmesStorage": {
+      "import": "./dist/storage-interface/IErmesStorage.js",
+      "require": "./dist/storage-interface/IErmesStorage.js",
+      "types": "./dist/storage-interface/IErmesStorage.d.ts"
     }
   }
 }

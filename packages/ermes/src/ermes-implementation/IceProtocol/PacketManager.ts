@@ -1,12 +1,11 @@
-import {
-  Instance as PeerInstance,
-  SignalData
-} from 'simple-peer';
-import { IPacketManager } from './IPacketManager.js';
-import { IErmesRepository, IErmesWebRtcRepository, SocketDTO } from 'iermes/index';
-import { CallbackOnDataRepository, SerializableDataType, Signal } from 'ermes-types';
-import { DEFAULT_MAX_SIZE } from '../../utility.js';
+import { CallbackOnDataRepository, SerializableDataType } from 'ermes-types';
+import { IErmesRepository, SocketDTO } from 'iermes/index';
 import { arrayBufferToUint8Array, uint8ArrayToArrayBuffer } from 'serialization-utility/src/Serialization';
+import {
+  Instance as PeerInstance
+} from 'simple-peer';
+import { DEFAULT_MAX_SIZE } from '../../utility.js';
+import { IPacketManager } from './IPacketManager.js';
 
 // -- Class that handles sending/receiving packets over an established peer --
 

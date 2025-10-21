@@ -10,7 +10,6 @@ export * from "./signaling-test/ErmesSignalingHandler.spec.js";
 export * from "./signaling-test/ErmesSignalingServer.spec.js";
 export * from "./signaling-test/blockchain/ErmesSmartContract.spec.js";
 export * from "./signaling-test/blockchain/ErmesSmartContractCallback.spec.js";
-export * from "./signaling-test/deprecated/ErmesSerialization.spec.js";
 export * from "./signaling-test/deprecated/ErmesSmartContractMultiOffer.spec.js";
 export * from "./signaling-test/deprecated/ErmesSmartContractMultiOfferCallback.spec.js";
 export * from "./standard-test/Ermes.spec.js";

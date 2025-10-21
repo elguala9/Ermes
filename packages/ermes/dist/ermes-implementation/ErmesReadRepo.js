@@ -19,7 +19,7 @@ export class ErmesReadRepo {
      *
      * @param repository Transport repository for communication
      * @param callbackServiceMessage Callback to handle service messages (control, missing requests, etc.)
-     * @param ermesMessageControlService Service to track and manage missing messages
+     * @param ermesMessageControlService Service to track and manage missing messages (optional)
      * @param options Configuration options (buffer size, callbacks, etc.)
      */
     constructor(repository, callbackServiceMessage, ermesMessageControlService, { maxBufferSize, callbackOnDataArrived, callbackOnMessageProcessed }) {
@@ -109,8 +109,10 @@ export class ErmesReadRepo {
      */
     async handleMessageType(mess) {
         let messageType = mess.type;
-        // Register message ID arrival in control system
-        this.ermesMessageControlService.idArrived(mess.message.id);
+        // Register message ID arrival in control system (if available)
+        if (this.ermesMessageControlService) {
+            this.ermesMessageControlService.idArrived(mess.message.id);
+        }
         // Service messages have special handling (control, missing, etc.)
         if (messageType === MessageValue.service) {
             this.callbackServiceMessage(mess.message);

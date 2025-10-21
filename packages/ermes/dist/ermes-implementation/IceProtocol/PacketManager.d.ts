@@ -1,7 +1,7 @@
+import { CallbackOnDataRepository, SerializableDataType } from 'ermes-types';
+import { IErmesRepository, SocketDTO } from 'iermes/index';
 import { Instance as PeerInstance } from 'simple-peer';
 import { IPacketManager } from './IPacketManager.js';
-import { IErmesRepository, SocketDTO } from 'iermes/index';
-import { CallbackOnDataRepository, SerializableDataType } from 'ermes-types';
 export declare class PacketManager implements IPacketManager, IErmesRepository {
     private peer;
     private connectionId;

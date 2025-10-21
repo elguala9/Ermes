@@ -1,4 +1,5 @@
 import { Instance as PeerInstance, SignalData } from "simple-peer";
+export type Signal = SignalData | string;
 /** An SDP‐offer enriched with metadata for reuse */
 export type ReusableOffer = {
     sdp: string;

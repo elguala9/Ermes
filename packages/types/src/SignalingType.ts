@@ -3,6 +3,9 @@ import {
     SignalData,
 } from "simple-peer";
 
+// Signal type that supports both SignalData objects and string representations
+export type Signal = SignalData | string;
+
 
 /** An SDP‐offer enriched with metadata for reuse */
 export type ReusableOffer = {
