@@ -99,4 +99,4 @@ export function testErmesConnection(db) {
         });
     });
 }
-//# sourceMappingURL=ErmesConnection.spec.js.map
+//# sourceMappingURL=ErmesConnectionFactories.spec.js.map

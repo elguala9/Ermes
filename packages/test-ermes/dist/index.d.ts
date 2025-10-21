@@ -14,6 +14,7 @@ export * from "./signaling-test/deprecated/ErmesSmartContractMultiOffer.spec.js"
 export * from "./signaling-test/deprecated/ErmesSmartContractMultiOfferCallback.spec.js";
 export * from "./standard-test/Ermes.spec.js";
 export * from "./standard-test/ErmesConnection.spec.js";
+export * from "./standard-test/ErmesConnectionsHandler.spec.js";
 export * from "./standard-test/ErmesMessageControlPersistence.spec.js";
 export * from "./standard-test/ErmesMessageControlService.spec.js";
 export * from "./standard-test/ErmesMessagingFailure.spec.js";

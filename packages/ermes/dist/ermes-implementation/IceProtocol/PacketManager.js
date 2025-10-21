@@ -25,7 +25,7 @@ export class PacketManager {
         }
         else {
             // SerializableDataType should only be Uint8Array or ArrayBuffer, never string
-            throw new Error('Unexpected data type - expected binary data (Uint8Array or ArrayBuffer)');
+            throw new TypeError('Unexpected data type - expected binary data (Uint8Array or ArrayBuffer)');
         }
         const success = this.sendData(buffer);
         if (!success) {
@@ -135,26 +135,6 @@ export class PacketManager {
      */
     receive(callback) {
         this.peer.on('data', (data) => {
-            //console.log(`📥 [${this.connectionId}] Received:`, data.toString?.().slice(0, 50) ?? data);
-            // Assicurati che i dati siano nel formato corretto
-            /*let processedData: ArrayBuffer;
-            
-            if (data instanceof ArrayBuffer) {
-              processedData = data;
-            } else if (data instanceof Uint8Array) {
-              processedData = uint8ArrayToArrayBuffer(data);
-            } else if (Buffer.isBuffer(data)) {
-              // Convert Node.js Buffer to ArrayBuffer
-              const arrayBuffer = new ArrayBuffer(data.length);
-              const view = new Uint8Array(arrayBuffer);
-              for (let i = 0; i < data.length; i++) {
-                view[i] = data[i];
-              }
-              processedData = arrayBuffer;
-            } else {
-              console.error('Received data in unexpected format:', typeof data, data);
-              return;
-            }*/
             callback(data);
         });
     }

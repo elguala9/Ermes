@@ -4,7 +4,7 @@ export interface IErmesConnectionsHandler {
     addConnection(connection: IErmesConnection): void;
     /**
      *
-     * @param connection the connectino to delete
+     * @param connection the connection to delete
      * @param close close before delete
      */
     deleteConnection(connection: IErmesConnection, close?: boolean): void;
