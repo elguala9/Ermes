@@ -50,6 +50,16 @@
       "require": "./dist/utility.js",
       "types": "./dist/utility.d.ts"
     },
+    "./ermes-implementation/ErmesConnection": {
+      "import": "./dist/ermes-implementation/ErmesConnection.js",
+      "require": "./dist/ermes-implementation/ErmesConnection.js",
+      "types": "./dist/ermes-implementation/ErmesConnection.d.ts"
+    },
+    "./ermes-implementation/ErmesConnectionsHandler": {
+      "import": "./dist/ermes-implementation/ErmesConnectionsHandler.js",
+      "require": "./dist/ermes-implementation/ErmesConnectionsHandler.js",
+      "types": "./dist/ermes-implementation/ErmesConnectionsHandler.d.ts"
+    },
     "./ermes-implementation/ErmesMessageControlRepository": {
       "import": "./dist/ermes-implementation/ErmesMessageControlRepository.js",
       "require": "./dist/ermes-implementation/ErmesMessageControlRepository.js",
@@ -120,6 +130,16 @@
       "require": "./dist/types/wrtc.js",
       "types": "./dist/types/wrtc.d.ts"
     },
+    "./ermes-implementation/factories/ErmesConnectionFactory": {
+      "import": "./dist/ermes-implementation/factories/ErmesConnectionFactory.js",
+      "require": "./dist/ermes-implementation/factories/ErmesConnectionFactory.js",
+      "types": "./dist/ermes-implementation/factories/ErmesConnectionFactory.d.ts"
+    },
+    "./ermes-implementation/factories/ErmesConnectionsHandlerFactory": {
+      "import": "./dist/ermes-implementation/factories/ErmesConnectionsHandlerFactory.js",
+      "require": "./dist/ermes-implementation/factories/ErmesConnectionsHandlerFactory.js",
+      "types": "./dist/ermes-implementation/factories/ErmesConnectionsHandlerFactory.d.ts"
+    },
     "./ermes-implementation/factories/ErmesMessageControlFactory": {
       "import": "./dist/ermes-implementation/factories/ErmesMessageControlFactory.js",
       "require": "./dist/ermes-implementation/factories/ErmesMessageControlFactory.js",
@@ -160,13 +180,13 @@
       "require": "./dist/ermes-implementation/IceProtocol/SignalManagerMapping.js",
       "types": "./dist/ermes-implementation/IceProtocol/SignalManagerMapping.d.ts"
     },
-    "./types/types/wrtc": {
-      "types": "./dist/types/types/wrtc.d.ts"
-    },
     "./ermes-signaling/factories/ErmesBookFactories": {
       "import": "./dist/ermes-signaling/factories/ErmesBookFactories.js",
       "require": "./dist/ermes-signaling/factories/ErmesBookFactories.js",
       "types": "./dist/ermes-signaling/factories/ErmesBookFactories.d.ts"
+    },
+    "./types/types/wrtc": {
+      "types": "./dist/types/types/wrtc.d.ts"
     },
     "./ermes-implementation/IceProtocol/Factories/PacketManagerFactory": {
       "import": "./dist/ermes-implementation/IceProtocol/Factories/PacketManagerFactory.js",

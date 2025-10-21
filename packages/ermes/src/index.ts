@@ -3,11 +3,15 @@
  */
 
 export * from "./utility.js";
+export * from "./ermes-implementation/ErmesConnection.js";
+export * from "./ermes-implementation/ErmesConnectionsHandler.js";
 export * from "./ermes-implementation/ErmesMessageControlRepository.js";
 export * from "./ermes-implementation/ErmesMessageControlService.js";
 export * from "./ermes-implementation/ErmesReadRepo.js";
 export * from "./ermes-implementation/ErmesSendRepo.js";
 export * from "./ermes-implementation/ErmesService.js";
+export * from "./ermes-implementation/factories/ErmesConnectionFactory.js";
+export * from "./ermes-implementation/factories/ErmesConnectionsHandlerFactory.js";
 export * from "./ermes-implementation/factories/ErmesMessageControlFactory.js";
 export * from "./ermes-implementation/factories/ErmesServiceFactory.js";
 export * from "./ermes-implementation/IceProtocol/IPacketManager.js";

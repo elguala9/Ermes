@@ -1,10 +1,6 @@
-import { IErmesService } from "iermes/index";
-export declare function testErmesServiceConnection(f: () => Promise<{
-    service_1: IErmesService;
-    service_2: IErmesService;
-}>): void;
+import { ClientWorkDB } from 'workdb/ClientWorkDB';
 /**
- *
- * @param service this service should not be connected to any peer
+ * Test function for ErmesConnection and ErmesConnectionsHandler factories using real implementations
+ * @param db The ClientWorkDB instance to use for testing
  */
-export declare function testErmesServiceAbsentConnection(service: IErmesService): void;
+export declare function testErmesConnection(db: ClientWorkDB): void;
