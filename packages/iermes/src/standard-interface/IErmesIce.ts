@@ -1,6 +1,6 @@
 import { Signal } from "ermes-types";
 import type { SignalData } from 'simple-peer';
-import { IErmesRepository, IErmesService } from "./IErmes.js";
+import { IErmesRepository } from "./IErmes.js";
 
 
 interface IErmesIcePrivate {

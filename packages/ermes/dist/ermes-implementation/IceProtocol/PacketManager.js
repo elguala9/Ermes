@@ -1,5 +1,5 @@
-import { DEFAULT_MAX_SIZE } from '../../utility.js';
 import { arrayBufferToUint8Array, uint8ArrayToArrayBuffer } from 'serialization-utility/src/Serialization';
+import { DEFAULT_MAX_SIZE } from '../../utility.js';
 // -- Class that handles sending/receiving packets over an established peer --
 export class PacketManager {
     /**

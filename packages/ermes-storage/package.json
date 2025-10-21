@@ -48,16 +48,6 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./NormalizeData": {
-      "import": "./dist/NormalizeData.js",
-      "require": "./dist/NormalizeData.js",
-      "types": "./dist/NormalizeData.d.ts"
-    },
-    "./UtilityStorage": {
-      "import": "./dist/UtilityStorage.js",
-      "require": "./dist/UtilityStorage.js",
-      "types": "./dist/UtilityStorage.d.ts"
-    },
     "./caching-implementation/ErmesCachingRepository": {
       "import": "./dist/caching-implementation/ErmesCachingRepository.js",
       "require": "./dist/caching-implementation/ErmesCachingRepository.js",
@@ -68,30 +58,15 @@
       "require": "./dist/caching-implementation/ErmesCachingService.js",
       "types": "./dist/caching-implementation/ErmesCachingService.d.ts"
     },
-    "./factories/ErmesCachingFacories": {
-      "import": "./dist/factories/ErmesCachingFacories.js",
-      "require": "./dist/factories/ErmesCachingFacories.js",
-      "types": "./dist/factories/ErmesCachingFacories.d.ts"
-    },
     "./factories/ErmesCachingFactories": {
       "import": "./dist/factories/ErmesCachingFactories.js",
       "require": "./dist/factories/ErmesCachingFactories.js",
       "types": "./dist/factories/ErmesCachingFactories.d.ts"
     },
-    "./factories/ErmesCachingStorageFacories": {
-      "import": "./dist/factories/ErmesCachingStorageFacories.js",
-      "require": "./dist/factories/ErmesCachingStorageFacories.js",
-      "types": "./dist/factories/ErmesCachingStorageFacories.d.ts"
-    },
     "./factories/ErmesCachingStorageFactories": {
       "import": "./dist/factories/ErmesCachingStorageFactories.js",
       "require": "./dist/factories/ErmesCachingStorageFactories.js",
       "types": "./dist/factories/ErmesCachingStorageFactories.d.ts"
-    },
-    "./factories/ErmesStorageFacories": {
-      "import": "./dist/factories/ErmesStorageFacories.js",
-      "require": "./dist/factories/ErmesStorageFacories.js",
-      "types": "./dist/factories/ErmesStorageFacories.d.ts"
     },
     "./factories/ErmesStorageFactories": {
       "import": "./dist/factories/ErmesStorageFactories.js",
@@ -112,16 +87,6 @@
       "import": "./dist/storage-implementation/ErmesStorageService.js",
       "require": "./dist/storage-implementation/ErmesStorageService.js",
       "types": "./dist/storage-implementation/ErmesStorageService.d.ts"
-    },
-    "./storage-implementation/Factories.ts": {
-      "import": "./dist/storage-implementation/Factories.ts.js",
-      "require": "./dist/storage-implementation/Factories.ts.js",
-      "types": "./dist/storage-implementation/Factories.ts.d.ts"
-    },
-    "./storage-implementation/SchemaDefinition": {
-      "import": "./dist/storage-implementation/SchemaDefinition.js",
-      "require": "./dist/storage-implementation/SchemaDefinition.js",
-      "types": "./dist/storage-implementation/SchemaDefinition.d.ts"
     }
   },
   "dependencies": {

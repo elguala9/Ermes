@@ -1,12 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "composite": true,
+    "composite": true,     // ereditato dal base, ma meglio dichiararlo esplicitamente
     "rootDir": "src",
     "outDir": "dist",
-    "emitDeclarationOnly": false,
-    "declarationDir": "dist",    // qui scrive i .d.ts
+    "strict": true,
+    "baseUrl": "."
   },
-  "include": ["src"],
-  "exclude": ["dist"]
+  "include": ["src"]
 }

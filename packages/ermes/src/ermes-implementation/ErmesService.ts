@@ -36,7 +36,7 @@ export class ErmesService implements IErmesService{
     /** Timer for periodic missing message checks */
     private missingMessagesInterval?: NodeJS.Timeout;
     /** Minimum threshold of missing IDs to trigger automatic requests */
-    private missingMessagesThreshold?: number;
+    private readonly missingMessagesThreshold?: number;
     
     // Local callbacks for user notifications
     /** Callback called before sending a message */

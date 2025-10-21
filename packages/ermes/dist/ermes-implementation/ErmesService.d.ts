@@ -28,7 +28,7 @@ export declare class ErmesService implements IErmesService {
     /** Timer for periodic missing message checks */
     private missingMessagesInterval?;
     /** Minimum threshold of missing IDs to trigger automatic requests */
-    private missingMessagesThreshold?;
+    private readonly missingMessagesThreshold?;
     /** Callback called before sending a message */
     private _callbackOnDataSending?;
     /** Callback called after sending a message */
