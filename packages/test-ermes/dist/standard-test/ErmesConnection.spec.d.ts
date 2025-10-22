@@ -1,6 +1,13 @@
+import { IErmesConnection } from 'iermes/index';
 import { ClientWorkDB } from 'workdb/ClientWorkDB';
+type input = () => Promise<{
+    db: ClientWorkDB;
+    ermesConnections: IErmesConnection[];
+}>;
 /**
- * Test function for ErmesConnection and ErmesConnectionsHandler factories using real implementations
- * @param db The ClientWorkDB instance to use for testing
+ * Input-driven spec: caller provides runtime instances via a provider function.
+ * This allows Mocha to register tests at load time while the actual instances
+ * are created in a runner (for example, in test-root) using real implementations.
  */
-export declare function testErmesConnection(db: ClientWorkDB): void;
+export declare function testErmesConnection(func: input): void;
+export {};

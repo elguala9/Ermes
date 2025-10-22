@@ -5,4 +5,9 @@ import { IErmesConnection } from 'iermes/index';
  * @param handler The ErmesConnectionsHandler instance to test (no mocks!)
  * @param connection Real IErmesConnection instance to use for testing
  */
-export declare function testErmesConnectionsHandler(handler: ErmesConnectionsHandler, connection: IErmesConnection): void;
+type Provider = () => Promise<{
+    handler: ErmesConnectionsHandler;
+    connection: IErmesConnection;
+}>;
+export declare function testErmesConnectionsHandler(provider: Provider): void;
+export {};

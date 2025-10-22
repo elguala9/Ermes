@@ -13,6 +13,9 @@ export class ErmesConnection {
         this.repository = repository;
         this.connectionId = connectionId;
     }
+    getIErmesRepository() {
+        return this.repository;
+    }
     async reconnect() {
         if (this.isReconnecting) {
             throw new Error('Reconnection already in progress');
