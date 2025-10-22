@@ -34,6 +34,9 @@ export class ErmesConnection implements IErmesConnection {
         this.repository = repository;
         this.connectionId = connectionId;
     }
+    getIErmesRepository(): IErmesRepository {
+        return this.repository;
+    }
 
     async reconnect(): Promise<IErmesRepository> {
         if (this.isReconnecting) {

@@ -17,6 +17,8 @@ export interface IErmesConnection{
     // get the id of the connection
     getIdConnection(): IdPeer;
 
+    getIErmesRepository(): IErmesRepository;
+
     saveState(): Promise<void>;
     loadState(): Promise<void>;
     destroyConnection(close?: boolean): Promise<void>;

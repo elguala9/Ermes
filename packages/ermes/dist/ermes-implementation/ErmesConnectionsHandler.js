@@ -57,14 +57,13 @@ export class ErmesConnectionsHandler {
                 collection: 'ermes_connections'
             };
             // Try to update if exists, otherwise create
-            try {
-                await this.clientWorkDB.update({ ...itemId, ...connectionsState });
-            }
-            catch {
-                // If update fails, try to create
-                console.log('Update failed, attempting to create new record');
-                await this.clientWorkDB.create({ ...itemId, ...connectionsState });
-            }
+            const payload = { ...itemId, item: connectionsState };
+            // Debug log to inspect payload shape if something goes wrong
+            // (kept minimal; can be removed after diagnosing)
+            // eslint-disable-next-line no-console
+            console.log('Saving connections state payload:', payload);
+            // Use createOrUpdate to simplify: it will write whether or not the item exists
+            await this.clientWorkDB.createOrUpdate(payload);
         }
         catch (error) {
             console.error('Failed to save connections state:', error);
@@ -127,7 +126,9 @@ export class ErmesConnectionsHandler {
      */
     deserializeConnectionsState(state) {
         try {
-            const parsedState = state.data ? JSON.parse(state.data) : state;
+            // `state` may be the stored item or an ItemOutput { item: ... }
+            const item = state && state.item ? state.item : state;
+            const parsedState = item && item.data ? JSON.parse(item.data) : item;
             if (parsedState?.connectionIds && Array.isArray(parsedState.connectionIds)) {
                 // Note: We can only restore the structure, not the actual connections
                 // Real connections would need to be re-established

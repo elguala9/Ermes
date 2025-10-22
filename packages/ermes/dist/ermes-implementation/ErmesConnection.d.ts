@@ -16,6 +16,7 @@ export declare class ErmesConnection implements IErmesConnection {
     private readonly MAX_RECONNECT_ATTEMPTS;
     private reconnectAttempts;
     constructor(signalingHandler: IErmesSignalingHandler<PeerType>, factory: IErmesFactory<PeerType>, repository: IErmesRepository, connectionId: IdPeer);
+    getIErmesRepository(): IErmesRepository;
     reconnect(): Promise<IErmesRepository>;
     close(): Promise<void>;
     setCloseCallback(callback: closeCallaback): void;

@@ -85,26 +85,6 @@
       "require": "./dist/ermes-implementation/ErmesService.js",
       "types": "./dist/ermes-implementation/ErmesService.d.ts"
     },
-    "./ermes-utility/ChunkHandler": {
-      "import": "./dist/ermes-utility/ChunkHandler.js",
-      "require": "./dist/ermes-utility/ChunkHandler.js",
-      "types": "./dist/ermes-utility/ChunkHandler.d.ts"
-    },
-    "./ermes-utility/IdHandlerFactory": {
-      "import": "./dist/ermes-utility/IdHandlerFactory.js",
-      "require": "./dist/ermes-utility/IdHandlerFactory.js",
-      "types": "./dist/ermes-utility/IdHandlerFactory.d.ts"
-    },
-    "./ermes-utility/IdHandlerRepository": {
-      "import": "./dist/ermes-utility/IdHandlerRepository.js",
-      "require": "./dist/ermes-utility/IdHandlerRepository.js",
-      "types": "./dist/ermes-utility/IdHandlerRepository.d.ts"
-    },
-    "./ermes-utility/IdHandlerService": {
-      "import": "./dist/ermes-utility/IdHandlerService.js",
-      "require": "./dist/ermes-utility/IdHandlerService.js",
-      "types": "./dist/ermes-utility/IdHandlerService.d.ts"
-    },
     "./ermes-signaling/ErmesBookRepository": {
       "import": "./dist/ermes-signaling/ErmesBookRepository.js",
       "require": "./dist/ermes-signaling/ErmesBookRepository.js",
@@ -124,6 +104,26 @@
       "import": "./dist/ermes-signaling/ErmesSignalingService.js",
       "require": "./dist/ermes-signaling/ErmesSignalingService.js",
       "types": "./dist/ermes-signaling/ErmesSignalingService.d.ts"
+    },
+    "./ermes-utility/ChunkHandler": {
+      "import": "./dist/ermes-utility/ChunkHandler.js",
+      "require": "./dist/ermes-utility/ChunkHandler.js",
+      "types": "./dist/ermes-utility/ChunkHandler.d.ts"
+    },
+    "./ermes-utility/IdHandlerFactory": {
+      "import": "./dist/ermes-utility/IdHandlerFactory.js",
+      "require": "./dist/ermes-utility/IdHandlerFactory.js",
+      "types": "./dist/ermes-utility/IdHandlerFactory.d.ts"
+    },
+    "./ermes-utility/IdHandlerRepository": {
+      "import": "./dist/ermes-utility/IdHandlerRepository.js",
+      "require": "./dist/ermes-utility/IdHandlerRepository.js",
+      "types": "./dist/ermes-utility/IdHandlerRepository.d.ts"
+    },
+    "./ermes-utility/IdHandlerService": {
+      "import": "./dist/ermes-utility/IdHandlerService.js",
+      "require": "./dist/ermes-utility/IdHandlerService.js",
+      "types": "./dist/ermes-utility/IdHandlerService.d.ts"
     },
     "./types/wrtc": {
       "import": "./dist/types/wrtc.js",
